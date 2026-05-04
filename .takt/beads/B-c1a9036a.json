@@ -102,6 +102,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:30:41.341918+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c1a9036a/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c1a9036a/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -118,7 +127,75 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c1a9036a/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-c1a9036a/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T12:30:41.341903+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-c1a9036a",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "dev-13: Behavioral test suite",
+      "agent_type": "developer",
+      "description": "Implement CooklangParserTests.swift using Swift Testing (import Testing, @Test, #expect). Cover every behavioral requirement in the spec: empty input, named ingredient, ingredient+timer with quantity, cookware, metadata parsing, line comments, single-line block comments, multi-line block comments, section headers, malformed input, all quantity table rows, all error cases from the quantity section, and parser determinism. Load .cook fixtures via Bundle.module.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift exists.",
+        "All @Test functions use #expect assertions, not XCTest.",
+        "Tests load .cook fixtures via Bundle.module.",
+        "Empty-input test: parse returns Recipe with all arrays empty and metadata.allEntries empty.",
+        "@salt parses to one Ingredient named 'salt' with quantity nil.",
+        "'Cook @chicken breast{500%g} for ~{10%minutes}.' produces one Ingredient named 'chicken breast' with quantity 500g and one Timer with quantity 10 minutes.",
+        "#large bowl{} produces one Cookware named 'large bowl'.",
+        "Metadata test: servings and course keys present, metadata lines absent from steps.",
+        "Line comment test: comment text stripped, preceding text retained.",
+        "Single-line block comment test: text before and after [-...-] concatenated.",
+        "Multi-line block comment test: spanned region excised; @ingredient inside comment absent from Recipe.ingredients.",
+        "Section test: 'Sauce' section with exactly one step.",
+        "Malformed input test (@{}) throws CooklangError.parse with non-empty message and valid line/column.",
+        "Every row in the quantity table has a corresponding @Test.",
+        "Each error case (empty name, empty value + unit, double %) has a @Test asserting CooklangError.parse is thrown.",
+        "Determinism test: parse called twice returns equal Recipe values.",
+        "swift test from Packages/CookbookCore/ passes with all tests green."
+      ],
+      "dependencies": [
+        "B-a8e98d0e",
+        "B-f8dad46b"
+      ],
+      "linked_docs": [
+        "specs/drafts/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
