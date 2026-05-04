@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-7103482d"
+  ],
   "acceptance_criteria": [
     "A line containing '-- comment text' has everything from '--' to EOL stripped; preceding text on the line is preserved.",
     "A line containing 'text [- comment -] more' produces 'text  more' (comment excised, surrounding text joined).",
