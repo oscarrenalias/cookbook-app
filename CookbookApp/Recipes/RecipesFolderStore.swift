@@ -51,15 +51,14 @@ final class RecipesFolderStore {
     }
 
     func saveBookmark(for url: URL) {
+        guard url.startAccessingSecurityScopedResource() else { return }
+        defer { url.stopAccessingSecurityScopedResource() }
         do {
-            _ = url.startAccessingSecurityScopedResource()
             let data = try url.bookmarkData(
                 options: [],
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
-            url.stopAccessingSecurityScopedResource()
-
             UserDefaults.standard.set(data, forKey: Keys.bookmark)
             UserDefaults.standard.set(url.lastPathComponent, forKey: Keys.folderName)
             resolveBookmark()
