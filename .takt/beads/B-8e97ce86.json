@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-8e97ce86",
+  "title": "Add RecipesFolderPicker UIViewControllerRepresentable",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/Recipes/RecipesFolderPicker.swift wrapping UIDocumentPickerViewController configured with forOpeningContentTypes: [.folder]. On selection, delegates to RecipesFolderStore.saveBookmark(for:). Cancellation leaves any prior store state unchanged. No third-party SwiftUI helper libraries \u2014 pure UIViewControllerRepresentable.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "CookbookApp/Recipes/RecipesFolderPicker.swift exists",
+    "Conforms to UIViewControllerRepresentable",
+    "UIDocumentPickerViewController configured with .folder content type",
+    "On selection, calls RecipesFolderStore.saveBookmark(for:) with the picked URL",
+    "Cancellation does not modify RecipesFolderStore state",
+    "No third-party libraries used"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesFolderPicker.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:28.842688+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
