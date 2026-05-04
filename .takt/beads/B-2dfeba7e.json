@@ -60,6 +60,33 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:37.005990+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-2dfeba7e.json']' returned non-zero exit status 128.",
+      "details": {
+        "error": "Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-2dfeba7e.json']' returned non-zero exit status 128."
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:45:02.374648+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'commit', '-m', '[bead] B-2dfeba7e: done', '--no-verify']' returned non-zero exit status 1.",
+      "details": {
+        "error": "Command '['git', 'commit', '-m', '[bead] B-2dfeba7e: done', '--no-verify']' returned non-zero exit status 1."
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:53:21.639203+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-2dfeba7e.json']' returned non-zero exit status 128.",
+      "details": {
+        "error": "Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-2dfeba7e.json']' returned non-zero exit status 128."
+      }
     }
   ],
   "metadata": {},
