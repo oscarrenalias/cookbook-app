@@ -60,6 +60,11 @@ clarity.
 
 ## Navigation & Modality
 
+- **Every primary tab is wrapped in its own `NavigationStack`** with a
+  `.navigationTitle(...)` matching the tab label ("Recipes", "Meal Plans",
+  "Shopping Lists"). This is consistent across tabs even when a tab has
+  nothing to drill into yet — the title is what the user reads to confirm
+  where they are.
 - Hierarchical drill-down → `NavigationStack` + `NavigationLink`.
 - Modal "pick something then come back" flows → `.sheet`. This is the
   default for forms, pickers, and short editors.
