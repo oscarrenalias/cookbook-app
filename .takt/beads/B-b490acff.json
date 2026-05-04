@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-b490acff",
+  "title": "Tighten fraction regex to match spec exactly",
+  "agent_type": "developer",
+  "description": "The current fraction parser in CookbookCore is more permissive than the spec's value-resolution rules. The spec at specs/planned/0001-cooklang-parser.md (section 'Quantity parsing semantics') defines the fraction pattern as exactly: ^\\d+\\s*/\\s*[1-9]\\d*$ \u2014 meaning the numerator is a non-negative integer (no minus sign), and the denominator is a positive integer that does NOT start with 0. The current implementation deviates by accepting cases like '-1/2' (negative numerator) and '1/0' (zero denominator), parsing them as numbers when they should fall through to the .text(...) value branch. This is a foundational data type \u2014 every recipe view, every shopping-list aggregation reads Quantity values directly \u2014 so the parser must conform to the spec exactly, with no permissiveness drift.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "The fraction-detection regex (or equivalent matcher) in Packages/CookbookCore/Sources/CookbookCore/Parser.swift matches exactly ^\\d+\\s*/\\s*[1-9]\\d*$ \u2014 non-negative integer numerator, positive integer denominator with no leading zero.",
+    "Parsing '@x{-1/2%cup}' produces Quantity(value: .text(\"-1/2\"), unit: \"cup\") (NOT .number(-0.5)).",
+    "Parsing '@x{1/0%cup}' produces Quantity(value: .text(\"1/0\"), unit: \"cup\") (NOT .number) \u2014 zero denominator falls through to text branch.",
+    "Parsing '@x{1/02%cup}' produces Quantity(value: .text(\"1/02\"), unit: \"cup\") (NOT .number) \u2014 leading-zero denominator falls through to text branch.",
+    "Parsing '@x{0/2%cup}' produces Quantity(value: .number(0.0), unit: \"cup\") \u2014 zero numerator IS valid per spec (\\d+ matches 0).",
+    "Existing valid-fraction cases continue to pass: '@x{1/2%cup}' \u2192 .number(0.5), '@x{3 / 4%cup}' \u2192 .number(0.75).",
+    "New @Test functions added to CooklangParserTests.swift cover all 4 invalid cases above (-1/2, 1/0, 1/02) and the 0/2 valid case.",
+    "swift test from Packages/CookbookCore/ passes with all tests green (existing 54 + the new ones)."
+  ],
+  "linked_docs": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T13:03:54.207663+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": "high"
+}
