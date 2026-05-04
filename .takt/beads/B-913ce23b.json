@@ -97,7 +97,8 @@
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/Recipes/RecipeDiscovery.swift",
-    "CookbookApp/Recipes/RecipeFile.swift"
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
   ],
   "expected_globs": [],
   "touched_files": [
@@ -156,7 +157,8 @@
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/Recipes/RecipeDiscovery.swift",
-    "CookbookApp/Recipes/RecipeFile.swift"
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -214,7 +216,8 @@
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/Recipes/RecipeDiscovery.swift",
-    "CookbookApp/Recipes/RecipeFile.swift"
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -238,7 +241,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.\nNo conflicts expected. RecipeDiscovery.swift is a new file with no overlap with other in-progress beads.",
+  "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.\nNo conflicts expected. RecipeDiscovery.swift is a new file with no overlap with other in-progress beads.\nNo conflicts expected. This is a new file with no overlap with existing sources. Downstream beads that create AppRoot gating or SettingsView wiring will need to instantiate and inject this store.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
