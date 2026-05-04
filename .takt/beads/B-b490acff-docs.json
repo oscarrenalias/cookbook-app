@@ -3,7 +3,7 @@
   "title": "Document Tighten fraction regex to match spec exactly",
   "agent_type": "documentation",
   "description": "Update docs for B-b490acff",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-b490acff",
   "dependencies": [
@@ -130,9 +130,12 @@
   },
   "block_reason": "file-scope conflict with in-progress B-b490acff-test",
   "conflict_risks": "None. resolveValue is a private method with no cross-bead file contention.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-2dfeba7e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "lease": {
+    "owner": "documentation:B-b490acff-docs",
+    "expires_at": "2026-05-04T13:37:57.082400+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -148,9 +151,46 @@
       "agent_type": "documentation",
       "summary": "file-scope conflict with in-progress B-b490acff-test",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:57.276259+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T13:07:57.276284+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff-docs",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff-docs/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
