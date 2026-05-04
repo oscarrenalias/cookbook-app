@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-888174a4",
+  "title": "Add FolderSetupView full-screen onboarding",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/FolderSetupView.swift. A centered full-screen view rendered by AppRoot when no folder is configured. Contains: folder.badge.questionmark SF Symbol at large size; title Please select a folder with recipes (.title2); subtitle explanation (.body, .secondary); primary Button(Choose folder\u2026) styled .borderedProminent that presents RecipesFolderPicker. On successful pick, persists the bookmark via RecipesFolderStore, triggering AppRoot to transition to the tab-bar shell. Accessibility label set on the button.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-94e95439",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Displays folder.badge.questionmark, title, and subtitle as specified.",
+    "Choose folder\u2026 button is .borderedProminent and triggers RecipesFolderPicker.",
+    "On successful pick, bookmark is persisted via RecipesFolderStore.",
+    "No tab bar is visible (AppRoot responsibility, but FolderSetupView must not embed one).",
+    "Accessibility label is set on the Choose folder\u2026 button."
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-94e95439",
+  "execution_branch_name": "feature/b-94e95439",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-94e95439",
+  "expected_files": [
+    "CookbookApp/FolderSetupView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:30:19.196526+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
