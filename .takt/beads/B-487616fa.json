@@ -6368,6 +6368,13 @@
       "agent_type": "review",
       "summary": "Review of bead B-487616fa (CookbookCore parser spec sign-off) against all 9 acceptance criteria. Two findings: one blocking (Parser incorrectly marked public, contradicting the internal-workhorse / public-facade design), one minor (fraction regex broader than spec). All other criteria pass cleanly.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:57:55.428473+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-487616fa-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -12645,7 +12652,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-487616fa-corrective"
   },
   "labels": [],
   "recovery_for": null,
