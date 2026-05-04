@@ -4,8 +4,8 @@
 common:
   default_runner: claude
   templates_dir: templates/agents
-  test_command: 
-  test_timeout_seconds: 900
+  test_command: xcodebuild test -project CookbookApp.xcodeproj -scheme CookbookApp -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet
+  test_timeout_seconds: 1800
   agent_types:
     - planner
     - developer
