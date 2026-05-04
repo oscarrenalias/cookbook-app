@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
-  "dependencies": [],
+  "dependencies": [
+    "B-8e97ce86",
+    "B-5c108e84"
+  ],
   "acceptance_criteria": [
     "SettingsView.swift no longer has a disabled 'Not configured' Text row",
     "When RecipesFolderStore.folderURL is nil: enabled 'Choose folder\u2026' Button is shown",
