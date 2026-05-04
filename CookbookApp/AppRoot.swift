@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct AppRoot: View {
+    static let tabTitles = ["Recipes", "Meal Plans", "Shopping Lists"]
+
     var body: some View {
         TabView {
             RecipesTab()
