@@ -9021,7 +9021,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-e0197a09",
   "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.\nNone \u2014 all three files are new additions with no changes to existing sources.\nNone.\nNo file overlap with sibling beads expected; Recipe.swift is a new file.\nproject.yml and CookbookApp/ exist as untracked files on main; the merge step will need to handle this overlap.\nNo conflicts expected; Scanner.swift is a new file with no overlap with existing sources.\nNone \u2014 new files only, no existing files modified.\nNone \u2014 Parser.swift is a new file with no overlap with other in-progress beads.\nParser.swift is the only changed file. Sibling beads that also modify Parser.swift may conflict; they should check for the new inBlockComment field and preprocessComments method.\nCooklangParser.swift is a new file with no sibling bead overlap. Parser.swift was touched to replace preprocessComments with CommentStripper and expose parseRawStep; any sibling bead that also edits Parser.swift would conflict at the parseStep/preprocessComments section.\nNone. CooklangParser.swift is self-contained and no other in-progress beads touch it.",
   "branch_name": "",
   "worktree_path": "",
@@ -9033,6 +9033,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:45:01.647231+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-e0197a09",
       "details": {}
     }
   ],
