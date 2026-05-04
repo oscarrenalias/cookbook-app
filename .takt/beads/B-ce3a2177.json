@@ -90,6 +90,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T18:48:16.943926+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-ce3a2177/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-ce3a2177/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -106,7 +115,63 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-ce3a2177/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-ce3a2177/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T18:48:16.943910+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-ce3a2177",
+      "feature_root_id": "B-e918ee06",
+      "title": "Replace sanity test with shell-structure tests",
+      "agent_type": "developer",
+      "description": "Modify CookbookAppTests/CookbookAppTests.swift using the Swift Testing framework (import Testing, @Test, #expect). Remove the existing sanity test. Add a test that verifies AppRoot can be instantiated and that SettingsView can be instantiated without crashing. The AppRoot test should confirm the three tab label strings appear in the correct order.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Existing sanity test (1 + 1 == 2) is removed",
+        "New @Test verifies SettingsView() instantiates without error",
+        "New @Test verifies AppRoot() instantiates and tab label order is Recipes, Meal Plans, Shopping Lists",
+        "File uses import Testing, @Test, #expect \u2014 no XCTest imports",
+        "File compiles without errors"
+      ],
+      "dependencies": [
+        "B-f38d1ccd",
+        "B-98e5ec8a"
+      ],
+      "linked_docs": [
+        "specs/drafts/0002-app-shell.md"
+      ],
+      "execution_branch_name": "feature/b-e918ee06",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
+      "expected_files": [
+        "CookbookAppTests/CookbookAppTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
