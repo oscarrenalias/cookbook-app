@@ -128,7 +128,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-b490acff-test",
   "conflict_risks": "None. resolveValue is a private method with no cross-bead file contention.",
   "branch_name": "",
   "worktree_path": "",
@@ -140,6 +140,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:08.529893+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-b490acff-test",
       "details": {}
     }
   ],
