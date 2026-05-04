@@ -87,6 +87,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T19:44:55.928226+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-fe0ec28e/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-fe0ec28e/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -103,7 +112,60 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-fe0ec28e/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-fe0ec28e/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T19:44:55.928210+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-fe0ec28e",
+      "feature_root_id": "B-80f696d9",
+      "title": "Add RecipeFile value type",
+      "agent_type": "developer",
+      "description": "Create CookbookApp/Recipes/RecipeFile.swift defining a value type with url: URL, displayName: String (filename minus the .cook extension, case-insensitive strip), and thumbnailURL: URL?. Must conform to Identifiable using url as the stable id so .sheet(item:) and List can use it directly.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "CookbookApp/Recipes/RecipeFile.swift exists",
+        "Struct has url: URL, displayName: String, thumbnailURL: URL? properties",
+        "displayName strips .cook suffix case-insensitively (e.g. 'Pasta.COOK' -> 'Pasta')",
+        "Conforms to Identifiable with id derived from url",
+        "Conforms to Equatable"
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+      ],
+      "execution_branch_name": "feature/b-80f696d9",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeFile.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
