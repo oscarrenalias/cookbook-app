@@ -1,0 +1,74 @@
+{
+  "bead_id": "B-b90a32d8",
+  "title": "dev-04: Model \u2014 Recipe structural types",
+  "agent_type": "developer",
+  "description": "Implement Recipe, Section, Content, Step, and Item in Recipe.swift. Recipe aggregates Metadata, [Section], [Ingredient], [Cookware], [Timer]. Section has name: String? and content: [Content]. Content is an enum with .step(Step) and .text(String). Step has items: [Item]. Item is an enum with .text(String), .ingredient(index: Int), .cookware(index: Int), .timer(index: Int). All types are Sendable and Equatable.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [
+    "B-24638685",
+    "B-6f1a2404"
+  ],
+  "acceptance_criteria": [
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift exists.",
+    "public struct Recipe: Sendable, Equatable with metadata: Metadata, sections: [Section], ingredients: [Ingredient], cookware: [Cookware], timers: [Timer] is declared.",
+    "public struct Section: Sendable, Equatable with name: String? and content: [Content] is declared.",
+    "public enum Content: Sendable, Equatable with .step(Step) and .text(String) is declared.",
+    "public struct Step: Sendable, Equatable with items: [Item] is declared.",
+    "public enum Item: Sendable, Equatable with .text(String), .ingredient(index:Int), .cookware(index:Int), .timer(index:Int) is declared.",
+    "swift build from Packages/CookbookCore/ succeeds."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:46.850467+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

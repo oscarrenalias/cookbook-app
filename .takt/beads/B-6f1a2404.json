@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-6f1a2404",
+  "title": "dev-05: Model \u2014 Metadata",
+  "agent_type": "developer",
+  "description": "Implement the Metadata struct in Metadata.swift. Metadata stores key-value string pairs and exposes a subscript(key: String) -> String?, computed properties servings: [Int]?, title: String?, tags: [String], and allEntries: [(key: String, value: String)]. Add Sendable and Equatable conformances.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [
+    "B-13560a1a"
+  ],
+  "acceptance_criteria": [
+    "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift exists.",
+    "public struct Metadata: Sendable, Equatable is declared with the required subscript and computed properties.",
+    "servings returns parsed integers from the canonical 'servings' key (comma/whitespace-separated).",
+    "title returns the value for the canonical 'title' key.",
+    "tags returns a parsed list from the canonical 'tags' key.",
+    "allEntries returns all stored key-value pairs in insertion order.",
+    "swift build from Packages/CookbookCore/ succeeds."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:47.437290+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

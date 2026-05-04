@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-a8e98d0e",
+  "title": "dev-11: CooklangParser public facade",
+  "agent_type": "developer",
+  "description": "Implement the public CooklangParser struct in CooklangParser.swift. Exposes init(extensions:converter:), static .canonical and .extended instances, parse(_:) -> Recipe, and parseMetadata(_:) -> Metadata. Delegates to the internal document-structure parser. All public API types must be exported from CookbookCore.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [
+    "B-b90a32d8",
+    "B-6f1a2404",
+    "B-6cb3adfb",
+    "B-adc0fa7a"
+  ],
+  "acceptance_criteria": [
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift exists.",
+    "public struct CooklangParser is declared with init(extensions:converter:), static canonical, static extended, func parse(_:) throws -> Recipe, func parseMetadata(_:) throws -> Metadata.",
+    "CooklangParser.canonical.parse(\"\") returns a Recipe with empty sections, ingredients, cookware, timers, and empty metadata.allEntries.",
+    "Parsing the same input twice returns equal Recipe values (==).",
+    "The parser does not perform I/O or mutate the input string.",
+    "swift build from Packages/CookbookCore/ succeeds."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:51.400944+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
