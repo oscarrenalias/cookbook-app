@@ -286,6 +286,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:37.626910+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-01f592ff/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-01f592ff/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -302,7 +311,63 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-01f592ff/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-01f592ff/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T12:12:37.626892+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-01f592ff",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "dev-09: Parser \u2014 comment stripping",
+      "agent_type": "developer",
+      "description": "Implement comment recognition within the parser. Line comments: text from '--' to end-of-line is discarded. Single-line block comments: '[- ... -]' on the same line \u2014 text before '[' and after '-]' is concatenated. Multi-line block comments: '[- ... -]' spanning multiple lines \u2014 the entire spanned region including all intermediate content is discarded, and any @/# /~ components inside the comment block must NOT be added to the recipe collections.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "A line containing '-- comment text' has everything from '--' to EOL stripped; preceding text on the line is preserved.",
+        "A line containing 'text [- comment -] more' produces 'text  more' (comment excised, surrounding text joined).",
+        "A '[- ... -]' block spanning three lines removes all content between the delimiters and the delimiters themselves.",
+        "An @ingredient written between '[- ' and ' -]' does NOT appear in Recipe.ingredients.",
+        "swift build from Packages/CookbookCore/ succeeds."
+      ],
+      "dependencies": [
+        "B-7103482d"
+      ],
+      "linked_docs": [
+        "specs/drafts/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [],
+      "expected_globs": [
+        "Packages/CookbookCore/Sources/CookbookCore/Parser*.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
