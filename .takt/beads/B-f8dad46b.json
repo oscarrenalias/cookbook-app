@@ -3,7 +3,7 @@
   "title": "dev-12: Test fixtures",
   "agent_type": "developer",
   "description": "Create .cook fixture files under Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/. One fixture per test scenario: empty recipe, single ingredient (no quantity), ingredient + timer with quantity, cookware, metadata block, line comment, single-line block comment, multi-line block comment (with a component inside the comment), section header, and one malformed input. Each file is named after its scenario.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -25,37 +25,84 @@
   "expected_globs": [
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/*.cook"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/cookware.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/empty.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-no-quantity.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-with-quantity.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/line-comment.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/malformed.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/multi-line-block-comment-with-component.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/single-line-block-comment.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/timer.cook"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/cookware.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/empty.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-no-quantity.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-with-quantity.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/line-comment.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/malformed.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/multi-line-block-comment-with-component.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/single-line-block-comment.cook",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/timer.cook"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All 11 fixture files written. The multi-line block comment fixture includes `@hidden ingredient{500%g}` between `[-` and `-]` to satisfy the acceptance criterion that such a component must not appear in a parsed recipe.",
+    "remaining": "None \u2014 all acceptance criteria satisfied.",
+    "risks": "None. These are static text fixture files with no build impact.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/cookware.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/empty.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-no-quantity.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-with-quantity.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/line-comment.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/malformed.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/multi-line-block-comment-with-component.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/single-line-block-comment.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/timer.cook"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to write parser tests that load these fixtures and assert correct parse results.",
+    "next_agent": "tester",
     "block_reason": "",
     "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_globs": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/*.cook"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/cookware.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/empty.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-no-quantity.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/ingredient-with-quantity.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/line-comment.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/malformed.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/multi-line-block-comment-with-component.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/single-line-block-comment.cook",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/timer.cook"
+    ],
+    "conflict_risks": "None \u2014 new files only, no existing files modified.",
+    "design_decisions": "Used canonical Cooklang syntax: `@ingredient{qty%unit}` for ingredients, `#cookware{}` for cookware, `~name{qty%unit}` for timers, `>> key: value` for metadata, `--` for line comments, `[- ... -]` for block comments, `== Name ==` for sections. The `malformed.cook` fixture exercises error-recovery scenarios (missing names, unclosed braces, missing metadata values).",
+    "test_coverage_notes": "Fixtures are data-only; parser integration tests using these files are a downstream responsibility (tester bead).",
+    "known_limitations": "Exact parser error-recovery behaviour for `malformed.cook` depends on the parser implementation; adjust fixture if the parser strategy changes."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 new files only, no existing files modified.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
-  "lease": {
-    "owner": "developer:B-f8dad46b",
-    "expires_at": "2026-05-04T12:37:44.299006+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -137,6 +184,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-f8dad46b/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T12:09:08.805204+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created 11 Cooklang `.cook` fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/`. Each fixture covers a distinct test scenario: empty recipe, ingredient without quantity, ingredient with quantity plus timer, cookware, timer, metadata block, line comment, single-line block comment, multi-line block comment containing a hidden `@ingredient` component, section header, and malformed input.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -207,7 +261,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created 11 Cooklang `.cook` fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/`. Each fixture covers a distinct test scenario: empty recipe, ingredient without quantity, ingredient with quantity plus timer, cookware, timer, metadata block, line comment, single-line block comment, multi-line block comment containing a hidden `@ingredient` component, section header, and malformed input.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.28374639999999995,
+      "duration_ms": 81457,
+      "duration_api_ms": 73874,
+      "num_turns": 27,
+      "input_tokens": 80,
+      "output_tokens": 5178,
+      "cache_creation_tokens": 32730,
+      "cache_read_tokens": 269423,
+      "stop_reason": "end_turn",
+      "session_id": "bd9a26c6-7d8c-4b7f-8862-98fb6adc788a",
+      "permission_denials": [],
+      "prompt_chars": 6367,
+      "prompt_lines": 141,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.28374639999999995,
+        "duration_ms": 81457,
+        "duration_api_ms": 73874,
+        "num_turns": 27,
+        "input_tokens": 80,
+        "output_tokens": 5178,
+        "cache_creation_tokens": 32730,
+        "cache_read_tokens": 269423,
+        "stop_reason": "end_turn",
+        "session_id": "bd9a26c6-7d8c-4b7f-8862-98fb6adc788a",
+        "permission_denials": [],
+        "prompt_chars": 6367,
+        "prompt_lines": 141,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "9a18769db4a80b0304ba27a8980e62837136f4cf"
   },
   "labels": [],
   "recovery_for": null,
