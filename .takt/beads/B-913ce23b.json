@@ -103,7 +103,8 @@
     "CookbookApp/Recipes/RecipeRowView.swift",
     "CookbookApp/Recipes/RecipeThumbnailView.swift",
     "CookbookApp/Recipes/RecipesFolderPicker.swift",
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
   ],
   "expected_globs": [],
   "touched_files": [
@@ -168,7 +169,8 @@
     "CookbookApp/Recipes/RecipeRowView.swift",
     "CookbookApp/Recipes/RecipeThumbnailView.swift",
     "CookbookApp/Recipes/RecipesFolderPicker.swift",
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -232,7 +234,8 @@
     "CookbookApp/Recipes/RecipeRowView.swift",
     "CookbookApp/Recipes/RecipeThumbnailView.swift",
     "CookbookApp/Recipes/RecipesFolderPicker.swift",
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -256,7 +259,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.\nNo conflicts expected. RecipeDiscovery.swift is a new file with no overlap with other in-progress beads.\nNo conflicts expected. This is a new file with no overlap with existing sources. Downstream beads that create AppRoot gating or SettingsView wiring will need to instantiate and inject this store.\nLow. This is a new file with no edits to existing files. No overlap with sibling beads expected.\nAppRoot.swift will be modified by the wiring bead \u2014 no conflict with this bead's output since FolderSetupView.swift is a new file.\nNo conflicts expected. File is new; no sibling beads touch RecipeThumbnailView.swift.\nNone \u2014 new file with no overlap with sibling beads.",
+  "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.\nNo conflicts expected. RecipeDiscovery.swift is a new file with no overlap with other in-progress beads.\nNo conflicts expected. This is a new file with no overlap with existing sources. Downstream beads that create AppRoot gating or SettingsView wiring will need to instantiate and inject this store.\nLow. This is a new file with no edits to existing files. No overlap with sibling beads expected.\nAppRoot.swift will be modified by the wiring bead \u2014 no conflict with this bead's output since FolderSetupView.swift is a new file.\nNo conflicts expected. File is new; no sibling beads touch RecipeThumbnailView.swift.\nNone \u2014 new file with no overlap with sibling beads.\nRecipesTab.swift needs updating to embed RecipesListView \u2014 any sibling bead touching RecipesTab.swift may conflict. The pre-existing RecipesFolderStore.swift arm64 error will block any agent that needs a green full build.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
