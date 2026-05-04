@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
-  "dependencies": [],
+  "dependencies": [
+    "B-5c108e84"
+  ],
   "acceptance_criteria": [
     "CookbookApp/Recipes/RecipesFolderPicker.swift exists",
     "Conforms to UIViewControllerRepresentable",
