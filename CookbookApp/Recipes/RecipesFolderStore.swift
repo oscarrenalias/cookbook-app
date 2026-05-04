@@ -38,7 +38,6 @@ final class RecipesFolderStore {
                 return
             }
 
-            _ = url.startAccessingSecurityScopedResource()
             folderURL = url
         } catch {
             clearBookmark()
