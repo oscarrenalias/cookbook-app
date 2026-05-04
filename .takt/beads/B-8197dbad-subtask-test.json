@@ -3,7 +3,7 @@
   "title": "Test Fix RecipesFolderStore .withSecurityScope iOS unavailability",
   "agent_type": "tester",
   "description": "Validate implementation for B-8197dbad-subtask",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-8197dbad-subtask",
   "dependencies": [
@@ -49,9 +49,12 @@
   },
   "block_reason": "file-scope conflict with in-progress B-df82530a-subtask",
   "conflict_risks": "None \u2014 fix is already committed and no other bead claims this file.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-80f696d9",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "lease": {
+    "owner": "tester:B-8197dbad-subtask-test",
+    "expires_at": "2026-05-04T21:05:34.523408+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -67,9 +70,46 @@
       "agent_type": "tester",
       "summary": "file-scope conflict with in-progress B-df82530a-subtask",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:35:34.824970+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:35:34.824995+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-8197dbad-subtask-test",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-8197dbad-subtask-test/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
