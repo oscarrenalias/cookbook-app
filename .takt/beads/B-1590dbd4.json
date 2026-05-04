@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
-  "dependencies": [],
+  "dependencies": [
+    "B-5c108e84",
+    "B-8197dbad"
+  ],
   "acceptance_criteria": [
     "AppRoot.swift renders FolderSetupView (not TabView) when RecipesFolderStore.folderURL is nil",
     "AppRoot.swift renders TabView when RecipesFolderStore.folderURL is non-nil",
