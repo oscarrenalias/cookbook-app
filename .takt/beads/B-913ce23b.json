@@ -178,7 +178,12 @@
     "CookbookApp/Recipes/RecipesFolderStore.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Settings/SettingsView.swift",
-    "CookbookApp/Tabs/RecipesTab.swift"
+    "CookbookApp/Tabs/RecipesTab.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -246,7 +251,12 @@
     "CookbookApp/Recipes/RecipesFolderStore.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Settings/SettingsView.swift",
-    "CookbookApp/Tabs/RecipesTab.swift"
+    "CookbookApp/Tabs/RecipesTab.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
