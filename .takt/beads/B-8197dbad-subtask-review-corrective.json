@@ -1,0 +1,77 @@
+{
+  "bead_id": "B-8197dbad-subtask-review-corrective",
+  "title": "Corrective fix for B-8197dbad-subtask-review: Review Fix RecipesFolderStore .withSecurityScope iOS unavailability",
+  "agent_type": "developer",
+  "description": "Blocked reason: saveBookmark (RecipesFolderStore.swift:55-68) calls startAccessingSecurityScopedResource() on line 55 but only calls stop on line 61 inside the do body. If url.bookmarkData() throws, the catch block runs clearBookmark() without calling stop \u2014 violating Apple's requirement to always balance start with stop. Fix: add `defer { url.stopAccessingSecurityScopedResource() }` immediately after the start call (or after guarding on its return value), and remove the explicit stop on line 61.\n\nRemaining work: Fix resource leak in saveBookmark: stopAccessingSecurityScopedResource() must be called even when bookmarkData() throws (use defer). Optionally guard on the Bool return of startAccessingSecurityScopedResource().",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-8197dbad-subtask-review",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Implement the minimum fix required to unblock B-8197dbad-subtask-review.",
+    "Update tests/docs as needed for the corrective change.",
+    "Leave a handoff summary that states how the parent bead can be retried."
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T20:40:29.830530+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "auto_corrective_for": "B-8197dbad-subtask-review"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
