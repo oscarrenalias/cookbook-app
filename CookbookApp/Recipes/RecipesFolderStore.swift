@@ -28,7 +28,7 @@ final class RecipesFolderStore {
             var isStale = false
             let url = try URL(
                 resolvingBookmarkData: data,
-                options: .withSecurityScope,
+                options: [],
                 relativeTo: nil,
                 bookmarkDataIsStale: &isStale
             )
@@ -38,6 +38,7 @@ final class RecipesFolderStore {
                 return
             }
 
+            _ = url.startAccessingSecurityScopedResource()
             folderURL = url
         } catch {
             clearBookmark()
@@ -56,7 +57,7 @@ final class RecipesFolderStore {
             defer { url.stopAccessingSecurityScopedResource() }
 
             let data = try url.bookmarkData(
-                options: .withSecurityScope,
+                options: [],
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
