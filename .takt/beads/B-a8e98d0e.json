@@ -6,7 +6,12 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-b90a32d8",
+    "B-6f1a2404",
+    "B-6cb3adfb",
+    "B-adc0fa7a"
+  ],
   "acceptance_criteria": [
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift exists.",
     "public struct CooklangParser is declared with init(extensions:converter:), static canonical, static extended, func parse(_:) throws -> Recipe, func parseMetadata(_:) throws -> Metadata.",
