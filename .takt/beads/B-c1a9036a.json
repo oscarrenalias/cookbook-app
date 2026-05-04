@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-a8e98d0e",
+    "B-f8dad46b"
+  ],
   "acceptance_criteria": [
     "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift exists.",
     "All @Test functions use #expect assertions, not XCTest.",
