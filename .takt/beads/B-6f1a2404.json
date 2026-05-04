@@ -7961,7 +7961,7 @@
     "test_coverage_notes": "No tests added (tester bead responsibility). Key cases to cover: empty metadata, subscript hit/miss, servings comma-separated/whitespace-separated/mixed, nil when key absent, tags comma-split with whitespace trimming, allEntries order preservation.",
     "known_limitations": "Foundation is imported for CharacterSet and String.components(separatedBy:). This is standard on all supported platforms (iOS 17+, macOS 14+)."
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-24638685",
   "conflict_risks": "No conflicts expected; this is a new file with no overlap with sibling beads.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
@@ -8027,6 +8027,13 @@
       "event": "retried",
       "agent_type": "developer",
       "summary": "Bead requeued",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:49:10.296697+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-24638685",
       "details": {}
     }
   ],
