@@ -7,8 +7,7 @@
   "bead_type": "task",
   "parent_id": "B-94e95439",
   "dependencies": [
-    "B-ff4a1189",
-    "B-9d87766c"
+    "B-ff4a1189"
   ],
   "acceptance_criteria": [
     "Renders one Section per FolderSection via RecipeDiscovery.",
