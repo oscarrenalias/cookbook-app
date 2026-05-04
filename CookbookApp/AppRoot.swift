@@ -1,7 +1,15 @@
 import SwiftUI
 
 struct AppRoot: View {
-    @State private var store = RecipesFolderStore()
+    @State private var store: RecipesFolderStore
+
+    static let tabTitles = ["Recipes", "Meal Plans", "Shopping Lists"]
+
+    init(store: RecipesFolderStore = RecipesFolderStore()) {
+        _store = State(initialValue: store)
+    }
+
+    var showsFolderSetup: Bool { store.folderURL == nil }
 
     var body: some View {
         Group {
