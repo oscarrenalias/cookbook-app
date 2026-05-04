@@ -3,7 +3,7 @@
   "title": "Review Fix RecipesFolderStore .withSecurityScope iOS unavailability",
   "agent_type": "review",
   "description": "Review implementation for B-8197dbad-subtask",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-8197dbad-subtask",
   "dependencies": [
@@ -67,7 +67,7 @@
     "test_coverage_notes": "Three Swift Testing tests cover: bookmark round-trip, invalid data clear, and nil-on-no-bookmark. isStale path is not directly exercised but its clearBookmark() side-effect is covered by the invalid-data test. No new tests required for the saveBookmark fix \u2014 existing bookmarkRoundTrip test exercises the success path.",
     "known_limitations": "startAccessingSecurityScopedResource() return value is discarded (informational); guarding on it would improve correctness but is not the primary blocker."
   },
-  "block_reason": "saveBookmark (RecipesFolderStore.swift:55-68) calls startAccessingSecurityScopedResource() on line 55 but only calls stop on line 61 inside the do body. If url.bookmarkData() throws, the catch block runs clearBookmark() without calling stop \u2014 violating Apple's requirement to always balance start with stop. Fix: add `defer { url.stopAccessingSecurityScopedResource() }` immediately after the start call (or after guarding on its return value), and remove the explicit stop on line 61.",
+  "block_reason": "",
   "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "",
@@ -125,6 +125,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-8197dbad-subtask-review-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:49:03.234452+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-8197dbad-subtask-review-corrective completed",
       "details": {}
     }
   ],
@@ -242,7 +249,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-8197dbad-subtask-review-corrective"
+    "auto_corrective_bead_id": "B-8197dbad-subtask-review-corrective",
+    "last_corrective_retry_source": "B-8197dbad-subtask-review-corrective",
+    "last_corrective_retry_commit": "5e2fa75478e7b64e971887ef06769f174c76493c"
   },
   "labels": [],
   "recovery_for": null,
