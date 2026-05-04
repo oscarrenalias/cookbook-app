@@ -8014,6 +8014,13 @@
       "agent_type": "developer",
       "summary": "Auto-commit failed: fatal: unable to stat 'Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p88148--ae154f/data.mdb': No such file or directory",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:43:31.681016+00:00",
+      "event": "corrective_planned",
+      "agent_type": "developer",
+      "summary": "Created corrective bead B-6f1a2404-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -8132,7 +8139,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-6f1a2404-corrective"
   },
   "labels": [],
   "recovery_for": null,
