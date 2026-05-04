@@ -3,7 +3,7 @@
   "title": "Document Fix RecipesFolderStore.swift: withSecurityScope unavailable on iOS",
   "agent_type": "documentation",
   "description": "Update docs for B-df82530a-subtask",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-df82530a-subtask",
   "dependencies": [
@@ -20,41 +20,40 @@
     "CookbookApp/Recipes/RecipesFolderStore.swift"
   ],
   "expected_globs": [],
-  "touched_files": [
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
   ],
-  "changed_files": [
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
-  ],
-  "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "The spec file (specs/drafts/0003-recipes-folder-access-and-list-view.md) already reflects the fix: the bookmark-resolution acceptance criterion uses options:[] with an inline macOS-only caveat, and a developer-notes callout explains why .withSecurityScope must not be used on iOS. RecipesFolderStore.swift implements this correctly.",
+    "remaining": "Nothing remaining for this bead.",
+    "risks": "None \u2014 documentation is consistent with the implementation.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
     "changed_files": [],
-    "updated_docs": [],
-    "next_action": "",
+    "updated_docs": [
+      "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+    ],
+    "next_action": "No further action required for this bead.",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
     "expected_globs": [],
     "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
+    "conflict_risks": "None \u2014 only RecipesFolderStore.swift modified, no sibling beads touching this file.",
+    "design_decisions": "Sibling bead B-8197dbad-subtask-docs landed the documentation changes (commit e934d38) while this bead was deferred. No duplicate work needed.",
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "file-scope conflict with in-progress B-1590dbd4-subtask",
+  "block_reason": "",
   "conflict_risks": "None \u2014 only RecipesFolderStore.swift modified, no sibling beads touching this file.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
-  "lease": {
-    "owner": "documentation:B-df82530a-subtask-docs",
-    "expires_at": "2026-05-04T21:12:04.154151+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -102,6 +101,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-df82530a-subtask-docs/repo/templates/agents/documentation.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T20:42:56.570492+00:00",
+      "event": "completed",
+      "agent_type": "documentation",
+      "summary": "Documentation for the iOS .withSecurityScope fix was already applied by sibling bead B-8197dbad-subtask-docs; spec 0003 is up to date.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -168,7 +174,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Documentation for the iOS .withSecurityScope fix was already applied by sibling bead B-8197dbad-subtask-docs; spec 0003 is up to date.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.15108080000000002,
+      "duration_ms": 50040,
+      "duration_api_ms": 45128,
+      "num_turns": 7,
+      "input_tokens": 8,
+      "output_tokens": 2442,
+      "cache_creation_tokens": 18128,
+      "cache_read_tokens": 147206,
+      "stop_reason": "end_turn",
+      "session_id": "80702672-8dd1-436f-bb61-52c58733e21e",
+      "permission_denials": [],
+      "prompt_chars": 6337,
+      "prompt_lines": 144,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.15108080000000002,
+        "duration_ms": 50040,
+        "duration_api_ms": 45128,
+        "num_turns": 7,
+        "input_tokens": 8,
+        "output_tokens": 2442,
+        "cache_creation_tokens": 18128,
+        "cache_read_tokens": 147206,
+        "stop_reason": "end_turn",
+        "session_id": "80702672-8dd1-436f-bb61-52c58733e21e",
+        "permission_denials": [],
+        "prompt_chars": 6337,
+        "prompt_lines": 144,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
