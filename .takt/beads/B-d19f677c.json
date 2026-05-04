@@ -6,7 +6,22 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [],
+  "dependencies": [
+    "B-d6d18349",
+    "B-6897df19",
+    "B-9d87766c",
+    "B-e930e104",
+    "B-888174a4",
+    "B-fcab3b58",
+    "B-ff4a1189",
+    "B-8a516662",
+    "B-e103c8be",
+    "B-c8488746",
+    "B-1abcb8e2",
+    "B-71a49caf",
+    "B-bd1e19fc",
+    "B-229358b5"
+  ],
   "acceptance_criteria": [
     "All spec 0003 acceptance criteria are addressed in the implementation.",
     "Security-scoped bookmark access is always bracketed by start/stopAccessingSecurityScopedResource.",
