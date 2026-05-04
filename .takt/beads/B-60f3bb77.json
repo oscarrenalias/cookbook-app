@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
-  "dependencies": [],
+  "dependencies": [
+    "B-fe0ec28e"
+  ],
   "acceptance_criteria": [
     "CookbookApp/Recipes/RecipeDiscovery.swift exists",
     "FolderSection struct has name: String and recipes: [RecipeFile]",
