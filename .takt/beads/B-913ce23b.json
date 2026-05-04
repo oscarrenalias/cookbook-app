@@ -3,7 +3,7 @@
   "title": "Review spec 0003 implementation",
   "agent_type": "review",
   "description": "Review the complete spec 0003 implementation against all acceptance criteria. Key checks: bookmark persistence round-trip and stale-bookmark clearing; AppRoot gating correctness (no tab bar in no-folder state); folder enumeration rules (top-level only, hidden skip, (no folder) last); .sheet(item:) used for tap-row sheet (not .sheet(isPresented:)); search filtering and section hiding; EmptyStateView reuse for both empty-folder and no-match states; UI guidelines compliance (stock SwiftUI, SF Symbols, semantic colors, accessibility labels on gear icon and Choose folder button); Swift Testing used in all test files; no third-party libraries introduced.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
   "dependencies": [
@@ -341,7 +341,10 @@
   "conflict_risks": "Corrective bead touches only RecipesFolderStore.swift (single-line removal). No conflict risk with other files.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-913ce23b",
+    "expires_at": "2026-05-04T21:19:10.214532+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -412,6 +415,29 @@
       "details": {
         "error": "Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-913ce23b.json']' returned non-zero exit status 128."
       }
+    },
+    {
+      "timestamp": "2026-05-04T20:49:10.579884+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:49:10.579910+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
   "metadata": {
