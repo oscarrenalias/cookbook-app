@@ -43,7 +43,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-913ce23b-corrective",
   "conflict_risks": "None.",
   "branch_name": "",
   "worktree_path": "",
@@ -55,6 +55,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:34:55.144606+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-913ce23b-corrective",
       "details": {}
     }
   ],
