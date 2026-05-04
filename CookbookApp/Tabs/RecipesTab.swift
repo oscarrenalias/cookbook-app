@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RecipesTab: View {
     @State private var showSettings = false
+    @State private var store = RecipesFolderStore()
 
     var body: some View {
         NavigationStack {
@@ -21,7 +22,7 @@ struct RecipesTab: View {
                 }
             }
             .sheet(isPresented: $showSettings) {
-                SettingsView()
+                SettingsView(store: store)
             }
         }
     }
