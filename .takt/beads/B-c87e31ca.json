@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-c87e31ca",
+  "title": "Add EmptyStateView component",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/Common/EmptyStateView.swift \u2014 a reusable SwiftUI view that accepts an SF Symbol name, a title string, and a subtitle string and renders them in a centered VStack. This is the foundational shared component for all three tabs.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-e918ee06",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "CookbookApp/Common/EmptyStateView.swift exists",
+    "EmptyStateView accepts systemImage, title, and subtitle parameters",
+    "The view renders the icon (large scale, tinted), title (headline), and subtitle (subheadline, secondary) centered vertically and horizontally",
+    "File compiles without errors"
+  ],
+  "linked_docs": [
+    "specs/drafts/0002-app-shell.md"
+  ],
+  "feature_root_id": "B-e918ee06",
+  "execution_branch_name": "feature/b-e918ee06",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
+  "expected_files": [
+    "CookbookApp/Common/EmptyStateView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:40:01.293645+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
