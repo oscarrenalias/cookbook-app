@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-1590dbd4-subtask",
+  "title": "Fix RecipesFolderStore iOS bookmark APIs",
+  "agent_type": "developer",
+  "description": "RecipesFolderStore.swift uses .withSecurityScope in both URL.bookmarkData(options:) and URL(resolvingBookmarkData:options:) calls, which are unavailable on iOS. Replace with bare bookmark APIs: remove options parameter from bookmarkData() call and use [] or omit options in resolvingBookmarkData. startAccessingSecurityScopedResource() call is fine to keep as it is iOS-compatible.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1590dbd4",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "RecipesFolderStore.swift compiles without error on iOS Simulator target",
+    ".withSecurityScope is not referenced in any iOS build path",
+    "folderURL is correctly set/cleared after folder selection on iOS"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T20:11:16.123154+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "discovered_by": "B-1590dbd4"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
