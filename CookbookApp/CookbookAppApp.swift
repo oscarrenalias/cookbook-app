@@ -5,7 +5,7 @@ import CookbookCore
 struct CookbookAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppRoot()
         }
     }
 }
