@@ -6,9 +6,7 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [
-    "B-8a516662"
-  ],
+  "dependencies": [],
   "acceptance_criteria": [
     "RecipesTab renders RecipesListView instead of the empty-state placeholder.",
     "NavigationStack, title Recipes, and trailing gear icon from 0002 are preserved.",
