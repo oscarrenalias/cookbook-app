@@ -3,7 +3,7 @@
   "title": "Add FolderSetupView",
   "agent_type": "developer",
   "description": "Create CookbookApp/FolderSetupView.swift as a centered VStack layout shown full-screen when no folder is configured. Contains: folder.badge.questionmark SF Symbol at large size; title 'Please select a folder with recipes' (.title2 typography); subtitle 'Cookbook reads recipes from a folder you pick \u2014 on your device, in iCloud Drive, or any provider you have set up.' (.body, .foregroundStyle(.secondary)); a .borderedProminent Button('Choose folder\u2026') that presents RecipesFolderPicker. Accessibility label on the button.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
   "dependencies": [
@@ -32,37 +32,48 @@
     "CookbookApp/FolderSetupView.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/FolderSetupView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/FolderSetupView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
-    "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "completed": "FolderSetupView.swift created and added to project via xcodegen. All acceptance criteria met within this bead's file scope: centered VStack, correct SF Symbol at large size, exact title/subtitle text and typography, .borderedProminent button, picker presented on tap, explicit accessibilityLabel on the button.",
+    "remaining": "AppRoot does not yet observe RecipesFolderStore or branch on folder configuration state \u2014 this is required for the tab-shell transition after folder selection (acceptance criterion #8). That wiring is a separate bead scope. Also, RecipesFolderStore.swift has a pre-existing iOS build error (.withSecurityScope unavailable) that blocks the overall build.",
+    "risks": "1. RecipesFolderStore.swift uses .withSecurityScope (a macOS-only URL.BookmarkCreationOptions value) on iOS target \u2014 this breaks the build and must be fixed in B-5c108e84 or a corrective bead. 2. AppRoot has not been updated to observe RecipesFolderStore and conditionally show FolderSetupView; without that wiring, the full gating flow is not exercisable.",
+    "verdict": "approved",
+    "findings_count": 1,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/FolderSetupView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Fix .withSecurityScope iOS unavailability in RecipesFolderStore.swift (B-5c108e84 corrective), then wire AppRoot to observe RecipesFolderStore and branch on folderURL != nil to show FolderSetupView vs TabView shell.",
+    "next_agent": "developer",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/FolderSetupView.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/FolderSetupView.swift"
+    ],
+    "conflict_risks": "AppRoot.swift will be modified by the wiring bead \u2014 no conflict with this bead's output since FolderSetupView.swift is a new file.",
+    "design_decisions": "Used font(.system(size: 72)) for the SF Symbol to give it visual weight appropriate for a full-screen onboarding view (larger than EmptyStateView's 56pt). Sheet is attached to the VStack root rather than the button to follow SwiftUI best practices. accessibilityLabel reads \"Choose recipes folder\" (more descriptive than the button label alone).",
+    "test_coverage_notes": "No tests created in this bead (test execution is the tester agent's responsibility). Visual aspects (centering, typography rendering, sheet presentation) require manual verification. The AppRoot gating test described in the spec (renders FolderSetupView when no folder, TabView when folder configured) depends on AppRoot wiring not yet implemented.",
+    "known_limitations": "AppRoot does not yet gate on folder configuration state \u2014 FolderSetupView is implemented but not reachable from the running app until AppRoot is updated. This is an expected limitation of the bead decomposition."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "AppRoot.swift will be modified by the wiring bead \u2014 no conflict with this bead's output since FolderSetupView.swift is a new file.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
-  "lease": {
-    "owner": "developer:B-8197dbad",
-    "expires_at": "2026-05-04T20:21:28.141659+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -104,6 +115,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-8197dbad/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T19:54:00.605374+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created CookbookApp/FolderSetupView.swift with a centered VStack showing the folder.badge.questionmark SF Symbol (72pt), title, subtitle, and .borderedProminent Choose folder\u2026 button. Button presents RecipesFolderPicker as a sheet, writing to RecipesFolderStore on selection. xcodegen regenerated to include the new file. Build fails in RecipesFolderStore.swift (pre-existing `.withSecurityScope` unavailable on iOS, from bead B-5c108e84); FolderSetupView.swift itself compiled without errors.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -181,7 +199,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created CookbookApp/FolderSetupView.swift with a centered VStack showing the folder.badge.questionmark SF Symbol (72pt), title, subtitle, and .borderedProminent Choose folder\u2026 button. Button presents RecipesFolderPicker as a sheet, writing to RecipesFolderStore on selection. xcodegen regenerated to include the new file. Build fails in RecipesFolderStore.swift (pre-existing `.withSecurityScope` unavailable on iOS, from bead B-5c108e84); FolderSetupView.swift itself compiled without errors.",
+      "verdict": "approved",
+      "findings_count": 1,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.36711965,
+      "duration_ms": 149960,
+      "duration_api_ms": 133785,
+      "num_turns": 17,
+      "input_tokens": 15,
+      "output_tokens": 8564,
+      "cache_creation_tokens": 32601,
+      "cache_read_tokens": 380373,
+      "stop_reason": "end_turn",
+      "session_id": "1c7b4828-eab5-49c5-9f05-ff3f4bf59417",
+      "permission_denials": [],
+      "prompt_chars": 6338,
+      "prompt_lines": 140,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.36711965,
+        "duration_ms": 149960,
+        "duration_api_ms": 133785,
+        "num_turns": 17,
+        "input_tokens": 15,
+        "output_tokens": 8564,
+        "cache_creation_tokens": 32601,
+        "cache_read_tokens": 380373,
+        "stop_reason": "end_turn",
+        "session_id": "1c7b4828-eab5-49c5-9f05-ff3f4bf59417",
+        "permission_denials": [],
+        "prompt_chars": 6338,
+        "prompt_lines": 140,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "b6b22e02f52de74f9c028bf1c8d917a5967f8e96"
   },
   "labels": [],
   "recovery_for": null,
