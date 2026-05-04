@@ -47,7 +47,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-df82530a-subtask",
   "conflict_risks": "None \u2014 fix is already committed and no other bead claims this file.",
   "branch_name": "",
   "worktree_path": "",
@@ -59,6 +59,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:30:15.044380+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-df82530a-subtask",
       "details": {}
     }
   ],
