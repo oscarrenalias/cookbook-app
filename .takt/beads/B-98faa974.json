@@ -2844,6 +2844,7 @@
   ],
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/",
+    "Packages/CookbookCore/Sources/CookbookCore/*.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/"
   ],
   "touched_files": [
@@ -8480,7 +8481,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.",
+  "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.\nNone \u2014 all three files are new additions with no changes to existing sources.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
