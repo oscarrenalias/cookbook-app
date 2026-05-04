@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-692ebf08",
+  "title": "Add MealPlansTab and ShoppingListsTab views",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/Tabs/MealPlansTab.swift and CookbookApp/Tabs/ShoppingListsTab.swift. Each is a plain SwiftUI view (no NavigationStack) that renders EmptyStateView with the tab-specific icon, title, and subtitle specified in the acceptance criteria.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-e918ee06",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "CookbookApp/Tabs/MealPlansTab.swift exists and renders EmptyStateView with systemImage 'calendar', title 'Meal Plans', subtitle 'No meal plans yet.'",
+    "CookbookApp/Tabs/ShoppingListsTab.swift exists and renders EmptyStateView with systemImage 'cart', title 'Shopping Lists', subtitle 'No shopping lists yet.'",
+    "Both files compile without errors"
+  ],
+  "linked_docs": [
+    "specs/drafts/0002-app-shell.md"
+  ],
+  "feature_root_id": "B-e918ee06",
+  "execution_branch_name": "feature/b-e918ee06",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
+  "expected_files": [
+    "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/ShoppingListsTab.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:40:01.632315+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
