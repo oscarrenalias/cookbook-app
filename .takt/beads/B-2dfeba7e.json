@@ -60,6 +60,15 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:37.005990+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-2dfeba7e.json']' returned non-zero exit status 128.",
+      "details": {
+        "error": "Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-2dfeba7e.json']' returned non-zero exit status 128."
+      }
     }
   ],
   "metadata": {},
