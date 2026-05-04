@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-b90a32d8",
+    "B-6f1a2404",
+    "B-7103482d",
+    "B-5ce77fed",
+    "B-01f592ff"
+  ],
   "acceptance_criteria": [
     "Lines beginning with '>>' before the first blank line are parsed as metadata key-value pairs and stored in Metadata; they do not appear in any step.",
     "'>> servings: 4' is parsed and Metadata.servings returns [4].",
