@@ -3,7 +3,7 @@
   "title": "Review spec 0003 implementation",
   "agent_type": "review",
   "description": "Review the complete spec 0003 implementation against all acceptance criteria. Key checks: bookmark persistence round-trip and stale-bookmark clearing; AppRoot gating correctness (no tab bar in no-folder state); folder enumeration rules (top-level only, hidden skip, (no folder) last); .sheet(item:) used for tap-row sheet (not .sheet(isPresented:)); search filtering and section hiding; EmptyStateView reuse for both empty-folder and no-match states; UI guidelines compliance (stock SwiftUI, SF Symbols, semantic colors, accessibility labels on gear icon and Choose folder button); Swift Testing used in all test files; no third-party libraries introduced.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
   "dependencies": [
@@ -281,9 +281,12 @@
   },
   "block_reason": "",
   "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.\nNo conflicts expected. RecipeDiscovery.swift is a new file with no overlap with other in-progress beads.\nNo conflicts expected. This is a new file with no overlap with existing sources. Downstream beads that create AppRoot gating or SettingsView wiring will need to instantiate and inject this store.\nLow. This is a new file with no edits to existing files. No overlap with sibling beads expected.\nAppRoot.swift will be modified by the wiring bead \u2014 no conflict with this bead's output since FolderSetupView.swift is a new file.\nNo conflicts expected. File is new; no sibling beads touch RecipeThumbnailView.swift.\nNone \u2014 new file with no overlap with sibling beads.\nRecipesTab.swift needs updating to embed RecipesListView \u2014 any sibling bead touching RecipesTab.swift may conflict. The pre-existing RecipesFolderStore.swift arm64 error will block any agent that needs a green full build.\nRecipesTab.swift was not in expected_files but required a minimal change (add @State store property, update SettingsView call site) to avoid a compile error. Any sibling bead also modifying RecipesTab.swift should be aware of the new store property.\nB-1590dbd4 modifies AppRoot.swift \u2014 no overlap with RecipesTab.swift. No conflict risk. However, B-1590dbd4 must inject RecipesFolderStore via .environment() on the TabView or RecipesTab will crash.\nRecipesFolderStore.swift is a shared dependency; any corrective bead touching it should be aware that AppRoot, SettingsView, FolderSetupView, and RecipesTab all depend on the store's folderURL property remaining observable.\nproject.pbxproj is regenerated \u2014 any sibling bead that also regenerates or manually edits the xcodeproj will conflict. Downstream agents should not modify project.pbxproj directly.",
-  "branch_name": "",
+  "branch_name": "feature/b-80f696d9",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-913ce23b",
+    "expires_at": "2026-05-04T20:55:03.096062+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -292,9 +295,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:25:03.317556+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:25:03.317578+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-913ce23b",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-913ce23b/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
