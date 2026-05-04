@@ -3,7 +3,7 @@
   "title": "Document Fix RecipesFolderStore iOS bookmark APIs",
   "agent_type": "documentation",
   "description": "Update docs for B-1590dbd4-subtask",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-1590dbd4-subtask",
   "dependencies": [
@@ -24,33 +24,32 @@
   "changed_files": [],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Verified spec 0003 already contains accurate iOS bookmark API documentation (options: [] in both bookmark creation and resolution; withSecurityScope noted as macOS-only). RecipesFolderStore.swift implementation matches the spec exactly.",
+    "remaining": "None.",
+    "risks": "None.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
     "changed_files": [],
     "updated_docs": [],
-    "next_action": "",
+    "next_action": "None required.",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
     "expected_globs": [],
     "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
+    "conflict_risks": "None.",
+    "design_decisions": "B-1590dbd4-subtask was a no-op (fix already applied by B-df82530a-subtask). B-8197dbad-subtask-docs (commit e934d38) already updated the spec with the iOS bookmark API documentation. This bead has no additional documentation work.",
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "file-scope conflict with in-progress B-913ce23b-corrective",
+  "block_reason": "",
   "conflict_risks": "None.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
-  "lease": {
-    "owner": "documentation:B-1590dbd4-subtask-docs",
-    "expires_at": "2026-05-04T21:16:10.314473+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -98,6 +97,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-1590dbd4-subtask-docs/repo/templates/agents/documentation.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T20:47:07.221152+00:00",
+      "event": "completed",
+      "agent_type": "documentation",
+      "summary": "No documentation changes required; B-1590dbd4-subtask made no code changes (fix already applied by B-df82530a-subtask), and B-8197dbad-subtask-docs already documented the iOS bookmark API behavior in the spec.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -162,7 +168,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "No documentation changes required; B-1590dbd4-subtask made no code changes (fix already applied by B-df82530a-subtask), and B-8197dbad-subtask-docs already documented the iOS bookmark API behavior in the spec.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.17670045,
+      "duration_ms": 54292,
+      "duration_api_ms": 49908,
+      "num_turns": 8,
+      "input_tokens": 8,
+      "output_tokens": 3073,
+      "cache_creation_tokens": 21843,
+      "cache_read_tokens": 154884,
+      "stop_reason": "end_turn",
+      "session_id": "e15db7f6-afb8-468e-b0f2-ffc80c405248",
+      "permission_denials": [],
+      "prompt_chars": 6123,
+      "prompt_lines": 140,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.17670045,
+        "duration_ms": 54292,
+        "duration_api_ms": 49908,
+        "num_turns": 8,
+        "input_tokens": 8,
+        "output_tokens": 3073,
+        "cache_creation_tokens": 21843,
+        "cache_read_tokens": 154884,
+        "stop_reason": "end_turn",
+        "session_id": "e15db7f6-afb8-468e-b0f2-ffc80c405248",
+        "permission_denials": [],
+        "prompt_chars": 6123,
+        "prompt_lines": 140,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
