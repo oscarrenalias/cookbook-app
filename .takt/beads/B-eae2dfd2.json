@@ -132,7 +132,8 @@
     "CookbookApp/Tabs/MealPlansTab.swift",
     "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift",
-    "CookbookAppTests/CookbookAppTests.swift"
+    "CookbookAppTests/CookbookAppTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -181,7 +182,8 @@
     "CookbookApp/Tabs/MealPlansTab.swift",
     "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift",
-    "CookbookAppTests/CookbookAppTests.swift"
+    "CookbookAppTests/CookbookAppTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
