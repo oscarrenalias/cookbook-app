@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-1a36363a",
+  "title": "Run xcodegen and verify test suite passes",
+  "agent_type": "tester",
+  "description": "Run 'xcodegen generate' from the repo root to register all new Swift source files added under CookbookApp/Common/, CookbookApp/Tabs/, and CookbookApp/Settings/ with the Xcode project. Then run 'xcodebuild test' with the configured scheme to confirm the full test suite passes, including the new shell-structure tests. Confirm no ContentView references remain.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-e918ee06",
+  "dependencies": [
+    "B-c87e31ca",
+    "B-692ebf08",
+    "B-98e5ec8a",
+    "B-5dd9db36",
+    "B-f38d1ccd",
+    "B-9baecce1",
+    "B-ce3a2177"
+  ],
+  "acceptance_criteria": [
+    "xcodegen generate completes without errors",
+    "xcodebuild test exits 0 with zero test failures",
+    "Shell-structure tests (AppRoot tab order, SettingsView instantiation) pass",
+    "No ContentView symbol references remain anywhere in the source tree",
+    "No out-of-scope code (UIDocumentPicker, real settings logic, CookLang parsing) is present"
+  ],
+  "linked_docs": [
+    "specs/drafts/0002-app-shell.md"
+  ],
+  "feature_root_id": "B-e918ee06",
+  "execution_branch_name": "feature/b-e918ee06",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:40:03.495662+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

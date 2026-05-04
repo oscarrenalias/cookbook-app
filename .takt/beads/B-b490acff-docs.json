@@ -1,0 +1,289 @@
+{
+  "bead_id": "B-b490acff-docs",
+  "title": "Document Tighten fraction regex to match spec exactly",
+  "agent_type": "documentation",
+  "description": "Update docs for B-b490acff",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-b490acff",
+  "dependencies": [
+    "B-b490acff"
+  ],
+  "acceptance_criteria": [],
+  "linked_docs": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "changed_files": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "updated_docs": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "handoff_summary": {
+    "completed": "Spec table updated with four fraction boundary cases that match the tightened ^\\d+\\s*/\\s*[1-9]\\d*$ pattern now enforced in Parser.swift and exercised by the new tests.",
+    "remaining": "None. The spec already had the correct regex description; only the worked examples table needed the boundary rows.",
+    "risks": "None. Change is additive documentation only; no runtime code was touched.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "specs/planned/0001-cooklang-parser.md"
+    ],
+    "updated_docs": [
+      "specs/planned/0001-cooklang-parser.md"
+    ],
+    "next_action": "None required.",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [
+      "specs/planned/0001-cooklang-parser.md"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "specs/planned/0001-cooklang-parser.md"
+    ],
+    "conflict_risks": "None. Spec file is documentation-only; no runtime file contention with other beads.",
+    "design_decisions": "Added rows verbatim matching the test expectations in CooklangParserTests.swift so the spec table and tests are in exact correspondence.",
+    "test_coverage_notes": "Documentation only; test coverage is provided by the four @Test functions added in B-b490acff-test.",
+    "known_limitations": "None."
+  },
+  "block_reason": "",
+  "conflict_risks": "None. Spec file is documentation-only; no runtime file contention with other beads.",
+  "branch_name": "feature/b-2dfeba7e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T13:07:07.280716+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:08.529893+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-b490acff-test",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:57.276259+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T13:07:57.276284+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:57.513447+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "documentation",
+      "summary": "Applied guardrails from .takt/agent-runs/B-b490acff-docs/repo/templates/agents/documentation.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-b490acff-docs/repo/templates/agents/documentation.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-04T13:08:57.481718+00:00",
+      "event": "completed",
+      "agent_type": "documentation",
+      "summary": "Added four fraction boundary-case rows to the worked examples table in specs/planned/0001-cooklang-parser.md, documenting negative numerator, zero denominator, leading-zero denominator (all fall to .text), and zero numerator (valid .number(0.0)) \u2014 aligning the spec table with the tightened regex and the tests added in B-b490acff.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff-docs",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff-docs/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "documentation",
+      "template_path": ".takt/agent-runs/B-b490acff-docs/repo/templates/agents/documentation.md",
+      "template_text": "# Documentation Guardrails\n\nPrimary responsibility: Update documentation and examples that explain the assigned behavior without changing runtime feature behavior.\n\nAllowed actions:\n- Edit docs, examples, and explanatory text tied to the assigned bead.\n- Focus only on files listed in the bead's touched_files and changed_files fields. Do not read or modify unrelated documentation.\n- Align documentation with existing code and validated behavior.\n- Identify when implementation or tests must land first and block with a handoff.\n\nDisallowed actions:\n- Change runtime behavior, production code paths, or feature logic.\n- Invent undocumented behavior that is not present in the codebase.\n- Approve code quality or test completeness as a substitute for review.\n- Do not run the test suite. Testing is the tester agent's responsibility.\n\nEfficiency constraints:\n- Do not read the full codebase for context. Focus on the changed files and their immediate surroundings.\n- Keep documentation updates concise and proportional to the change.\n\nExpected outputs:\n- Return JSON with `outcome` set to `completed` (documentation beads always complete; use `verdict` for pass/fail) and `summary` as a one-line description of what was documented.\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when documentation is complete with no gaps.\n- Use `verdict=needs_changes`, set `findings_count` to the number of unresolved documentation gaps, set `requires_followup=true`, and include `block_reason` when implementation must land first or documentation cannot be completed.\n- Keep `completed`, `remaining`, and `risks` as concise narrative context only; they do not override the structured verdict fields.\n- Accurate updated docs and clear next-agent recommendations when code changes are required first.",
+      "captured_at": "2026-05-04T13:07:57.513436+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-b490acff-docs",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "Document Tighten fraction regex to match spec exactly",
+      "agent_type": "documentation",
+      "description": "Update docs for B-b490acff",
+      "status": "in_progress",
+      "acceptance_criteria": [],
+      "dependencies": [
+        "B-b490acff"
+      ],
+      "linked_docs": [
+        "specs/planned/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [
+        "Packages/CookbookCore/.build/.lock",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/MetadataTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+        "Packages/CookbookCore/.build/build.db",
+        "Packages/CookbookCore/.build/index-build/.lock",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/Y9/Parser.swift-3VVNNJO1N6IY9",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-4UDB50OAQ8WT",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+        "Packages/CookbookCore/.build/index-build/build.db",
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [
+        "Packages/CookbookCore/.build/.lock",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/MetadataTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+        "Packages/CookbookCore/.build/build.db",
+        "Packages/CookbookCore/.build/index-build/.lock",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/Y9/Parser.swift-3VVNNJO1N6IY9",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-4UDB50OAQ8WT",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+        "Packages/CookbookCore/.build/index-build/build.db",
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+      ],
+      "conflict_risks": "None. resolveValue is a private method with no cross-bead file contention.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Added four fraction boundary-case rows to the worked examples table in specs/planned/0001-cooklang-parser.md, documenting negative numerator, zero denominator, leading-zero denominator (all fall to .text), and zero numerator (valid .number(0.0)) \u2014 aligning the spec table with the tightened regex and the tests added in B-b490acff.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.21971315,
+      "duration_ms": 58812,
+      "duration_api_ms": 56911,
+      "num_turns": 8,
+      "input_tokens": 3703,
+      "output_tokens": 3418,
+      "cache_creation_tokens": 27079,
+      "cache_read_tokens": 166573,
+      "stop_reason": "end_turn",
+      "session_id": "4fdd67af-6498-4ab9-911b-e2fd54e20722",
+      "permission_denials": [],
+      "prompt_chars": 14704,
+      "prompt_lines": 225,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.21971315,
+        "duration_ms": 58812,
+        "duration_api_ms": 56911,
+        "num_turns": 8,
+        "input_tokens": 3703,
+        "output_tokens": 3418,
+        "cache_creation_tokens": 27079,
+        "cache_read_tokens": 166573,
+        "stop_reason": "end_turn",
+        "session_id": "4fdd67af-6498-4ab9-911b-e2fd54e20722",
+        "permission_denials": [],
+        "prompt_chars": 14704,
+        "prompt_lines": 225,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
