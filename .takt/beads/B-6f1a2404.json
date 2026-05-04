@@ -3,7 +3,7 @@
   "title": "dev-05: Model \u2014 Metadata",
   "agent_type": "developer",
   "description": "Implement the Metadata struct in Metadata.swift. Metadata stores key-value string pairs and exposes a subscript(key: String) -> String?, computed properties servings: [Int]?, title: String?, tags: [String], and allEntries: [(key: String, value: String)]. Add Sendable and Equatable conformances.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -7965,7 +7965,10 @@
   "conflict_risks": "No conflicts expected; this is a new file with no overlap with sibling beads.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
-  "lease": null,
+  "lease": {
+    "owner": "developer:B-6f1a2404",
+    "expires_at": "2026-05-04T12:20:52.372046+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -8034,6 +8037,30 @@
       "event": "deferred",
       "agent_type": "developer",
       "summary": "file-scope conflict with in-progress B-24638685",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:50:53.265543+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T11:50:53.265570+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
       "details": {}
     }
   ],
