@@ -3,7 +3,7 @@
   "title": "dev-07: Internal scanner/lexer",
   "agent_type": "developer",
   "description": "Implement a character-level Scanner (or Lexer) struct in an internal source file. It wraps a String, tracks current index, line, and column, and provides peek/advance/match helpers. Line and column numbering must be 1-based to match CooklangError.parse expectations.",
-  "status": "in_progress",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -101,6 +101,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-7103482d/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T11:48:45.393753+00:00",
+      "event": "updated",
+      "agent_type": "developer",
+      "summary": "Bead updated via CLI",
+      "details": {}
     }
   ],
   "metadata": {
