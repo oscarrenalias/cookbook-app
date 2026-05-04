@@ -1,0 +1,48 @@
+name: CookbookApp
+
+options:
+  bundleIdPrefix: com.cookbookapp
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+
+packages:
+  CookbookCore:
+    path: Packages/CookbookCore
+
+targets:
+  CookbookApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: CookbookApp
+    dependencies:
+      - package: CookbookCore
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        PRODUCT_BUNDLE_IDENTIFIER: com.cookbookapp.CookbookApp
+        TARGETED_DEVICE_FAMILY: "1"
+        ENABLE_PREVIEWS: YES
+    scheme:
+      testTargets:
+        - CookbookAppTests
+
+  CookbookAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: CookbookAppTests
+    dependencies:
+      - target: CookbookApp
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.cookbookapp.CookbookAppTests
