@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [],
+  "dependencies": [
+    "B-d6d18349"
+  ],
   "acceptance_criteria": [
     "Loads image from thumbnailURL asynchronously without blocking the main thread.",
     "Caches loaded images in-memory for the view's lifetime.",
