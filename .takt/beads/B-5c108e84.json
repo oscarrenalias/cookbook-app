@@ -3,7 +3,7 @@
   "title": "Add RecipesFolderStore",
   "agent_type": "developer",
   "description": "Create CookbookApp/Recipes/RecipesFolderStore.swift as an @Observable class (or ObservableObject if @Observable causes issues on iOS 17). On init, reads bookmark Data from UserDefaults key 'recipesFolderBookmark', resolves it with withSecurityScope, and sets folderURL: URL?. If isStale is true after resolution, clears both UserDefaults keys and sets folderURL to nil. Exposes folderName: String? from UserDefaults key 'recipesFolderName'. Provides saveBookmark(for url: URL) to write bookmark Data and display name on successful picker selection.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
   "dependencies": [],
@@ -27,37 +27,44 @@
     "CookbookApp/Recipes/RecipesFolderStore.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "CookbookApp/Recipes/RecipesFolderStore.swift created with all required behaviour: bookmark resolution on init, stale-bookmark clearing, folderURL/folderName exposure, saveBookmark(for:) implementation, UserDefaults.standard only.",
+    "remaining": "No remaining work in this bead. Downstream beads should inject or share RecipesFolderStore via the environment (e.g. @Environment or passed through AppRoot) so FolderSetupView and SettingsView can call saveBookmark(for:) and AppRoot can observe folderURL for gating.",
+    "risks": "folderName is a computed property that reads UserDefaults on every access \u2014 not @Observable-tracked. If views need to react to folderName changes they should observe folderURL (which is tracked) as a proxy, since both are written together in saveBookmark and clearBookmark. This is a known design trade-off; a stored property alternative would require manually syncing with UserDefaults.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Pass to tester agent for RecipesFolderStore round-trip and stale-bookmark unit tests as specified in spec 0003.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
+    "conflict_risks": "No conflicts expected. This is a new file with no overlap with existing sources. Downstream beads that create AppRoot gating or SettingsView wiring will need to instantiate and inject this store.",
+    "design_decisions": "Used @Observable over ObservableObject \u2014 iOS 17.0 deployment target confirmed in project.yml, so Observation framework is available. folderName is computed from UserDefaults rather than stored as @Observable state because it is always written atomically alongside the bookmark; observing folderURL is sufficient for views to re-render.",
+    "test_coverage_notes": "Unit tests for RecipesFolderStore (round-trip bookmark, stale detection) are out of scope for the developer agent and should be implemented by the tester agent per spec 0003 test requirements.",
+    "known_limitations": "folderName changes are not directly observable via @Observable machinery since it reads UserDefaults lazily. Views must treat a folderURL change as the signal to re-read folderName."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No conflicts expected. This is a new file with no overlap with existing sources. Downstream beads that create AppRoot gating or SettingsView wiring will need to instantiate and inject this store.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
-  "lease": {
-    "owner": "developer:B-5c108e84",
-    "expires_at": "2026-05-04T20:17:45.772196+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -99,6 +106,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-5c108e84/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T19:49:10.096978+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created RecipesFolderStore.swift as an @Observable class using the Observation framework (iOS 17+). On init it resolves any persisted security-scoped bookmark from UserDefaults; stale bookmarks are detected and both UserDefaults keys are cleared. folderName is a computed property reading directly from UserDefaults. saveBookmark(for:) creates a security-scoped bookmark and persists both the bookmark Data and the folder's lastPathComponent as display name.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -171,7 +185,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created RecipesFolderStore.swift as an @Observable class using the Observation framework (iOS 17+). On init it resolves any persisted security-scoped bookmark from UserDefaults; stale bookmarks are detected and both UserDefaults keys are cleared. folderName is a computed property reading directly from UserDefaults. saveBookmark(for:) creates a security-scoped bookmark and persists both the bookmark Data and the folder's lastPathComponent as display name.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.24033249999999998,
+      "duration_ms": 81609,
+      "duration_api_ms": 73460,
+      "num_turns": 11,
+      "input_tokens": 10,
+      "output_tokens": 3289,
+      "cache_creation_tokens": 19288,
+      "cache_read_tokens": 205668,
+      "stop_reason": "end_turn",
+      "session_id": "62e7700d-4a3e-4479-a3d2-2936019c9b76",
+      "permission_denials": [],
+      "prompt_chars": 6232,
+      "prompt_lines": 134,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.24033249999999998,
+        "duration_ms": 81609,
+        "duration_api_ms": 73460,
+        "num_turns": 11,
+        "input_tokens": 10,
+        "output_tokens": 3289,
+        "cache_creation_tokens": 19288,
+        "cache_read_tokens": 205668,
+        "stop_reason": "end_turn",
+        "session_id": "62e7700d-4a3e-4479-a3d2-2936019c9b76",
+        "permission_denials": [],
+        "prompt_chars": 6232,
+        "prompt_lines": 134,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "6eb03ce27d23b2932c1e51c296c5ef9d1d9bf3e9"
   },
   "labels": [],
   "recovery_for": null,
