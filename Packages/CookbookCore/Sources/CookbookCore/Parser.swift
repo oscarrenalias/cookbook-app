@@ -56,7 +56,7 @@ public struct Parser {
                 }
                 name = name.trimmingCharacters(in: .whitespaces)
             } else {
-                while let ch = scanner.peek(), ch != "{" && !ch.isWhitespace && ch != "@" && ch != "#" && ch != "~" {
+                while let ch = scanner.peek(), ch != "{" && !ch.isWhitespace && ch != "@" && ch != "#" && ch != "~" && ch != "." && ch != "," {
                     name.append(ch)
                     scanner.advance()
                 }
