@@ -6,7 +6,7 @@ dependencies:
 - spec-b15d4b1a
 priority: high
 complexity: medium
-status: draft
+status: planned
 tags:
 - ui
 - swiftui
@@ -56,13 +56,14 @@ placeholder; 0004 replaces its contents with the full details view.
 
 - On app launch (or first read of the folder), the app reads the
   bookmark `Data` from `UserDefaults`, calls
-  `URL(resolvingBookmarkData:options:[], …)`, and retains the resolved
-  URL. (`.withSecurityScope` is macOS-only and must not be used on
-  iOS; bare bookmark resolution with empty options is correct for
-  iOS.)
+  `URL(resolvingBookmarkData:bookmarkDataIsStale:)` with empty
+  resolution options, and retains the resolved URL.
 - Every read of the folder's contents is bracketed by
   `startAccessingSecurityScopedResource()` and a matching
-  `stopAccessingSecurityScopedResource()`.
+  `stopAccessingSecurityScopedResource()`. The security scope is
+  attached implicitly to URLs returned by `UIDocumentPicker` on iOS;
+  do **not** pass `.withSecurityScope` to the bookmark APIs — that
+  option is macOS-only and unavailable on iOS.
 - If `isStale` is true after resolution, the bookmark is treated as
   invalid: the recipes tab falls back to the no-folder empty state
   with the CTA "Choose folder…", and the stale bookmark is cleared

@@ -24,6 +24,7 @@ targets:
       - package: CookbookCore
     settings:
       base:
+        CODE_SIGNING_ALLOWED: "NO"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
