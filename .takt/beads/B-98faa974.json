@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-98faa974",
+  "title": "Shared documentation \u2014 CookbookCore API reference",
+  "agent_type": "documentation",
+  "description": "Update docs/architecture.md to reflect that the parser now lives in Packages/CookbookCore (the existing entry says 'module extraction happens in a later spec'). Document the quantity parsing rules and quantity table as a reference. Note that swift test is the fast inner-loop test command for parser work.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "docs/architecture.md CookLang parser section is updated: removes the 'module extraction happens in a later spec' note and records that CookbookCore lives at Packages/CookbookCore/.",
+    "docs/architecture.md notes that swift test from Packages/CookbookCore/ is the fast parser test command.",
+    "The quantity parsing rules and worked-example table from the spec are referenced or summarised so downstream feature agents can find the normative rules.",
+    "No other architecture sections are modified."
+  ],
+  "linked_docs": [
+    "docs/architecture.md",
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "docs/architecture.md"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:53.923556+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
