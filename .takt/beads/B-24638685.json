@@ -3,7 +3,7 @@
   "title": "dev-03: Model \u2014 Ingredient, Cookware, and Timer",
   "agent_type": "developer",
   "description": "Create Ingredient.swift, Cookware.swift, and Timer.swift with their public struct definitions. Each references Quantity? from dev-02. Add Sendable and Equatable conformances to all three.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -7966,7 +7966,10 @@
   "conflict_risks": "None \u2014 new files only, no modification of existing sources.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
-  "lease": null,
+  "lease": {
+    "owner": "developer:B-24638685",
+    "expires_at": "2026-05-04T12:19:10.812743+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -8028,6 +8031,30 @@
       "event": "retried",
       "agent_type": "developer",
       "summary": "Bead requeued",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:49:11.721096+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T11:49:11.721127+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
       "details": {}
     }
   ],
