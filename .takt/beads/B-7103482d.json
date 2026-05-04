@@ -3,7 +3,7 @@
   "title": "dev-07: Internal scanner/lexer",
   "agent_type": "developer",
   "description": "Implement a character-level Scanner (or Lexer) struct in an internal source file. It wraps a String, tracks current index, line, and column, and provides peek/advance/match helpers. Line and column numbering must be 1-based to match CooklangError.parse expectations.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -58,7 +58,7 @@
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
   "lease": {
     "owner": "developer:B-7103482d",
-    "expires_at": "2026-05-04T12:14:33.532581+00:00"
+    "expires_at": "2026-05-04T12:37:39.335353+00:00"
   },
   "retries": 0,
   "execution_history": [
@@ -107,6 +107,30 @@
       "event": "updated",
       "agent_type": "developer",
       "summary": "Bead updated via CLI",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:07:39.552057+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:07:39.552079+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
       "details": {}
     }
   ],
