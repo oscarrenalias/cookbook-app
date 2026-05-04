@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-487616fa",
+  "title": "Shared review \u2014 CookbookCore parser spec sign-off",
+  "agent_type": "review",
+  "description": "Review all implementation beads, the test suite, documentation changes, and tester results against the spec acceptance criteria. Check that public API matches the cooklang-rs surface, quantity semantics are exact, error cases throw with valid line/column, xcodegen wiring is correct, and no out-of-scope features (unit conversion, scaling, extensions) have been introduced.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Public API in CooklangParser.swift exactly matches the types declared in the spec (CooklangParser, Extensions, Converter, Recipe, Metadata, Section, Content, Step, Item, Ingredient, Cookware, Timer, Quantity, Value, CooklangError).",
+    "Quantity parsing semantics: every row in the spec table is correctly implemented.",
+    "Error cases: empty component name, empty value + non-empty unit, and double % each throw CooklangError.parse with non-empty message and valid (1-based) line and column.",
+    "No unit conversion logic, recipe scaling, or non-canonical extensions were added.",
+    "Converter and Extensions are stubs as required by the spec.",
+    "swift test and xcodebuild test both pass.",
+    "docs/architecture.md is updated correctly.",
+    "project.yml changes are minimal and correct: only packages: block and CookbookApp package dependency added.",
+    "import CookbookCore in CookbookApp/CookbookAppApp.swift is present and load-bearing."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:54.623657+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
