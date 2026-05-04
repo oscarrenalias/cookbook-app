@@ -3,7 +3,7 @@
   "title": "Add AppRoot TabView",
   "agent_type": "developer",
   "description": "Create CookbookApp/AppRoot.swift. Defines a TabView containing exactly three tabs in spec order: RecipesTab (label 'Recipes', SF Symbol 'book.closed'), MealPlansTab (label 'Meal Plans', SF Symbol 'calendar'), ShoppingListsTab (label 'Shopping Lists', SF Symbol 'cart'). Each tab item uses tabItem { Label(...) }.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
   "dependencies": [
@@ -51,9 +51,12 @@
   },
   "block_reason": "",
   "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-e918ee06",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
+  "lease": {
+    "owner": "developer:B-f38d1ccd",
+    "expires_at": "2026-05-04T19:16:26.364267+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -62,9 +65,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T18:46:26.623714+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T18:46:26.623776+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-f38d1ccd",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-f38d1ccd/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
