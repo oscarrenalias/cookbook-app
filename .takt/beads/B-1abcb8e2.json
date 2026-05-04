@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [],
+  "dependencies": [
+    "B-9d87766c",
+    "B-888174a4"
+  ],
   "acceptance_criteria": [
     "AppRoot observes RecipesFolderStore.",
     "nil resolvedFolderURL renders FolderSetupView with no tab bar.",
