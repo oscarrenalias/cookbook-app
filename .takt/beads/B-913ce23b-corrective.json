@@ -200,6 +200,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:34:57.331463+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-913ce23b-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-913ce23b-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -217,7 +226,94 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-913ce23b-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-913ce23b-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T20:34:57.331446+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-913ce23b-corrective",
+      "feature_root_id": "B-80f696d9",
+      "title": "Corrective fix for B-913ce23b: Review spec 0003 implementation",
+      "agent_type": "developer",
+      "description": "Blocked reason: FINDING 1 (medium \u2014 violates AC \"No security anti-patterns around security-scoped URL handling\"): RecipesFolderStore.resolveBookmark() calls startAccessingSecurityScopedResource() on line 41 but never calls the matching stopAccessingSecurityScopedResource(). There is no deinit on RecipesFolderStore to balance this. Each call to RecipeDiscovery.scan() therefore executes two start calls against one stop, permanently leaking one reference count per app session. Fix: remove line 41 (`_ = url.startAccessingSecurityScopedResource()`) from resolveBookmark() \u2014 RecipeDiscovery.scan() is the correct place for start/stop per read, and it already does this correctly.\n\nRemaining work: Corrective bead needed: remove the orphaned startAccessingSecurityScopedResource() call from RecipesFolderStore.resolveBookmark(). The call on line 41 of RecipesFolderStore.swift starts security-scoped access but is never balanced by a stop \u2014 RecipeDiscovery.scan() already handles start/stop correctly per read, so this call is both redundant and leaking a reference count.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-913ce23b.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+        "docs/architecture.md",
+        "docs/ui-guidelines.md"
+      ],
+      "execution_branch_name": "feature/b-80f696d9",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+      "expected_files": [
+        "CookbookApp/AppRoot.swift",
+        "CookbookApp/FolderSetupView.swift",
+        "CookbookApp/Recipes/RecipeDiscovery.swift",
+        "CookbookApp/Recipes/RecipeFile.swift",
+        "CookbookApp/Recipes/RecipeRowView.swift",
+        "CookbookApp/Recipes/RecipeThumbnailView.swift",
+        "CookbookApp/Recipes/RecipesFolderPicker.swift",
+        "CookbookApp/Recipes/RecipesFolderStore.swift",
+        "CookbookApp/Recipes/RecipesListView.swift",
+        "CookbookApp/Settings/SettingsView.swift",
+        "CookbookApp/Tabs/RecipesTab.swift",
+        "CookbookAppTests/CookbookAppTests.swift",
+        "CookbookAppTests/RecipeDiscoveryTests.swift",
+        "CookbookAppTests/RecipeFileTests.swift",
+        "CookbookAppTests/RecipesFolderStoreTests.swift",
+        "docs/architecture.md"
+      ],
+      "expected_globs": [
+        "CookbookApp.xcodeproj/project.pbxproj"
+      ],
+      "touched_files": [
+        "CookbookApp/AppRoot.swift",
+        "CookbookApp/FolderSetupView.swift",
+        "CookbookApp/Recipes/RecipeDiscovery.swift",
+        "CookbookApp/Recipes/RecipeFile.swift",
+        "CookbookApp/Recipes/RecipeRowView.swift",
+        "CookbookApp/Recipes/RecipeThumbnailView.swift",
+        "CookbookApp/Recipes/RecipesFolderPicker.swift",
+        "CookbookApp/Recipes/RecipesFolderStore.swift",
+        "CookbookApp/Recipes/RecipesListView.swift",
+        "CookbookApp/Settings/SettingsView.swift",
+        "CookbookApp/Tabs/RecipesTab.swift",
+        "CookbookAppTests/CookbookAppTests.swift",
+        "CookbookAppTests/RecipeDiscoveryTests.swift",
+        "CookbookAppTests/RecipeFileTests.swift",
+        "CookbookAppTests/RecipesFolderStoreTests.swift",
+        "docs/architecture.md"
+      ],
+      "conflict_risks": "Corrective bead touches only RecipesFolderStore.swift (single-line removal). No conflict risk with other files.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
