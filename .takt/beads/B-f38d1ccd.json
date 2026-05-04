@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
-  "dependencies": [],
+  "dependencies": [
+    "B-5dd9db36",
+    "B-692ebf08"
+  ],
   "acceptance_criteria": [
     "CookbookApp/AppRoot.swift exists",
     "TabView contains exactly three tabs in order: Recipes, Meal Plans, Shopping Lists",
