@@ -9251,6 +9251,13 @@
       "agent_type": "documentation",
       "summary": "file-scope conflict with in-progress B-e0197a09",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:45:08.550239+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-e0197a09",
+      "details": {}
     }
   ],
   "metadata": {},
