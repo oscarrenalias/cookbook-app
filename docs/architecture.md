@@ -17,6 +17,39 @@ third-party file-provider folders (Dropbox, OneDrive, etc.).
 explicit that the user manages the folder themselves; an app-owned container
 would force a specific layout.
 
+### App-level gating on folder selection
+
+The recipes folder is a hard prerequisite for the entire app. Without it,
+the meal-plans and shopping-lists tabs have no source of recipes either,
+so the tab bar is itself meaningless.
+
+`AppRoot` therefore branches at app launch:
+
+- **No folder configured** (no bookmark in `UserDefaults`, or the
+  resolved bookmark is stale) → render a single full-screen
+  `FolderSetupView`: a centered icon, title ("Please select a folder
+  with recipes"), brief explanation, and a primary "Choose folder…"
+  button that triggers the same `UIDocumentPicker` flow Settings uses.
+  No tab bar, no Settings sheet. The Settings surface is unreachable
+  in this state — it isn't needed because there's nothing to configure
+  yet beyond the folder itself.
+- **Folder configured** → render the standard `TabView` shell from
+  spec 0002 with all three tabs.
+
+After the user picks a folder from the setup view, `AppRoot` transitions
+to the tab-bar shell on the next render. After that, the user can
+re-pick the folder via Settings (gear icon in the Recipes toolbar);
+the gate is only relevant on first launch (or after a stale-bookmark
+recovery).
+
+**Implication for downstream specs:** every tab (recipes, meal plans,
+shopping lists) and every feature spec can assume a recipes folder is
+available. They never need to render their own "no folder" state. They
+DO still need to handle "folder is configured but contains no items
+of this type" — for example, the recipes list shows an empty-state
+message when the folder has zero `.cook` files, the meal-plans tab
+shows an empty-state when no meal-plan files exist, etc.
+
 ## CookLang parser
 
 Write a fresh Swift parser, implemented incrementally as features need it.
