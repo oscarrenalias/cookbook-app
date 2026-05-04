@@ -4001,7 +4001,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-6f1a2404",
   "conflict_risks": "None \u2014 new files only, no modification of existing sources.",
   "branch_name": "",
   "worktree_path": "",
@@ -4013,6 +4013,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:43:32.032626+00:00",
+      "event": "deferred",
+      "agent_type": "tester",
+      "summary": "file-scope conflict with in-progress B-6f1a2404",
       "details": {}
     }
   ],
