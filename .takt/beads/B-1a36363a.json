@@ -66,7 +66,10 @@
     ".takt/beads/B-eae2dfd2.json",
     ".takt/beads/B-f38d1ccd.json",
     ".takt/beads/B-f8dad46b.json",
-    "CookbookApp/Common/EmptyStateView.swift"
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Common/EmptyStateView.swift",
+    "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
   "expected_globs": [],
   "touched_files": [
@@ -107,7 +110,10 @@
     ".takt/beads/B-eae2dfd2.json",
     ".takt/beads/B-f38d1ccd.json",
     ".takt/beads/B-f8dad46b.json",
-    "CookbookApp/Common/EmptyStateView.swift"
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Common/EmptyStateView.swift",
+    "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -147,7 +153,10 @@
     ".takt/beads/B-eae2dfd2.json",
     ".takt/beads/B-f38d1ccd.json",
     ".takt/beads/B-f8dad46b.json",
-    "CookbookApp/Common/EmptyStateView.swift"
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Common/EmptyStateView.swift",
+    "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -171,7 +180,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.",
+  "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.\nproject.pbxproj was modified to add Common and Tabs groups and source files. Any sibling bead that also edits project.pbxproj may conflict on these sections. Coordinate project.pbxproj edits sequentially.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
