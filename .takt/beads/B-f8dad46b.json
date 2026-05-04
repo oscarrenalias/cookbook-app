@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-13560a1a"
+  ],
   "acceptance_criteria": [
     "At least 10 .cook fixture files exist under Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/.",
     "Each fixture is a valid UTF-8 text file.",
