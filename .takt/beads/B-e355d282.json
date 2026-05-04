@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-e355d282",
+  "title": "dev-14: xcodegen wiring",
+  "agent_type": "developer",
+  "description": "Wire CookbookCore into the iOS app. Add a top-level packages: block to project.yml referencing Packages/CookbookCore as a local path package. Add CookbookCore as a package: dependency of the CookbookApp target. Add a load-bearing import CookbookCore statement to CookbookApp/CookbookAppApp.swift. Run xcodegen generate from the repo root.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "project.yml contains a top-level packages: block with a local path entry pointing to Packages/CookbookCore.",
+    "CookbookApp target in project.yml lists CookbookCore as a package dependency.",
+    "CookbookApp/CookbookAppApp.swift contains import CookbookCore.",
+    "xcodegen generate completes without error.",
+    "xcodebuild test (or swift build of the app target) succeeds with the import present.",
+    "Removing the package dependency from project.yml, regenerating, and attempting to build causes a 'no such module CookbookCore' error."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "project.yml",
+    "CookbookApp/CookbookAppApp.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:52.926569+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
