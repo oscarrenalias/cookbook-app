@@ -6,7 +6,22 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
-  "dependencies": [],
+  "dependencies": [
+    "B-fe0ec28e",
+    "B-60f3bb77",
+    "B-5c108e84",
+    "B-8e97ce86",
+    "B-8197dbad",
+    "B-e2456955",
+    "B-187479b6",
+    "B-df82530a",
+    "B-b1cb9eba",
+    "B-5b48d396",
+    "B-1590dbd4",
+    "B-38248499",
+    "B-92e3354b",
+    "B-27829d32"
+  ],
   "acceptance_criteria": [
     "All spec 0003 acceptance criteria are verified as met",
     "No security anti-patterns around security-scoped URL handling",
