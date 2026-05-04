@@ -6,9 +6,7 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [
-    "B-fcab3b58"
-  ],
+  "dependencies": [],
   "acceptance_criteria": [
     "Displays RecipeThumbnailView at leading edge.",
     "Shows recipe displayName as centre label.",
