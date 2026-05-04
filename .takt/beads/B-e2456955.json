@@ -91,6 +91,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T19:54:03.654774+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-e2456955/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-e2456955/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -107,7 +116,64 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-e2456955/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-e2456955/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T19:54:03.654753+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-e2456955",
+      "feature_root_id": "B-80f696d9",
+      "title": "Add RecipeThumbnailView async thumbnail loader",
+      "agent_type": "developer",
+      "description": "Create CookbookApp/Recipes/RecipeThumbnailView.swift. Accepts thumbnailURL: URL? and loads the image asynchronously using Task / async file reads without blocking the main thread. Displays the image clipped to 56\u00d756 pt. Falls back to fork.knife SF Symbol on a .tint-tinted square background of the same size when thumbnailURL is nil or loading fails. Uses a shared in-memory cache (e.g. a simple actor or NSCache keyed by URL) so list scrolling does not repeatedly read disk.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "CookbookApp/Recipes/RecipeThumbnailView.swift exists",
+        "Loads image from thumbnailURL asynchronously; main thread is not blocked",
+        "Displays loaded image at 56\u00d756 pt fixed size",
+        "Falls back to fork.knife SF Symbol on .tint background when thumbnailURL is nil or loading fails",
+        "Image size is fixed at 56\u00d756 pt regardless of Dynamic Type setting",
+        "In-memory cache prevents redundant disk reads when the same URL is encountered during scrolling"
+      ],
+      "dependencies": [
+        "B-fe0ec28e"
+      ],
+      "linked_docs": [
+        "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-80f696d9",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeThumbnailView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
