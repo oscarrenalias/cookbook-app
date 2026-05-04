@@ -70,6 +70,7 @@
     "CookbookApp/Common/EmptyStateView.swift",
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
   "expected_globs": [],
@@ -115,6 +116,7 @@
     "CookbookApp/Common/EmptyStateView.swift",
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
   "changed_files": [
@@ -159,6 +161,7 @@
     "CookbookApp/Common/EmptyStateView.swift",
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
   "updated_docs": [],
@@ -183,7 +186,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.\nproject.pbxproj was modified to add Common and Tabs groups and source files. Any sibling bead that also edits project.pbxproj may conflict on these sections. Coordinate project.pbxproj edits sequentially.\nNone. SettingsView.swift is a new file in a new directory; no overlap with other in-flight beads.",
+  "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.\nproject.pbxproj was modified to add Common and Tabs groups and source files. Any sibling bead that also edits project.pbxproj may conflict on these sections. Coordinate project.pbxproj edits sequentially.\nNone. SettingsView.swift is a new file in a new directory; no overlap with other in-flight beads.\nproject.pbxproj was modified; any sibling bead that also edits this file will need a merge. Tabs group and Sources build phase both touched.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
