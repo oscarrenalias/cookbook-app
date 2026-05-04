@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
-  "dependencies": [],
+  "dependencies": [
+    "B-c87e31ca"
+  ],
   "acceptance_criteria": [
     "CookbookApp/Tabs/MealPlansTab.swift exists and renders EmptyStateView with systemImage 'calendar', title 'Meal Plans', subtitle 'No meal plans yet.'",
     "CookbookApp/Tabs/ShoppingListsTab.swift exists and renders EmptyStateView with systemImage 'cart', title 'Shopping Lists', subtitle 'No shopping lists yet.'",
