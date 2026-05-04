@@ -334,6 +334,13 @@
       "agent_type": "review",
       "summary": "Spec 0003 implementation reviewed. One blocking finding: unbalanced startAccessingSecurityScopedResource() in resolveBookmark() leaks a security-scope reference count. All other acceptance criteria verified as met.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:29:15.856276+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-913ce23b-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -607,7 +614,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-913ce23b-corrective"
   },
   "labels": [],
   "recovery_for": null,
