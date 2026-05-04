@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-01f592ff",
+  "title": "dev-09: Parser \u2014 comment stripping",
+  "agent_type": "developer",
+  "description": "Implement comment recognition within the parser. Line comments: text from '--' to end-of-line is discarded. Single-line block comments: '[- ... -]' on the same line \u2014 text before '[' and after '-]' is concatenated. Multi-line block comments: '[- ... -]' spanning multiple lines \u2014 the entire spanned region including all intermediate content is discarded, and any @/# /~ components inside the comment block must NOT be added to the recipe collections.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "A line containing '-- comment text' has everything from '--' to EOL stripped; preceding text on the line is preserved.",
+    "A line containing 'text [- comment -] more' produces 'text  more' (comment excised, surrounding text joined).",
+    "A '[- ... -]' block spanning three lines removes all content between the delimiters and the delimiters themselves.",
+    "An @ingredient written between '[- ' and ' -]' does NOT appear in Recipe.ingredients.",
+    "swift build from Packages/CookbookCore/ succeeds."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/Parser*.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:49.886448+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
