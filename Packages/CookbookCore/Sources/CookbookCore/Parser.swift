@@ -1,14 +1,14 @@
 import Foundation
 
-public struct Parser {
-    public private(set) var ingredients: [Ingredient] = []
-    public private(set) var cookware: [Cookware] = []
-    public private(set) var timers: [Timer] = []
+struct Parser {
+    private(set) var ingredients: [Ingredient] = []
+    private(set) var cookware: [Cookware] = []
+    private(set) var timers: [Timer] = []
     private var commentStripper = CommentStripper()
 
-    public init() {}
+    init() {}
 
-    public mutating func parseStep(_ text: String) throws -> Step {
+    mutating func parseStep(_ text: String) throws -> Step {
         let stripped = commentStripper.strip(text)
         return try parseRawStep(stripped)
     }
