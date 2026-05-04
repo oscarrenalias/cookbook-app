@@ -90,6 +90,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:43:33.397773+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-6cb3adfb/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-6cb3adfb/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -106,7 +115,63 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-6cb3adfb/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-6cb3adfb/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T11:43:33.397757+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-6cb3adfb",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "dev-06: Model \u2014 Support types (Extensions, Converter, Errors)",
+      "agent_type": "developer",
+      "description": "Implement Extensions (OptionSet stub with .canonical = [] and .all), Converter (value type stubs .empty and .bundled), and CooklangError (error enum with case parse(message: String, line: Int, column: Int)) in their own source files.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Packages/CookbookCore/Sources/CookbookCore/Extensions.swift declares public struct Extensions: OptionSet, Sendable with rawValue: Int, static let canonical = Extensions([]), and static let all.",
+        "Packages/CookbookCore/Sources/CookbookCore/Converter.swift declares public struct Converter: Sendable with static let empty and static let bundled (stub, no conversion logic).",
+        "Packages/CookbookCore/Sources/CookbookCore/Errors.swift declares public enum CooklangError: Error, Sendable with case parse(message: String, line: Int, column: Int).",
+        "swift build from Packages/CookbookCore/ succeeds."
+      ],
+      "dependencies": [
+        "B-13560a1a"
+      ],
+      "linked_docs": [
+        "specs/drafts/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/Extensions.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/Converter.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/Errors.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
