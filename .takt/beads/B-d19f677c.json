@@ -7,7 +7,6 @@
   "bead_type": "task",
   "parent_id": "B-94e95439",
   "dependencies": [
-    "B-888174a4",
     "B-fcab3b58",
     "B-ff4a1189",
     "B-8a516662",
