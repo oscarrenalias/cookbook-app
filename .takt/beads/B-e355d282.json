@@ -3,7 +3,7 @@
   "title": "dev-14: xcodegen wiring",
   "agent_type": "developer",
   "description": "Wire CookbookCore into the iOS app. Add a top-level packages: block to project.yml referencing Packages/CookbookCore as a local path package. Add CookbookCore as a package: dependency of the CookbookApp target. Add a load-bearing import CookbookCore statement to CookbookApp/CookbookAppApp.swift. Run xcodegen generate from the repo root.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -28,37 +28,69 @@
     "CookbookApp/CookbookAppApp.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+    "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
+    "project.yml"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+    "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
+    "project.yml"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "project.yml updated with packages block and CookbookCore target dependency; CookbookApp/CookbookAppApp.swift created with import CookbookCore; xcodegen generate completed without error; CookbookApp.xcodeproj regenerated and committed.",
+    "remaining": "None \u2014 all acceptance criteria are met. Build/test verification is the tester agent's responsibility.",
+    "risks": "The project.yml and CookbookApp sources were previously untracked in main; the feature branch now carries them. Downstream merge may need to reconcile with the untracked copies in the main working directory.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+      "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+      "CookbookApp/ContentView.swift",
+      "CookbookApp/CookbookAppApp.swift",
+      "CookbookAppTests/CookbookAppTests.swift",
+      "project.yml"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify xcodebuild test succeeds with the CookbookCore import present, and confirm that removing the package dependency causes a 'no such module CookbookCore' error.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "project.yml",
+      "CookbookApp/CookbookAppApp.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+      "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+      "CookbookApp/ContentView.swift",
+      "CookbookApp/CookbookAppApp.swift",
+      "CookbookAppTests/CookbookAppTests.swift",
+      "project.yml"
+    ],
+    "conflict_risks": "project.yml and CookbookApp/ exist as untracked files on main; the merge step will need to handle this overlap.",
+    "design_decisions": "Used xcodegen `packages:` top-level block with local `path:` reference rather than a remote URL, matching the bead specification. Added ContentView.swift and CookbookAppTests.swift to the worktree since they are required by the xcodegen sources paths and were only on disk (untracked) in the main working directory.",
+    "test_coverage_notes": "No tests run (developer guardrail). Tester agent should validate build succeeds and negative test (remove dep, rebuild) per acceptance criteria.",
+    "known_limitations": "SourceKit shows 'No such module CookbookCore' in IDE diagnostics until packages are resolved via Xcode or `xcodebuild -resolvePackageDependencies` \u2014 this is expected pre-build behavior, not a real error."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "project.yml and CookbookApp/ exist as untracked files on main; the merge step will need to handle this overlap.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
-  "lease": {
-    "owner": "developer:B-e355d282",
-    "expires_at": "2026-05-04T12:24:10.531699+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +132,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-e355d282/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T11:56:42.424479+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Wired CookbookCore into the iOS app. Added top-level `packages: CookbookCore: path: Packages/CookbookCore` block to project.yml, added `- package: CookbookCore` dependency to the CookbookApp target, added `import CookbookCore` to CookbookAppApp.swift, brought in the supporting app source files (ContentView.swift, CookbookAppTests.swift), and ran `xcodegen generate` successfully producing CookbookApp.xcodeproj with 10 CookbookCore references in the pbxproj. All changes committed to feature/b-2dfeba7e.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +212,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Wired CookbookCore into the iOS app. Added top-level `packages: CookbookCore: path: Packages/CookbookCore` block to project.yml, added `- package: CookbookCore` dependency to the CookbookApp target, added `import CookbookCore` to CookbookAppApp.swift, brought in the supporting app source files (ContentView.swift, CookbookAppTests.swift), and ran `xcodegen generate` successfully producing CookbookApp.xcodeproj with 10 CookbookCore references in the pbxproj. All changes committed to feature/b-2dfeba7e.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.4385766,
+      "duration_ms": 148089,
+      "duration_api_ms": 129840,
+      "num_turns": 37,
+      "input_tokens": 30,
+      "output_tokens": 7812,
+      "cache_creation_tokens": 23792,
+      "cache_read_tokens": 766322,
+      "stop_reason": "end_turn",
+      "session_id": "19e37f6a-8ec7-45ec-9e41-b18b4bbd2fd0",
+      "permission_denials": [],
+      "prompt_chars": 5982,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.4385766,
+        "duration_ms": 148089,
+        "duration_api_ms": 129840,
+        "num_turns": 37,
+        "input_tokens": 30,
+        "output_tokens": 7812,
+        "cache_creation_tokens": 23792,
+        "cache_read_tokens": 766322,
+        "stop_reason": "end_turn",
+        "session_id": "19e37f6a-8ec7-45ec-9e41-b18b4bbd2fd0",
+        "permission_denials": [],
+        "prompt_chars": 5982,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
