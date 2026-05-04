@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-187479b6",
+  "title": "Add RecipeRowView",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/Recipes/RecipeRowView.swift rendering a single recipe row: leading RecipeThumbnailView(thumbnailURL: recipe.thumbnailURL) at 56\u00d756 pt, center recipe.displayName text, trailing chevron.right SF Symbol. Accepts a RecipeFile value. Row will be embedded in a List and tapped via the parent's .sheet(item:) binding \u2014 no NavigationLink.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "CookbookApp/Recipes/RecipeRowView.swift exists",
+    "Leading slot renders RecipeThumbnailView with recipe.thumbnailURL",
+    "Center slot displays recipe.displayName",
+    "Trailing slot renders chevron.right SF Symbol",
+    "Accepts a RecipeFile parameter",
+    "Does not use NavigationLink \u2014 tapping is handled by .sheet(item:) in the parent list"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeRowView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:29.585976+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
