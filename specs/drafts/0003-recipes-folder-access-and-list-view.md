@@ -56,8 +56,10 @@ placeholder; 0004 replaces its contents with the full details view.
 
 - On app launch (or first read of the folder), the app reads the
   bookmark `Data` from `UserDefaults`, calls
-  `URL(resolvingBookmarkData:options:.withSecurityScope, …)`, and
-  retains the resolved URL.
+  `URL(resolvingBookmarkData:options:[], …)`, and retains the resolved
+  URL. (`.withSecurityScope` is macOS-only and must not be used on
+  iOS; bare bookmark resolution with empty options is correct for
+  iOS.)
 - Every read of the folder's contents is bracketed by
   `startAccessingSecurityScopedResource()` and a matching
   `stopAccessingSecurityScopedResource()`.
@@ -330,3 +332,9 @@ spec, manual visual review needed by user".
   XCTest.
 - This spec depends on 0002 (App Shell). 0002 must land first or be
   in the same merge wave.
+- **iOS bookmark resolution**: `URL.BookmarkResolutionOptions.withSecurityScope`
+  is unavailable on iOS. Use `options: []` in
+  `URL(resolvingBookmarkData:options:relativeTo:bookmarkDataIsStale:)`.
+  `startAccessingSecurityScopedResource()` and
+  `stopAccessingSecurityScopedResource()` remain correct on iOS and
+  must still bracket any folder access after picking.
