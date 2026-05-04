@@ -91,6 +91,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:04:03.599541+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-b490acff/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-b490acff/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -107,7 +116,64 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-b490acff/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T13:04:03.599526+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-b490acff",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "Tighten fraction regex to match spec exactly",
+      "agent_type": "developer",
+      "description": "The current fraction parser in CookbookCore is more permissive than the spec's value-resolution rules. The spec at specs/planned/0001-cooklang-parser.md (section 'Quantity parsing semantics') defines the fraction pattern as exactly: ^\\d+\\s*/\\s*[1-9]\\d*$ \u2014 meaning the numerator is a non-negative integer (no minus sign), and the denominator is a positive integer that does NOT start with 0. The current implementation deviates by accepting cases like '-1/2' (negative numerator) and '1/0' (zero denominator), parsing them as numbers when they should fall through to the .text(...) value branch. This is a foundational data type \u2014 every recipe view, every shopping-list aggregation reads Quantity values directly \u2014 so the parser must conform to the spec exactly, with no permissiveness drift.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "The fraction-detection regex (or equivalent matcher) in Packages/CookbookCore/Sources/CookbookCore/Parser.swift matches exactly ^\\d+\\s*/\\s*[1-9]\\d*$ \u2014 non-negative integer numerator, positive integer denominator with no leading zero.",
+        "Parsing '@x{-1/2%cup}' produces Quantity(value: .text(\"-1/2\"), unit: \"cup\") (NOT .number(-0.5)).",
+        "Parsing '@x{1/0%cup}' produces Quantity(value: .text(\"1/0\"), unit: \"cup\") (NOT .number) \u2014 zero denominator falls through to text branch.",
+        "Parsing '@x{1/02%cup}' produces Quantity(value: .text(\"1/02\"), unit: \"cup\") (NOT .number) \u2014 leading-zero denominator falls through to text branch.",
+        "Parsing '@x{0/2%cup}' produces Quantity(value: .number(0.0), unit: \"cup\") \u2014 zero numerator IS valid per spec (\\d+ matches 0).",
+        "Existing valid-fraction cases continue to pass: '@x{1/2%cup}' \u2192 .number(0.5), '@x{3 / 4%cup}' \u2192 .number(0.75).",
+        "New @Test functions added to CooklangParserTests.swift cover all 4 invalid cases above (-1/2, 1/0, 1/02) and the 0/2 valid case.",
+        "swift test from Packages/CookbookCore/ passes with all tests green (existing 54 + the new ones)."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/planned/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
