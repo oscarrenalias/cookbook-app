@@ -333,3 +333,9 @@ spec, manual visual review needed by user".
   XCTest.
 - This spec depends on 0002 (App Shell). 0002 must land first or be
   in the same merge wave.
+- **iOS bookmark resolution**: `URL.BookmarkResolutionOptions.withSecurityScope`
+  is unavailable on iOS. Use `options: []` in
+  `URL(resolvingBookmarkData:options:relativeTo:bookmarkDataIsStale:)`.
+  `startAccessingSecurityScopedResource()` and
+  `stopAccessingSecurityScopedResource()` remain correct on iOS and
+  must still bracket any folder access after picking.

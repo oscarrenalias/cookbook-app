@@ -1,32 +1,31 @@
 import SwiftUI
 
 struct RecipesTab: View {
+    @Environment(RecipesFolderStore.self) private var store
     @State private var showSettings = false
 
     var body: some View {
         NavigationStack {
-            EmptyStateView(
-                systemImage: "book.closed",
-                title: "Recipes",
-                subtitle: "No recipes folder selected."
-            )
-            .navigationTitle("Recipes")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gear")
+            RecipesListView(folderURL: store.folderURL!)
+                .navigationTitle("Recipes")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showSettings = true
+                        } label: {
+                            Image(systemName: "gear")
+                                .accessibilityLabel("Settings")
+                        }
                     }
                 }
-            }
-            .sheet(isPresented: $showSettings) {
-                SettingsView()
-            }
+                .sheet(isPresented: $showSettings) {
+                    SettingsView(store: store)
+                }
         }
     }
 }
 
 #Preview {
     RecipesTab()
+        .environment(RecipesFolderStore())
 }

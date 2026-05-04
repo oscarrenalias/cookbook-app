@@ -17,24 +17,52 @@ third-party file-provider folders (Dropbox, OneDrive, etc.).
 explicit that the user manages the folder themselves; an app-owned container
 would force a specific layout.
 
+### Observable store: RecipesFolderStore
+
+`RecipesFolderStore` (`CookbookApp/Recipes/RecipesFolderStore.swift`) is an
+`@Observable final class` that owns bookmark persistence and resolution. It
+exposes a single published property `folderURL: URL?` that `AppRoot` observes
+to gate the UI.
+
+**UserDefaults keys:**
+
+| Key | Type | Contents |
+|-----|------|----------|
+| `recipesFolderBookmark` | `Data` | Security-scoped bookmark blob |
+| `recipesFolderName` | `String` | Display name (URL last path component) |
+
+Both keys are written together on folder selection and cleared together on
+stale-bookmark recovery or on any resolution failure.
+
+### Stale bookmark handling
+
+`RecipesFolderStore` calls `URL(resolvingBookmarkData:options:relativeTo:bookmarkDataIsStale:)`
+at init time. If `isStale` is `true` after resolution, the store treats the
+bookmark as invalid: it removes both `recipesFolderBookmark` and
+`recipesFolderName` from `UserDefaults`, sets `folderURL = nil`, and returns
+without retaining the URL. `AppRoot` then observes `folderURL == nil` and
+renders `FolderSetupView`, prompting the user to re-pick. Any `catch` from the
+bookmark API also triggers the same clear-and-nil path.
+
 ### App-level gating on folder selection
 
 The recipes folder is a hard prerequisite for the entire app. Without it,
 the meal-plans and shopping-lists tabs have no source of recipes either,
 so the tab bar is itself meaningless.
 
-`AppRoot` therefore branches at app launch:
+`AppRoot` observes `RecipesFolderStore` (injected via `.environment(store)`)
+and branches at app launch:
 
-- **No folder configured** (no bookmark in `UserDefaults`, or the
-  resolved bookmark is stale) → render a single full-screen
-  `FolderSetupView`: a centered icon, title ("Please select a folder
-  with recipes"), brief explanation, and a primary "Choose folder…"
+- **No folder configured** (`store.folderURL == nil` — no bookmark in
+  `UserDefaults`, or the resolved bookmark was stale and cleared) → render a
+  single full-screen `FolderSetupView`: a centered icon, title ("Please select
+  a folder with recipes"), brief explanation, and a primary "Choose folder…"
   button that triggers the same `UIDocumentPicker` flow Settings uses.
   No tab bar, no Settings sheet. The Settings surface is unreachable
   in this state — it isn't needed because there's nothing to configure
   yet beyond the folder itself.
-- **Folder configured** → render the standard `TabView` shell from
-  spec 0002 with all three tabs.
+- **Folder configured** (`store.folderURL != nil`) → render the standard
+  `TabView` shell from spec 0002 with all three tabs.
 
 After the user picks a folder from the setup view, `AppRoot` transitions
 to the tab-bar shell on the next render. After that, the user can
@@ -49,6 +77,46 @@ DO still need to handle "folder is configured but contains no items
 of this type" — for example, the recipes list shows an empty-state
 message when the folder has zero `.cook` files, the meal-plans tab
 shows an empty-state when no meal-plan files exist, etc.
+
+### Folder enumeration
+
+`RecipeDiscovery.scan(folderURL:)` (`CookbookApp/Recipes/RecipeDiscovery.swift`)
+performs a **top-level-only** scan of the configured folder:
+
+- `.cook` files (case-insensitive extension) directly in the configured
+  folder → collected into a section named `(no folder)`.
+- Immediate subdirectories → each becomes a named section; only the
+  top level of that subdirectory is scanned (no further recursion).
+- Hidden files and dotfolders (names starting with `.`) are skipped at
+  every level.
+
+**Sort order:**
+
+1. Named sections are sorted alphabetically (case-insensitive).
+2. The `(no folder)` section, when present, is appended last regardless
+   of alphabetical position.
+3. Within each section, rows are sorted alphabetically by display name
+   (case-insensitive).
+
+The scan runs off the main thread (detached `Task` in `RecipesListView`)
+and wraps the folder URL with `startAccessingSecurityScopedResource()` /
+`stopAccessingSecurityScopedResource()`.
+
+### Reusable Recipes UI components
+
+The following components were introduced in spec 0003 and are available
+for reuse by future specs:
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| `RecipesListView` | `CookbookApp/Recipes/RecipesListView.swift` | Full list view: search field, collapsible `FolderSection` sections, tap-to-detail sheet wiring |
+| `RecipeRowView` | `CookbookApp/Recipes/RecipeRowView.swift` | Single recipe row: 56×56 thumbnail, display name, trailing chevron |
+| `RecipeThumbnailView` | `CookbookApp/Recipes/RecipeThumbnailView.swift` | Async thumbnail loader with `NSCache`-backed in-memory cache (200-image limit) and `fork.knife` SF Symbol fallback |
+
+**Visual verification note:** Thumbnail loading, section collapse animation,
+and search-clear behaviour are implemented per spec 0003 but cannot be
+unit-tested. These require manual visual review by the user before
+shipping.
 
 ## CookLang parser
 
