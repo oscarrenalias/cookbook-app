@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
-  "dependencies": [],
+  "dependencies": [
+    "B-f38d1ccd",
+    "B-98e5ec8a"
+  ],
   "acceptance_criteria": [
     "Existing sanity test (1 + 1 == 2) is removed",
     "New @Test verifies SettingsView() instantiates without error",
