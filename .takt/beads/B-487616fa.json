@@ -3,7 +3,7 @@
   "title": "Shared review \u2014 CookbookCore parser spec sign-off",
   "agent_type": "review",
   "description": "Review all implementation beads, the test suite, documentation changes, and tester results against the spec acceptance criteria. Check that public API matches the cooklang-rs surface, quantity semantics are exact, error cases throw with valid line/column, xcodegen wiring is correct, and no out-of-scope features (unit conversion, scaling, extensions) have been introduced.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -9356,7 +9356,10 @@
   "conflict_risks": "None \u2014 all changes are in a feature worktree; no parallel bead touches Parser.swift.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-487616fa",
+    "expires_at": "2026-05-04T13:29:42.965353+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -9444,6 +9447,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-487616fa-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:59:43.398769+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:59:43.398795+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
