@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [],
+  "dependencies": [
+    "B-d6d18349"
+  ],
   "acceptance_criteria": [
     "Returns [FolderSection] for a given folder URL.",
     "Top-level .cook files are grouped under (no folder).",
