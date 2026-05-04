@@ -1,0 +1,74 @@
+{
+  "bead_id": "B-bd1e19fc",
+  "title": "Tests: RecipeFile, RecipeDiscovery, RecipesFolderStore, AppRoot gating",
+  "agent_type": "tester",
+  "description": "Add unit tests using Swift Testing (import Testing, @Test, #expect \u2014 not XCTest). RecipeFileTests: display-name derivation strips .cook case-insensitively (Creamy Chicken Alfredo.cook \u2192 Creamy Chicken Alfredo; Pasta.COOK \u2192 Pasta). RecipeDiscoveryTests: against a temporary fixture directory containing 2 subdirectories with mixed .cook/non-.cook files, 1 top-level .cook file, 1 hidden dotfolder, 1 non-.cook file \u2014 asserts section count, names, row counts, alphabetical sort, (no folder) last, hidden entries skipped. RecipesFolderStoreTests: bookmark round-trip resolves to same directory after re-instantiation; stale bookmark clears both UserDefaults keys and yields nil resolvedFolderURL. AppRoot tests: nil store \u2192 FolderSetupView visible, tab bar absent; configured store \u2192 tab bar visible, FolderSetupView absent. Run xcodebuild test to confirm all pass.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-94e95439",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All test files compile with Swift Testing (import Testing, @Test, #expect).",
+    "RecipeFileTests: .cook stripped case-insensitively.",
+    "RecipeDiscoveryTests: correct section count, names, row counts, sort order, (no folder) last, hidden skipped, non-.cook excluded.",
+    "RecipesFolderStoreTests: round-trip resolves to same directory after re-init.",
+    "RecipesFolderStoreTests: stale bookmark clears UserDefaults and yields nil resolvedFolderURL.",
+    "AppRoot test: nil state \u2192 FolderSetupView present, tab bar absent.",
+    "AppRoot test: configured state \u2192 tab bar present, FolderSetupView absent.",
+    "xcodebuild test exits with no failures."
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-94e95439",
+  "execution_branch_name": "feature/b-94e95439",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-94e95439",
+  "expected_files": [
+    "CookbookAppTests/RecipeFileTests.swift",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:30:21.848402+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
