@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
-  "dependencies": [],
+  "dependencies": [
+    "B-df82530a",
+    "B-5c108e84"
+  ],
   "acceptance_criteria": [
     "RecipesTab.swift no longer renders EmptyStateView as its primary content",
     "RecipesListView is the primary content of the NavigationStack",
