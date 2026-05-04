@@ -3,7 +3,7 @@
   "title": "dev-11: CooklangParser public facade",
   "agent_type": "developer",
   "description": "Implement the public CooklangParser struct in CooklangParser.swift. Exposes init(extensions:converter:), static .canonical and .extended instances, parse(_:) -> Recipe, and parseMetadata(_:) -> Metadata. Delegates to the internal document-structure parser. All public API types must be exported from CookbookCore.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -30,37 +30,52 @@
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/.build/.lock",
+    "Packages/CookbookCore/.build/build.db",
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/.build/.lock",
+    "Packages/CookbookCore/.build/build.db",
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "All acceptance criteria satisfied: CooklangParser.swift exists with public struct CooklangParser, init(extensions:converter:), static canonical/extended instances, parse(_:)->Recipe, and parseMetadata(_:)->Metadata. Build succeeds cleanly.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "The .cook fixture files in Tests/CookbookCoreTests/Fixtures/ emit SPM resource warnings; the tester bead should declare them as .copy resources in Package.swift to eliminate the warnings.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/.build/.lock",
+      "Packages/CookbookCore/.build/build.db",
+      "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Proceed to tester bead for CooklangParser public facade tests.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "Packages/CookbookCore/.build/.lock",
+      "Packages/CookbookCore/.build/build.db",
+      "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    ],
+    "conflict_risks": "None. CooklangParser.swift is self-contained and no other in-progress beads touch it.",
+    "design_decisions": "CooklangParser delegates all parsing to internal Parser (inline components) and CommentStripper, keeping the public facade thin. parseMetadata(_:) re-uses parse(_:).metadata rather than duplicating logic.",
+    "test_coverage_notes": "Tester bead should cover: parse(\"\") returns empty Recipe, round-trip equality, metadata extraction, section headers, and the canonical vs extended static instances.",
+    "known_limitations": "The .cook fixture files in Tests/ emit SPM resource warnings because they are not declared as .copy resources in Package.swift. This is cosmetic and does not affect compilation or test correctness, but should be addressed in a follow-up bead or by the tester agent updating Package.swift."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None. CooklangParser.swift is self-contained and no other in-progress beads touch it.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
-  "lease": {
-    "owner": "developer:B-a8e98d0e",
-    "expires_at": "2026-05-04T12:59:06.621555+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -111,6 +126,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-a8e98d0e/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T12:30:38.418979+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "CooklangParser.swift already contained a complete, correct public facade implementation. Verified all six acceptance criteria are met and swift build from Packages/CookbookCore/ succeeds (Build complete!, only pre-existing .cook resource warnings).",
+      "details": {}
     }
   ],
   "metadata": {
@@ -186,7 +208,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "CooklangParser.swift already contained a complete, correct public facade implementation. Verified all six acceptance criteria are met and swift build from Packages/CookbookCore/ succeeds (Build complete!, only pre-existing .cook resource warnings).",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.23851325,
+      "duration_ms": 89425,
+      "duration_api_ms": 78364,
+      "num_turns": 13,
+      "input_tokens": 10,
+      "output_tokens": 3224,
+      "cache_creation_tokens": 28766,
+      "cache_read_tokens": 159847,
+      "stop_reason": "end_turn",
+      "session_id": "69c39ca4-85f9-4b7e-b987-97b916e12f2d",
+      "permission_denials": [],
+      "prompt_chars": 6551,
+      "prompt_lines": 146,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.23851325,
+        "duration_ms": 89425,
+        "duration_api_ms": 78364,
+        "num_turns": 13,
+        "input_tokens": 10,
+        "output_tokens": 3224,
+        "cache_creation_tokens": 28766,
+        "cache_read_tokens": 159847,
+        "stop_reason": "end_turn",
+        "session_id": "69c39ca4-85f9-4b7e-b987-97b916e12f2d",
+        "permission_denials": [],
+        "prompt_chars": 6551,
+        "prompt_lines": 146,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "40502d20cd69f13c241714baf1de2b07a3ba1e0d"
   },
   "labels": [],
   "recovery_for": null,
