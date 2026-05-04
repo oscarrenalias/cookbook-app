@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-13560a1a"
+  ],
   "acceptance_criteria": [
     "Packages/CookbookCore/Sources/CookbookCore/Extensions.swift declares public struct Extensions: OptionSet, Sendable with rawValue: Int, static let canonical = Extensions([]), and static let all.",
     "Packages/CookbookCore/Sources/CookbookCore/Converter.swift declares public struct Converter: Sendable with static let empty and static let bundled (stub, no conversion logic).",
