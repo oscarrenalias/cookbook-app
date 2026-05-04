@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-d19f677c",
+  "title": "Review: spec 0003 implementation",
+  "agent_type": "review",
+  "description": "Review all changes from spec 0003 for correctness, spec compliance, UI guidelines adherence, security-scoped resource handling hygiene, test coverage, and absence of out-of-scope features. Verify xcodebuild test passes. Flag visual-only items (thumbnail loading, section animation, search-clear behaviour) as requiring manual visual review by the user.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-94e95439",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All spec 0003 acceptance criteria are addressed in the implementation.",
+    "Security-scoped bookmark access is always bracketed by start/stopAccessingSecurityScopedResource.",
+    "Stale bookmark handling clears UserDefaults and shows FolderSetupView.",
+    "No out-of-scope features introduced (persistent cache, multi-select, recursive scan, etc.).",
+    "All tests pass using Swift Testing.",
+    "Visual-only items are explicitly flagged for manual user review.",
+    "UI guidelines (stock SwiftUI, SF Symbols, semantic colours, accessibility labels) are followed.",
+    "docs/architecture.md is updated correctly."
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/architecture.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-94e95439",
+  "execution_branch_name": "feature/b-94e95439",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-94e95439",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:30:22.484086+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
