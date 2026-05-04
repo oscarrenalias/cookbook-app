@@ -3,7 +3,7 @@
   "title": "Update architecture doc for app shell",
   "agent_type": "documentation",
   "description": "Update docs/architecture.md to document the navigation structure introduced by spec 0002: AppRoot as the TabView root, the three-tab layout and their SF Symbols, RecipesTab as the NavigationStack host and gear-icon entry point for SettingsView, and EmptyStateView as the shared empty-state component. Keep additions concise and consistent with the existing doc style. Do not duplicate content already present.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
   "dependencies": [
@@ -201,9 +201,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.\nproject.pbxproj was modified to add Common and Tabs groups and source files. Any sibling bead that also edits project.pbxproj may conflict on these sections. Coordinate project.pbxproj edits sequentially.\nNone. SettingsView.swift is a new file in a new directory; no overlap with other in-flight beads.\nproject.pbxproj was modified; any sibling bead that also edits this file will need a merge. Tabs group and Sources build phase both touched.\nNone \u2014 AppRoot.swift is a new file with no overlap with sibling beads currently in flight.\nNone \u2014 ContentView.swift is deleted and CookbookAppApp.swift is a single-owner file with no sibling bead contention.\nAppRoot.swift now has a static tabTitles property \u2014 any downstream bead that adds or reorders tabs must update this array to keep the test green.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-e918ee06",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
+  "lease": {
+    "owner": "documentation:B-4823d6fc",
+    "expires_at": "2026-05-04T19:25:29.023176+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -212,9 +215,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T18:55:29.305170+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T18:55:29.305203+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4823d6fc",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4823d6fc/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
