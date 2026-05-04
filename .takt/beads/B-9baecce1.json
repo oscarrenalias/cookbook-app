@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
-  "dependencies": [],
+  "dependencies": [
+    "B-f38d1ccd"
+  ],
   "acceptance_criteria": [
     "CookbookApp/CookbookAppApp.swift WindowGroup body contains AppRoot()",
     "CookbookApp/ContentView.swift is deleted",
