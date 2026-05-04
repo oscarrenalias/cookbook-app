@@ -53,7 +53,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-df82530a-subtask-test",
   "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
   "branch_name": "",
   "worktree_path": "",
@@ -65,6 +65,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:40:30.597769+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-df82530a-subtask-test",
       "details": {}
     }
   ],
