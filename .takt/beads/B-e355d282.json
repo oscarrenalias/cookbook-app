@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-13560a1a"
+  ],
   "acceptance_criteria": [
     "project.yml contains a top-level packages: block with a local path entry pointing to Packages/CookbookCore.",
     "CookbookApp target in project.yml lists CookbookCore as a package dependency.",
