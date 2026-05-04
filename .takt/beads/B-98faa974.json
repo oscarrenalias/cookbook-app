@@ -3,7 +3,7 @@
   "title": "Shared documentation \u2014 CookbookCore API reference",
   "agent_type": "documentation",
   "description": "Update docs/architecture.md to reflect that the parser now lives in Packages/CookbookCore (the existing entry says 'module extraction happens in a later spec'). Document the quantity parsing rules and quantity table as a reference. Note that swift test is the fast inner-loop test command for parser work.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -9233,9 +9233,12 @@
   },
   "block_reason": "file-scope conflict with in-progress B-e0197a09",
   "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.\nNone \u2014 all three files are new additions with no changes to existing sources.\nNone.\nNo file overlap with sibling beads expected; Recipe.swift is a new file.\nproject.yml and CookbookApp/ exist as untracked files on main; the merge step will need to handle this overlap.\nNo conflicts expected; Scanner.swift is a new file with no overlap with existing sources.\nNone \u2014 new files only, no existing files modified.\nNone \u2014 Parser.swift is a new file with no overlap with other in-progress beads.\nParser.swift is the only changed file. Sibling beads that also modify Parser.swift may conflict; they should check for the new inBlockComment field and preprocessComments method.\nCooklangParser.swift is a new file with no sibling bead overlap. Parser.swift was touched to replace preprocessComments with CommentStripper and expose parseRawStep; any sibling bead that also edits Parser.swift would conflict at the parseStep/preprocessComments section.\nNone. CooklangParser.swift is self-contained and no other in-progress beads touch it.\nParser.swift changes are additive (new branch in parseComponent, guard condition widened for ~). Scanner.swift gains a new method. No removed APIs. Low conflict risk with sibling beads.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-2dfeba7e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "lease": {
+    "owner": "documentation:B-98faa974",
+    "expires_at": "2026-05-04T13:19:11.914631+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -9524,9 +9527,46 @@
       "agent_type": "documentation",
       "summary": "file-scope conflict with in-progress B-e0197a09",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:49:12.471683+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:49:12.471708+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-98faa974",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-98faa974/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
