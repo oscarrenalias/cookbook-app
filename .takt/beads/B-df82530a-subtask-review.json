@@ -23,10 +23,12 @@
   ],
   "expected_globs": [],
   "touched_files": [
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift"
   ],
   "changed_files": [
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
