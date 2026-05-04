@@ -3,7 +3,7 @@
   "title": "Wire AppRoot as app entry point and delete ContentView",
   "agent_type": "developer",
   "description": "Modify CookbookApp/CookbookAppApp.swift to replace ContentView() with AppRoot() in the WindowGroup body. Delete CookbookApp/ContentView.swift. Verify no remaining references to ContentView exist in the source tree.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
   "dependencies": [
@@ -25,37 +25,48 @@
     "CookbookApp/CookbookAppApp.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Modified CookbookApp/CookbookAppApp.swift to use AppRoot() as the WindowGroup root. Deleted CookbookApp/ContentView.swift. Confirmed zero remaining ContentView references across the Swift source tree.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "The `No such module 'CookbookCore'` SourceKit diagnostic is pre-existing and unrelated to this bead \u2014 it requires a full module build to resolve.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ContentView.swift",
+      "CookbookApp/CookbookAppApp.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify the app builds successfully with AppRoot() as the entry point.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/CookbookAppApp.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
+    "touched_files": [
+      "CookbookApp/ContentView.swift",
+      "CookbookApp/CookbookAppApp.swift"
+    ],
+    "conflict_risks": "None \u2014 ContentView.swift is deleted and CookbookAppApp.swift is a single-owner file with no sibling bead contention.",
     "design_decisions": "",
     "test_coverage_notes": "",
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 ContentView.swift is deleted and CookbookAppApp.swift is a single-owner file with no sibling bead contention.",
   "branch_name": "feature/b-e918ee06",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e918ee06",
-  "lease": {
-    "owner": "developer:B-9baecce1",
-    "expires_at": "2026-05-04T19:17:37.601233+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -97,6 +108,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-9baecce1/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T18:48:13.327885+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Replaced ContentView() with AppRoot() in CookbookAppApp.swift WindowGroup body. Deleted ContentView.swift. Verified no remaining ContentView references exist in any Swift source file.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -167,7 +185,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Replaced ContentView() with AppRoot() in CookbookAppApp.swift WindowGroup body. Deleted ContentView.swift. Verified no remaining ContentView references exist in any Swift source file.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.10995674999999999,
+      "duration_ms": 33037,
+      "duration_api_ms": 28432,
+      "num_turns": 9,
+      "input_tokens": 9,
+      "output_tokens": 1665,
+      "cache_creation_tokens": 10729,
+      "cache_read_tokens": 142220,
+      "stop_reason": "end_turn",
+      "session_id": "87bae689-ee43-47dd-9601-cd3a85c6f0fe",
+      "permission_denials": [],
+      "prompt_chars": 5552,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.10995674999999999,
+        "duration_ms": 33037,
+        "duration_api_ms": 28432,
+        "num_turns": 9,
+        "input_tokens": 9,
+        "output_tokens": 1665,
+        "cache_creation_tokens": 10729,
+        "cache_read_tokens": 142220,
+        "stop_reason": "end_turn",
+        "session_id": "87bae689-ee43-47dd-9601-cd3a85c6f0fe",
+        "permission_denials": [],
+        "prompt_chars": 5552,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "8095afd3b09ea1a1bbaf1e588db1a545a2b38451"
   },
   "labels": [],
   "recovery_for": null,
