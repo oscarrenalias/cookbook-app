@@ -3,7 +3,7 @@
   "title": "Review Fix RecipesFolderStore .withSecurityScope iOS unavailability",
   "agent_type": "review",
   "description": "Review implementation for B-8197dbad-subtask",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-8197dbad-subtask",
   "dependencies": [
@@ -71,7 +71,10 @@
   "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-8197dbad-subtask-review",
+    "expires_at": "2026-05-04T21:20:16.055908+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -132,6 +135,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-8197dbad-subtask-review-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:50:16.275107+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:50:16.275132+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
