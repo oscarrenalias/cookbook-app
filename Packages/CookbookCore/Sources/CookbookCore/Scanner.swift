@@ -34,4 +34,16 @@ struct Scanner {
         advance()
         return true
     }
+
+    // Returns true if '{' appears before any sigil (@, #, ~) or newline from the current position.
+    func peekForBrace() -> Bool {
+        var i = index
+        while i < source.count {
+            let ch = source[i]
+            if ch == "{" { return true }
+            if ch == "@" || ch == "#" || ch == "~" || ch == "\n" { return false }
+            i += 1
+        }
+        return false
+    }
 }

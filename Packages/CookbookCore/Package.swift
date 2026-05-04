@@ -21,7 +21,8 @@ let package = Package(
         .testTarget(
             name: "CookbookCoreTests",
             dependencies: ["CookbookCore"],
-            path: "Tests/CookbookCoreTests"
+            path: "Tests/CookbookCoreTests",
+            resources: [.copy("Fixtures")]
         ),
     ]
 )

@@ -48,15 +48,25 @@ public struct Parser {
 
         var name = ""
         if scanner.peek() != "{" {
-            while let ch = scanner.peek(), ch != "{" && !ch.isWhitespace && ch != "@" && ch != "#" && ch != "~" {
-                name.append(ch)
-                scanner.advance()
+            if scanner.peekForBrace() {
+                // Multi-word name: read everything up to '{', then trim trailing whitespace.
+                while let ch = scanner.peek(), ch != "{" {
+                    name.append(ch)
+                    scanner.advance()
+                }
+                name = name.trimmingCharacters(in: .whitespaces)
+            } else {
+                while let ch = scanner.peek(), ch != "{" && !ch.isWhitespace && ch != "@" && ch != "#" && ch != "~" {
+                    name.append(ch)
+                    scanner.advance()
+                }
             }
         }
 
         var quantity: Quantity? = nil
         if scanner.peek() == "{" {
-            guard !name.isEmpty else {
+            // Timers may be anonymous (name == ""); ingredients and cookware may not.
+            guard sigil == "~" || !name.isEmpty else {
                 throw CooklangError.parse(
                     message: "Empty component name before '{'",
                     line: errorLine,
