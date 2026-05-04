@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-6bb1fe62",
+    "B-24638685",
+    "B-7103482d"
+  ],
   "acceptance_criteria": [
     "@name parses to Ingredient with quantity nil.",
     "@name{} parses to Ingredient with quantity nil.",
