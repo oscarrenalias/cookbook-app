@@ -6,9 +6,7 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [
-    "B-1abcb8e2"
-  ],
+  "dependencies": [],
   "acceptance_criteria": [
     "xcodegen generate exits without error.",
     "All new .swift source files appear in the regenerated .xcodeproj.",
