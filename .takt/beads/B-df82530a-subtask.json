@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-df82530a-subtask",
+  "title": "Fix RecipesFolderStore.swift: withSecurityScope unavailable on iOS",
+  "agent_type": "developer",
+  "description": "RecipesFolderStore.swift uses URL.BookmarkCreationOptions.withSecurityScope and URL.BookmarkResolutionOptions.withSecurityScope which are macOS-only. On iOS, security-scoped bookmarks use different options (no .withSecurityScope flag needed; UIDocument-based apps receive bookmarks from the document picker directly). Fix to use the correct iOS bookmark options so the arm64 build succeeds.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-df82530a",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "arm64 build of CookbookApp target succeeds with no errors",
+    "RecipesFolderStore still persists and resolves bookmarks from UIDocumentPicker",
+    "saveBookmark and resolveBookmark use iOS-compatible URL.BookmarkCreationOptions / URL.BookmarkResolutionOptions"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T20:02:50.816205+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "discovered_by": "B-df82530a"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
