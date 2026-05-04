@@ -63,6 +63,12 @@
     ".takt/beads/B-e0197a09.json",
     ".takt/beads/B-e355d282.json",
     ".takt/beads/B-f8dad46b.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+    "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
     "Packages/CookbookCore/.build/.lock",
     "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Converter.d",
     "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Converter.dia",
@@ -2957,7 +2963,8 @@
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Timer.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CookbookCoreTests.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift",
+    "project.yml"
   ],
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/",
@@ -2985,6 +2992,12 @@
     ".takt/beads/B-e0197a09.json",
     ".takt/beads/B-e355d282.json",
     ".takt/beads/B-f8dad46b.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+    "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
     "Packages/CookbookCore/.build/.lock",
     "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Converter.d",
     "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Converter.dia",
@@ -5879,7 +5892,8 @@
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Timer.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CookbookCoreTests.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift",
+    "project.yml"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -5902,6 +5916,12 @@
     ".takt/beads/B-e0197a09.json",
     ".takt/beads/B-e355d282.json",
     ".takt/beads/B-f8dad46b.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+    "CookbookApp.xcodeproj/xcshareddata/xcschemes/CookbookApp.xcscheme",
+    "CookbookApp/ContentView.swift",
+    "CookbookApp/CookbookAppApp.swift",
+    "CookbookAppTests/CookbookAppTests.swift",
     "Packages/CookbookCore/.build/.lock",
     "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Converter.d",
     "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Converter.dia",
@@ -8796,7 +8816,8 @@
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Timer.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CookbookCoreTests.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift",
+    "project.yml"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -8820,7 +8841,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.\nNone \u2014 all three files are new additions with no changes to existing sources.\nNone.\nNo file overlap with sibling beads expected; Recipe.swift is a new file.",
+  "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.\nNone \u2014 all three files are new additions with no changes to existing sources.\nNone.\nNo file overlap with sibling beads expected; Recipe.swift is a new file.\nproject.yml and CookbookApp/ exist as untracked files on main; the merge step will need to handle this overlap.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
