@@ -95,6 +95,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T19:45:51.132301+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-60f3bb77/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-60f3bb77/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -111,7 +120,68 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-60f3bb77/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-60f3bb77/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T19:45:51.132285+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-60f3bb77",
+      "feature_root_id": "B-80f696d9",
+      "title": "Add RecipeDiscovery scanner",
+      "agent_type": "developer",
+      "description": "Create CookbookApp/Recipes/RecipeDiscovery.swift with a FolderSection struct (name: String, recipes: [RecipeFile]) and a scan(folderURL:) function. Scans only the top level of the given folder URL: .cook files directly under the root go into a '(no folder)' section sorted last; each immediate subdirectory becomes its own named section. Hidden entries (names starting with '.') are skipped. Sections sorted alphabetically; recipes within each section sorted case-insensitively. Security-scoped resource access must be bracketed.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "CookbookApp/Recipes/RecipeDiscovery.swift exists",
+        "FolderSection struct has name: String and recipes: [RecipeFile]",
+        "Root-level .cook files appear in a section named '(no folder)' sorted last",
+        "Immediate subdirectories each produce one named section",
+        "No recursion beyond one level \u2014 subdirectories of subdirectories are ignored",
+        "Hidden files and dotfolders (leading '.') are skipped",
+        "Only .cook files included (case-insensitive extension check)",
+        "Sections sorted alphabetically; '(no folder)' always last",
+        "Recipes within each section sorted alphabetically case-insensitively",
+        "startAccessingSecurityScopedResource / stopAccessingSecurityScopedResource brackets every read"
+      ],
+      "dependencies": [
+        "B-fe0ec28e"
+      ],
+      "linked_docs": [
+        "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-80f696d9",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeDiscovery.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
