@@ -2,18 +2,17 @@
 name: App Shell with Settings Entry Point
 id: spec-b15d4b1a
 description: "Three-tab navigation skeleton (Recipes, Meal Plans, Shopping Lists) with a Settings sheet presented from a gear icon in the Recipes toolbar."
-dependencies:
-- spec-5928bcd9
+dependencies: []
 priority: high
 complexity: low
-status: draft
+status: done
 tags:
 - ui
 - swiftui
 - navigation
 scope:
-  in: TabView with three tabs and SF Symbol icons, reusable EmptyStateView component, Settings sheet scaffold with placeholder folder row, replacement of the placeholder ContentView with AppRoot.
-  out: UIDocumentPicker integration, security-scoped bookmark persistence, CookLang parsing, recipe list rendering, real settings logic, meal plan or shopping list functionality, iPad-specific layouts.
+  in: "TabView with three tabs and SF Symbol icons, reusable EmptyStateView component, Settings sheet scaffold with placeholder folder row, replacement of the placeholder ContentView with AppRoot."
+  out: "UIDocumentPicker integration, security-scoped bookmark persistence, CookLang parsing, recipe list rendering, real settings logic, meal plan or shopping list functionality, iPad-specific layouts."
 feature_root_id: null
 ---
 # App Shell with Settings Entry Point
@@ -30,15 +29,21 @@ have a stable home to attach screens to.
   - "Recipes" with SF Symbol `book.closed`
   - "Meal Plans" with SF Symbol `calendar`
   - "Shopping Lists" with SF Symbol `cart`
-- Each tab, when selected, displays an empty-state view containing an icon,
-  a title matching the tab name, and a one-line subtitle indicating the tab
-  has no configured content yet (e.g., "No recipes folder selected.").
+- Each tab, when selected, displays an empty-state view (using the
+  reusable `EmptyStateView` component introduced by this spec) containing
+  an icon, a title matching the tab name, and a one-line subtitle.
+  Specific subtitles per tab:
+  - Recipes: "No recipes folder selected."
+  - Meal Plans: "No meal plans yet."
+  - Shopping Lists: "No shopping lists yet."
 - The Recipes tab is wrapped in a `NavigationStack` with navigation title
   "Recipes" and a trailing-toolbar gear icon button.
 - Tapping the gear icon presents a modal sheet whose navigation title is
   "Settings" and whose body contains a `Form` with a single section labeled
   "Recipes folder" holding a disabled row "Not configured".
-- The Settings sheet has a "Done" button that dismisses it.
+- The Settings sheet has a "Done" button in the top-trailing toolbar
+  position (`ToolbarItemPlacement.confirmationAction`) that dismisses
+  it.
 - A unit test verifies that `AppRoot` exposes three tab labels in the order
   above, and that `SettingsView` can be instantiated without crashing.
 - `xcodebuild test` (the project's configured `test_command`) passes after
