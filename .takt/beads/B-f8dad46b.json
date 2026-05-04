@@ -3,7 +3,7 @@
   "title": "dev-12: Test fixtures",
   "agent_type": "developer",
   "description": "Create .cook fixture files under Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/. One fixture per test scenario: empty recipe, single ingredient (no quantity), ingredient + timer with quantity, cookware, metadata block, line comment, single-line block comment, multi-line block comment (with a component inside the comment), section header, and one malformed input. Each file is named after its scenario.",
-  "status": "in_progress",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -97,6 +97,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-f8dad46b/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T11:48:46.146281+00:00",
+      "event": "updated",
+      "agent_type": "developer",
+      "summary": "Bead updated via CLI",
+      "details": {}
     }
   ],
   "metadata": {
