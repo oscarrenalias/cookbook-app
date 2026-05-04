@@ -23,10 +23,14 @@
   ],
   "expected_globs": [],
   "touched_files": [
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
   ],
   "changed_files": [
-    "CookbookApp/Recipes/RecipesFolderStore.swift"
+    "CookbookApp/Recipes/RecipesFolderStore.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
