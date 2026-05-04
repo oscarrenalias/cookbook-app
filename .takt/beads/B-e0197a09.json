@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-e0197a09",
+  "title": "Shared tester \u2014 CookbookCore parser validation",
+  "agent_type": "tester",
+  "description": "Run the full CookbookCore test suite, verify xcodebuild linkage, and confirm all spec acceptance criteria are met end-to-end.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "swift test from Packages/CookbookCore/ exits 0 with all tests green.",
+    "xcodebuild test (using the generated .xcodeproj) exits 0 and the test log shows CookbookCoreTests ran.",
+    "All quantity table rows from the spec are verified against actual parse output.",
+    "All three error cases (empty name, empty value + non-empty unit, double %) correctly throw CooklangError.parse.",
+    "Parser determinism: two successive parse calls on the same input return equal Recipe values.",
+    "Multi-line block comment test: component inside comment is absent from parsed recipe collections.",
+    "No regressions in any pre-existing CookbookApp tests."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:53.411291+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
