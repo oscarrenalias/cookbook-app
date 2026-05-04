@@ -4,13 +4,18 @@ public struct Parser {
     public private(set) var ingredients: [Ingredient] = []
     public private(set) var cookware: [Cookware] = []
     public private(set) var timers: [Timer] = []
-    private var inBlockComment: Bool = false
+    private var commentStripper = CommentStripper()
 
     public init() {}
 
     public mutating func parseStep(_ text: String) throws -> Step {
-        let stripped = preprocessComments(text)
-        var scanner = Scanner(stripped)
+        let stripped = commentStripper.strip(text)
+        return try parseRawStep(stripped)
+    }
+
+    // Parses pre-stripped text (caller is responsible for comment removal).
+    mutating func parseRawStep(_ text: String) throws -> Step {
+        var scanner = Scanner(text)
         var items: [Item] = []
         var textBuffer = ""
 
@@ -35,38 +40,6 @@ public struct Parser {
         }
 
         return Step(items: items)
-    }
-
-    // Strips line comments (-- to EOL) and block comments ([- ... -]) from a single line.
-    // Multi-line block comment state is tracked via inBlockComment across calls.
-    private mutating func preprocessComments(_ line: String) -> String {
-        var result = ""
-        let chars = Array(line)
-        var i = 0
-
-        while i < chars.count {
-            if inBlockComment {
-                if i + 1 < chars.count && chars[i] == "-" && chars[i + 1] == "]" {
-                    inBlockComment = false
-                    i += 2
-                } else {
-                    i += 1
-                }
-            } else {
-                if i + 1 < chars.count && chars[i] == "-" && chars[i + 1] == "-" {
-                    break
-                }
-                if i + 1 < chars.count && chars[i] == "[" && chars[i + 1] == "-" {
-                    inBlockComment = true
-                    i += 2
-                    continue
-                }
-                result.append(chars[i])
-                i += 1
-            }
-        }
-
-        return result
     }
 
     private mutating func parseComponent(sigil: Character, from scanner: inout Scanner) throws -> Item {
