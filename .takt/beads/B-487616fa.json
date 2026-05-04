@@ -3,7 +3,7 @@
   "title": "Shared review \u2014 CookbookCore parser spec sign-off",
   "agent_type": "review",
   "description": "Review all implementation beads, the test suite, documentation changes, and tester results against the spec acceptance criteria. Check that public API matches the cooklang-rs surface, quantity semantics are exact, error cases throw with valid line/column, xcodegen wiring is correct, and no out-of-scope features (unit conversion, scaling, extensions) have been introduced.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -9295,9 +9295,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Placeholder CookbookCore.swift must be replaced (not deleted without replacement) by the API-source bead to keep SwiftPM satisfied.\nNone \u2014 new file with no overlap with sibling beads.\nNo overlapping file scope with sibling beads; all three files are new.\nNone \u2014 all three files are new additions with no changes to existing sources.\nNone.\nNo file overlap with sibling beads expected; Recipe.swift is a new file.\nproject.yml and CookbookApp/ exist as untracked files on main; the merge step will need to handle this overlap.\nNo conflicts expected; Scanner.swift is a new file with no overlap with existing sources.\nNone \u2014 new files only, no existing files modified.\nNone \u2014 Parser.swift is a new file with no overlap with other in-progress beads.\nParser.swift is the only changed file. Sibling beads that also modify Parser.swift may conflict; they should check for the new inBlockComment field and preprocessComments method.\nCooklangParser.swift is a new file with no sibling bead overlap. Parser.swift was touched to replace preprocessComments with CommentStripper and expose parseRawStep; any sibling bead that also edits Parser.swift would conflict at the parseStep/preprocessComments section.\nNone. CooklangParser.swift is self-contained and no other in-progress beads touch it.\nParser.swift changes are additive (new branch in parseComponent, guard condition widened for ~). Scanner.swift gains a new method. No removed APIs. Low conflict risk with sibling beads.",
-  "branch_name": "",
+  "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-487616fa",
+    "expires_at": "2026-05-04T13:23:21.561419+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -9315,9 +9318,55 @@
       "details": {
         "error": "Command '['git', 'commit', '-m', '[bead] B-487616fa: ready', '--no-verify']' returned non-zero exit status 1."
       }
+    },
+    {
+      "timestamp": "2026-05-04T12:53:21.431444+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'commit', '-m', '[bead] B-487616fa: ready', '--no-verify']' returned non-zero exit status 1.",
+      "details": {
+        "error": "Command '['git', 'commit', '-m', '[bead] B-487616fa: ready', '--no-verify']' returned non-zero exit status 1."
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:53:21.664419+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:53:21.664437+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-487616fa",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-487616fa/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
