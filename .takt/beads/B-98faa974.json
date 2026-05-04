@@ -6,7 +6,22 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-13560a1a",
+    "B-6bb1fe62",
+    "B-24638685",
+    "B-b90a32d8",
+    "B-6f1a2404",
+    "B-6cb3adfb",
+    "B-7103482d",
+    "B-5ce77fed",
+    "B-01f592ff",
+    "B-adc0fa7a",
+    "B-a8e98d0e",
+    "B-f8dad46b",
+    "B-c1a9036a",
+    "B-e355d282"
+  ],
   "acceptance_criteria": [
     "docs/architecture.md CookLang parser section is updated: removes the 'module extraction happens in a later spec' note and records that CookbookCore lives at Packages/CookbookCore/.",
     "docs/architecture.md notes that swift test from Packages/CookbookCore/ is the fast parser test command.",
