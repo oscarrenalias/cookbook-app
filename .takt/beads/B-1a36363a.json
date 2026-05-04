@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e918ee06",
-  "dependencies": [],
+  "dependencies": [
+    "B-c87e31ca",
+    "B-692ebf08",
+    "B-98e5ec8a",
+    "B-5dd9db36",
+    "B-f38d1ccd",
+    "B-9baecce1",
+    "B-ce3a2177"
+  ],
   "acceptance_criteria": [
     "xcodegen generate completes without errors",
     "xcodebuild test exits 0 with zero test failures",
