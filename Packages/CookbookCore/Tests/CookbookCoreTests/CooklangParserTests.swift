@@ -196,6 +196,33 @@ struct CooklangParserTests {
         #expect(recipe.ingredients[0].quantity == Quantity(value: .number(0.5), unit: "cup"))
     }
 
+    @Test func quantityFractionWithSpacesAroundSlash() throws {
+        let recipe = try CooklangParser.canonical.parse("@ingredient{3 / 4%cup}")
+        #expect(recipe.ingredients[0].quantity == Quantity(value: .number(0.75), unit: "cup"))
+    }
+
+    // MARK: - Fraction spec boundary: invalid cases fall through to text
+
+    @Test func fractionNegativeNumeratorFallsToText() throws {
+        let recipe = try CooklangParser.canonical.parse("@x{-1/2%cup}")
+        #expect(recipe.ingredients[0].quantity == Quantity(value: .text("-1/2"), unit: "cup"))
+    }
+
+    @Test func fractionZeroDenominatorFallsToText() throws {
+        let recipe = try CooklangParser.canonical.parse("@x{1/0%cup}")
+        #expect(recipe.ingredients[0].quantity == Quantity(value: .text("1/0"), unit: "cup"))
+    }
+
+    @Test func fractionLeadingZeroDenominatorFallsToText() throws {
+        let recipe = try CooklangParser.canonical.parse("@x{1/02%cup}")
+        #expect(recipe.ingredients[0].quantity == Quantity(value: .text("1/02"), unit: "cup"))
+    }
+
+    @Test func fractionZeroNumeratorIsValidNumber() throws {
+        let recipe = try CooklangParser.canonical.parse("@x{0/2%cup}")
+        #expect(recipe.ingredients[0].quantity == Quantity(value: .number(0.0), unit: "cup"))
+    }
+
     @Test func quantityTextWithEmptyUnitDiscarded() throws {
         let recipe = try CooklangParser.canonical.parse("@ingredient{to taste%}")
         #expect(recipe.ingredients[0].quantity == Quantity(value: .text("to taste"), unit: nil))

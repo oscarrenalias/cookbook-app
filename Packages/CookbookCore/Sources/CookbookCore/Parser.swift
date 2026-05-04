@@ -144,7 +144,11 @@ struct Parser {
         if let slashIdx = s.firstIndex(of: "/") {
             let num = String(s[..<slashIdx]).trimmingCharacters(in: .whitespaces)
             let den = String(s[s.index(after: slashIdx)...]).trimmingCharacters(in: .whitespaces)
-            if let n = Double(num), let d = Double(den), d != 0 {
+            // Spec pattern ^\d+\s*/\s*[1-9]\d*$: numerator all-digits, denominator starts 1-9
+            let numOK = !num.isEmpty && num.allSatisfy { $0 >= "0" && $0 <= "9" }
+            let denOK = !den.isEmpty && den.first! >= "1" && den.first! <= "9"
+                     && den.dropFirst().allSatisfy { $0 >= "0" && $0 <= "9" }
+            if numOK && denOK, let n = Double(num), let d = Double(den) {
                 return .number(n / d)
             }
         }
