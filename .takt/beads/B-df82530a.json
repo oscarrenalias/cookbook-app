@@ -3,7 +3,7 @@
   "title": "Add RecipesListView with search and collapsible sections",
   "agent_type": "developer",
   "description": "Create CookbookApp/Recipes/RecipesListView.swift. Calls RecipeDiscovery.scan(folderURL:) to get [FolderSection] and renders them as a List. Each Section header shows a folder SF Symbol and the section name with a collapse chevron (default expanded). .searchable(text: $query, prompt: 'Search recipes') filters rows case-insensitively by displayName; sections with zero matching rows are hidden. Empty folder shows EmptyStateView(systemImage: 'tray', title: 'No recipes found', subtitle: 'Add .cook files to <folderName>.'). Search no-match shows EmptyStateView(systemImage: 'magnifyingglass', title: 'No matches'). Tapping a row sets selectedRecipe: RecipeFile? and presents a .sheet(item: $selectedRecipe) with a placeholder VStack (displayName as .title, path as .body .secondary, 'Detailed view coming in 0004' caption), 'Done' toolbar button, and .large detent.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-80f696d9",
   "dependencies": [
@@ -36,37 +36,48 @@
     "CookbookApp/Recipes/RecipesListView.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
-    "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "completed": "RecipesListView.swift created with: RecipeDiscovery.scan called in .task off main thread; List with Section(isExpanded:) per FolderSection using folder SF Symbol headers (iOS 17 collapsible, default expanded); .searchable(prompt: \"Search recipes\") with localizedCaseInsensitiveContains filtering; empty-section hiding in both base and search modes; EmptyStateView for empty-folder (tray icon) and search-no-match (magnifyingglass); .sheet(item: $selectedRecipe) placeholder with displayName/.title, path/.body/.secondary, caption, Done button, .large detent. xcodegen generate re-run successfully.",
+    "remaining": "RecipesTab.swift still shows an EmptyStateView placeholder and needs to be updated to embed RecipesListView when a folderURL is available \u2014 this is out of scope for this bead but required before the feature ships. Pre-existing RecipesFolderStore.swift build error (withSecurityScope unavailable on iOS) must be fixed to unblock full arm64 builds.",
+    "risks": "Pre-existing RecipesFolderStore.swift compile error (`URL.BookmarkResolutionOptions.withSecurityScope` and `URL.BookmarkCreationOptions.withSecurityScope` are macOS-only, not available on iOS 17) causes arm64 build failure; this error predates this bead. RecipesListView.swift x86_64 compilation is clean. Visual aspects (section collapse animation, search bar integration, sheet detent, thumbnail rendering) require manual UI review and cannot be verified by the tester agent without a functioning build.",
+    "verdict": "approved",
+    "findings_count": 1,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Fix pre-existing RecipesFolderStore.swift arm64 build error (withSecurityScope unavailable on iOS), then wire RecipesListView into RecipesTab to replace the EmptyStateView placeholder. After the build is green, run the test suite.",
+    "next_agent": "developer",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
+    "conflict_risks": "RecipesTab.swift needs updating to embed RecipesListView \u2014 any sibling bead touching RecipesTab.swift may conflict. The pre-existing RecipesFolderStore.swift arm64 error will block any agent that needs a green full build.",
+    "design_decisions": "Used `@State private var sections: [FolderSection]? = nil` (nil sentinel for loading) to avoid brief empty-state flash on mount. Used `sectionBinding(for:)` helper that creates per-section `Binding<Bool>` backed by `[String: Bool]` dict, defaulting to `true` so sections are expanded even during the brief window before expandedSections is populated. filteredSections filters out empty sections in the base case as well as during search \u2014 consistent with spec intent. Sheet content wrapped in NavigationStack so the Done toolbar button renders correctly.",
+    "test_coverage_notes": "No tests were added in this bead (view-only). Visual aspects (collapse animation, search placement, sheet detent, thumbnails) are implemented per spec but require manual visual verification. The tester agent should verify the view can be instantiated and check structural properties if snapshot/unit tests are in scope.",
+    "known_limitations": "EmptyStateView requires a non-optional `subtitle: String`; the search no-match state passes an empty string since the spec does not provide a subtitle for that state. `Section(isExpanded:)` requires iOS 17+ which matches the project deployment target."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "RecipesTab.swift needs updating to embed RecipesListView \u2014 any sibling bead touching RecipesTab.swift may conflict. The pre-existing RecipesFolderStore.swift arm64 error will block any agent that needs a green full build.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
-  "lease": {
-    "owner": "developer:B-df82530a",
-    "expires_at": "2026-05-04T20:27:33.174373+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -108,6 +119,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-df82530a/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T20:02:50.416770+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created CookbookApp/Recipes/RecipesListView.swift implementing the full recipes list with search, collapsible sections, empty states, and a placeholder tap-row sheet. The file compiles cleanly (confirmed via x86_64 build). A pre-existing arm64 build error in RecipesFolderStore.swift (`withSecurityScope` unavailable on iOS) was present before this bead and is flagged as a risk for the next agent.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -189,7 +207,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created CookbookApp/Recipes/RecipesListView.swift implementing the full recipes list with search, collapsible sections, empty states, and a placeholder tap-row sheet. The file compiles cleanly (confirmed via x86_64 build). A pre-existing arm64 build error in RecipesFolderStore.swift (`withSecurityScope` unavailable on iOS) was present before this bead and is flagged as a risk for the next agent.",
+      "verdict": "approved",
+      "findings_count": 1,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.63267655,
+      "duration_ms": 314013,
+      "duration_api_ms": 277163,
+      "num_turns": 16,
+      "input_tokens": 7069,
+      "output_tokens": 17129,
+      "cache_creation_tokens": 40928,
+      "cache_read_tokens": 459377,
+      "stop_reason": "end_turn",
+      "session_id": "62165129-2c40-4174-85c0-efd1e07ff5ea",
+      "permission_denials": [],
+      "prompt_chars": 7081,
+      "prompt_lines": 144,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.63267655,
+        "duration_ms": 314013,
+        "duration_api_ms": 277163,
+        "num_turns": 16,
+        "input_tokens": 7069,
+        "output_tokens": 17129,
+        "cache_creation_tokens": 40928,
+        "cache_read_tokens": 459377,
+        "stop_reason": "end_turn",
+        "session_id": "62165129-2c40-4174-85c0-efd1e07ff5ea",
+        "permission_denials": [],
+        "prompt_chars": 7081,
+        "prompt_lines": 144,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "743469c38a62bb9eb555c5086445388cafda933e"
   },
   "labels": [],
   "recovery_for": null,
