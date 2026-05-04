@@ -159,6 +159,15 @@
       "agent_type": "review",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:50:18.087466+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "review",
+      "summary": "Applied guardrails from .takt/agent-runs/B-8197dbad-subtask-review/repo/templates/agents/review.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-8197dbad-subtask-review/repo/templates/agents/review.md"
+      }
     }
   ],
   "metadata": {
@@ -179,7 +188,7 @@
       "agent_type": "review",
       "template_path": ".takt/agent-runs/B-8197dbad-subtask-review/repo/templates/agents/review.md",
       "template_text": "# Review Guardrails\n\nPrimary responsibility: Inspect code, tests, docs, and acceptance criteria for correctness, completeness, and risk.\n\nAllowed actions:\n- Review only the changed files listed in the bead's touched_files and changed_files fields. Do not read unrelated files.\n- Validate acceptance criteria against the implementation and handoff state.\n- Block with a clear recommendation when the bead actually requires implementation work.\n\nEfficiency constraints:\n- Do not run the test suite. Testing is the tester agent's responsibility.\n- Focus on correctness, completeness, and risk \u2014 not style or formatting.\n- Keep the review concise. If there are no findings, say so and approve promptly.\n\nDisallowed actions:\n- Implement feature work, tests, or docs instead of reporting findings.\n- Rewrite architecture or silently fix issues discovered during review.\n- Mark incomplete work as accepted without evidence.\n\nExpected outputs:\n- Return JSON with `outcome` set to `completed` (reviews always complete; use `verdict` for pass/fail) and `summary` as a one-line description of the review result.\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the review signoff decision: `approved` means the bead can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when no unresolved findings remain.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved finding count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when any required fix remains.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Review findings ordered by severity, or an explicit statement that no findings were discovered.\n- Clear blocked handoff details when the task belongs to another agent type.",
-      "captured_at": "2026-05-04T20:39:01.734065+00:00"
+      "captured_at": "2026-05-04T20:50:18.087438+00:00"
     },
     "worker_prompt_context": {
       "bead_id": "B-8197dbad-subtask-review",
@@ -208,26 +217,38 @@
         "CookbookAppTests/RecipesFolderStoreTests.swift",
         "specs/drafts/0003-recipes-folder-access-and-list-view.md"
       ],
-      "conflict_risks": "None \u2014 fix is already committed and no other bead claims this file.",
+      "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
       "handoff_summary": {
-        "completed": "",
-        "remaining": "",
-        "risks": "",
-        "verdict": "",
-        "findings_count": 0,
-        "requires_followup": false,
-        "changed_files": [],
-        "updated_docs": [],
-        "next_action": "",
-        "next_agent": "",
-        "block_reason": "",
-        "expected_files": [],
+        "completed": "Reviewed all three changed files. The .withSecurityScope \u2192 options:[] fix in both resolvingBookmarkData and bookmarkData is correct. Spec documentation updated accurately in both the acceptance criterion and developer notes. Tests use Swift Testing and cover happy path, invalid data, and nil cases.",
+        "remaining": "Fix resource leak in saveBookmark: stopAccessingSecurityScopedResource() must be called even when bookmarkData() throws (use defer). Optionally guard on the Bool return of startAccessingSecurityScopedResource().",
+        "risks": "Resource leak in saveBookmark error path could exhaust the kernel security-scope permission table under repeated failures, though in practice the error path is rarely hit with freshly-picked URLs.",
+        "verdict": "needs_changes",
+        "findings_count": 1,
+        "requires_followup": true,
+        "changed_files": [
+          "CookbookApp/Recipes/RecipesFolderStore.swift",
+          "CookbookAppTests/RecipesFolderStoreTests.swift",
+          "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+        ],
+        "updated_docs": [
+          "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+        ],
+        "next_action": "Fix saveBookmark to call stopAccessingSecurityScopedResource() in all code paths (defer pattern). Re-review after fix.",
+        "next_agent": "developer",
+        "block_reason": "saveBookmark (RecipesFolderStore.swift:55-68) calls startAccessingSecurityScopedResource() on line 55 but only calls stop on line 61 inside the do body. If url.bookmarkData() throws, the catch block runs clearBookmark() without calling stop \u2014 violating Apple's requirement to always balance start with stop. Fix: add `defer { url.stopAccessingSecurityScopedResource() }` immediately after the start call (or after guarding on its return value), and remove the explicit stop on line 61.",
+        "expected_files": [
+          "CookbookApp/Recipes/RecipesFolderStore.swift"
+        ],
         "expected_globs": [],
-        "touched_files": [],
-        "conflict_risks": "",
-        "design_decisions": "",
-        "test_coverage_notes": "",
-        "known_limitations": ""
+        "touched_files": [
+          "CookbookApp/Recipes/RecipesFolderStore.swift",
+          "CookbookAppTests/RecipesFolderStoreTests.swift",
+          "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+        ],
+        "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
+        "design_decisions": "iOS bookmark API does not support .withSecurityScope; bare options: [] with startAccessingSecurityScopedResource() is the correct iOS pattern. The .withSecurityScope removal and resolveBookmark() verification call in saveBookmark are correct as implemented.",
+        "test_coverage_notes": "Three Swift Testing tests cover: bookmark round-trip, invalid data clear, and nil-on-no-bookmark. isStale path is not directly exercised but its clearBookmark() side-effect is covered by the invalid-data test. No new tests required for the saveBookmark fix \u2014 existing bookmarkRoundTrip test exercises the success path.",
+        "known_limitations": "startAccessingSecurityScopedResource() return value is discarded (informational); guarding on it would improve correctness but is not the primary blocker."
       }
     },
     "last_agent_result": {
