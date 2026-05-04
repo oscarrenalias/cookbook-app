@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-1abcb8e2",
+  "title": "Update AppRoot with folder gating logic",
+  "agent_type": "developer",
+  "description": "Modify CookbookApp/AppRoot.swift. Inject/observe RecipesFolderStore (instantiated once at the app level). When resolvedFolderURL is nil, render FolderSetupView full-screen with no tab bar. When resolvedFolderURL is non-nil, render the existing TabView shell. The branch re-evaluates reactively so the transition from setup view to tab bar happens without a manual app restart.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-94e95439",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "AppRoot observes RecipesFolderStore.",
+    "nil resolvedFolderURL renders FolderSetupView with no tab bar.",
+    "Non-nil resolvedFolderURL renders the TabView shell.",
+    "Transition from FolderSetupView to tab bar is reactive (no app restart needed).",
+    "RecipesFolderStore is instantiated once at app level."
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-94e95439",
+  "execution_branch_name": "feature/b-94e95439",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-94e95439",
+  "expected_files": [
+    "CookbookApp/AppRoot.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T18:30:21.203569+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
