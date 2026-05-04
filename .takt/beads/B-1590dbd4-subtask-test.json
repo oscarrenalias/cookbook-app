@@ -3,7 +3,7 @@
   "title": "Test Fix RecipesFolderStore iOS bookmark APIs",
   "agent_type": "tester",
   "description": "Validate implementation for B-1590dbd4-subtask",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-1590dbd4-subtask",
   "dependencies": [
@@ -45,9 +45,12 @@
   },
   "block_reason": "file-scope conflict with in-progress B-913ce23b-corrective",
   "conflict_risks": "None.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-80f696d9",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "lease": {
+    "owner": "tester:B-1590dbd4-subtask-test",
+    "expires_at": "2026-05-04T21:14:25.758311+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -63,9 +66,46 @@
       "agent_type": "tester",
       "summary": "file-scope conflict with in-progress B-913ce23b-corrective",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:44:26.041433+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:44:26.041455+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-1590dbd4-subtask-test",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-1590dbd4-subtask-test/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
