@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [],
+  "dependencies": [
+    "B-9d87766c",
+    "B-e930e104"
+  ],
   "acceptance_criteria": [
     "Disabled Not configured row is replaced.",
     "No-folder state shows an enabled Choose folder\u2026 button.",
