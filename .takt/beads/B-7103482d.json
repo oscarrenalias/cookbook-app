@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-13560a1a",
+    "B-6cb3adfb"
+  ],
   "acceptance_criteria": [
     "An internal Scanner (or Lexer) type exists under Packages/CookbookCore/Sources/CookbookCore/.",
     "Scanner tracks current position as (line: Int, column: Int) starting at (1, 1).",
