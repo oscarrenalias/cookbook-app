@@ -6,7 +6,7 @@ dependencies:
 - spec-b15d4b1a
 priority: high
 complexity: medium
-status: planned
+status: done
 tags:
 - ui
 - swiftui
