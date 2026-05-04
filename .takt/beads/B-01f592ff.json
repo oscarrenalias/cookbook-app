@@ -252,6 +252,13 @@
       "agent_type": "developer",
       "summary": "file-scope conflict with in-progress B-5ce77fed",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:30.543296+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
     }
   ],
   "metadata": {},
