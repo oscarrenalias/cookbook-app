@@ -100,6 +100,31 @@ generic fallback (`fork.knife`) when no mapping is known.
 
 CookLang metadata is **not** consulted for thumbnail paths.
 
+## App shell and navigation
+
+`AppRoot` (`CookbookApp/AppRoot.swift`) is the SwiftUI view set as the
+`WindowGroup` root in `CookbookAppApp.swift`. It owns a `TabView` with three
+tabs in this fixed order:
+
+| # | Label | SF Symbol |
+|---|-------|-----------|
+| 1 | Recipes | `book.closed` |
+| 2 | Meal Plans | `calendar` |
+| 3 | Shopping Lists | `cart` |
+
+`AppRoot.tabTitles` is a static array of these three labels; the unit tests
+use it to verify tab order without reaching into view internals.
+
+`RecipesTab` (`CookbookApp/Tabs/RecipesTab.swift`) wraps its content in a
+`NavigationStack` with navigation title "Recipes" and a trailing-toolbar gear
+icon. Tapping the gear icon presents `SettingsView` as a modal sheet (see
+Settings surface below).
+
+`EmptyStateView` (`CookbookApp/Common/EmptyStateView.swift`) is the shared
+empty-state component used by all three tabs. It accepts `systemImage`,
+`title`, and `subtitle` parameters and renders a centred icon-plus-text
+placeholder that fills the available space.
+
 ## Settings surface
 
 Settings is a modal sheet, presented from a gear icon in the Recipes tab
