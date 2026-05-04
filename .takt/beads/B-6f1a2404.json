@@ -3,7 +3,7 @@
   "title": "dev-05: Model \u2014 Metadata",
   "agent_type": "developer",
   "description": "Implement the Metadata struct in Metadata.swift. Metadata stores key-value string pairs and exposes a subscript(key: String) -> String?, computed properties servings: [Int]?, title: String?, tags: [String], and allEntries: [(key: String, value: String)]. Add Sendable and Equatable conformances.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -7961,7 +7961,7 @@
     "test_coverage_notes": "No tests added (tester bead responsibility). Key cases to cover: empty metadata, subscript hit/miss, servings comma-separated/whitespace-separated/mixed, nil when key absent, tags comma-split with whitespace trimming, allEntries order preservation.",
     "known_limitations": "Foundation is imported for CharacterSet and String.components(separatedBy:). This is standard on all supported platforms (iOS 17+, macOS 14+)."
   },
-  "block_reason": "Auto-commit failed: fatal: unable to stat 'Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p88148--ae154f/data.mdb': No such file or directory",
+  "block_reason": "",
   "conflict_risks": "No conflicts expected; this is a new file with no overlap with sibling beads.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
@@ -8020,6 +8020,13 @@
       "event": "corrective_planned",
       "agent_type": "developer",
       "summary": "Created corrective bead B-6f1a2404-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T11:48:44.715708+00:00",
+      "event": "retried",
+      "agent_type": "developer",
+      "summary": "Bead requeued",
       "details": {}
     }
   ],
