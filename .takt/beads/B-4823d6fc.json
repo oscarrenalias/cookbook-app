@@ -69,6 +69,7 @@
     ".takt/beads/B-f8dad46b.json",
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/EmptyStateView.swift",
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/Tabs/MealPlansTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift",
     "docs/architecture.md"
@@ -114,6 +115,7 @@
     ".takt/beads/B-f8dad46b.json",
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/EmptyStateView.swift",
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/Tabs/MealPlansTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
@@ -157,6 +159,7 @@
     ".takt/beads/B-f8dad46b.json",
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/EmptyStateView.swift",
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/Tabs/MealPlansTab.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift"
   ],
@@ -182,7 +185,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.\nproject.pbxproj was modified to add Common and Tabs groups and source files. Any sibling bead that also edits project.pbxproj may conflict on these sections. Coordinate project.pbxproj edits sequentially.",
+  "conflict_risks": "None within this file. The new Common/ directory must be included in project.yml source globs before xcodebuild runs.\nproject.pbxproj was modified to add Common and Tabs groups and source files. Any sibling bead that also edits project.pbxproj may conflict on these sections. Coordinate project.pbxproj edits sequentially.\nNone. SettingsView.swift is a new file in a new directory; no overlap with other in-flight beads.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
