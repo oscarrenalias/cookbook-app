@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [],
+  "dependencies": [
+    "B-9d87766c",
+    "B-e930e104"
+  ],
   "acceptance_criteria": [
     "Displays folder.badge.questionmark, title, and subtitle as specified.",
     "Choose folder\u2026 button is .borderedProminent and triggers RecipesFolderPicker.",
