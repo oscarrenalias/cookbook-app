@@ -3,7 +3,7 @@
   "title": "Review Fix RecipesFolderStore .withSecurityScope iOS unavailability",
   "agent_type": "review",
   "description": "Review implementation for B-8197dbad-subtask",
-  "status": "in_progress",
+  "status": "blocked",
   "bead_type": "task",
   "parent_id": "B-8197dbad-subtask",
   "dependencies": [
@@ -32,35 +32,46 @@
     "CookbookAppTests/RecipesFolderStoreTests.swift",
     "specs/drafts/0003-recipes-folder-access-and-list-view.md"
   ],
-  "updated_docs": [],
+  "updated_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
-    "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
-    "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
-    "block_reason": "",
-    "expected_files": [],
+    "completed": "Reviewed all three changed files. The .withSecurityScope \u2192 options:[] fix in both resolvingBookmarkData and bookmarkData is correct. Spec documentation updated accurately in both the acceptance criterion and developer notes. Tests use Swift Testing and cover happy path, invalid data, and nil cases.",
+    "remaining": "Fix resource leak in saveBookmark: stopAccessingSecurityScopedResource() must be called even when bookmarkData() throws (use defer). Optionally guard on the Bool return of startAccessingSecurityScopedResource().",
+    "risks": "Resource leak in saveBookmark error path could exhaust the kernel security-scope permission table under repeated failures, though in practice the error path is rarely hit with freshly-picked URLs.",
+    "verdict": "needs_changes",
+    "findings_count": 1,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift",
+      "CookbookAppTests/RecipesFolderStoreTests.swift",
+      "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+    ],
+    "updated_docs": [
+      "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+    ],
+    "next_action": "Fix saveBookmark to call stopAccessingSecurityScopedResource() in all code paths (defer pattern). Re-review after fix.",
+    "next_agent": "developer",
+    "block_reason": "saveBookmark (RecipesFolderStore.swift:55-68) calls startAccessingSecurityScopedResource() on line 55 but only calls stop on line 61 inside the do body. If url.bookmarkData() throws, the catch block runs clearBookmark() without calling stop \u2014 violating Apple's requirement to always balance start with stop. Fix: add `defer { url.stopAccessingSecurityScopedResource() }` immediately after the start call (or after guarding on its return value), and remove the explicit stop on line 61.",
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift",
+      "CookbookAppTests/RecipesFolderStoreTests.swift",
+      "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+    ],
+    "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
+    "design_decisions": "iOS bookmark API does not support .withSecurityScope; bare options: [] with startAccessingSecurityScopedResource() is the correct iOS pattern. The .withSecurityScope removal and resolveBookmark() verification call in saveBookmark are correct as implemented.",
+    "test_coverage_notes": "Three Swift Testing tests cover: bookmark round-trip, invalid data clear, and nil-on-no-bookmark. isStale path is not directly exercised but its clearBookmark() side-effect is covered by the invalid-data test. No new tests required for the saveBookmark fix \u2014 existing bookmarkRoundTrip test exercises the success path.",
+    "known_limitations": "startAccessingSecurityScopedResource() return value is discarded (informational); guarding on it would improve correctness but is not the primary blocker."
   },
-  "block_reason": "",
-  "conflict_risks": "None \u2014 fix is already committed and no other bead claims this file.",
+  "block_reason": "saveBookmark (RecipesFolderStore.swift:55-68) calls startAccessingSecurityScopedResource() on line 55 but only calls stop on line 61 inside the do body. If url.bookmarkData() throws, the catch block runs clearBookmark() without calling stop \u2014 violating Apple's requirement to always balance start with stop. Fix: add `defer { url.stopAccessingSecurityScopedResource() }` immediately after the start call (or after guarding on its return value), and remove the explicit stop on line 61.",
+  "conflict_risks": "None \u2014 fix is isolated to saveBookmark in RecipesFolderStore.swift; no other bead claims this file.",
   "branch_name": "feature/b-80f696d9",
   "worktree_path": "",
-  "lease": {
-    "owner": "review:B-8197dbad-subtask-review",
-    "expires_at": "2026-05-04T21:08:59.982598+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -101,6 +112,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-8197dbad-subtask-review/repo/templates/agents/review.md"
       }
+    },
+    {
+      "timestamp": "2026-05-04T20:40:29.447473+00:00",
+      "event": "blocked",
+      "agent_type": "review",
+      "summary": "Review found one medium-severity resource-leak finding in saveBookmark: stopAccessingSecurityScopedResource() is not called when bookmarkData() throws. Core iOS bookmark fix (options: [] replacing .withSecurityScope) is correct and spec doc is accurate.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -171,7 +189,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "blocked",
+      "summary": "Review found one medium-severity resource-leak finding in saveBookmark: stopAccessingSecurityScopedResource() is not called when bookmarkData() throws. Core iOS bookmark fix (options: [] replacing .withSecurityScope) is correct and spec doc is accurate.",
+      "verdict": "needs_changes",
+      "findings_count": 1,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": "saveBookmark (RecipesFolderStore.swift:55-68) calls startAccessingSecurityScopedResource() on line 55 but only calls stop on line 61 inside the do body. If url.bookmarkData() throws, the catch block runs clearBookmark() without calling stop \u2014 violating Apple's requirement to always balance start with stop. Fix: add `defer { url.stopAccessingSecurityScopedResource() }` immediately after the start call (or after guarding on its return value), and remove the explicit stop on line 61."
+    },
+    "telemetry": {
+      "cost_usd": 0.1786479,
+      "duration_ms": 87489,
+      "duration_api_ms": 81000,
+      "num_turns": 5,
+      "input_tokens": 5,
+      "output_tokens": 5341,
+      "cache_creation_tokens": 20590,
+      "cache_read_tokens": 62348,
+      "stop_reason": "end_turn",
+      "session_id": "9f24e34f-953c-4f59-9cfd-b1227cd0c66d",
+      "permission_denials": [],
+      "prompt_chars": 7629,
+      "prompt_lines": 153,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.1786479,
+        "duration_ms": 87489,
+        "duration_api_ms": 81000,
+        "num_turns": 5,
+        "input_tokens": 5,
+        "output_tokens": 5341,
+        "cache_creation_tokens": 20590,
+        "cache_read_tokens": 62348,
+        "stop_reason": "end_turn",
+        "session_id": "9f24e34f-953c-4f59-9cfd-b1227cd0c66d",
+        "permission_denials": [],
+        "prompt_chars": 7629,
+        "prompt_lines": 153,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
