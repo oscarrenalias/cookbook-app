@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-1590dbd4",
+  "title": "Update AppRoot with folder gating",
+  "agent_type": "developer",
+  "description": "Modify CookbookApp/AppRoot.swift to observe RecipesFolderStore and branch on folderURL: when nil, render FolderSetupView full-screen (no TabView, no visible tab bar, Settings unreachable); when non-nil, render the existing TabView shell. Instantiate RecipesFolderStore at this level and inject it into the environment so SettingsView, RecipesTab, and FolderSetupView all share the same instance.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "AppRoot.swift renders FolderSetupView (not TabView) when RecipesFolderStore.folderURL is nil",
+    "AppRoot.swift renders TabView when RecipesFolderStore.folderURL is non-nil",
+    "Tab bar is NOT visible in the no-folder state",
+    "Settings sheet is unreachable in the no-folder state",
+    "After folder selection in FolderSetupView, AppRoot transitions to tab shell on next render without manual navigation",
+    "RecipesFolderStore is instantiated once at AppRoot and provided via .environment"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/AppRoot.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:30.637130+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
