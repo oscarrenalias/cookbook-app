@@ -6,10 +6,7 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-94e95439",
-  "dependencies": [
-    "B-9d87766c",
-    "B-e930e104"
-  ],
+  "dependencies": [],
   "acceptance_criteria": [
     "Displays folder.badge.questionmark, title, and subtitle as specified.",
     "Choose folder\u2026 button is .borderedProminent and triggers RecipesFolderPicker.",
@@ -64,6 +61,15 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T18:34:49.226361+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-888174a4.json']' returned non-zero exit status 128.",
+      "details": {
+        "error": "Command '['git', 'add', '/Users/oscar.renalias/Projects/cookbook-app/.takt/beads/B-888174a4.json']' returned non-zero exit status 128."
+      }
     }
   ],
   "metadata": {},
