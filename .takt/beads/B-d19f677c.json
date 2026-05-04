@@ -7,8 +7,7 @@
   "bead_type": "task",
   "parent_id": "B-94e95439",
   "dependencies": [
-    "B-71a49caf",
-    "B-229358b5"
+    "B-71a49caf"
   ],
   "acceptance_criteria": [
     "All spec 0003 acceptance criteria are addressed in the implementation.",
