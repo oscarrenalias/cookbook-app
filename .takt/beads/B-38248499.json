@@ -1,0 +1,81 @@
+{
+  "bead_id": "B-38248499",
+  "title": "Regenerate Xcode project with xcodegen",
+  "agent_type": "developer",
+  "description": "Run 'xcodegen generate' in the project root after all new Swift source files are in place. Verify the new CookbookApp/Recipes/ group and FolderSetupView.swift appear in the generated .xcodeproj. If project.yml requires an explicit source glob or group entry for the new Recipes/ subdirectory, update it first. Confirm xcodebuild can compile after regeneration.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [
+    "B-fe0ec28e",
+    "B-60f3bb77",
+    "B-5c108e84",
+    "B-8e97ce86",
+    "B-8197dbad",
+    "B-e2456955",
+    "B-187479b6",
+    "B-df82530a",
+    "B-b1cb9eba",
+    "B-5b48d396",
+    "B-1590dbd4"
+  ],
+  "acceptance_criteria": [
+    "xcodegen generate completes without errors",
+    "CookbookApp/Recipes/ source group is present in the generated project",
+    "FolderSetupView.swift is included in the generated project",
+    "New test files in CookbookAppTests/ are included",
+    "xcodebuild build (or xcodebuild test) succeeds after regeneration"
+  ],
+  "linked_docs": [],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "project.yml"
+  ],
+  "expected_globs": [
+    "CookbookApp.xcodeproj/project.pbxproj"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:30.859218+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

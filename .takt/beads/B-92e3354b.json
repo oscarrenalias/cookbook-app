@@ -1,0 +1,91 @@
+{
+  "bead_id": "B-92e3354b",
+  "title": "Write tests for spec 0003",
+  "agent_type": "tester",
+  "description": "Write all unit tests for spec 0003 using Swift Testing (import Testing, @Test, #expect \u2014 no XCTest). RecipeDiscoveryTests: scan a temp fixture directory containing 2 subdirs with mixed .cook and non-.cook files, 1 root .cook file, 1 hidden dir, 1 non-.cook file; assert section count, section names, row counts per section, alphabetical sort, (no folder) last. RecipesFolderStoreTests: bookmark write + re-instantiate + resolve round-trip; stale bookmark \u2192 nil folderURL + UserDefaults cleared. RecipeFileTests: display name derivation ('Creamy Chicken Alfredo.cook' \u2192 'Creamy Chicken Alfredo', 'Pasta.COOK' \u2192 'Pasta'). AppRoot structural test: store with nil folder \u2192 FolderSetupView present, TabView absent; store with configured folder \u2192 TabView present.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [
+    "B-fe0ec28e",
+    "B-60f3bb77",
+    "B-5c108e84",
+    "B-8e97ce86",
+    "B-8197dbad",
+    "B-e2456955",
+    "B-187479b6",
+    "B-df82530a",
+    "B-b1cb9eba",
+    "B-5b48d396",
+    "B-1590dbd4",
+    "B-38248499"
+  ],
+  "acceptance_criteria": [
+    "CookbookAppTests/RecipeDiscoveryTests.swift exists and all @Test functions pass",
+    "RecipeDiscovery tests cover: 2 subdirs, 1 root .cook file, 1 hidden dir skipped, 1 non-.cook file skipped",
+    "Section count, names, row counts, alphabetical ordering, and (no folder) last placement are all asserted with #expect",
+    "CookbookAppTests/RecipesFolderStoreTests.swift exists and all @Test functions pass",
+    "Bookmark round-trip test: write bookmark for temp dir, re-instantiate store, assert folderURL points to same directory",
+    "Stale bookmark test: nil folderURL returned, both UserDefaults keys cleared",
+    "CookbookAppTests/RecipeFileTests.swift exists and all @Test functions pass",
+    "Display name tests cover standard and uppercase extension cases",
+    "AppRoot test asserts FolderSetupView presence when store.folderURL is nil and tab-bar absence",
+    "All tests use Swift Testing \u2014 import Testing, @Test, #expect",
+    "xcodebuild test succeeds with all new tests included"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipesFolderStoreTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:31.077074+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

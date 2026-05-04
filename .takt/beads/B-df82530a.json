@@ -1,0 +1,81 @@
+{
+  "bead_id": "B-df82530a",
+  "title": "Add RecipesListView with search and collapsible sections",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/Recipes/RecipesListView.swift. Calls RecipeDiscovery.scan(folderURL:) to get [FolderSection] and renders them as a List. Each Section header shows a folder SF Symbol and the section name with a collapse chevron (default expanded). .searchable(text: $query, prompt: 'Search recipes') filters rows case-insensitively by displayName; sections with zero matching rows are hidden. Empty folder shows EmptyStateView(systemImage: 'tray', title: 'No recipes found', subtitle: 'Add .cook files to <folderName>.'). Search no-match shows EmptyStateView(systemImage: 'magnifyingglass', title: 'No matches'). Tapping a row sets selectedRecipe: RecipeFile? and presents a .sheet(item: $selectedRecipe) with a placeholder VStack (displayName as .title, path as .body .secondary, 'Detailed view coming in 0004' caption), 'Done' toolbar button, and .large detent.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [
+    "B-187479b6",
+    "B-60f3bb77",
+    "B-5c108e84"
+  ],
+  "acceptance_criteria": [
+    "CookbookApp/Recipes/RecipesListView.swift exists",
+    "Calls RecipeDiscovery.scan to load sections from the provided folderURL",
+    "List renders one Section per FolderSection with folder SF Symbol headers",
+    "Sections are collapsible with chevron disclosure; default state is expanded",
+    ".searchable modifier with prompt 'Search recipes' is applied",
+    "Search filters case-insensitively by displayName substring",
+    "Sections with zero matching rows are hidden during search",
+    "Empty folder state shows EmptyStateView with tray icon and folder name in subtitle",
+    "Search no-match state shows EmptyStateView with magnifyingglass icon and 'No matches' title",
+    "Row tap sets selectedRecipe and presents .sheet(item:) \u2014 not .sheet(isPresented:)",
+    "Placeholder sheet contains displayName (.title), path (.body .secondary), caption 'Detailed view coming in 0004'",
+    "Placeholder sheet has 'Done' trailing toolbar button and .large detent"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:29.886581+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

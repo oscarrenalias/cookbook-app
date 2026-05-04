@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-b1cb9eba",
+  "title": "Update SettingsView with folder picker row",
+  "agent_type": "developer",
+  "description": "Modify CookbookApp/Settings/SettingsView.swift. Replace the disabled Text('Not configured') row in the 'Recipes folder' section with two conditional states driven by RecipesFolderStore: (a) no folder \u2014 an enabled Button('Choose folder\u2026') that presents RecipesFolderPicker; (b) folder configured \u2014 a row displaying folderName on the leading side and a trailing Button('Change\u2026') that also presents RecipesFolderPicker. Cancellation leaves prior state unchanged.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [
+    "B-8e97ce86",
+    "B-5c108e84"
+  ],
+  "acceptance_criteria": [
+    "SettingsView.swift no longer has a disabled 'Not configured' Text row",
+    "When RecipesFolderStore.folderURL is nil: enabled 'Choose folder\u2026' Button is shown",
+    "When RecipesFolderStore.folderURL is non-nil: row shows folderName leading and 'Change\u2026' button trailing",
+    "Both buttons present RecipesFolderPicker",
+    "Cancelling picker leaves RecipesFolderStore unchanged",
+    "RecipesFolderStore is accessed via environment or injected parameter \u2014 not re-instantiated"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Settings/SettingsView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:30.095699+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

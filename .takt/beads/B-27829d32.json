@@ -1,0 +1,84 @@
+{
+  "bead_id": "B-27829d32",
+  "title": "Update documentation for spec 0003",
+  "agent_type": "documentation",
+  "description": "Update docs/architecture.md to confirm the app-level gating section accurately reflects: RecipesFolderStore as the observable store, UserDefaults keys 'recipesFolderBookmark' and 'recipesFolderName', stale-bookmark clearing behaviour, and top-level-only folder enumeration with (no folder) section placement. Note any new reusable components (RecipeThumbnailView, RecipeRowView, RecipesListView) for future specs. Add a visual verification note: thumbnail loading, section collapse animation, and search-clear behaviour are implemented per spec but require manual visual review by the user.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [
+    "B-fe0ec28e",
+    "B-60f3bb77",
+    "B-5c108e84",
+    "B-8e97ce86",
+    "B-8197dbad",
+    "B-e2456955",
+    "B-187479b6",
+    "B-df82530a",
+    "B-b1cb9eba",
+    "B-5b48d396",
+    "B-1590dbd4",
+    "B-38248499"
+  ],
+  "acceptance_criteria": [
+    "docs/architecture.md bookmark persistence section names the two UserDefaults keys accurately",
+    "docs/architecture.md stale bookmark handling is described (detect isStale, clear keys, show FolderSetupView)",
+    "docs/architecture.md folder enumeration section reflects top-level-only scan and (no folder) sort-last rule",
+    "New reusable Recipes UI components are noted for awareness of future specs",
+    "Visual verification note included listing thumbnail loading, collapse animation, and search-clear as requiring manual review"
+  ],
+  "linked_docs": [
+    "docs/architecture.md",
+    "docs/ui-guidelines.md",
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "docs/architecture.md"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:31.289992+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

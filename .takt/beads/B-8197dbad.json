@@ -1,0 +1,77 @@
+{
+  "bead_id": "B-8197dbad",
+  "title": "Add FolderSetupView",
+  "agent_type": "developer",
+  "description": "Create CookbookApp/FolderSetupView.swift as a centered VStack layout shown full-screen when no folder is configured. Contains: folder.badge.questionmark SF Symbol at large size; title 'Please select a folder with recipes' (.title2 typography); subtitle 'Cookbook reads recipes from a folder you pick \u2014 on your device, in iCloud Drive, or any provider you have set up.' (.body, .foregroundStyle(.secondary)); a .borderedProminent Button('Choose folder\u2026') that presents RecipesFolderPicker. Accessibility label on the button.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-80f696d9",
+  "dependencies": [
+    "B-8e97ce86",
+    "B-5c108e84"
+  ],
+  "acceptance_criteria": [
+    "CookbookApp/FolderSetupView.swift exists",
+    "Centered layout with icon, title, subtitle, and button in a VStack",
+    "Icon: folder.badge.questionmark SF Symbol at large display size",
+    "Title text matches spec exactly with .title2 typography",
+    "Subtitle text matches spec exactly with .body and .foregroundStyle(.secondary)",
+    "Button styled .borderedProminent and labeled 'Choose folder\u2026'",
+    "Button presents RecipesFolderPicker on tap",
+    "After successful selection, AppRoot re-evaluates and transitions to tab shell on next render",
+    "Explicit .accessibilityLabel on the Choose folder button"
+  ],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/FolderSetupView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T19:44:29.050331+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
