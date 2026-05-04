@@ -90,6 +90,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeDiscovery.swift",
     "CookbookApp/Recipes/RecipeFile.swift",
     "docs/architecture.md"
   ],
@@ -149,6 +150,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeDiscovery.swift",
     "CookbookApp/Recipes/RecipeFile.swift"
   ],
   "changed_files": [
@@ -206,6 +208,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeDiscovery.swift",
     "CookbookApp/Recipes/RecipeFile.swift"
   ],
   "updated_docs": [],
@@ -230,7 +233,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.",
+  "conflict_risks": "No conflict risks. File is new and isolated; no existing files modified.\nNo conflicts expected. RecipeDiscovery.swift is a new file with no overlap with other in-progress beads.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
