@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
-  "dependencies": [],
+  "dependencies": [
+    "B-13560a1a"
+  ],
   "acceptance_criteria": [
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift exists.",
     "public struct Metadata: Sendable, Equatable is declared with the required subscript and computed properties.",
