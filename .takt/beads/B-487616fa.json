@@ -3,7 +3,7 @@
   "title": "Shared review \u2014 CookbookCore parser spec sign-off",
   "agent_type": "review",
   "description": "Review all implementation beads, the test suite, documentation changes, and tester results against the spec acceptance criteria. Check that public API matches the cooklang-rs surface, quantity semantics are exact, error cases throw with valid line/column, xcodegen wiring is correct, and no out-of-scope features (unit conversion, scaling, extensions) have been introduced.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-2dfeba7e",
   "dependencies": [
@@ -6289,7 +6289,7 @@
     "test_coverage_notes": "Test suite covers: empty input, named ingredient with nil quantity, ingredient+timer with quantity, cookware, metadata extraction, metadata not leaking into steps, line comments, single-line block comments, multi-line block comments, section headers, malformed input (empty component name), all 10 quantity table rows, all 3 error cases, and parse determinism. 11 fixtures present. MetadataTests covers all Metadata API surface. Coverage appears comprehensive for the defined spec.",
     "known_limitations": "Fraction parsing accepts negative numerators and non-integer denominators beyond the spec's `^\\d+\\s*/\\s*[1-9]\\d*$` pattern. Acceptable to leave as-is if the team decides the extra permissiveness is harmless, but should be tracked."
   },
-  "block_reason": "Review verdict requires changes.",
+  "block_reason": "",
   "conflict_risks": "None \u2014 all changes are in a feature worktree; no parallel bead touches Parser.swift.",
   "branch_name": "feature/b-2dfeba7e",
   "worktree_path": "",
@@ -6374,6 +6374,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-487616fa-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:59:34.991540+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-487616fa-corrective completed",
       "details": {}
     }
   ],
@@ -12653,7 +12660,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-487616fa-corrective"
+    "auto_corrective_bead_id": "B-487616fa-corrective",
+    "last_corrective_retry_source": "B-487616fa-corrective",
+    "last_corrective_retry_commit": "7abf48f550c63a7c981aa6134a85de398d25f322"
   },
   "labels": [],
   "recovery_for": null,
