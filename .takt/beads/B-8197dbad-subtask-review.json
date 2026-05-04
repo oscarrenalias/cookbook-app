@@ -119,6 +119,13 @@
       "agent_type": "review",
       "summary": "Review found one medium-severity resource-leak finding in saveBookmark: stopAccessingSecurityScopedResource() is not called when bookmarkData() throws. Core iOS bookmark fix (options: [] replacing .withSecurityScope) is correct and spec doc is accurate.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:40:30.087133+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-8197dbad-subtask-review-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -234,7 +241,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-8197dbad-subtask-review-corrective"
   },
   "labels": [],
   "recovery_for": null,
