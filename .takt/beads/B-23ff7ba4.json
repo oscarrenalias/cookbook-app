@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-23ff7ba4",
+  "title": "Implement ShoppingList Checklist View",
+  "agent_type": "developer",
+  "description": "Create `ShoppingList` and `ShoppingListItem` in one source file, with raw text storage plus a computed checklist-item view derived from the GFM checklist regex and line indices.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-419f1418",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`ShoppingList.swift` defines `ShoppingList` and `ShoppingListItem` with the public API from the spec.",
+    "`items` recomputes checklist items from `text` on each access in document order.",
+    "Checklist detection honours `^\\s*-\\s+\\[([ xX])\\]\\s+(.+)$`, records 0-based `lineIndex`, and preserves the captured item text verbatim.",
+    "`ShoppingList(text).text == text` remains true for any input."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T10:44:17.959485+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

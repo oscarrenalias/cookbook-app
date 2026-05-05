@@ -1,0 +1,333 @@
+{
+  "bead_id": "B-b490acff-test",
+  "title": "Test Tighten fraction regex to match spec exactly",
+  "agent_type": "tester",
+  "description": "Validate implementation for B-b490acff",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-b490acff",
+  "dependencies": [
+    "B-b490acff"
+  ],
+  "acceptance_criteria": [],
+  "linked_docs": [
+    "specs/planned/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "Packages/CookbookCore/.build/.lock",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.build/primary.priors",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/Relocations/aarch64/CookbookCorePackageTests.yml",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swift.o",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftmodule",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftsourceinfo",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-32IZ8ZSN2KUOP",
+    "Packages/CookbookCore/.build/build.db",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/.build/.lock",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.build/primary.priors",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/Relocations/aarch64/CookbookCorePackageTests.yml",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swift.o",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftmodule",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftsourceinfo",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-32IZ8ZSN2KUOP",
+    "Packages/CookbookCore/.build/build.db",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "Ran `swift test --filter CooklangParserTests` targeting only the relevant test file. All 31 tests passed, including fractionNegativeNumeratorFallsToText, fractionZeroDenominatorFallsToText, fractionLeadingZeroDenominatorFallsToText, fractionZeroNumeratorIsValidNumber, and quantityFractionWithSpacesAroundSlash.",
+    "remaining": "Nothing remaining for this bead.",
+    "risks": "None.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "Packages/CookbookCore/.build/.lock",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.build/primary.priors",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/Relocations/aarch64/CookbookCorePackageTests.yml",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swift.o",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftmodule",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftsourceinfo",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-32IZ8ZSN2KUOP",
+      "Packages/CookbookCore/.build/build.db",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "No further action required.",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "Packages/CookbookCore/.build/.lock",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.build/primary.priors",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/Relocations/aarch64/CookbookCorePackageTests.yml",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swift.o",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftmodule",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCoreTests.swiftsourceinfo",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-32IZ8ZSN2KUOP",
+      "Packages/CookbookCore/.build/build.db",
+      "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+    ],
+    "conflict_risks": "None.",
+    "design_decisions": "",
+    "test_coverage_notes": "31 tests executed in CooklangParserTests suite. The 5 new fraction-boundary tests all passed: negative numerator falls to text, zero denominator falls to text, leading-zero denominator falls to text, zero numerator is valid number (0.0), and spaces around slash are handled correctly.",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "None.",
+  "branch_name": "feature/b-2dfeba7e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T13:07:06.877934+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:09.439425+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T13:07:09.439450+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T13:07:09.839999+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "tester",
+      "summary": "Applied guardrails from .takt/agent-runs/B-b490acff-test/repo/templates/agents/tester.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-b490acff-test/repo/templates/agents/tester.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-04T13:07:56.801759+00:00",
+      "event": "completed",
+      "agent_type": "tester",
+      "summary": "All 31 CooklangParser tests pass, including the 5 new fraction-boundary tests added in B-b490acff. No defects found.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff-test",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b490acff-test/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "tester",
+      "template_path": ".takt/agent-runs/B-b490acff-test/repo/templates/agents/tester.md",
+      "template_text": "# Tester Guardrails\n\nPrimary responsibility: Add or update automated tests, run validation, and report defects or missing coverage.\n\nAllowed actions:\n- Write or update tests relevant to the assigned bead.\n- Run only the test files related to the bead's changed files, not the full test suite. Use `` to target individual test files. If unsure which tests are relevant, use the bead's expected_files and touched_files fields as a guide.\n- Make minimal test-enablement fixes (e.g. import corrections, fixture setup) only when strictly necessary to run the relevant tests. Do not refactor production code under the guise of test enablement.\n\nDisallowed actions:\n- Run the full test suite instead of targeting specific tests. Always use `` for targeted runs. Running the full suite wastes time and often exceeds the agent timeout.\n- Use `run_in_background` for any Bash commands. All test commands must run synchronously so their output is available before the structured verdict is submitted. Background tasks cause the structured output to be lost, resulting in a failed bead.\n- Implement feature logic beyond minimal test-enablement work.\n- Reframe a feature implementation task as testing work to bypass handoff.\n- Perform review signoff or broad documentation rewrites.\n\nExpected outputs:\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the tester signoff decision: `approved` means testing can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when testing is complete with no unresolved tester-scope findings.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved defect or coverage gap count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when follow-up work is required.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Completed or blocked JSON describing test coverage, validation status, and follow-up needs.\n- Precise defect or coverage notes when the bead cannot be completed within tester scope.",
+      "captured_at": "2026-05-04T13:07:09.839980+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-b490acff-test",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "Test Tighten fraction regex to match spec exactly",
+      "agent_type": "tester",
+      "description": "Validate implementation for B-b490acff",
+      "status": "in_progress",
+      "acceptance_criteria": [],
+      "dependencies": [
+        "B-b490acff"
+      ],
+      "linked_docs": [
+        "specs/planned/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [
+        "Packages/CookbookCore/.build/.lock",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/MetadataTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+        "Packages/CookbookCore/.build/build.db",
+        "Packages/CookbookCore/.build/index-build/.lock",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/Y9/Parser.swift-3VVNNJO1N6IY9",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-4UDB50OAQ8WT",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+        "Packages/CookbookCore/.build/index-build/build.db",
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [
+        "Packages/CookbookCore/.build/.lock",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCorePackageTests.xctest/Contents/MacOS/CookbookCorePackageTests.dSYM/Contents/Resources/DWARF/CookbookCorePackageTests",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/CooklangParserTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/MetadataTests.swiftdeps",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCoreTests.build/primary.priors",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+        "Packages/CookbookCore/.build/build.db",
+        "Packages/CookbookCore/.build/index-build/.lock",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/p92880--a02227/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/7K/CooklangParserTests.swift-3EX1XLUP5Y57K",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/Y9/Parser.swift-3VVNNJO1N6IY9",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/ZK/Parser.swift-3VDT23V9GCUZK",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/CooklangParserTests.swift.o-4UDB50OAQ8WT",
+        "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+        "Packages/CookbookCore/.build/index-build/build.db",
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift"
+      ],
+      "conflict_risks": "None. resolveValue is a private method with no cross-bead file contention.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "All 31 CooklangParser tests pass, including the 5 new fraction-boundary tests added in B-b490acff. No defects found.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.16031255,
+      "duration_ms": 45018,
+      "duration_api_ms": 34368,
+      "num_turns": 7,
+      "input_tokens": 8,
+      "output_tokens": 1708,
+      "cache_creation_tokens": 23671,
+      "cache_read_tokens": 132821,
+      "stop_reason": "end_turn",
+      "session_id": "15d454e4-d385-44e7-a07c-8c0ea18a95e3",
+      "permission_denials": [],
+      "prompt_chars": 15570,
+      "prompt_lines": 222,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.16031255,
+        "duration_ms": 45018,
+        "duration_api_ms": 34368,
+        "num_turns": 7,
+        "input_tokens": 8,
+        "output_tokens": 1708,
+        "cache_creation_tokens": 23671,
+        "cache_read_tokens": 132821,
+        "stop_reason": "end_turn",
+        "session_id": "15d454e4-d385-44e7-a07c-8c0ea18a95e3",
+        "permission_denials": [],
+        "prompt_chars": 15570,
+        "prompt_lines": 222,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "fc809cce64d400a203da5040d2dfc7f572454568"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

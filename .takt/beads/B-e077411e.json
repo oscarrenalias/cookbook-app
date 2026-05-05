@@ -1,0 +1,84 @@
+{
+  "bead_id": "B-e077411e",
+  "title": "Shared Integration Review",
+  "agent_type": "review",
+  "description": "Perform a final cross-cutting review of API shape, parser behaviour, fixture fidelity, dependency scope, and test coverage before the feature is considered complete.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-419f1418",
+  "dependencies": [
+    "B-519a9307",
+    "B-a2c492e1",
+    "B-992aac59",
+    "B-0c9926df",
+    "B-30f7ab84",
+    "B-cd3c52af",
+    "B-23ff7ba4",
+    "B-3db16e0e",
+    "B-77482551",
+    "B-9272c3d9"
+  ],
+  "acceptance_criteria": [
+    "Review confirms the public API matches the spec for all three formats.",
+    "Review checks for behavioural regressions around round-trip fidelity, parser tolerance, and alias lookup ordering.",
+    "Review verifies no third-party dependencies were introduced and the work stayed inside `Packages/CookbookCore/` plus fixture/docs locations.",
+    "Review records any residual risks or follow-up work that remains intentionally out of scope."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://cooklang.org/docs/use-cases/meal-planning/",
+    "https://cooklang.org/docs/cli/aisle-file/",
+    "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/*",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*",
+    "docs/examples/*"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T10:44:19.172085+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
