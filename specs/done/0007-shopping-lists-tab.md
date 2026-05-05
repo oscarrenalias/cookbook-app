@@ -5,7 +5,7 @@ description: "Shopping Lists tab with full ad-hoc support: list-of-lists card vi
 dependencies: []
 priority: high
 complexity: high
-status: planned
+status: done
 tags:
 - ui
 - swiftui
