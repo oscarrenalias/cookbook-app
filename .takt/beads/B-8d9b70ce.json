@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-47b253eb"
+  ],
   "acceptance_criteria": [
     "`.searchable` modifier uses prompt \"Search shopping lists\"",
     "Card rows filter by case-insensitive name substring during search",
