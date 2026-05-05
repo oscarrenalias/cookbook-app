@@ -3,7 +3,7 @@
   "title": "Add RecipeDetailSheet root assembly",
   "agent_type": "developer",
   "description": "Create RecipeDetailSheet.swift. Assembles all component views into a single sheet: RecipeHeroHeader (passing a dismiss closure), RecipeStatStrip, RecipeTagChips, a Picker(.segmented) with segments 'Ingredients' / 'Cookware' / 'Steps' defaulting to Ingredients, the active tab view, and RecipeBottomBar pinned at the bottom. Owns @State currentScale (Scale, default .one) passed as a binding to IngredientsView's header picker and RecipeBottomBar. Owns @State selectedTab. Accepts a Recipe and is presented via .sheet(item:).",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
   "dependencies": [
@@ -35,37 +35,52 @@
     "CookbookApp/Recipes/RecipeDetailSheet.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Created CookbookApp/Recipes/RecipeDetailSheet.swift: owns @State currentScale: RecipeScale = .one and @State selectedTab: RecipeTab = .ingredients, loads Recipe asynchronously from RecipeFile.url via CooklangParser, assembles RecipeHeroHeader (with dismiss closure) + RecipeStatStrip + RecipeTagChips + segmented Picker + tab-switched content (IngredientsView/CookwareView/StepsView) + pinned RecipeBottomBar. Uses .presentationDetents([.large]) for large-detent swipe-dismiss. Updated RecipesListView.swift: replaced 14-line placeholder sheet block with a single RecipeDetailSheet(recipe:) call. Regenerated CookbookApp.xcodeproj with xcodegen to pick up the new file.",
+    "remaining": "None for this bead.",
+    "risks": "IngredientsView/CookwareView/StepsView all render List internally. Within a VStack, List height expansion relies on SwiftUI's automatic sizing; if the sheet content feels cramped on smaller devices this may need a layout pass. The gathered checkbox state resets on tab switch (not just sheet re-presentation) because the @ViewBuilder switch creates a new view instance \u2014 this matches the acceptance criterion (non-persistent) but may be surprising if the spec intended within-session persistence on tab return.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify all acceptance criteria: large detent + swipe dismiss, dismiss button, shared scale binding, segmented picker defaults, tab switching, bottom bar visibility, and gathered-state reset on re-presentation.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
+    "conflict_risks": "RecipesListView.swift was modified to remove the placeholder sheet. Any concurrent bead editing that file would conflict. No other file overlaps expected.",
+    "design_decisions": "RecipeDetailSheet loads Recipe asynchronously using Task.detached + CooklangParser.canonical.parse so the UI thread is never blocked by file I/O. A ProgressView spinner is shown while parsing (replaces the tab area; RecipeBottomBar still shown underneath). RecipeTab enum is file-private to avoid polluting the module namespace. xcodegen regeneration was required because XcodeGen glob sources only reflect the xcodeproj at last-generate time.",
+    "test_coverage_notes": "No tests written (developer bead scope). Tester bead should cover: scale binding flows to both IngredientsView and RecipeBottomBar, tab switching renders correct child view, gathered state is fresh on each sheet presentation.",
+    "known_limitations": "Visual layout (hero header height, stat strip scroll, tag chip wrap) not verified \u2014 agents cannot render UI. The recipe parser error path silently returns an empty Recipe(); a future bead could surface a user-visible error state per the ui-guidelines empty/error state rules."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "RecipesListView.swift was modified to remove the placeholder sheet. Any concurrent bead editing that file would conflict. No other file overlaps expected.",
   "branch_name": "feature/b-1dd57ece",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
-  "lease": {
-    "owner": "developer:B-2a638e42",
-    "expires_at": "2026-05-05T07:03:32.097450+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -107,6 +122,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-2a638e42/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T06:37:55.760576+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created RecipeDetailSheet.swift, assembling all component views into a recipe detail sheet. Updated RecipesListView.swift to replace the placeholder sheet with RecipeDetailSheet. Regenerated xcodeproj via XcodeGen after adding the new file. Build succeeds with no errors.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -187,7 +209,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created RecipeDetailSheet.swift, assembling all component views into a recipe detail sheet. Updated RecipesListView.swift to replace the placeholder sheet with RecipeDetailSheet. Regenerated xcodeproj via XcodeGen after adding the new file. Build succeeds with no errors.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.7351849999999998,
+      "duration_ms": 262102,
+      "duration_api_ms": 225519,
+      "num_turns": 34,
+      "input_tokens": 2135,
+      "output_tokens": 12161,
+      "cache_creation_tokens": 47616,
+      "cache_read_tokens": 1000021,
+      "stop_reason": "end_turn",
+      "session_id": "2ebe7911-d1d7-43b0-b9a2-ce27caba44c5",
+      "permission_denials": [],
+      "prompt_chars": 6285,
+      "prompt_lines": 143,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.7351849999999998,
+        "duration_ms": 262102,
+        "duration_api_ms": 225519,
+        "num_turns": 34,
+        "input_tokens": 2135,
+        "output_tokens": 12161,
+        "cache_creation_tokens": 47616,
+        "cache_read_tokens": 1000021,
+        "stop_reason": "end_turn",
+        "session_id": "2ebe7911-d1d7-43b0-b9a2-ce27caba44c5",
+        "permission_denials": [],
+        "prompt_chars": 6285,
+        "prompt_lines": 143,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "15037eaf7f722a7597131fe6bbf9d29e580dbc4d"
   },
   "labels": [],
   "recovery_for": null,
