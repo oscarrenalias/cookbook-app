@@ -107,7 +107,7 @@ struct ShoppingListDetailView: View {
             .listRowBackground(Color.clear)
 
             ForEach(filteredGroups, id: \.name) { group in
-                let sectionKey = group.name ?? "Other"
+                let sectionKey = group.name?.localizedCapitalized ?? "Other"
                 let isCollapsed = collapsedSections.contains(sectionKey)
                 Section {
                     if !isCollapsed {
