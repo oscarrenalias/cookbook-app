@@ -475,7 +475,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 method is additive, no existing call sites modified.",
+  "conflict_risks": "None \u2014 method is additive, no existing call sites modified.\nNone \u2014 change is limited to adding a new public method overload; no existing method signatures or logic was altered.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
