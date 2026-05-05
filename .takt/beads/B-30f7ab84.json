@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
-  "dependencies": [],
+  "dependencies": [
+    "B-0c9926df"
+  ],
   "acceptance_criteria": [
     "`AisleConfigParser.parse(_:)` returns an empty config for empty or comment-only input.",
     "Section headers are parsed from `[name]` lines with trimmed names preserved verbatim.",
