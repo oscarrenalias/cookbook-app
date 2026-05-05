@@ -43,6 +43,52 @@ public struct ShoppingList: Sendable, Equatable {
         text.append("- [ ] \(itemText)\n")
     }
 
+    public mutating func appendItem(_ text: String, toAisle aisle: String) {
+        let lines = self.text.components(separatedBy: "\n")
+        let normalizedAisle = aisle.trimmingCharacters(in: .whitespaces)
+        let newItemLine = "- [ ] \(text)"
+
+        var headingIndex: Int? = nil
+        for (i, line) in lines.enumerated() {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            guard trimmed.hasPrefix("## ") else { continue }
+            let headingText = String(trimmed.dropFirst(3)).trimmingCharacters(in: .whitespaces)
+            if headingText.lowercased() == normalizedAisle.lowercased() {
+                headingIndex = i
+                break
+            }
+        }
+
+        if let headingIdx = headingIndex {
+            var insertionIndex = lines.count
+            for i in (headingIdx + 1)..<lines.count {
+                if lines[i].trimmingCharacters(in: .whitespaces).hasPrefix("## ") {
+                    insertionIndex = i
+                    break
+                }
+            }
+
+            var newLines = lines
+            if insertionIndex == newLines.count {
+                if newLines.last == "" {
+                    newLines.insert(newItemLine, at: newLines.count - 1)
+                } else {
+                    newLines.append(newItemLine)
+                    newLines.append("")
+                }
+            } else {
+                newLines.insert(newItemLine, at: insertionIndex)
+            }
+
+            self.text = newLines.joined(separator: "\n")
+        } else {
+            if !self.text.isEmpty && !self.text.hasSuffix("\n") {
+                self.text.append("\n")
+            }
+            self.text.append("\n## \(aisle)\n\(newItemLine)\n")
+        }
+    }
+
     public mutating func removeItem(atLine lineIndex: Int) {
         guard let record = lineRecords().first(where: { $0.lineIndex == lineIndex }),
               ShoppingList.matchItem(in: record.content) != nil else {
