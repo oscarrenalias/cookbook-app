@@ -12,6 +12,7 @@ final class AisleCatalog {
     ]
 
     private(set) var aisles: [String] = []
+    private(set) var config: AisleConfig?
     private(set) var isLoaded: Bool = false
 
     func load(from folderURL: URL) {
@@ -25,13 +26,16 @@ final class AisleCatalog {
         }
 
         guard let text = try? String(contentsOf: confURL, encoding: .utf8) else {
+            config = nil
             aisles = Self.defaultAisles
             isLoaded = true
             return
         }
 
-        let config = AisleConfigParser.parse(text)
-        aisles = config.sections.isEmpty ? Self.defaultAisles : config.sections.map { $0.name }
+        let parsed = AisleConfigParser.parse(text)
+        config = parsed
+        let sections = config?.sections ?? []
+        aisles = sections.isEmpty ? Self.defaultAisles : sections.map { $0.name }
         isLoaded = true
     }
 }
