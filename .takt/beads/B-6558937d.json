@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-6558937d",
+  "title": "Add RecipeStepCombiner",
+  "agent_type": "developer",
+  "description": "Create RecipeStepCombiner.swift with an internal struct exposing a static combine(step: Step, recipe: Recipe) \u2192 String method. It iterates each Item in the step: Item.text(s) \u2192 appends s verbatim; Item.ingredient(idx) \u2192 appends Recipe.ingredients[idx].name; Item.cookware(idx) \u2192 appends Recipe.cookware[idx].name; Item.timer(idx) \u2192 appends the timer's display string (\"<name?> <quantity?>\", trimmed). The struct must be at internal access level so CookbookAppTests can reach it.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "combine() resolves Item.text to its string value.",
+    "combine() resolves Item.ingredient(idx) to Recipe.ingredients[idx].name.",
+    "combine() resolves Item.cookware(idx) to Recipe.cookware[idx].name.",
+    "combine() resolves Item.timer(idx) to '<name?> <quantity?>' trimmed.",
+    "A step mixing all four item types produces the expected concatenated string.",
+    "RecipeStepCombiner is at internal access level, reachable from the test target."
+  ],
+  "linked_docs": [],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeStepCombiner.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:43.499103+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
