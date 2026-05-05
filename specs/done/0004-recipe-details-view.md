@@ -5,7 +5,7 @@ description: "Modal sheet for viewing a single recipe — hero image with title 
 dependencies: []
 priority: high
 complexity: high
-status: planned
+status: done
 tags:
 - ui
 - swiftui
