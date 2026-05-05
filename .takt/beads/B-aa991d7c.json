@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-8d9b70ce",
+    "B-5056f486",
+    "B-e4718a6b"
+  ],
   "acceptance_criteria": [
     "`ShoppingListsTab.swift` renders `ShoppingListsView` instead of the empty-state placeholder",
     "`AisleCatalog` is instantiated once at the root scene level",
