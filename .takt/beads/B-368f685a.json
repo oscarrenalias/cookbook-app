@@ -3,7 +3,7 @@
   "title": "B7: Add String.sentenceCased extension",
   "agent_type": "developer",
   "description": "Add a new Swift file in CookbookApp/Recipes/ (e.g., StringExtensions.swift) containing a String extension with a sentenceCased computed property. The property uppercases only the first character of the string and leaves the rest verbatim. Must handle empty strings, single characters, and multi-byte first characters (e.g., accented letters) correctly.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [],
@@ -21,42 +21,54 @@
   "feature_root_id": "B-fa1cbeb6",
   "execution_branch_name": "feature/b-fa1cbeb6",
   "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
-  "expected_files": [],
+  "expected_files": [
+    "CookbookApp/Recipes/StringExtensions.swift"
+  ],
   "expected_globs": [
     "CookbookApp/Recipes/String*.swift",
     "CookbookApp/**/*Extension*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/StringExtensions.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/StringExtensions.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Added StringExtensions.swift in CookbookApp/Recipes/ containing String.sentenceCased. The property guards on first Character (handles empty), calls Character.uppercased() (handles multi-byte/accented first chars), and concatenates with dropFirst() (leaves remainder verbatim).",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "None identified. Extension is additive and cannot conflict with existing code.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/Recipes/StringExtensions.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Downstream bead B-747262c3 applies .sentenceCased in IngredientsView and CookwareView \u2014 that bead can now proceed as StringExtensions.swift is accessible to both views.",
+    "next_agent": "developer",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
+    "expected_files": [
+      "CookbookApp/Recipes/StringExtensions.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/String*.swift",
+      "CookbookApp/**/*Extension*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/StringExtensions.swift"
+    ],
+    "conflict_risks": "None \u2014 new file only, no modifications to existing files.",
+    "design_decisions": "Used Character.first / Character.uppercased() + dropFirst() rather than unicodeScalars-based approach to correctly handle decomposed grapheme clusters (e.g. e + combining acute). Character.uppercased() returns String and handles all Unicode edge cases through Swift's built-in grapheme cluster engine.",
+    "test_coverage_notes": "Tester bead should verify all six acceptance criteria: 'olive oil'\u2192'Olive oil', 'Dutch oven'\u2192'Dutch oven', ''\u2192'', 'a'\u2192'A', '\u00e9cole'\u2192'\u00c9cole', and accessibility label strings in IngredientsView/CookwareView.",
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 new file only, no modifications to existing files.",
   "branch_name": "feature/b-fa1cbeb6",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
-  "lease": {
-    "owner": "developer:B-368f685a",
-    "expires_at": "2026-05-05T08:25:50.520778+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -98,6 +110,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-368f685a/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T07:56:56.087324+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created CookbookApp/Recipes/StringExtensions.swift with a String.sentenceCased computed property. Uses Character.uppercased() + dropFirst() \u2014 idiomatic Swift that correctly handles empty strings, single chars, and multi-byte grapheme clusters. Passes swiftc -typecheck with no errors.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -169,7 +188,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created CookbookApp/Recipes/StringExtensions.swift with a String.sentenceCased computed property. Uses Character.uppercased() + dropFirst() \u2014 idiomatic Swift that correctly handles empty strings, single chars, and multi-byte grapheme clusters. Passes swiftc -typecheck with no errors.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.2091985,
+      "duration_ms": 63856,
+      "duration_api_ms": 58872,
+      "num_turns": 12,
+      "input_tokens": 1118,
+      "output_tokens": 3650,
+      "cache_creation_tokens": 25228,
+      "cache_read_tokens": 181105,
+      "stop_reason": "end_turn",
+      "session_id": "f1b058ad-152e-432d-b8d6-d6324ec5502d",
+      "permission_denials": [],
+      "prompt_chars": 5947,
+      "prompt_lines": 133,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.2091985,
+        "duration_ms": 63856,
+        "duration_api_ms": 58872,
+        "num_turns": 12,
+        "input_tokens": 1118,
+        "output_tokens": 3650,
+        "cache_creation_tokens": 25228,
+        "cache_read_tokens": 181105,
+        "stop_reason": "end_turn",
+        "session_id": "f1b058ad-152e-432d-b8d6-d6324ec5502d",
+        "permission_denials": [],
+        "prompt_chars": 5947,
+        "prompt_lines": 133,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "3597f0b3066d0c8ce4d4d6b65b9da779f3b9252e"
   },
   "labels": [],
   "recovery_for": null,
