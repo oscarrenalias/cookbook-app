@@ -1,0 +1,41 @@
+---
+servings: 4
+---
+
+==Day 0==
+Dinner:
+-- kids: makaroni; adults: grilled tuna + roasted veg
+@./Pasta/Makaroni with Minced Meat{2%servings}
+@./Fish/Grilled Tuna{2%servings}
+@./Sides/Roasted Vegetables (Side){4%servings}
+
+==Day 1==
+Lunch:
+@./Fish/Roasted Salmon{4%servings}
+@./Sides/Oven Roasted Potatoes{4%servings}
+
+Dinner:
+@./Pasta/Pasta with Pesto and Bacon{4%servings}
+
+==Day 2==
+Dinner:
+@./Meat/Chicken Stir Fry{4%servings}
+
+==Day 3==
+Dinner:
+@./Meat/Cottage Pie{4%servings}
+
+==Day 4==
+Dinner:
+@./Meat/Beef Tacos{4%servings}
+
+==Day 5==
+Dinner:
+@./Pasta/Pasta with Sausage{4%servings}
+
+== Batch Prep ==
+-- Mon-Fri lunches, batch-cook on Sunday
+@./Vegetarian/Tandoori Confit Chickpeas{5%servings}
+
+== Dairy Staples ==
+@./Pantry/Dairy Staples{1%batch}
