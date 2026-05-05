@@ -98,6 +98,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:33:32.581201+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-2a638e42/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-2a638e42/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -114,7 +123,71 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-2a638e42/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-2a638e42/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T06:33:32.581181+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-2a638e42",
+      "feature_root_id": "B-1dd57ece",
+      "title": "Add RecipeDetailSheet root assembly",
+      "agent_type": "developer",
+      "description": "Create RecipeDetailSheet.swift. Assembles all component views into a single sheet: RecipeHeroHeader (passing a dismiss closure), RecipeStatStrip, RecipeTagChips, a Picker(.segmented) with segments 'Ingredients' / 'Cookware' / 'Steps' defaulting to Ingredients, the active tab view, and RecipeBottomBar pinned at the bottom. Owns @State currentScale (Scale, default .one) passed as a binding to IngredientsView's header picker and RecipeBottomBar. Owns @State selectedTab. Accepts a Recipe and is presented via .sheet(item:).",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Sheet uses .large detent with working swipe-down dismiss.",
+        "RecipeHeroHeader dismiss button calls the sheet dismiss action.",
+        "Single @State currentScale flows as a binding to both IngredientsView's header picker and RecipeBottomBar.",
+        "Segmented picker defaults to Ingredients tab.",
+        "Switching tabs shows the correct component view.",
+        "RecipeBottomBar is always visible at the bottom.",
+        "Gathered state in IngredientsView resets on sheet re-presentation (non-persistent)."
+      ],
+      "dependencies": [
+        "B-d6d71fda",
+        "B-43085da0",
+        "B-f0f3a9f8",
+        "B-59821ae0",
+        "B-d094ca5b",
+        "B-19d7b0a5",
+        "B-e23f6496"
+      ],
+      "linked_docs": [
+        "docs/mockups/recipe detail (sheet).png",
+        "docs/ui-guidelines.md"
+      ],
+      "execution_branch_name": "feature/b-1dd57ece",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeDetailSheet.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
