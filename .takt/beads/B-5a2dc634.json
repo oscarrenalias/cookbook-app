@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
-  "dependencies": [],
+  "dependencies": [
+    "B-2a638e42"
+  ],
   "acceptance_criteria": [
     "Tapping a recipe row opens RecipeDetailSheet as a modal sheet.",
     "Presentation uses .sheet(item:) with the tapped Recipe as the identifiable item.",
