@@ -3,7 +3,7 @@
   "title": "Implement quantity merge rules for aggregated items",
   "agent_type": "developer",
   "description": "Add the quantity accumulation logic inside the aggregator so exact-unit numeric quantities sum while mismatched units, text quantities, and quantity-less occurrences remain represented according to spec.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
   "dependencies": [
@@ -27,37 +27,44 @@
     "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Applied two targeted changes to `ShoppingList.mergeQuantity(_:into:)`: (1) changed `.whitespaces` \u2192 `.whitespacesAndNewlines` in both unit comparisons to match the spec's trimming specification; (2) in the `else` branch (first numeric occurrence of a unit key), replaced `quantities.append(quantity)` with `quantities.append(Quantity(value: .number(newValue), unit: newUnit))` so the stored unit is the canonical lowercased+trimmed form rather than the raw input string. All other merging logic (nil-unit matching, text-quantity passthrough, quantity-less ingredient handling) was already correct and left unchanged.",
+    "remaining": "No remaining implementation work. Tester agent should verify all six acceptance criteria, particularly the unit-case normalisation scenario: `[100 G flour] + [50 g flour] \u2192 quantities: [Quantity(value: .number(150), unit: \"g\")]`.",
+    "risks": "None identified. Change is confined to a single private function with no API surface impact.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to verify all acceptance criteria against unit tests.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+    ],
+    "conflict_risks": "No conflict risks. Only `Aggregation.swift` was modified in its private `mergeQuantity` function. No public API surface changed.",
+    "design_decisions": "Chose to normalise the unit at append time (storing `newUnit` instead of `quantity.unit`) rather than at read time, keeping the stored data canonical and avoiding repeated normalisation on every comparison. The `quantities[idx].unit` on the sum path remains correct because it now always holds an already-normalised value from the first-occurrence append.",
+    "test_coverage_notes": "No tests written in this bead (tester bead owns that). Key scenario to cover: mixed-case unit on first occurrence (`G`) merging with second occurrence (`g`) should produce unit `g` in the result.",
+    "known_limitations": "None. All six acceptance criteria are satisfied by the implementation as confirmed by code review and successful build."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No conflict risks. Only `Aggregation.swift` was modified in its private `mergeQuantity` function. No public API surface changed.",
   "branch_name": "feature/b-dd16f765",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-dd16f765",
-  "lease": {
-    "owner": "developer:B-f35bed46",
-    "expires_at": "2026-05-05T20:13:29.613048+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -99,6 +106,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-f35bed46/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T19:45:22.635650+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Fixed `mergeQuantity` in `Aggregation.swift` to store the canonical lowercased+trimmed unit when appending the first numeric occurrence of a quantity, and updated the trim character set to `.whitespacesAndNewlines` per spec. Build passes cleanly.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -171,7 +185,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Fixed `mergeQuantity` in `Aggregation.swift` to store the canonical lowercased+trimmed unit when appending the first numeric occurrence of a quantity, and updated the trim character set to `.whitespacesAndNewlines` per spec. Build passes cleanly.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.33584695,
+      "duration_ms": 109472,
+      "duration_api_ms": 102966,
+      "num_turns": 14,
+      "input_tokens": 2251,
+      "output_tokens": 7116,
+      "cache_creation_tokens": 35977,
+      "cache_read_tokens": 284424,
+      "stop_reason": "end_turn",
+      "session_id": "d39cd5bf-32c9-4d80-8b3f-a9b691ac66ac",
+      "permission_denials": [],
+      "prompt_chars": 6112,
+      "prompt_lines": 134,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.33584695,
+        "duration_ms": 109472,
+        "duration_api_ms": 102966,
+        "num_turns": 14,
+        "input_tokens": 2251,
+        "output_tokens": 7116,
+        "cache_creation_tokens": 35977,
+        "cache_read_tokens": 284424,
+        "stop_reason": "end_turn",
+        "session_id": "d39cd5bf-32c9-4d80-8b3f-a9b691ac66ac",
+        "permission_denials": [],
+        "prompt_chars": 6112,
+        "prompt_lines": 134,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "58626d26202bf8ff953af7c24179cd97a3645879"
   },
   "labels": [],
   "recovery_for": null,
