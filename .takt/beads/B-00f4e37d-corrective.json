@@ -253,6 +253,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T19:54:41.630242+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-00f4e37d-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-00f4e37d-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -270,7 +279,66 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-00f4e37d-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-00f4e37d-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T19:54:41.630223+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-00f4e37d-corrective",
+      "feature_root_id": "B-dd16f765",
+      "title": "Corrective fix for B-00f4e37d: Review ingredient aggregation delivery",
+      "agent_type": "developer",
+      "description": "Blocked reason: Three findings block sign-off: (1) Medium \u2014 spec explicitly requires a text+numeric mixed quantity test (\"Text quantity does not merge. [a splash olive oil] + [10 ml olive oil] \u2192 quantities: [text 'a splash', 10 ml]\"); the existing textQuantitiesAreAppendedAsSeparateEntries test covers only text+text. (2) Low \u2014 spec explicitly requires a quantity-less + quantitied mixed test (\"@salt{} in Recipe A, @salt{1%tsp} in Recipe B \u2192 one item 'salt' with quantities: [1 tsp]\"); no such test exists. (3) Low \u2014 all three result value types use `public var` instead of the spec's `public let`, adding unintended post-construction mutability to the public API.\n\nRemaining work: Developer must add the two missing test cases and consider aligning property accessors to the spec's `let` contract.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-00f4e37d.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-3cc80e55"
+      ],
+      "execution_branch_name": "feature/b-dd16f765",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-dd16f765",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift"
+      ],
+      "conflict_risks": "None \u2014 only AggregationTests.swift needs changes; no other in-flight bead touches that file.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
