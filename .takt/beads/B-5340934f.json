@@ -6,7 +6,12 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
-  "dependencies": [],
+  "dependencies": [
+    "B-349c61b1",
+    "B-a9c17ef5",
+    "B-941263e8",
+    "B-28580f9d"
+  ],
   "acceptance_criteria": [
     "Service logic supports append-to-existing and create-new-list flows using `ShoppingListFiles` helpers.",
     "Append mode detection distinguishes aisle-backed lists from flat lists using checklist-bearing `##` sections.",
