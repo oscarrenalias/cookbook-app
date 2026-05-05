@@ -65,7 +65,22 @@ struct RecipesListView: View {
                             .buttonStyle(.plain)
                         }
                     } header: {
-                        Label(section.name, systemImage: "folder")
+                        Button {
+                            let current = expandedSections[section.name] ?? true
+                            withAnimation { expandedSections[section.name] = !current }
+                        } label: {
+                            HStack {
+                                Label(section.name, systemImage: "folder")
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.caption.weight(.semibold))
+                                    .foregroundStyle(.secondary)
+                                    .rotationEffect(.degrees((expandedSections[section.name] ?? true) ? 90 : 0))
+                            }
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("\(section.name), \((expandedSections[section.name] ?? true) ? "expanded" : "collapsed")")
                     }
                 }
             }
