@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-55784b81",
+    "B-0509bd25",
+    "B-4c767853"
+  ],
   "acceptance_criteria": [
     "Navigation title equals the list's display name",
     "\"X of Y items checked\" header is visible and recomputes after each toggle",
