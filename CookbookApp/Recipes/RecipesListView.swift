@@ -1,4 +1,4 @@
-import SwiftUI
+    import SwiftUI
 
 struct RecipesListView: View {
     let folderURL: URL
@@ -6,7 +6,24 @@ struct RecipesListView: View {
     @State private var sections: [FolderSection]? = nil
     @State private var query = ""
     @State private var selectedRecipe: RecipeFile?
-    @State private var expandedSections: [String: Bool] = [:]
+    // Persists collapsed-folder names across tab swaps within the scene.
+    // Folders not in the set are expanded (the default for unknown names).
+    @SceneStorage("recipes.collapsedFolders") private var collapsedFoldersJoined: String = ""
+
+    private var collapsedFolders: Set<String> {
+        guard !collapsedFoldersJoined.isEmpty else { return [] }
+        return Set(collapsedFoldersJoined.split(separator: "\n").map(String.init))
+    }
+
+    private func isExpanded(_ name: String) -> Bool {
+        !collapsedFolders.contains(name)
+    }
+
+    private func toggle(_ name: String) {
+        var current = collapsedFolders
+        if current.contains(name) { current.remove(name) } else { current.insert(name) }
+        collapsedFoldersJoined = current.sorted().joined(separator: "\n")
+    }
 
     private var filteredSections: [FolderSection] {
         let base = (sections ?? []).filter { !$0.recipes.isEmpty }
@@ -30,9 +47,6 @@ struct RecipesListView: View {
                     RecipeDiscovery.scan(folderURL: folderURL)
                 }.value
                 sections = loaded
-                expandedSections = Dictionary(
-                    uniqueKeysWithValues: loaded.map { ($0.name, true) }
-                )
             }
     }
 
@@ -66,8 +80,7 @@ struct RecipesListView: View {
                         }
                     } header: {
                         Button {
-                            let current = expandedSections[section.name] ?? true
-                            withAnimation { expandedSections[section.name] = !current }
+                            withAnimation { toggle(section.name) }
                         } label: {
                             HStack {
                                 Label(section.name, systemImage: "folder")
@@ -75,12 +88,12 @@ struct RecipesListView: View {
                                 Image(systemName: "chevron.right")
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.secondary)
-                                    .rotationEffect(.degrees((expandedSections[section.name] ?? true) ? 90 : 0))
+                                    .rotationEffect(.degrees(isExpanded(section.name) ? 90 : 0))
                             }
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
-                        .accessibilityLabel("\(section.name), \((expandedSections[section.name] ?? true) ? "expanded" : "collapsed")")
+                        .accessibilityLabel("\(section.name), \(isExpanded(section.name) ? "expanded" : "collapsed")")
                     }
                 }
             }
@@ -89,8 +102,11 @@ struct RecipesListView: View {
 
     private func sectionBinding(for name: String) -> Binding<Bool> {
         Binding(
-            get: { expandedSections[name] ?? true },
-            set: { expandedSections[name] = $0 }
+            get: { isExpanded(name) },
+            set: { newValue in
+                let isCurrentlyExpanded = isExpanded(name)
+                if newValue != isCurrentlyExpanded { toggle(name) }
+            }
         )
     }
 }
