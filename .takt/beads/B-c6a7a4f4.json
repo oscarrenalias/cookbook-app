@@ -139,6 +139,7 @@
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
+    "CookbookApp/Recipes/StepsView.swift",
     "CookbookApp/Recipes/StringExtensions.swift",
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
@@ -151,6 +152,7 @@
   "expected_globs": [
     "CookbookApp/**/*Extension*.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/StepsView.swift",
     "CookbookApp/Recipes/String*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
   ],
@@ -262,6 +264,7 @@
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
+    "CookbookApp/Recipes/StepsView.swift",
     "CookbookApp/Recipes/StringExtensions.swift",
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
@@ -378,6 +381,7 @@
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
+    "CookbookApp/Recipes/StepsView.swift",
     "CookbookApp/Recipes/StringExtensions.swift",
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
@@ -408,7 +412,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.\nNo Swift source files touched; no conflict risk with parallel beads.\nNo conflicts expected. recipe.cook was last touched by B-9a46d66c (dependency already merged). metadata.cook and section-header.cook are test-only fixtures with no other dependents.\nNo other beads in this feature touch RecipeHeroHeader.swift; no conflict risk.\nNo conflicts expected; changes are limited to RecipeBottomBar.swift and the two RecipeBottomBar() call sites in RecipeDetailSheet.swift.\nNone \u2014 new file only, no modifications to existing files.\nNone \u2014 both files are leaf view components with no overlapping edits expected from sibling beads.\nNone \u2014 no files were modified.",
+  "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.\nNo Swift source files touched; no conflict risk with parallel beads.\nNo conflicts expected. recipe.cook was last touched by B-9a46d66c (dependency already merged). metadata.cook and section-header.cook are test-only fixtures with no other dependents.\nNo other beads in this feature touch RecipeHeroHeader.swift; no conflict risk.\nNo conflicts expected; changes are limited to RecipeBottomBar.swift and the two RecipeBottomBar() call sites in RecipeDetailSheet.swift.\nNone \u2014 new file only, no modifications to existing files.\nNone \u2014 both files are leaf view components with no overlapping edits expected from sibling beads.\nNone \u2014 no files were modified.\nNone \u2014 no files were modified.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
