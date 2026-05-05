@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
-  "dependencies": [],
+  "dependencies": [
+    "B-519a9307"
+  ],
   "acceptance_criteria": [
     "`MealPlanParser.parse(_:)` returns an empty `MealPlan` for empty input.",
     "Frontmatter key/value pairs populate existing `Metadata` without introducing a new metadata type.",
