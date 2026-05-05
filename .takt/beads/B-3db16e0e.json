@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
-  "dependencies": [],
+  "dependencies": [
+    "B-23ff7ba4"
+  ],
   "acceptance_criteria": [
     "`toggle(itemAt:)` flips only the bracket character on checklist lines and is a no-op for non-item lines.",
     "`appendItem(_:)` appends exactly `- [ ] <itemText>\\n`, inserting a newline first when needed.",
