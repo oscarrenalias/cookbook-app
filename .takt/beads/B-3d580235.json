@@ -3,7 +3,7 @@
   "title": "Spec 0007: shared tests",
   "agent_type": "tester",
   "description": "Add all tests for spec 0007. CookbookCore (Swift Testing, `import Testing`): extend `ShoppingListTests.swift` or add `ShoppingListMutationTests.swift` \u2014 seven scenarios covering `updateItem` (text replacement, bracket preservation, no-op for non-item lines) and `appendItem(_:toAisle:)` (section insertion, case-insensitive heading match, new section creation, preservation of other sections, items-before-first-heading). CookbookApp: add `ShoppingListAisleGrouperTests.swift` (nil bucket, section switch, consecutive headings), `ShoppingListFilesTests.swift` (discovery count, reverse-mtime sort, display-name derivation via temp directory), `AisleCatalogTests.swift` (load from fixture, canonical fallback when absent, re-load on folder change), and view-structure tests verifying list view (search field present, FAB rendered, no folder/\u22ef toolbar) and detail view (aisle sections rendered, swipe actions wired, AddItemSheet contains TextField and Picker). Run `xcodebuild test` to confirm all pass.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
   "dependencies": [
@@ -703,7 +703,10 @@
   "conflict_risks": "",
   "branch_name": "feature/b-bbc48bfa",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
-  "lease": null,
+  "lease": {
+    "owner": "tester:B-3d580235",
+    "expires_at": "2026-05-05T13:48:31.343219+00:00"
+  },
   "retries": 1,
   "execution_history": [
     {
@@ -764,6 +767,29 @@
       "event": "retried",
       "agent_type": "tester",
       "summary": "Requeued blocked bead after transient infrastructure/auth error",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T13:18:31.506897+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T13:18:31.506924+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
       "details": {}
     }
   ],
