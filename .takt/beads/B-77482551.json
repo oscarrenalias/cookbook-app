@@ -3,7 +3,7 @@
   "title": "Shared Format Tests And Fixtures",
   "agent_type": "tester",
   "description": "Add the canonical fixtures under `Tests/CookbookCoreTests/Fixtures/`, implement Swift Testing behavioural coverage for all three modules, and run package-level verification commands required by the spec.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -128,7 +128,7 @@
     "test_coverage_notes": "Meal plan coverage includes empty input, YAML frontmatter parsing, day block parsing, named block parsing, recipe-vs-ingredient discrimination, comment-item parsing, and parse/serialise/parse round-tripping on the canonical fixture. Aisle coverage includes empty/comment-only input, canonical fixture section ordering, canonical and alias lookups, multi-word tokens, whitespace trimming around aliases, case-insensitive lookup, cross-section token resolution (`thyme` vs `dried thyme`), and skipping orphan items outside sections. Shopping list coverage includes empty documents, canonical fixture item count and representative texts, unchecked-state expectations, checked-state detection, targeted toggle semantics, non-item no-op toggles, append semantics, targeted removal semantics, non-item no-op removal, and preservation of arbitrary surrounding Markdown content. Validation actually executed: `swiftc -parse Tests/CookbookCoreTests/MealPlanParserTests.swift Tests/CookbookCoreTests/AisleConfigParserTests.swift Tests/CookbookCoreTests/ShoppingListParserTests.swift` succeeded. Validation blocked: all targeted `swift test --filter ...` runs and package/Xcode test discovery.",
     "known_limitations": "No runtime Swift Testing execution occurred in this sandbox. `xcodebuild` could not provide a usable package test path from `Packages/CookbookCore/`. The draft spec's aisle fixture expectation says 21 sections, but `docs/examples/aisle.conf` currently has 23 section headers; this remains unresolved and may require spec or fixture follow-up."
   },
-  "block_reason": "Required validation could not be completed in this sandbox: targeted `swift test --filter MealPlanParserTests`, `AisleConfigParserTests`, and `ShoppingListParserTests` failed before build because SwiftPM manifest execution hit sandbox restrictions (`sandbox-exec: sandbox_apply: Operation not permitted`, plus unwritable module-cache paths). `xcodebuild -list` in `Packages/CookbookCore/` also failed because that directory is not recognized here as an Xcode project, workspace, or package entrypoint.",
+  "block_reason": "",
   "conflict_risks": "Low. This pass only added new test files and copied fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/`; downstream feature code should not be affected unless another agent is editing the same new test suite files concurrently.",
   "branch_name": "feature/b-419f1418",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
@@ -186,6 +186,13 @@
       "event": "corrective_planned",
       "agent_type": "tester",
       "summary": "Created corrective bead B-77482551-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:22:12.355484+00:00",
+      "event": "retried",
+      "agent_type": "tester",
+      "summary": "Bead requeued",
       "details": {}
     }
   ],
