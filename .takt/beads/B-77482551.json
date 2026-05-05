@@ -3,7 +3,7 @@
   "title": "Shared Format Tests And Fixtures",
   "agent_type": "tester",
   "description": "Add the canonical fixtures under `Tests/CookbookCoreTests/Fixtures/`, implement Swift Testing behavioural coverage for all three modules, and run package-level verification commands required by the spec.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -348,7 +348,10 @@
   "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension methods. No other bead files overlap with this path.",
   "branch_name": "feature/b-419f1418",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
-  "lease": null,
+  "lease": {
+    "owner": "tester:B-77482551",
+    "expires_at": "2026-05-05T11:59:29.074595+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -462,6 +465,29 @@
       "event": "retried",
       "agent_type": "tester",
       "summary": "Requeued blocked bead after corrective bead B-77482551-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:29:29.526904+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:29:29.526928+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
       "details": {}
     }
   ],
