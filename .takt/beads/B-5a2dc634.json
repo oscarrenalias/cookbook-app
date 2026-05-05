@@ -3,7 +3,7 @@
   "title": "Wire recipes list to present RecipeDetailSheet on tap",
   "agent_type": "developer",
   "description": "Modify the recipes list view introduced in spec 0003 to present RecipeDetailSheet(recipe:) as a sheet when a recipe row is tapped. Use .sheet(item:) with the tapped Recipe as the identifiable item. No NavigationStack push \u2014 sheet presentation only. A nil selection dismisses the sheet.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
   "dependencies": [
@@ -20,42 +20,62 @@
   "feature_root_id": "B-1dd57ece",
   "execution_branch_name": "feature/b-1dd57ece",
   "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
-  "expected_files": [],
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
   "expected_globs": [
     "CookbookApp/Recipes/*List*.swift",
     "CookbookApp/Recipes/*Recipes*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Verified that RecipesListView.swift (lines 25\u201327, 60\u201362) already correctly wires .sheet(item: $selectedRecipe) with RecipeDetailSheet(recipe:). RecipeFile.swift confirms Identifiable conformance via id: URL { url }. RecipeDetailSheet has @Environment(\\.dismiss) for X-button dismissal. All five acceptance criteria are met.",
+    "remaining": "None.",
+    "risks": "None identified.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipeFile.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Proceed to tester bead to verify sheet presentation behavior.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/*List*.swift",
+      "CookbookApp/Recipes/*Recipes*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipeFile.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
+    "conflict_risks": "None. No files were modified.",
+    "design_decisions": "Implementation was already present from B-2a638e42 dependency. .sheet(item:) with RecipeFile (Identifiable) is the correct SwiftUI idiom used.",
+    "test_coverage_notes": "Sheet presentation wiring should be covered by UI tests: tap row \u2192 sheet appears, swipe down \u2192 dismissed, tap different row \u2192 correct recipe shown.",
+    "known_limitations": "None."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None. No files were modified.",
   "branch_name": "feature/b-1dd57ece",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
-  "lease": {
-    "owner": "developer:B-5a2dc634",
-    "expires_at": "2026-05-05T07:07:57.168607+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -97,6 +117,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-5a2dc634/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T06:39:09.974406+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "All acceptance criteria are already satisfied in the existing code. RecipesListView.swift already uses .sheet(item: $selectedRecipe) to present RecipeDetailSheet when a recipe row is tapped. RecipeFile conforms to Identifiable. No code changes were required.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -167,7 +194,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "All acceptance criteria are already satisfied in the existing code. RecipesListView.swift already uses .sheet(item: $selectedRecipe) to present RecipeDetailSheet when a recipe row is tapped. RecipeFile conforms to Identifiable. No code changes were required.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.18658429999999998,
+      "duration_ms": 71780,
+      "duration_api_ms": 68301,
+      "num_turns": 9,
+      "input_tokens": 11,
+      "output_tokens": 2852,
+      "cache_creation_tokens": 16654,
+      "cache_read_tokens": 188718,
+      "stop_reason": "end_turn",
+      "session_id": "5d026279-f5ee-4e35-bdc1-a9388ae78298",
+      "permission_denials": [],
+      "prompt_chars": 5750,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.18658429999999998,
+        "duration_ms": 71780,
+        "duration_api_ms": 68301,
+        "num_turns": 9,
+        "input_tokens": 11,
+        "output_tokens": 2852,
+        "cache_creation_tokens": 16654,
+        "cache_read_tokens": 188718,
+        "stop_reason": "end_turn",
+        "session_id": "5d026279-f5ee-4e35-bdc1-a9388ae78298",
+        "permission_denials": [],
+        "prompt_chars": 5750,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
