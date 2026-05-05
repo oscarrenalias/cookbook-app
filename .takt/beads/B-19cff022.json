@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-74796f39"
+  ],
   "acceptance_criteria": [
     "Leading icon is `cart.fill` on a `.tint`-coloured square background",
     "Title renders in `.headline` text style",
