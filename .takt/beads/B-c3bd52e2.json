@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-c3bd52e2",
+  "title": "Render collapsible shopping list header area",
+  "agent_type": "developer",
+  "description": "Add the reusable header view and integrate it into the shopping-list detail screen above progress and aisle sections with scene-scoped collapse persistence.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-27e1396e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "A new header view renders extracted markdown content with the specified line handling, disclosure label, and typography.",
+    "`ShoppingListDetailView` shows the header area only when extraction returns content and places it above the progress header.",
+    "Collapse state uses the per-file `@SceneStorage` key from the spec and defaults to expanded."
+  ],
+  "linked_docs": [
+    "spec-4e3e388a"
+  ],
+  "feature_root_id": "B-27e1396e",
+  "execution_branch_name": "feature/b-27e1396e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T20:30:43.698871+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
