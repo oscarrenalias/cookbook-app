@@ -123,6 +123,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
   "expected_globs": [
@@ -215,6 +216,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
   "changed_files": [
@@ -304,6 +306,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
   "updated_docs": [],
@@ -328,7 +331,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.",
+  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
