@@ -3,7 +3,7 @@
   "title": "Review recipe detail sheet implementation",
   "agent_type": "review",
   "description": "Review all implementation and test beads against the spec and ui-guidelines.md. Check: scaling math correctness for all factors and edge cases; stat hiding logic; hero image fallback shape and size invariant; gradient/title overlay legibility; dismiss button and bottom-bar button accessibility labels; alert wording (must not claim success); correct security-scoped resource start/stop in RecipeImageLoader; step combiner item-resolution correctness; Dynamic Type compliance; no custom colours or controls; xcodegen ran and build passes; all three test files exist and cover specified cases.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
   "dependencies": [
@@ -384,9 +384,12 @@
   },
   "block_reason": "",
   "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.\nNo file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.\nNone \u2014 RecipeTagChips.swift is a new file. RecipeStatStrip.swift edit is a one-line reorder in the preview block only; no logic conflict risk for sibling beads.\nNone \u2014 this is a new file with no overlap with sibling beads.\nIngredientsView.swift (added in B-59821ae0) is also absent from project.pbxproj \u2014 a sibling bead registering it may edit the same pbxproj file. Coordinate insertion points to avoid merge conflicts.\nNone. RecipeStepCombiner.swift is a new file with no overlap with existing files.\nNone \u2014 StepsView.swift is a new file with no overlap with sibling beads.\nNo overlap with other in-progress beads; RecipeBottomBar.swift is a new file with no edits to existing files.\nRecipesListView.swift was modified to remove the placeholder sheet. Any concurrent bead editing that file would conflict. No other file overlaps expected.\nNone. No files were modified.\nThe .xcodeproj is gitignored so no merge conflicts expected; if any sibling bead also runs xcodegen, the last write wins (idempotent for a given project.yml state).",
-  "branch_name": "",
+  "branch_name": "feature/b-1dd57ece",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-0525a372",
+    "expires_at": "2026-05-05T07:23:14.414619+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -395,9 +398,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:53:14.703776+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T06:53:14.703806+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-0525a372",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-0525a372/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
