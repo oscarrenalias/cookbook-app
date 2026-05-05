@@ -33,7 +33,7 @@ private struct CookwareRow: View {
 
     var body: some View {
         HStack {
-            Text(item.name)
+            Text(item.name.sentenceCased)
             Spacer()
             if let qty = item.quantity.flatMap(formatQuantity) {
                 Text(qty)

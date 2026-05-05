@@ -64,7 +64,7 @@ private struct IngredientRow: View {
             .buttonStyle(.plain)
             .accessibilityLabel(isGathered ? "Unmark \(ingredient.name)" : "Mark \(ingredient.name) as gathered")
 
-            Text(ingredient.name)
+            Text(ingredient.name.sentenceCased)
                 .strikethrough(isGathered)
                 .foregroundStyle(isGathered ? AnyShapeStyle(.secondary) : AnyShapeStyle(.primary))
 
