@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
-  "dependencies": [],
+  "dependencies": [
+    "B-368f685a"
+  ],
   "acceptance_criteria": [
     "Ingredient list rows display sentence-cased names at render time",
     "Cookware list rows display sentence-cased names at render time",
