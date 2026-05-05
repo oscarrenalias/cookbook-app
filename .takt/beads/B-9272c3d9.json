@@ -146,11 +146,13 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
   ],
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/*.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/CommentStripper.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
@@ -274,6 +276,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
   ],
@@ -393,6 +396,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
   ],
@@ -418,7 +422,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Low. The change is isolated to a new source file in CookbookCore and reads existing parsing primitives without modifying them.\nLow. The change is isolated to `MealPlanParser.swift`, but downstream tester/reviewer agents should evaluate parser behavior around canonicalized quantity/frontmatter formatting and unnamed-section comments.",
+  "conflict_risks": "Low. The change is isolated to a new source file in CookbookCore and reads existing parsing primitives without modifying them.\nLow. The change is isolated to `MealPlanParser.swift`, but downstream tester/reviewer agents should evaluate parser behavior around canonicalized quantity/frontmatter formatting and unnamed-section comments.\nDownstream beads `B-30f7ab84` and `B-cd3c52af` are expected to edit the same file family (`AisleConfig.swift` and parser companion) to add parsing and case-insensitive alias lookup behavior.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
