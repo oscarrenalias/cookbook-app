@@ -132,7 +132,8 @@
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
-    "CookbookApp/Recipes/RecipeStatStrip.swift"
+    "CookbookApp/Recipes/RecipeStatStrip.swift",
+    "CookbookApp/Recipes/RecipeTagChips.swift"
   ],
   "expected_globs": [],
   "touched_files": [
@@ -225,7 +226,8 @@
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
-    "CookbookApp/Recipes/RecipeStatStrip.swift"
+    "CookbookApp/Recipes/RecipeStatStrip.swift",
+    "CookbookApp/Recipes/RecipeTagChips.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -317,7 +319,8 @@
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
-    "CookbookApp/Recipes/RecipeStatStrip.swift"
+    "CookbookApp/Recipes/RecipeStatStrip.swift",
+    "CookbookApp/Recipes/RecipeTagChips.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -341,7 +344,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.\nNo file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.",
+  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.\nNo file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.\nNone \u2014 RecipeTagChips.swift is a new file. RecipeStatStrip.swift edit is a one-line reorder in the preview block only; no logic conflict risk for sibling beads.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
