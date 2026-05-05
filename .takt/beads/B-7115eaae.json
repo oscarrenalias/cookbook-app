@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-7115eaae",
+  "title": "Wire recipe detail bottom bar to sheet flow",
+  "agent_type": "developer",
+  "description": "Pass recipe and current scale into the bottom bar, replace the shopping-list stub alert with sheet presentation, and show post-success confirmation feedback from recipe detail.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-27e1396e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`RecipeBottomBar` accepts `recipe: Recipe?` and `scale: RecipeScale`.",
+    "The Add to shopping list action is disabled while the recipe is loading or has no ingredients, with the specified accessibility hint for empty recipes.",
+    "`RecipeDetailSheet` passes parsed recipe and current scale through, presents the add sheet, and shows a visible success confirmation after commits."
+  ],
+  "linked_docs": [
+    "spec-4e3e388a"
+  ],
+  "feature_root_id": "B-27e1396e",
+  "execution_branch_name": "feature/b-27e1396e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T20:30:43.116779+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
