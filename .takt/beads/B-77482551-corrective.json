@@ -1,0 +1,106 @@
+{
+  "bead_id": "B-77482551-corrective",
+  "title": "Corrective fix for B-77482551: Shared Format Tests And Fixtures",
+  "agent_type": "developer",
+  "description": "Blocked reason: Required validation could not be completed in this sandbox: targeted `swift test --filter MealPlanParserTests`, `AisleConfigParserTests`, and `ShoppingListParserTests` failed before build because SwiftPM manifest execution hit sandbox restrictions (`sandbox-exec: sandbox_apply: Operation not permitted`, plus unwritable module-cache paths). `xcodebuild -list` in `Packages/CookbookCore/` also failed because that directory is not recognized here as an Xcode project, workspace, or package entrypoint.\n\nRemaining work: Run the targeted SwiftPM test commands for `MealPlanParserTests`, `AisleConfigParserTests`, and `ShoppingListParserTests` in an environment where SwiftPM manifest execution is permitted, then resolve any runtime or compile failures they expose. If package-level Xcode testing is required, it needs a usable package/project invocation path outside this sandbox. Confirm how to handle the spec-vs-fixture aisle section count mismatch before treating the aisle suite as final.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-77482551",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Implement the minimum fix required to unblock B-77482551.",
+    "Update tests/docs as needed for the corrective change.",
+    "Leave a handoff summary that states how the parent bead can be retried."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://cooklang.org/docs/use-cases/meal-planning/",
+    "https://cooklang.org/docs/cli/aisle-file/",
+    "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/*"
+  ],
+  "touched_files": [
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+  ],
+  "changed_files": [
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "Low. This pass only added new test files and copied fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/`; downstream feature code should not be affected unless another agent is editing the same new test suite files concurrently.",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T11:08:40.369742+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "auto_corrective_for": "B-77482551"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
