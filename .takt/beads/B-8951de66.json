@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-8951de66",
+  "title": "Document recipe detail sheet architecture",
+  "agent_type": "documentation",
+  "description": "Produce or update developer-facing documentation covering: the RecipeDetailSheet component hierarchy and data flow; how the single @State currentScale binding is shared between IngredientsView and RecipeBottomBar; the sibling-image loading convention and security-scoped bookmark lifecycle in RecipeImageLoader; RecipeStepCombiner's item-resolution algorithm; and the placeholder-alert pattern used for deferred Add-to-menu / Add-to-shopping-list actions. Note visual aspects (gradient legibility, spacing, animation) as 'implemented per spec, manual visual review needed by user'.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Component hierarchy of RecipeDetailSheet documented.",
+    "Scale @State sharing pattern explained with binding flow diagram or prose.",
+    "Sibling-image loading documented, referencing security-scoped bookmark start/stop lifecycle.",
+    "RecipeStepCombiner item-resolution algorithm documented.",
+    "Placeholder alert pattern documented with reference to 0007 and 0013 follow-up specs.",
+    "Visual aspects flagged as requiring manual review by the user."
+  ],
+  "linked_docs": [
+    "docs/architecture.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [],
+  "expected_globs": [
+    "docs/**/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:45.819575+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
