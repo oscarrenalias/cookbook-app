@@ -3,7 +3,7 @@
   "title": "Resolve merge conflicts for Ingredient aggregation feature root",
   "agent_type": "developer",
   "description": "Test gate failed for feature/b-dd16f765.\n\nCommand: xcodebuild test -project CookbookApp.xcodeproj -scheme CookbookApp -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet\n\nOutput:\n2026-05-05 23:01:00.258 xcodebuild[10178:54949338] Writing error result bundle to /var/folders/_z/grz81dnx6vl9zv5yq_c613zh0000gn/T/ResultBundle_2026-05-05_23-01-0000.xcresult\nxcodebuild: error: 'CookbookApp.xcodeproj' does not exist.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "merge-conflict",
   "parent_id": "B-dd16f765",
   "dependencies": [],
@@ -49,6 +49,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T20:01:18.942392+00:00",
+      "event": "updated",
+      "agent_type": "developer",
+      "summary": "Bead updated via CLI",
       "details": {}
     }
   ],
