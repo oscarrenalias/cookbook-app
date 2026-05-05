@@ -40,13 +40,13 @@ struct RecipeDetailSheet: View {
                     .frame(maxHeight: .infinity)
 
                 Divider()
-                RecipeBottomBar(scale: $currentScale)
+                RecipeBottomBar()
             } else {
                 Spacer()
                 ProgressView()
                 Spacer()
                 Divider()
-                RecipeBottomBar(scale: $currentScale)
+                RecipeBottomBar()
             }
         }
         .presentationDetents([.large])

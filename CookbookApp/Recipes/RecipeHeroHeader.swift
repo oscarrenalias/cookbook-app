@@ -4,24 +4,24 @@ struct RecipeHeroHeader: View {
     let recipe: RecipeFile
     let onDismiss: () -> Void
 
-    private let heroHeight: CGFloat = 240
+    private let heroHeight: CGFloat = 260
 
     @State private var heroImage: Image?
 
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            imageOrFallback
-            gradient
-            titleLabel
-        }
-        .frame(height: heroHeight)
-        .clipped()
-        .overlay(alignment: .topLeading) {
-            dismissButton
-        }
-        .task(id: recipe.url) {
-            heroImage = await RecipeImageLoader.loadImage(for: recipe.url)
-        }
+        imageOrFallback
+            .overlay(alignment: .bottom) {
+                gradient
+            }
+            .overlay(alignment: .bottomLeading) {
+                titleLabel
+            }
+            .overlay(alignment: .topLeading) {
+                dismissButton
+            }
+            .task(id: recipe.url) {
+                heroImage = await RecipeImageLoader.loadImage(for: recipe.url)
+            }
     }
 
     @ViewBuilder
@@ -30,6 +30,8 @@ struct RecipeHeroHeader: View {
             heroImage
                 .resizable()
                 .scaledToFill()
+                .frame(height: heroHeight)
+                .clipped()
                 .frame(maxWidth: .infinity)
         } else {
             ZStack {
@@ -39,24 +41,26 @@ struct RecipeHeroHeader: View {
                     .font(.largeTitle)
                     .foregroundStyle(.white)
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: heroHeight, maxHeight: heroHeight)
         }
     }
 
     private var gradient: some View {
         LinearGradient(
-            colors: [.clear, .black.opacity(0.65)],
-            startPoint: .center,
+            colors: [.clear, .black.opacity(0.6)],
+            startPoint: .top,
             endPoint: .bottom
         )
+        .frame(height: heroHeight * 0.4)
     }
 
     private var titleLabel: some View {
         Text(recipe.displayName)
-            .font(.title)
-            .fontWeight(.bold)
+            .font(.title2)
+            .bold()
             .foregroundStyle(.white)
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom, 14)
     }
 
     private var dismissButton: some View {

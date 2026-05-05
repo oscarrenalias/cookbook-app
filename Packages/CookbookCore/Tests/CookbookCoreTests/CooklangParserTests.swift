@@ -57,7 +57,27 @@ struct CooklangParserTests {
         #expect(recipe.cookware[0].name == "large bowl")
     }
 
-    // MARK: - Metadata
+    // MARK: - YAML frontmatter
+
+    @Test func yamlFrontmatterScalarTitleAndStepTextParsed() throws {
+        let recipe = try CooklangParser.canonical.parse("---\ntitle: x\n---\n\nstep text")
+        #expect(recipe.metadata["title"] == "x")
+        let allText = recipe.sections
+            .flatMap(\.content)
+            .compactMap { if case .step(let s) = $0 { return s } else { return nil } }
+            .flatMap(\.items)
+            .compactMap { if case .text(let t) = $0 { return t } else { return nil } }
+            .joined()
+        #expect(allText.contains("step text"))
+        #expect(!allText.contains("title"))
+    }
+
+    @Test func yamlFrontmatterListTagsJoined() throws {
+        let recipe = try CooklangParser.canonical.parse("---\ntags:\n- a\n- b\n---")
+        #expect(recipe.metadata["tags"] == "a, b")
+    }
+
+    // MARK: - Metadata (YAML)
 
     @Test func metadataServingsAndTitlePresent() throws {
         let recipe = try CooklangParser.canonical.parse(try fixture("metadata"))
@@ -65,14 +85,15 @@ struct CooklangParserTests {
         #expect(recipe.metadata["title"] != nil)
     }
 
-    @Test func metadataLinesAbsentFromSteps() throws {
+    @Test func yamlFrontmatterContentAbsentFromSteps() throws {
         let recipe = try CooklangParser.canonical.parse(try fixture("metadata"))
         for section in recipe.sections {
             for content in section.content {
                 if case .step(let step) = content {
                     for item in step.items {
                         if case .text(let t) = item {
-                            #expect(!t.hasPrefix(">>"), "Metadata line leaked into step text: \(t)")
+                            #expect(!t.hasPrefix("---"), "Frontmatter delimiter leaked into step text: \(t)")
+                            #expect(!t.contains("title:"), "Frontmatter key leaked into step text: \(t)")
                         }
                     }
                 }
@@ -117,7 +138,7 @@ struct CooklangParserTests {
         #expect(!names.contains("hidden ingredient"))
     }
 
-    // MARK: - Section headers
+    // MARK: - Section headers (= syntax)
 
     @Test func sectionHeadersParsedWithCorrectNames() throws {
         let recipe = try CooklangParser.canonical.parse(try fixture("section-header"))
@@ -126,10 +147,8 @@ struct CooklangParserTests {
         #expect(recipe.sections[1].name == "Cooking")
     }
 
-    @Test func sauceSectionContainsExactlyOneStep() throws {
-        let recipe = try CooklangParser.canonical.parse(
-            "== Sauce ==\n\nSimmer @tomatoes{2} until thick."
-        )
+    @Test func singleEqualSectionHeaderParsed() throws {
+        let recipe = try CooklangParser.canonical.parse("= Sauce\n\nMix everything.")
         #expect(recipe.sections.count == 1)
         #expect(recipe.sections[0].name == "Sauce")
         #expect(recipe.sections[0].content.count == 1)
@@ -139,6 +158,70 @@ struct CooklangParserTests {
         } else {
             Issue.record("Expected Content.step as first item in Sauce section")
         }
+    }
+
+    // MARK: - Legacy syntax negative tests
+
+    @Test func legacyDoubleGtLineBecomesPlainStepText() throws {
+        let recipe = try CooklangParser.canonical.parse(">> title: foo")
+        #expect(recipe.metadata.allEntries.isEmpty)
+        let allText = recipe.sections
+            .flatMap(\.content)
+            .compactMap { if case .step(let s) = $0 { return s } else { return nil } }
+            .flatMap(\.items)
+            .compactMap { if case .text(let t) = $0 { return t } else { return nil } }
+            .joined()
+        #expect(allText.hasPrefix(">>"))
+    }
+
+    @Test func legacyDoubleEqualsSectionBecomesPlainStepText() throws {
+        let recipe = try CooklangParser.canonical.parse("== Sauce ==")
+        #expect(recipe.sections.allSatisfy { $0.name == nil })
+        let allText = recipe.sections
+            .flatMap(\.content)
+            .compactMap { if case .step(let s) = $0 { return s } else { return nil } }
+            .flatMap(\.items)
+            .compactMap { if case .text(let t) = $0 { return t } else { return nil } }
+            .joined()
+        #expect(allText.contains("=="))
+    }
+
+    // MARK: - Fixture spot-checks (recipe.cook)
+
+    @Test func recipeFixtureSpotChecks() throws {
+        let recipe = try CooklangParser.canonical.parse(try fixture("recipe"))
+
+        // Metadata exact values
+        #expect(recipe.metadata["title"] == "Pasta Bolognese")
+        #expect(recipe.metadata["servings"] == "4")
+        #expect(recipe.metadata["prep time"] == "15 min")
+        #expect(recipe.metadata["cook time"] == "1 hour")
+        #expect(recipe.metadata["difficulty"] == "medium")
+        #expect(recipe.metadata["course"] == "main")
+        #expect(recipe.metadata["tags"] == "italian, pasta, classic")
+        #expect(recipe.metadata["equipment"] == "Dutch oven, oven")
+
+        // Section count and names
+        #expect(recipe.sections.count == 3)
+        #expect(recipe.sections[0].name == "Soffritto")
+        #expect(recipe.sections[1].name == "Meat Sauce")
+        #expect(recipe.sections[2].name == "Pasta")
+
+        // Olive oil with 2 tbsp
+        let oliveOil = recipe.ingredients.first { $0.name == "olive oil" }
+        #expect(oliveOil != nil)
+        #expect(oliveOil?.quantity == Quantity(value: .number(2), unit: "tbsp"))
+
+        // Dutch oven and oven cookware
+        let cookwareNames = recipe.cookware.map(\.name)
+        #expect(cookwareNames.contains("Dutch oven"))
+        #expect(cookwareNames.contains("oven"))
+
+        // 6-min timer
+        let has6MinTimer = recipe.timers.contains {
+            $0.quantity == Quantity(value: .number(6), unit: "min")
+        }
+        #expect(has6MinTimer)
     }
 
     // MARK: - Malformed input

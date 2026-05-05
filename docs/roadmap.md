@@ -68,35 +68,50 @@ to a later spec.
 **Unlocks:** users can read a recipe end-to-end and the entry-points to
 the meal-plan / shopping-list flows are visually in place.
 
+### 0005 — First-run polish: parser updates and recipe-detail UI tweaks ✅
+
+`spec-505a7fd5`. Two-part polish spec from first-run testing.
+
+**Part 1 — CookbookCore parser updates:** bring the spec 0001 parser in
+line with the modern CookLang format — YAML frontmatter between `---`
+delimiters (replaces the old `>>` metadata syntax) and single-`=`
+section headers (replaces `== Name ==`). YAML list values (e.g. `tags:`)
+are joined into comma-separated strings to fit the existing `Metadata`
+API. The old syntaxes are dropped; `docs/examples/recipe.cook` (Pasta
+Bolognese) serves as the canonical fixture for parser tests.
+
+**Part 2 — Recipe-detail UI tweaks:** hero title clipping fix (fixed
+260 pt container height, `scaledToFill` + `clipped`, overlay anchored
+to container bottom-leading); bottom-bar scale picker removed (single
+picker now lives in the Ingredients-tab header); Add-to-menu icon
+changed from `bookmark` to `calendar`; ingredient and cookware names
+rendered in sentence case at display time via a `String.sentenceCased`
+extension; folder sections in the Recipes list made collapsible with
+in-memory state preserved across tab switches.
+
+**Unlocks:** real recipe files render correctly (YAML frontmatter,
+`=`-delimited sections); the recipe-detail UI is polished for regular use.
+
 ---
 
 ## CookbookCore parser & data formats
 
-### 0005 — CookLang parser updates: YAML frontmatter and `=` section syntax 📝
+### 0005 — First-run polish: parser updates and recipe-detail UI tweaks ✅
 
 `spec-505a7fd5`. Brings the spec 0001 parser in line with the modern
-CookLang format actually used by the user's recipes:
-
-- **Replace `>>` metadata with YAML frontmatter** between `---`
-  delimiters. YAML list values (e.g. `tags:` followed by `- item`
-  lines) flatten to comma-separated strings under the bare key,
-  matching the convention 0004's recipe-detail view already expects.
-- **Replace `== Name ==` section markers with `= Name`** (single
-  equals).
-- The dropped `>>` and `==` syntaxes become plain step text — no
-  backward compatibility (the user has no recipes using them).
-- Reference fixture: `docs/examples/recipe.cook` (the user's real
-  Pasta Bolognese recipe).
-
-CookbookCore-only; no UI changes. Should land before 0006 because
-0006 reuses the same parser primitives, and before further use of
-0004's recipe-detail view with real recipes (without this fix, the
-YAML block renders as a giant first step and metadata-driven stats
-stay empty).
+CookLang format actually used by the user's recipes (YAML frontmatter
+replaces `>>` metadata, single-`=` section headers replace `== Name ==`),
+plus a batch of recipe-detail UI tweaks that surfaced from first-run
+testing: hero title clipping fix, redundant scale-picker removal,
+calendar icon for Add-to-menu, sentence-cased ingredient/cookware
+names, collapsible folder sections in the Recipes list with
+in-memory state across tab switches.
 
 **Unlocks:** the user's actual recipes parse correctly — metadata
 populates the recipe-detail view's stats strip and tag chips,
-sections render with the right names.
+sections render with the right names — and the recipe-detail view
+looks right with real images.
+
 
 ### 0006 — CookbookCore data formats: meal plans, aisle.conf, shopping lists 📝
 
@@ -292,18 +307,16 @@ the layout.
   are real and listed.
 - **Specs may merge or split** as we approach authoring them. These are
   skeletons; details emerge from the actual spec writing.
-- **0005 (parser updates) is a corrective ahead of 0006** — the spec
-  0001 parser was modelled on cooklang-rs's older syntax (`>>` metadata,
-  `==` sections), but the user's real recipes use modern CookLang
-  (YAML frontmatter, `=` sections). 0005 fixes this; 0006 builds on
-  the corrected primitives.
 - **0006 bundles three pure-data formats** (meal plans, aisle.conf,
-  shopping lists) into one CookbookCore feature root. Originally
-  three separate slots — collapsed because they share the package
-  and the `swift test` inner loop, with no inter-dependencies in
-  code.
+  shopping lists) into one CookbookCore feature root. Originally three
+  separate slots — collapsed because they share the package and the
+  `swift test` inner loop, with no inter-dependencies in code.
 - **Recipe images live in 0003**, not 0002 — see `docs/architecture.md`
   "Recipe thumbnails" for the convention.
+- **0004 and 0005 are complete** — recipe details view and first-run
+  parser/UI polish, respectively. See `specs/done/` for their full
+  specs.
+- **0015 (iPad) is parked** unless real need surfaces during iPhone use.
 - **Shopping ships before meal plans** — 0007-0009 deliver a complete
   ad-hoc + recipe-driven shopping experience with no meal-plan
   dependency. Meal plans (0010-0012) layer on later as an additional
