@@ -5,7 +5,7 @@ description: "Bundles three pure-data CookbookCore extensions: meal plan format 
 dependencies: []
 priority: high
 complexity: high
-status: planned
+status: done
 tags:
 - cookbookcore
 - parser
