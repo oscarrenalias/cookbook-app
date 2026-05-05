@@ -215,6 +215,13 @@
       "agent_type": "review",
       "summary": "Review complete \u2014 needs_changes. Parser and UI implementation are functionally correct, but recipeFixtureSpotChecks uses weak != nil assertions where the spec requires exact-value equality checks for metadata fields.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T08:34:30.177095+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-fdcf9a45-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -586,7 +593,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-fdcf9a45-corrective"
   },
   "labels": [],
   "recovery_for": null,
