@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-f0f3a9f8",
+  "title": "Add RecipeTagChips view",
+  "agent_type": "developer",
+  "description": "Create RecipeTagChips.swift. Reads the 'tags' metadata key from Recipe.metadata, splits on commas (trimming whitespace), and renders a horizontally-scrolling row of pill-shaped chips. Each chip is text-only with .foregroundStyle(.tint) and a .regularMaterial background. The entire row is hidden (not rendered as empty space) when the tags key is absent or its value is empty after splitting.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "A chip is rendered for each comma-separated tag value.",
+    "Chip text uses .foregroundStyle(.tint).",
+    "Chip background uses .regularMaterial.",
+    "The row is entirely hidden when tags metadata is absent or empty.",
+    "Chips scroll horizontally when they overflow available width."
+  ],
+  "linked_docs": [
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeTagChips.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:42.645953+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

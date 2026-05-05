@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-59821ae0",
+  "title": "Add IngredientsView with scaling and checkbox state",
+  "agent_type": "developer",
+  "description": "Create IngredientsView.swift. Displays a list of Recipe.ingredients. A section header row shows 'Ingredients' on the leading edge and a Picker (bound to the external Scale binding) on the trailing edge. Each ingredient row has: a tappable circular checkbox (circle / checkmark.circle.fill) toggling local non-persistent 'gathered' state; the ingredient name (strikethrough + .secondary foreground when gathered); and the scaled quantity trailing, computed via RecipeScale.apply(to:). Empty state shows 'No ingredients listed' centered in .secondary foreground.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [
+    "B-e93417db"
+  ],
+  "acceptance_criteria": [
+    "Section header shows 'Ingredients' leading and scale Picker trailing bound to external binding.",
+    "Each row shows checkbox, name, and scaled quantity.",
+    "Tapping the checkbox toggles gathered state without persistence.",
+    "Gathered rows render name with .strikethrough() and .secondary foreground.",
+    "Quantities: .number scaled per RecipeScale rules, .text unchanged, nil hidden.",
+    "Empty state 'No ingredients listed' shown when Recipe.ingredients is empty.",
+    "Gathered state is non-persistent and resets when the view is re-initialised."
+  ],
+  "linked_docs": [
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/IngredientsView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:42.872423+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

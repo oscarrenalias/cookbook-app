@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-d6d71fda",
+  "title": "Add RecipeHeroHeader view",
+  "agent_type": "developer",
+  "description": "Create RecipeHeroHeader.swift. The view renders a hero area at fixed ~240 pt height (~5:3 aspect ratio). It calls RecipeImageLoader asynchronously; if an image loads, it fills the area (ContentMode.fill, clipped); if not, it renders a .tint-colored block with fork.knife SF Symbol centered. A gradient overlay darkens the lower portion for legibility. The recipe title (Recipe.metadata[\"title\"] or filename-minus-extension fallback) is overlaid at the bottom in white .title typography. An xmark.circle.fill dismiss button sits top-leading on a .regularMaterial circular background. Fixed height is preserved regardless of image presence.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [
+    "B-90a1e92a"
+  ],
+  "acceptance_criteria": [
+    "Hero area is always ~240 pt tall regardless of image presence.",
+    "Image fills the area with ContentMode.fill and is clipped to bounds.",
+    "Fallback renders fork.knife centered on a .tint-colored block of the same height.",
+    "Gradient overlay applied over the lower portion of the image/placeholder.",
+    "Title rendered in white .title font at the bottom of the hero.",
+    "xmark.circle.fill button at top-leading position with .regularMaterial circular background.",
+    "Dismiss button has an explicit accessibility label.",
+    "View delegates all file I/O to RecipeImageLoader."
+  ],
+  "linked_docs": [
+    "docs/mockups/recipe detail (sheet).png",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeHeroHeader.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:42.105959+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

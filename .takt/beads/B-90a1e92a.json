@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-90a1e92a",
+  "title": "Add RecipeImageLoader async helper",
+  "agent_type": "developer",
+  "description": "Create RecipeImageLoader.swift with an async function (or actor) that accepts a recipe source-file URL obtained from the security-scoped bookmark established in 0003. It searches for a sibling file sharing the same base name with extensions .jpg, .jpeg, .png, .heic (in that order), calls startAccessingSecurityScopedResource() before reading, and stopAccessingSecurityScopedResource() in all exit paths (success and failure). Returns a SwiftUI Image on success or nil when no sibling exists.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "startAccessingSecurityScopedResource() is called before any file-system access.",
+    "stopAccessingSecurityScopedResource() is called in all exit paths.",
+    "Extensions are tried in order: jpg, jpeg, png, heic.",
+    "Returns nil without throwing when no sibling image exists.",
+    "Returns a non-nil Image when a valid sibling is found."
+  ],
+  "linked_docs": [
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeImageLoader.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:41.847143+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
