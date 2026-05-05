@@ -47,7 +47,7 @@ claude:
   skills_dir: .claude
   flags:
     - "--dangerously-skip-permissions"
-  timeout_seconds: 900
+  timeout_seconds: 1500
   model_default: claude-sonnet-4-6
   model_by_agent:
     developer: claude-sonnet-4-6
