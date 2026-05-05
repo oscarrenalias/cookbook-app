@@ -33,8 +33,13 @@ public enum MealPlanParser {
             let trimmedRawLine = rawLine.trimmingCharacters(in: .whitespaces)
 
             if !commentStripper.inBlockComment && trimmedRawLine.hasPrefix("--") {
-                guard currentBlockHeading != nil, currentSectionIsOpen else {
+                guard currentBlockHeading != nil else {
                     continue
+                }
+
+                if !currentSectionIsOpen {
+                    currentSectionName = nil
+                    currentSectionIsOpen = true
                 }
 
                 let comment = String(trimmedRawLine.dropFirst(2)).trimmingCharacters(in: .whitespaces)
@@ -81,6 +86,42 @@ public enum MealPlanParser {
         flushBlock()
 
         return MealPlan(metadata: Metadata(metadataEntries), blocks: blocks)
+    }
+
+    public static func serialise(_ plan: MealPlan) -> String {
+        var lines: [String] = []
+
+        if !plan.metadata.allEntries.isEmpty {
+            lines.append("---")
+            for entry in plan.metadata.allEntries {
+                lines.append("\(entry.key): \(entry.value)")
+            }
+            lines.append("---")
+        }
+
+        for block in plan.blocks {
+            if !lines.isEmpty {
+                lines.append("")
+            }
+
+            lines.append("== \(block.heading) ==")
+
+            for (sectionIndex, section) in block.sections.enumerated() {
+                if sectionIndex > 0 {
+                    lines.append("")
+                }
+
+                if let name = section.name {
+                    lines.append("\(name):")
+                }
+
+                for item in section.items {
+                    lines.append(serialise(item))
+                }
+            }
+        }
+
+        return lines.joined(separator: "\n")
     }
 
     private static func parseBlockHeading(_ line: String) -> String? {
@@ -184,5 +225,39 @@ public enum MealPlanParser {
         }
 
         return ([], 0)
+    }
+
+    private static func serialise(_ item: MealPlanItem) -> String {
+        switch item {
+        case let .recipe(recipe):
+            return "@\(recipe.path)\(serialise(quantity: recipe.quantity))"
+        case let .ingredient(ingredient):
+            return "@\(ingredient.name)\(serialise(quantity: ingredient.quantity))"
+        case let .comment(comment):
+            return comment.isEmpty ? "--" : "-- \(comment)"
+        }
+    }
+
+    private static func serialise(quantity: Quantity?) -> String {
+        guard let quantity else {
+            return ""
+        }
+
+        let value: String = switch quantity.value {
+        case let .number(number):
+            if number.isFinite, number.rounded() == number {
+                String(Int(number))
+            } else {
+                String(number)
+            }
+        case let .text(text):
+            text
+        }
+
+        if let unit = quantity.unit, !unit.isEmpty {
+            return "{\(value)%\(unit)}"
+        }
+
+        return "{\(value)}"
     }
 }
