@@ -6,7 +6,7 @@
 /// omitted entirely when every ingredient matches a known aisle.
 public struct AggregatedShoppingList: Sendable, Equatable {
     /// Ordered aisle buckets. The nil-named "Other" bucket, when present, is always last.
-    public var aisles: [AggregatedAisle]
+    public let aisles: [AggregatedAisle]
 
     public init(aisles: [AggregatedAisle] = []) {
         self.aisles = aisles
@@ -21,10 +21,10 @@ public struct AggregatedShoppingList: Sendable, Equatable {
 /// aggregated recipe list.
 public struct AggregatedAisle: Sendable, Equatable {
     /// Aisle name from `aisle.conf`, or `nil` for the "Other" bucket.
-    public var name: String?
+    public let name: String?
 
     /// Ingredients belonging to this aisle in stable first-occurrence order.
-    public var items: [AggregatedItem]
+    public let items: [AggregatedItem]
 
     public init(name: String?, items: [AggregatedItem] = []) {
         self.name = name
@@ -46,10 +46,10 @@ public struct AggregatedAisle: Sendable, Equatable {
 ///   entry in `quantities`; an item seen only without quantities has an empty list.
 public struct AggregatedItem: Sendable, Equatable {
     /// Canonical or normalised ingredient name.
-    public var name: String
+    public let name: String
 
     /// Accumulated quantities. May be empty when all occurrences lacked a quantity.
-    public var quantities: [Quantity]
+    public let quantities: [Quantity]
 
     public init(name: String, quantities: [Quantity] = []) {
         self.name = name

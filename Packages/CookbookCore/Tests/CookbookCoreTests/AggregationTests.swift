@@ -114,6 +114,18 @@ struct AggregationTests {
         #expect(qtys[1] == Quantity(value: .text("a pinch")))
     }
 
+    @Test func textAndNumericQuantitiesArePreservedSeparately() {
+        // text quantity must never merge with a numeric quantity
+        let recipes = [recipe([ing("olive oil", qty: textQty("a splash")),
+                               ing("olive oil", qty: numQty(10, unit: "ml"))])]
+        let result = ShoppingList.aggregate(recipes: recipes)
+
+        let qtys = result.aisles[0].items[0].quantities
+        #expect(qtys.count == 2)
+        #expect(qtys[0] == Quantity(value: .text("a splash")))
+        #expect(qtys[1] == Quantity(value: .number(10), unit: "ml"))
+    }
+
     // MARK: – Quantity-less ingredients
 
     @Test func quantityLessIngredientHasEmptyQuantitiesList() {
@@ -121,6 +133,18 @@ struct AggregationTests {
         let result = ShoppingList.aggregate(recipes: recipes)
 
         #expect(result.aisles[0].items[0].quantities.isEmpty)
+    }
+
+    @Test func quantityLessOccurrenceMixedWithQuantitiedOccurrenceProducesOneItem() {
+        // @salt{} in recipe A, @salt{1%tsp} in recipe B → one item, quantities: [1 tsp]
+        let recipeA = recipe([ing("salt")])
+        let recipeB = recipe([ing("salt", qty: numQty(1, unit: "tsp"))])
+        let result = ShoppingList.aggregate(recipes: [recipeA, recipeB])
+
+        let items = result.aisles[0].items
+        #expect(items.count == 1)
+        #expect(items[0].name == "salt")
+        #expect(items[0].quantities == [Quantity(value: .number(1), unit: "tsp")])
     }
 
     // MARK: – Unmatched ingredients
