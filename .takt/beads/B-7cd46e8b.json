@@ -200,6 +200,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeScale.swift",
     "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
@@ -378,6 +379,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeScale.swift",
     "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
@@ -553,6 +555,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeScale.swift",
     "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
@@ -578,7 +581,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflict risks \u2014 only new lines added inside a public extension block. Sibling beads touching other files (AisleCatalog, RecipeScale, new SwiftUI views) will not conflict.\nNo conflicts expected. Only AisleCatalog.swift was modified; no sibling beads touch this file.",
+  "conflict_risks": "No conflict risks \u2014 only new lines added inside a public extension block. Sibling beads touching other files (AisleCatalog, RecipeScale, new SwiftUI views) will not conflict.\nNo conflicts expected. Only AisleCatalog.swift was modified; no sibling beads touch this file.\nNone \u2014 only new methods added to an existing enum; no API surface changed.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
