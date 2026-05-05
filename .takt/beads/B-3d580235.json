@@ -178,6 +178,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
     "CookbookAppTests/AisleCatalogTests.swift",
     "CookbookAppTests/ShoppingListAisleGrouperTests.swift",
@@ -325,6 +326,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
@@ -464,6 +466,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
@@ -489,7 +492,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 method is additive, no existing call sites modified.\nNone \u2014 change is limited to adding a new public method overload; no existing method signatures or logic was altered.\nThe ShoppingLists/ directory is newly created by this bead. Sibling beads writing files there will not conflict as long as they use distinct filenames.",
+  "conflict_risks": "None \u2014 method is additive, no existing call sites modified.\nNone \u2014 change is limited to adding a new public method overload; no existing method signatures or logic was altered.\nThe ShoppingLists/ directory is newly created by this bead. Sibling beads writing files there will not conflict as long as they use distinct filenames.\nNone \u2014 new file only, no modifications to shared code.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
