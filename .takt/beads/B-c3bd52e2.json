@@ -88,6 +88,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T21:07:29.117108+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -104,7 +113,61 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c3bd52e2/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T21:07:29.117089+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-c3bd52e2",
+      "feature_root_id": "B-27e1396e",
+      "title": "Render collapsible shopping list header area",
+      "agent_type": "developer",
+      "description": "Add the reusable header view and integrate it into the shopping-list detail screen above progress and aisle sections with scene-scoped collapse persistence.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "A new header view renders extracted markdown content with the specified line handling, disclosure label, and typography.",
+        "`ShoppingListDetailView` shows the header area only when extraction returns content and places it above the progress header.",
+        "Collapse state uses the per-file `@SceneStorage` key from the spec and defaults to expanded."
+      ],
+      "dependencies": [
+        "B-7b891bbe"
+      ],
+      "linked_docs": [
+        "spec-4e3e388a"
+      ],
+      "execution_branch_name": "feature/b-27e1396e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+        "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
