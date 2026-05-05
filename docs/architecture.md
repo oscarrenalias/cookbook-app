@@ -135,6 +135,43 @@ product `CookbookCore` and test target `CookbookCoreTests`. Run `swift test`
 from that directory as the fast inner-loop test command; no iOS simulator is
 required.
 
+### Recipe file format (spec 0005)
+
+Recipe files (`.cook`) use the following top-level structure:
+
+**Metadata — YAML frontmatter** (replaces the old `>>` syntax, dropped in
+spec 0005): a recipe MAY begin with a YAML frontmatter block delimited by `---`
+lines. Scalar values are stored verbatim under their key; list values (indented
+`- item` lines) are joined into comma-separated strings. Example:
+
+```
+---
+title: Pasta Bolognese
+servings: 4
+tags:
+  - italian
+  - pasta
+---
+```
+
+`metadata["tags"]` resolves to `"italian, pasta"`.
+
+**Section headers** — a line of the form `= Name` (exactly one `=`, a space,
+then the section name) opens a new named section. Steps before the first
+header go into an implicit unnamed section. Step numbering restarts at 1 in
+each named section. The old `== Name ==` syntax is dropped; a line starting
+with `==` is treated as plain step text.
+
+`docs/examples/recipe.cook` (Pasta Bolognese) is the canonical reference
+recipe and the primary fixture for parser tests.
+
+### Sentence case for ingredient and cookware display (spec 0005)
+
+`IngredientsView` and `CookwareView` render names via `String.sentenceCased`
+(defined in `CookbookApp/Recipes/StringExtensions.swift`): capitalise the first
+character, leave the rest verbatim. This is a view-layer transform only —
+`Ingredient.name` and `Cookware.name` from `CookbookCore` are unchanged.
+
 ### Quantity parsing rules
 
 The `Quantity` produced by every inline component (`@`, `#`, `~`) follows
@@ -265,38 +302,37 @@ and the single source of truth for the current serving scale.
 
 ```
 RecipeDetailSheet                    ← owns @State currentScale, selectedTab, parsedRecipe
-├── RecipeHeroHeader                 ← hero image + gradient + dismiss button
+├── RecipeHeroHeader                 ← hero image (fixed 260 pt height) + gradient + dismiss button
 │   └── [async] RecipeImageLoader   ← sibling-image lookup (see below)
 ├── RecipeStatStrip(scale: $currentScale)   ← scrollable stat strip; binds to scale
 ├── RecipeTagChips                   ← horizontal tag chips; read-only
 ├── Picker (segmented)               ← tab selection: Ingredients / Cookware / Steps
 ├── [tab content]
-│   ├── IngredientsView(scale: $currentScale)  ← ingredient list + gather toggle; binds to scale
+│   ├── IngredientsView(scale: $currentScale)  ← ingredient list + scale picker in header; binds to scale
 │   ├── CookwareView                 ← cookware list; no scale dependency
 │   └── StepsView                   ← section/step list; uses RecipeStepCombiner
-└── RecipeBottomBar(scale: $currentScale)    ← action bar + scale picker; binds to scale
+└── RecipeBottomBar                  ← action bar (two action buttons; no scale picker)
 ```
 
 `RecipeDetailSheet` parses the `.cook` file off the main thread using a
 detached `Task` with `.userInitiated` priority, keyed on `recipe.url` via
 `.task(id:)`. While parsing, a `ProgressView()` replaces the tab content;
-`RecipeBottomBar` is always visible (both states) so the scale picker is
-accessible immediately.
+`RecipeBottomBar` is always visible in both states.
 
 ### Scale @State sharing
 
 `RecipeDetailSheet` owns a single `@State private var currentScale: RecipeScale = .one`.
-Three child views receive it as a `@Binding`:
+Two child views receive it as a `@Binding`:
 
 | Child | Role |
 |-------|------|
 | `RecipeStatStrip` | Re-computes the servings display when scale changes |
-| `IngredientsView` | Scales each ingredient quantity; also hosts a redundant scale `Picker` in its section header |
-| `RecipeBottomBar` | Hosts the primary scale `Picker`; writes back to the binding |
+| `IngredientsView` | Scales each ingredient quantity; hosts the scale `Picker` in its section header |
 
-Both pickers (in `IngredientsView`'s section header and in `RecipeBottomBar`)
-drive the same `@State` in the parent. Either picker updates all three
-consumers simultaneously — no explicit observation or notification needed.
+The single scale picker (in `IngredientsView`'s section header) drives the
+`@State` in the parent, updating all consumers simultaneously — no explicit
+observation or notification needed. The bottom bar no longer contains a
+picker (removed in spec 0005).
 
 `RecipeScale` is an `enum : Double` with cases `.half (0.5)`, `.one (1.0)`,
 `.two (2.0)`, `.three (3.0)`. `RecipeScale.apply(to:)` leaves `.text`
@@ -372,15 +408,15 @@ also assigns sequential step numbers per section and distinguishes `.step` rows
 
 | Button | Icon | Follow-up spec |
 |--------|------|----------------|
-| Add to menu | `bookmark` | spec 0007 (meal plans) |
-| Add to shopping list | `cart` | spec 0013 (shopping lists) |
+| Add to menu | `calendar` | spec 0011 (meal plans) |
+| Add to shopping list | `cart` | spec 0009 (shopping lists) |
 
 Each button sets a local `@State` flag (`showMenuAlert` / `showShoppingListAlert`)
 which triggers a `.alert("Coming in a future update", …)` with a single
 `Button("OK", role: .cancel)` dismissal. No data is written; the alert is
 purely informational.
 
-When spec 0007 and 0013 are implemented, replace the flag-and-alert pattern
+When spec 0011 and 0009 are implemented, replace the flag-and-alert pattern
 with the actual action for each button. The button labels, icons, and
 accessibility labels are already correct and do not need to change.
 
@@ -401,3 +437,28 @@ by automated tests. **A human must review these before shipping:**
   (one stat) and maximum (five stats) cardinalities.
 - Dismiss button overlay position and contrast against the hero image.
 - Segmented picker tab transitions (no custom animation; SwiftUI default).
+
+**Spec 0005 QA checklist** (items that cannot be covered by automated tests):
+
+- [ ] **Hero title visible on real images** — open Tiramisu, Pepperoni Pizza,
+  and Blackened Salmon from the cookbook repo. The recipe title MUST be fully
+  visible inside the 260 pt hero container with no clipping at the bottom and
+  no occlusion by the segmented control. The placeholder (no-image) case must
+  also look correct.
+- [ ] **Calendar icon on "Add to menu"** — the bottom action bar shows a
+  `calendar` SF Symbol (not `bookmark`) on the left button, matching the Meal
+  Plans tab bar icon.
+- [ ] **Two-button bottom bar layout** — with the scale picker removed,
+  "Add to menu" and "Add to shopping list" expand evenly to fill the bar width.
+  Verify layout at standard and large text sizes.
+- [ ] **Sentence case in Ingredients and Cookware tabs** — ingredient and
+  cookware names appear sentence-cased ("Olive oil", "Dutch oven") without
+  double-capitalising already-capitalised words.
+- [ ] **Collapsible folder sections in Recipes list** — tapping a section
+  header collapses that section's rows; tapping again expands. Collapsing one
+  section does not affect others. State is preserved when switching away to
+  another tab and returning.
+- [ ] **Multi-section step rendering with Pasta Bolognese** — parsing the
+  Pasta Bolognese recipe produces three named sections ("Soffritto", "Meat
+  Sauce", "Pasta"). Steps tab shows each section name as a header with step
+  numbers restarting at 1 in each section.

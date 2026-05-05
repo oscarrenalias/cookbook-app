@@ -52,7 +52,7 @@ placeholder sheet (replaced in 0004 by the real detail view).
 **Unlocks:** users can pick their recipes folder and browse their
 recipes; downstream tabs/specs can assume a folder is always available.
 
-### 0004 — Recipe details view 📝
+### 0004 — Recipe details view ✅
 
 `spec-0326bd4c`. Modal sheet over the recipes list (per
 `docs/mockups/recipe detail (sheet).png`). Hero image (or `fork.knife`
@@ -61,18 +61,42 @@ placeholder) with title overlay, five-stat strip
 Ingredients/Cookware/Steps tabs, 0.5x/1x/2x/3x scale picker affecting
 ingredient quantities and servings. The two action buttons (Add to menu,
 Add to shopping list) are present but stubbed to a "Coming soon" alert
-— real behavior arrives in 0010 (meal plans) and 0008 (shopping
+— real behavior arrives in 0011 (meal plans) and 0009 (shopping
 lists). The bookmark/favorite toggle shown in the mockup is deferred
 to a later spec.
 
 **Unlocks:** users can read a recipe end-to-end and the entry-points to
 the meal-plan / shopping-list flows are visually in place.
 
+### 0005 — First-run polish: parser updates and recipe-detail UI tweaks ✅
+
+`spec-505a7fd5`. Two-part polish spec from first-run testing.
+
+**Part 1 — CookbookCore parser updates:** bring the spec 0001 parser in
+line with the modern CookLang format — YAML frontmatter between `---`
+delimiters (replaces the old `>>` metadata syntax) and single-`=`
+section headers (replaces `== Name ==`). YAML list values (e.g. `tags:`)
+are joined into comma-separated strings to fit the existing `Metadata`
+API. The old syntaxes are dropped; `docs/examples/recipe.cook` (Pasta
+Bolognese) serves as the canonical fixture for parser tests.
+
+**Part 2 — Recipe-detail UI tweaks:** hero title clipping fix (fixed
+260 pt container height, `scaledToFill` + `clipped`, overlay anchored
+to container bottom-leading); bottom-bar scale picker removed (single
+picker now lives in the Ingredients-tab header); Add-to-menu icon
+changed from `bookmark` to `calendar`; ingredient and cookware names
+rendered in sentence case at display time via a `String.sentenceCased`
+extension; folder sections in the Recipes list made collapsible with
+in-memory state preserved across tab switches.
+
+**Unlocks:** real recipe files render correctly (YAML frontmatter,
+`=`-delimited sections); the recipe-detail UI is polished for regular use.
+
 ---
 
 ## CookbookCore data formats
 
-### 0005 — CookbookCore data formats: meal plans, aisle.conf, shopping lists 📝
+### 0006 — CookbookCore data formats: meal plans, aisle.conf, shopping lists 📝
 
 `spec-ee1d75fa`. Bundles three pure-data extensions to the
 `CookbookCore` package, all `swift test`-able with no simulator:
@@ -103,13 +127,13 @@ aisle config, or shopping lists.
 
 Shopping is prioritised before meal plans because the ad-hoc shopping
 flow is independently useful — the app is a complete shopping-list
-manager once 0006 lands, with no meal-plan dependency. Recipe-driven
-generation follows in 0007–0008. Meal plans then layer on later as
+manager once 0007 lands, with no meal-plan dependency. Recipe-driven
+generation follows in 0008–0009. Meal plans then layer on later as
 an additional source of shopping lists.
 
-### 0006 — Shopping Lists tab (list + detail + ad-hoc) 🔜
+### 0007 — Shopping Lists tab (list + detail + ad-hoc) 🔜
 
-**Depends on:** 0003, 0005.
+**Depends on:** 0003, 0006.
 
 Full ad-hoc shopping list support — every operation a user needs to
 manage shopping lists by hand, without depending on meal plans or
@@ -123,7 +147,7 @@ recipes:
   Lists can also be deleted from this view.
 - **Detail view**: renders the markdown content; checklist items are
   interactive — tapping a row toggles its checked state and persists
-  back to the file via 0005's `ShoppingList.toggle(itemAt:)` helper
+  back to the file via 0006's `ShoppingList.toggle(itemAt:)` helper
   (last-writer-wins per architecture doc).
 - **Add item**: a text-input affordance in the detail view appends a
   new unchecked one-off item to the current list. Caller-supplied
@@ -134,33 +158,33 @@ recipes:
   that line from the file via `ShoppingList.removeItem(atLine:)`.
   Non-item content (headers, paragraphs) is never affected.
 
-After 0006 lands, the app is a complete standalone shopping-list
+After 0007 lands, the app is a complete standalone shopping-list
 manager: create named blank lists, populate manually, check items
 off, delete items, delete lists.
 
 **Unlocks:** ad-hoc shopping list use; the minimum-viable shopping
 flow with no meal-plan or recipe dependency.
 
-### 0007 — Ingredient aggregation 🔜
+### 0008 — Ingredient aggregation 🔜
 
-**Depends on:** 0001, 0005.
+**Depends on:** 0001, 0006.
 
 Adds `ShoppingList.aggregate(recipes:aisle:)` (or equivalent) to
 `CookbookCore`. Given N recipes and an optional `AisleConfig` (both
-types from 0005), returns a flattened, deduplicated list with
+types from 0006), returns a flattened, deduplicated list with
 quantities summed per canonical ingredient name and grouped by aisle
 section. Pure logic, fully testable via `swift test`. No UI. Used by
-0008 and (later) 0011.
+0009 and (later) 0012.
 
 **Unlocks:** smart shopping-list generation from any recipe set.
 
-### 0008 — "Add to shopping list" flow from a recipe 🔜
+### 0009 — "Add to shopping list" flow from a recipe 🔜
 
-**Depends on:** 0004, 0006, 0007.
+**Depends on:** 0004, 0007, 0008.
 
 Recipe-detail "Add to shopping list" button presents a sheet listing
 existing shopping lists plus a "Create new…" row. Selecting either
-aggregates this recipe's ingredients (via 0007) into that list. New
+aggregates this recipe's ingredients (via 0008) into that list. New
 rows are appended via `ShoppingList.appendItem(_:)` with formatting
 this spec chooses — typically italicised quantities so the resulting
 markdown looks consistent with manually-curated lists.
@@ -168,10 +192,10 @@ markdown looks consistent with manually-curated lists.
 The MARKDOWN STRUCTURE this spec produces (italicised quantities,
 optional aisle headers when aisle.conf is present) is a write-time
 presentation choice made by this spec — not something CookbookCore
-parses. The 0006 detail view treats the file as ordinary markdown
+parses. The 0007 detail view treats the file as ordinary markdown
 with toggleable items regardless of who wrote it.
 
-**Unlocks:** the recipe → shopping list flow. After 0008 lands, the
+**Unlocks:** the recipe → shopping list flow. After 0009 lands, the
 shopping domain is complete for recipe-driven use; meal plans become
 optional convenience.
 
@@ -179,20 +203,20 @@ optional convenience.
 
 ## Meal-plan domain
 
-### 0009 — Meal Plans tab (list + detail) 🔜
+### 0010 — Meal Plans tab (list + detail) 🔜
 
-**Depends on:** 0003, 0005.
+**Depends on:** 0003, 0006.
 
 Replaces the Meal Plans empty state with a list of plans found in the
 configured folder. Tapping a plan opens a detail view showing its
 recipes; recipes can be removed; whole plans can be deleted. Creating
-a plan is deferred to 0010 (the "add from recipe" flow).
+a plan is deferred to 0011 (the "add from recipe" flow).
 
 **Unlocks:** users can browse and manage existing meal plans.
 
-### 0010 — "Add to meal plan" flow from a recipe 🔜
+### 0011 — "Add to meal plan" flow from a recipe 🔜
 
-**Depends on:** 0004, 0009.
+**Depends on:** 0004, 0010.
 
 The recipe-detail "Add to meal plan" button presents a sheet listing
 existing plans plus a "Create new plan…" row. Selecting either appends
@@ -200,19 +224,19 @@ the recipe to that plan and saves to disk.
 
 **Unlocks:** the primary user flow for building meal plans.
 
-### 0011 — "Create shopping list from meal plan" 🔜
+### 0012 — "Create shopping list from meal plan" 🔜
 
-**Depends on:** 0006, 0007, 0009.
+**Depends on:** 0007, 0008, 0010.
 
 Meal-plan detail view gains a "Create shopping list" button.
-Aggregates the plan's recipes via 0007, prompts for a list name,
+Aggregates the plan's recipes via 0008, prompts for a list name,
 writes a new shopping list file (with a `## Meals` provenance
 section listing the plan's recipes, plus aisle-grouped items with
 italicised quantities), opens it in the Shopping Lists tab.
 
 The MARKDOWN STRUCTURE this spec produces (Meals heading, aisle
 sections, italicised quantities) is a write-time presentation choice
-made by this spec — not something CookbookCore parses. The 0006
+made by this spec — not something CookbookCore parses. The 0007
 detail view treats the file as ordinary markdown with toggleable
 items.
 
@@ -223,7 +247,7 @@ weekly planning.
 
 ## Polish
 
-### 0012 — First-launch onboarding 🔜
+### 0013 — First-launch onboarding 🔜
 
 **Depends on:** 0003.
 
@@ -234,9 +258,9 @@ Pure UX polish, no new mechanics.
 
 **Unlocks:** new users aren't confused on first launch.
 
-### 0013 — Error & offline states 🔜
+### 0014 — Error & offline states 🔜
 
-**Depends on:** 0003, 0006, 0009.
+**Depends on:** 0003, 0007, 0010.
 
 Centralizes error rendering across all three tabs: malformed `.cook` files
 surface as a row with an "Open as text" affordance, iCloud-not-yet-
@@ -245,7 +269,7 @@ downloaded files show a download spinner, missing folders show a
 
 **Unlocks:** the app survives real-world iCloud/file edge cases gracefully.
 
-### 0014 — iPad layouts ⏸ *(only if needed)*
+### 0015 — iPad layouts ⏸ *(only if needed)*
 
 **Depends on:** the app being usable on iPhone first.
 
@@ -267,19 +291,19 @@ the layout.
   are real and listed.
 - **Specs may merge or split** as we approach authoring them. These are
   skeletons; details emerge from the actual spec writing.
-- **0005 bundles three pure-data formats** (meal plans, aisle.conf,
+- **0006 bundles three pure-data formats** (meal plans, aisle.conf,
   shopping lists) into one CookbookCore feature root. Originally three
   separate slots — collapsed because they share the package and the
   `swift test` inner loop, with no inter-dependencies in code.
 - **Recipe images live in 0003**, not 0002 — see `docs/architecture.md`
   "Recipe thumbnails" for the convention.
-- **0004 (recipe details) is currently being executed** — mockup at
-  `docs/mockups/recipe detail (sheet).png`.
-- **0014 (iPad) is parked** unless real need surfaces during iPhone use.
-- **Shopping ships before meal plans** — 0006-0008 deliver a complete
+- **0004 and 0005 are complete** — recipe details view and first-run
+  parser/UI polish, respectively. See `specs/done/` for their full specs.
+- **0015 (iPad) is parked** unless real need surfaces during iPhone use.
+- **Shopping ships before meal plans** — 0007-0009 deliver a complete
   ad-hoc + recipe-driven shopping experience with no meal-plan
-  dependency. Meal plans (0009-0011) layer on later as an additional
+  dependency. Meal plans (0010-0012) layer on later as an additional
   source of shopping lists.
 - **Settings doesn't get its own spec** — each setting lands in the
   feature spec that needs it (folder in 0003, aisle.conf path likely
-  in 0006 or 0008).
+  in 0007 or 0009).
