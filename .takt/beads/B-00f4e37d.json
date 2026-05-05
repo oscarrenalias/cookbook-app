@@ -3,7 +3,7 @@
   "title": "Review ingredient aggregation delivery",
   "agent_type": "review",
   "description": "Perform a final review of the implementation, tests, and documentation to confirm the API matches spec-3cc80e55 and stays within the pure-data scope.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
   "dependencies": [
@@ -391,7 +391,7 @@
     "test_coverage_notes": "13 tests in AggregationTests; 11 tests for canonical in AisleConfigParserTests. Two explicitly spec-required cases are absent: (a) text+numeric mixed quantity merge, (b) quantity-less occurrence mixed with a quantitied occurrence of the same ingredient across recipes.",
     "known_limitations": "The Ingredient.note drop requirement in the spec cannot be tested because Ingredient does not expose a note field in the current model; that test requirement is vacuously satisfied."
   },
-  "block_reason": "Three findings block sign-off: (1) Medium \u2014 spec explicitly requires a text+numeric mixed quantity test (\"Text quantity does not merge. [a splash olive oil] + [10 ml olive oil] \u2192 quantities: [text 'a splash', 10 ml]\"); the existing textQuantitiesAreAppendedAsSeparateEntries test covers only text+text. (2) Low \u2014 spec explicitly requires a quantity-less + quantitied mixed test (\"@salt{} in Recipe A, @salt{1%tsp} in Recipe B \u2192 one item 'salt' with quantities: [1 tsp]\"); no such test exists. (3) Low \u2014 all three result value types use `public var` instead of the spec's `public let`, adding unintended post-construction mutability to the public API.",
+  "block_reason": "",
   "conflict_risks": "None \u2014 only AggregationTests.swift needs changes; no other in-flight bead touches that file.",
   "branch_name": "feature/b-dd16f765",
   "worktree_path": "",
@@ -449,6 +449,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-00f4e37d-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T19:56:44.938404+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-00f4e37d-corrective completed",
       "details": {}
     }
   ],
@@ -886,7 +893,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-00f4e37d-corrective"
+    "auto_corrective_bead_id": "B-00f4e37d-corrective",
+    "last_corrective_retry_source": "B-00f4e37d-corrective",
+    "last_corrective_retry_commit": "8f79be1ef8941ff18c6b0bc12e372f2817ee2caf"
   },
   "labels": [],
   "recovery_for": null,
