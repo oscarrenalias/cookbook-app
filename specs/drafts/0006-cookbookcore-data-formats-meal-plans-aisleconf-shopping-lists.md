@@ -1,5 +1,5 @@
 ---
-name: "0005 CookbookCore data formats: meal plans, aisle.conf, shopping lists"
+name: "0006 CookbookCore data formats: meal plans, aisle.conf, shopping lists"
 id: spec-ee1d75fa
 description: "Bundles three pure-data CookbookCore extensions: meal plan format (CookLang .menu with frontmatter, day blocks, recipe references reusing the spec 0001 quantity grammar), aisle.conf parser (read-only with alias-aware lookup), and shopping list as opaque Markdown text with toggle/append/remove helpers for GFM checklist items — no structural parsing at this layer."
 dependencies: []
