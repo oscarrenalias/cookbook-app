@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-926a1d82",
+  "title": "Update and extend ShoppingListFilesTests for subfolder and polish fixes",
+  "agent_type": "tester",
+  "description": "Update ShoppingListFilesTests.swift: seed all fixture .md files inside <temp>/shopping-lists/ rather than <temp>/; add shoppingListsURL_creates_missing_subfolder test; add discover_returns_empty_when_subfolder_missing test; add a capitalisation-transform unit assertion for the section heading (either a view test or an internal helper). Verify xcodebuild test passes with no regressions.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-65bfad3d",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All existing discovery, sort-order, and displayName tests pass with fixtures in <temp>/shopping-lists/",
+    "shoppingListsURL_creates_missing_subfolder: asserts directory is created, and a second call is idempotent",
+    "discover_returns_empty_when_subfolder_missing: subfolder auto-created, result is []",
+    "A unit test or helper assertion validates .localizedCapitalized applied to an aisle name",
+    "xcodebuild test succeeds with no regressions"
+  ],
+  "linked_docs": [
+    "specs/drafts/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
+  ],
+  "feature_root_id": "B-65bfad3d",
+  "execution_branch_name": "feature/b-65bfad3d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-65bfad3d",
+  "expected_files": [
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T14:03:39.925953+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
