@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-94c6ce01",
+  "title": "Review 0008 polish changes",
+  "agent_type": "review",
+  "description": "Review all five implementation areas for correctness, adherence to spec scope (no CookbookCore changes, no auto-migration), security-scope handling in shoppingListsURL/discover, test coverage adequacy, and absence of regressions in recipes folder behaviour and existing shopping list flows.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-65bfad3d",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "No changes outside declared scope \u2014 CookbookCore untouched, no auto-migration logic",
+    "Security-scoped access on parent folderURL is correctly bracketed in ShoppingListFiles changes",
+    "Test suite covers all three polish areas including the new subfolder helper",
+    "No regressions in recipes folder or existing shopping list read/write/delete paths",
+    "Picker sort uses localised comparison; capitalisation is view-only with no file mutations"
+  ],
+  "linked_docs": [
+    "specs/drafts/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
+  ],
+  "feature_root_id": "B-65bfad3d",
+  "execution_branch_name": "feature/b-65bfad3d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-65bfad3d",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T14:03:40.957427+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
