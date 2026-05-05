@@ -129,6 +129,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T08:34:32.145440+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-fdcf9a45-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-fdcf9a45-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -146,7 +155,100 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-fdcf9a45-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-fdcf9a45-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T08:34:32.145421+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-fdcf9a45-corrective",
+      "feature_root_id": "B-fa1cbeb6",
+      "title": "Corrective fix for B-fdcf9a45: REVIEW: Spec 0005 review",
+      "agent_type": "developer",
+      "description": "Blocked reason: recipeFixtureSpotChecks (CooklangParserTests.swift:195-208) asserts only metadata[\"title\"] != nil, metadata[\"servings\"] != nil, and metadata[\"tags\"] != nil. The spec requires exact-value assertions: == \"Pasta Bolognese\", == \"4\", and == \"italian, pasta, classic\" respectively. Weak nil-checks allow a parser regression that returns wrong values to pass undetected.\n\nRemaining work: Developer must strengthen recipeFixtureSpotChecks to assert exact metadata values: metadata[\"title\"] == \"Pasta Bolognese\", metadata[\"servings\"] == \"4\", metadata[\"tags\"] == \"italian, pasta, classic\". Optionally: add RecipesListView collapse-state test or document its deliberate exclusion.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-fdcf9a45.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "execution_branch_name": "feature/b-fa1cbeb6",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+      "expected_files": [
+        "CookbookApp/Recipes/CookwareView.swift",
+        "CookbookApp/Recipes/IngredientsView.swift",
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookApp/Recipes/RecipeHeroHeader.swift",
+        "CookbookApp/Recipes/RecipesListView.swift",
+        "CookbookApp/Recipes/StepsView.swift",
+        "CookbookApp/Recipes/StringExtensions.swift",
+        "CookbookAppTests/StringExtensionTests.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
+        "docs/architecture.md",
+        "docs/examples/recipe.cook",
+        "docs/roadmap.md",
+        "specs/done/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "expected_globs": [
+        "CookbookApp/**/*Extension*.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookApp/Recipes/StepsView.swift",
+        "CookbookApp/Recipes/String*.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+      ],
+      "touched_files": [
+        "CookbookApp/Recipes/CookwareView.swift",
+        "CookbookApp/Recipes/IngredientsView.swift",
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookApp/Recipes/RecipeHeroHeader.swift",
+        "CookbookApp/Recipes/RecipesListView.swift",
+        "CookbookApp/Recipes/StepsView.swift",
+        "CookbookApp/Recipes/StringExtensions.swift",
+        "CookbookAppTests/StringExtensionTests.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
+        "docs/architecture.md",
+        "docs/examples/recipe.cook",
+        "docs/roadmap.md",
+        "specs/done/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "conflict_risks": "Any sibling bead touching CooklangParser.swift or CooklangParserTests.swift will conflict with the corrective change. No other conflict risks identified.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
