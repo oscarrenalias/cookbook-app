@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-0509bd25",
+  "title": "AisleIconMap",
+  "agent_type": "developer",
+  "description": "Add `CookbookApp/ShoppingLists/AisleIconMap.swift` with a static function (or dictionary) mapping lowercased aisle names to SF Symbol names. Use the spec's mapping table: produce\u2192`leaf.fill`, herbs\u2192`leaf`, meat/meat & fish/seafood\u2192`fish.fill`, dairy/cheese/eggs\u2192`drop.fill`, bakery\u2192`birthday.cake.fill`, pantry\u2192`archivebox.fill`, canned\u2192`cylinder.fill`, frozen\u2192`snowflake`, spices\u2192`flame.fill`, pasta/rice/flours\u2192`fork.knife`, oils\u2192`drop.degreesign`, nuts\u2192`circle.grid.cross.fill`, sauces/juices/world\u2192`mug.fill`, baking\u2192`oven`, alko\u2192`wineglass.fill`. Unknown/nil falls back to `basket.fill`. The dev agent may substitute a more appropriate iOS 17 SF Symbol for any individual entry.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All 15 aisle categories from the spec table have an entry",
+    "Lookup is case-insensitive",
+    "nil and unknown aisle names return `basket.fill`",
+    "All SF Symbol names used exist in iOS 17 (no custom assets)"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AisleIconMap.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:51.440752+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
