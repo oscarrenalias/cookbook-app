@@ -91,6 +91,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:17:53.689961+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-59821ae0/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-59821ae0/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -107,7 +116,64 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-59821ae0/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-59821ae0/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T06:17:53.689949+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-59821ae0",
+      "feature_root_id": "B-1dd57ece",
+      "title": "Add IngredientsView with scaling and checkbox state",
+      "agent_type": "developer",
+      "description": "Create IngredientsView.swift. Displays a list of Recipe.ingredients. A section header row shows 'Ingredients' on the leading edge and a Picker (bound to the external Scale binding) on the trailing edge. Each ingredient row has: a tappable circular checkbox (circle / checkmark.circle.fill) toggling local non-persistent 'gathered' state; the ingredient name (strikethrough + .secondary foreground when gathered); and the scaled quantity trailing, computed via RecipeScale.apply(to:). Empty state shows 'No ingredients listed' centered in .secondary foreground.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Section header shows 'Ingredients' leading and scale Picker trailing bound to external binding.",
+        "Each row shows checkbox, name, and scaled quantity.",
+        "Tapping the checkbox toggles gathered state without persistence.",
+        "Gathered rows render name with .strikethrough() and .secondary foreground.",
+        "Quantities: .number scaled per RecipeScale rules, .text unchanged, nil hidden.",
+        "Empty state 'No ingredients listed' shown when Recipe.ingredients is empty.",
+        "Gathered state is non-persistent and resets when the view is re-initialised."
+      ],
+      "dependencies": [
+        "B-e93417db"
+      ],
+      "linked_docs": [
+        "docs/ui-guidelines.md"
+      ],
+      "execution_branch_name": "feature/b-1dd57ece",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+      "expected_files": [
+        "CookbookApp/Recipes/IngredientsView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
