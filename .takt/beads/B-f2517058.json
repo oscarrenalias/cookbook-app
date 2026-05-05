@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-e2eee35e"
+  ],
   "acceptance_criteria": [
     "Method signature is `public mutating func appendItem(_ text: String, toAisle aisle: String)`",
     "Given `## produce\\n- [ ] broccoli\\n## dairy\\n- [ ] milk\\n`, appendItem(\"carrots\", toAisle: \"produce\") inserts the new line between broccoli and the `## dairy` heading",
