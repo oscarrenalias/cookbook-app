@@ -1,0 +1,66 @@
+{
+  "bead_id": "B-00f4e37d",
+  "title": "Review ingredient aggregation delivery",
+  "agent_type": "review",
+  "description": "Perform a final review of the implementation, tests, and documentation to confirm the API matches spec-3cc80e55 and stays within the pure-data scope.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-dd16f765",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Review confirms the public API signatures and value-type shapes match the specification exactly.",
+    "Review confirms aisle grouping, canonical naming, quantity-merging behavior, and ordering rules are all covered by tests.",
+    "Review checks that documentation aligns with the implemented behavior and does not leak into out-of-scope formatting or conversion features.",
+    "The shared review bead depends on all developer beads plus the shared tester and documentation beads."
+  ],
+  "linked_docs": [
+    "spec-3cc80e55"
+  ],
+  "feature_root_id": "B-dd16f765",
+  "execution_branch_name": "feature/b-dd16f765",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-dd16f765",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T19:32:36.117642+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
