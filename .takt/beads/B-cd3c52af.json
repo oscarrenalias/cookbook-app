@@ -3,7 +3,7 @@
   "title": "Implement Aisle Alias Lookup",
   "agent_type": "developer",
   "description": "Implement the alias-aware, case-insensitive `aisle(for:)` lookup over canonical and alias tokens, returning the first matching section in declaration order.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -29,37 +29,46 @@
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Updated `aisle(for:)` to normalize the input ingredient and compare it case-insensitively against both canonical tokens and aliases while still using `sections.first` to preserve declaration-order precedence.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "Lookup normalization currently uses simple `lowercased()` matching and does not add whitespace or locale-specific normalization beyond case folding.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+    ],
     "updated_docs": [],
     "next_action": "",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+    ],
+    "conflict_risks": "Low. Change is isolated to lookup behavior in `AisleConfig.swift`; downstream agents touching the same file should preserve the explicit `return` and case-insensitive comparisons.",
+    "design_decisions": "Used per-call lowercase normalization for the queried ingredient and token comparisons inside the existing linear search to keep behavior local, preserve declaration order, and avoid widening scope into parser/model changes.",
+    "test_coverage_notes": "Did not run any test suite per guardrails. Verified Swift syntax with `swiftc -typecheck` using a writable module cache under `/private/tmp`.",
+    "known_limitations": "Matching is case-insensitive only; it does not normalize punctuation, pluralization, or surrounding whitespace beyond whatever the caller/parser already provides."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "Low. Change is isolated to lookup behavior in `AisleConfig.swift`; downstream agents touching the same file should preserve the explicit `return` and case-insensitive comparisons.",
   "branch_name": "feature/b-419f1418",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
-  "lease": {
-    "owner": "developer:B-cd3c52af",
-    "expires_at": "2026-05-05T11:28:34.210753+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -101,6 +110,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-cd3c52af/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T10:59:33.444037+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Implemented alias-aware, case-insensitive aisle lookup in AisleConfig, preserving first-match section order and nil for unmatched ingredients.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -175,7 +191,33 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Implemented alias-aware, case-insensitive aisle lookup in AisleConfig, preserving first-match section order and nil for unmatched ingredients.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "duration_ms": 57024,
+      "prompt_chars": 5648,
+      "prompt_lines": 136,
+      "source": "measured",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "duration_ms": 57024,
+        "prompt_chars": 5648,
+        "prompt_lines": 136,
+        "source": "measured",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "6325564c92d60fdedb1423e461ce0cb976d5fce7"
   },
   "labels": [],
   "recovery_for": null,
