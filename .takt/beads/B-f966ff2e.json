@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-65bfad3d",
-  "dependencies": [],
+  "dependencies": [
+    "B-3c4ca7d4"
+  ],
   "acceptance_criteria": [
     "New shopping lists are created at <folder>/shopping-lists/<name>.md",
     "The shopping-lists/ directory is auto-created on first list creation if absent (via shoppingListsURL)",
