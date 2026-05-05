@@ -131,7 +131,8 @@
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
-    "CookbookApp/Recipes/RecipeScale.swift"
+    "CookbookApp/Recipes/RecipeScale.swift",
+    "CookbookApp/Recipes/RecipeStatStrip.swift"
   ],
   "expected_globs": [],
   "touched_files": [
@@ -223,7 +224,8 @@
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
-    "CookbookApp/Recipes/RecipeScale.swift"
+    "CookbookApp/Recipes/RecipeScale.swift",
+    "CookbookApp/Recipes/RecipeStatStrip.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -314,7 +316,8 @@
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
-    "CookbookApp/Recipes/RecipeScale.swift"
+    "CookbookApp/Recipes/RecipeScale.swift",
+    "CookbookApp/Recipes/RecipeStatStrip.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -338,7 +341,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.",
+  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.\nNo file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
