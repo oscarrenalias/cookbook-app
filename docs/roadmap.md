@@ -94,24 +94,7 @@ in-memory state preserved across tab switches.
 
 ---
 
-## CookbookCore parser & data formats
-
-### 0005 — First-run polish: parser updates and recipe-detail UI tweaks ✅
-
-`spec-505a7fd5`. Brings the spec 0001 parser in line with the modern
-CookLang format actually used by the user's recipes (YAML frontmatter
-replaces `>>` metadata, single-`=` section headers replace `== Name ==`),
-plus a batch of recipe-detail UI tweaks that surfaced from first-run
-testing: hero title clipping fix, redundant scale-picker removal,
-calendar icon for Add-to-menu, sentence-cased ingredient/cookware
-names, collapsible folder sections in the Recipes list with
-in-memory state across tab switches.
-
-**Unlocks:** the user's actual recipes parse correctly — metadata
-populates the recipe-detail view's stats strip and tag chips,
-sections render with the right names — and the recipe-detail view
-looks right with real images.
-
+## CookbookCore data formats
 
 ### 0006 — CookbookCore data formats: meal plans, aisle.conf, shopping lists 📝
 
