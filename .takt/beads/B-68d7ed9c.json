@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-68d7ed9c",
+  "title": "AddItemSheet",
+  "agent_type": "developer",
+  "description": "Add `CookbookApp/ShoppingLists/AddItemSheet.swift` \u2014 a `.sheet` wrapping a `NavigationStack` (title \"Add item\"). Contains a `Form` with two rows: a `TextField` (item text, placeholder \"e.g., 2 lemons, 500g flour\") and a `.menu`-style `Picker` for aisle (options from `AisleCatalog.aisles` + a final \"Other\" option whose value is nil; default selection is \"Other\"). Toolbar: \"Cancel\" (leading, dismisses) and \"Add\" (trailing, disabled until item text non-empty after trimming). On Add: non-nil aisle calls `appendItem(_:toAisle:)`, nil calls `appendItem(_:)`, then dismisses. When `AisleCatalog.isLoaded == false`, the \"Add\" button is disabled and the Picker shows a \"Loading aisles\u2026\" placeholder row.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-e4718a6b",
+    "B-f2517058"
+  ],
+  "acceptance_criteria": [
+    "Sheet uses `NavigationStack` with title \"Add item\"",
+    "Form has a TextField for item text and a `.menu` Picker for aisle",
+    "Picker options are `AisleCatalog.aisles` in catalog order plus \"Other\" as the last entry and default selection",
+    "\"Add\" toolbar button is disabled until item text is non-empty after whitespace trimming",
+    "Non-nil aisle calls `ShoppingList.appendItem(_:toAisle:)`; nil/Other calls `ShoppingList.appendItem(_:)`",
+    "Sheet dismisses after a successful add and after Cancel",
+    "When `AisleCatalog.isLoaded == false`, Add is disabled and Picker shows \"Loading aisles\u2026\""
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md",
+    "docs/mockups/shopping list detail.png"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:53.943973+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

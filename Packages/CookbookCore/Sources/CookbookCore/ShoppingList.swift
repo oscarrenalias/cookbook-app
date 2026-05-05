@@ -51,6 +51,16 @@ public struct ShoppingList: Sendable, Equatable {
 
         text.removeSubrange(record.fullRange)
     }
+
+    public mutating func updateItem(atLine lineIndex: Int, newText: String) {
+        guard let record = lineRecords().first(where: { $0.lineIndex == lineIndex }),
+              let match = ShoppingList.matchItem(in: record.content),
+              let textRange = record.rangeInText(for: match.range(at: 2), in: text) else {
+            return
+        }
+
+        text.replaceSubrange(textRange, with: newText)
+    }
 }
 
 /// A parsed checklist item from a shopping-list markdown document.

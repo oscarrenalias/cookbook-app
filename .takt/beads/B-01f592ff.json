@@ -1,0 +1,516 @@
+{
+  "bead_id": "B-01f592ff",
+  "title": "dev-09: Parser \u2014 comment stripping",
+  "agent_type": "developer",
+  "description": "Implement comment recognition within the parser. Line comments: text from '--' to end-of-line is discarded. Single-line block comments: '[- ... -]' on the same line \u2014 text before '[' and after '-]' is concatenated. Multi-line block comments: '[- ... -]' spanning multiple lines \u2014 the entire spanned region including all intermediate content is discarded, and any @/# /~ components inside the comment block must NOT be added to the recipe collections.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-2dfeba7e",
+  "dependencies": [
+    "B-7103482d"
+  ],
+  "acceptance_criteria": [
+    "A line containing '-- comment text' has everything from '--' to EOL stripped; preceding text on the line is preserved.",
+    "A line containing 'text [- comment -] more' produces 'text  more' (comment excised, surrounding text joined).",
+    "A '[- ... -]' block spanning three lines removes all content between the delimiters and the delimiters themselves.",
+    "An @ingredient written between '[- ' and ' -]' does NOT appear in Recipe.ingredients.",
+    "swift build from Packages/CookbookCore/ succeeds."
+  ],
+  "linked_docs": [
+    "specs/drafts/0001-cooklang-parser.md"
+  ],
+  "feature_root_id": "B-2dfeba7e",
+  "execution_branch_name": "feature/b-2dfeba7e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "expected_files": [],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/Parser*.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
+  ],
+  "touched_files": [
+    "Packages/CookbookCore/.build/.lock",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/NB/Parser.swift-UNEPB9Z8OUNB",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+    "Packages/CookbookCore/.build/build.db",
+    "Packages/CookbookCore/.build/index-build/.lock",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser~partial.swiftmodule",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/X4/Parser.swift-1BY9QWIS6DUX4",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+    "Packages/CookbookCore/.build/index-build/build.db",
+    "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/.build/.lock",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/NB/Parser.swift-UNEPB9Z8OUNB",
+    "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+    "Packages/CookbookCore/.build/build.db",
+    "Packages/CookbookCore/.build/index-build/.lock",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser~partial.swiftmodule",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/X4/Parser.swift-1BY9QWIS6DUX4",
+    "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+    "Packages/CookbookCore/.build/index-build/build.db",
+    "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "Added inBlockComment: Bool = false field to Parser struct. Added preprocessComments(_ line: String) -> String that strips line comments (break on --) and block comments (enter on [-, exit on -]). Modified parseStep to run preprocessComments before Scanner so commented-out sigils are never parsed into recipe collections.",
+    "remaining": "No remaining work in this bead. Tester agent will write behavioral tests against the comment-related fixtures (line-comment.cook, single-line-block-comment.cook, multi-line-block-comment-with-component.cook).",
+    "risks": "The fixture multi-line-block-comment-with-component.cook contains the text 'The parser must skip everything between [- and -].' which includes a literal -] that will prematurely close the block comment at that point (per canonical CookLang behavior). The @hidden ingredient is still correctly inside the comment block, so acceptance criterion 4 is met. The tester agent should be aware that the fixture's block comment closes at the -] in 'and -]' on that line, not at the standalone -] line below it.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "Packages/CookbookCore/.build/.lock",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/NB/Parser.swift-UNEPB9Z8OUNB",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+      "Packages/CookbookCore/.build/build.db",
+      "Packages/CookbookCore/.build/index-build/.lock",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser~partial.swiftmodule",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/X4/Parser.swift-1BY9QWIS6DUX4",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+      "Packages/CookbookCore/.build/index-build/build.db",
+      "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Tester agent writes behavioral tests for comment stripping using existing fixtures in Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/Parser*.swift",
+      "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/.build/.lock",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swift.o",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/records/NB/Parser.swift-UNEPB9Z8OUNB",
+      "Packages/CookbookCore/.build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-2C0DQ4KSQWF0Z",
+      "Packages/CookbookCore/.build/build.db",
+      "Packages/CookbookCore/.build/index-build/.lock",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser.swiftdeps",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/Parser~partial.swiftmodule",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/CookbookCore.build/primary.priors",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftmodule",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/Modules/CookbookCore.swiftsourceinfo",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/data.mdb",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/db/v13/saved/lock.mdb",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/records/X4/Parser.swift-1BY9QWIS6DUX4",
+      "Packages/CookbookCore/.build/index-build/arm64-apple-macosx/debug/index/store/v5/units/Parser.swift.o-3Q75KNADLK4ZK",
+      "Packages/CookbookCore/.build/index-build/build.db",
+      "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+    ],
+    "conflict_risks": "Parser.swift is the only changed file. Sibling beads that also modify Parser.swift may conflict; they should check for the new inBlockComment field and preprocessComments method.",
+    "design_decisions": "Comment stripping implemented as a preprocessing pass (preprocessComments) called at the top of parseStep rather than inside the Scanner. This keeps comment logic separated from component parsing. Multi-line state tracked via inBlockComment on the Parser struct (which already carries ingredients/cookware/timers state), consistent with the existing stateful design.",
+    "test_coverage_notes": "Three comment-related fixture files already exist: line-comment.cook, single-line-block-comment.cook, multi-line-block-comment-with-component.cook. Tests should cover: (1) line comment strips rest of line but preserves preceding text, (2) single-line block comment excises the [- -] span and concatenates surrounding text, (3) multi-line block comment suppresses @ingredient inside the block from recipe.ingredients.",
+    "known_limitations": "preprocessComments does not handle nested block comments (not required by CookLang canonical spec). A literal -] appearing in comment text will close the comment early \u2014 this is correct canonical behavior."
+  },
+  "block_reason": "",
+  "conflict_risks": "Parser.swift is the only changed file. Sibling beads that also modify Parser.swift may conflict; they should check for the new inBlockComment field and preprocessComments method.",
+  "branch_name": "feature/b-2dfeba7e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T11:38:49.886448+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:09:35.405662+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:09:42.401000+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:09:49.649209+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:09:56.377460+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:02.767942+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:08.740965+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:14.855980+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:21.042923+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:27.156383+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:33.507840+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:39.635956+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:47.455375+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:10:54.245114+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:01.308038+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:08.449175+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:15.112117+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:21.302892+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:27.336757+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:33.440960+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:39.554218+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:45.760318+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:52.293313+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:11:59.059218+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:05.702764+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:11.919274+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:18.094104+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:24.253002+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:30.543296+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-5ce77fed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:37.027693+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:12:37.027710+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T12:12:37.626910+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-01f592ff/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-01f592ff/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-04T12:18:58.031872+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Implemented comment stripping in Parser.swift via a preprocessComments method and persistent inBlockComment state. Handles line comments (-- to EOL), single-line block comments ([- ... -]), and multi-line block comments with state tracked across parseStep calls. Build succeeds.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-01f592ff",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-01f592ff/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-01f592ff/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-04T12:12:37.626892+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-01f592ff",
+      "feature_root_id": "B-2dfeba7e",
+      "title": "dev-09: Parser \u2014 comment stripping",
+      "agent_type": "developer",
+      "description": "Implement comment recognition within the parser. Line comments: text from '--' to end-of-line is discarded. Single-line block comments: '[- ... -]' on the same line \u2014 text before '[' and after '-]' is concatenated. Multi-line block comments: '[- ... -]' spanning multiple lines \u2014 the entire spanned region including all intermediate content is discarded, and any @/# /~ components inside the comment block must NOT be added to the recipe collections.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "A line containing '-- comment text' has everything from '--' to EOL stripped; preceding text on the line is preserved.",
+        "A line containing 'text [- comment -] more' produces 'text  more' (comment excised, surrounding text joined).",
+        "A '[- ... -]' block spanning three lines removes all content between the delimiters and the delimiters themselves.",
+        "An @ingredient written between '[- ' and ' -]' does NOT appear in Recipe.ingredients.",
+        "swift build from Packages/CookbookCore/ succeeds."
+      ],
+      "dependencies": [
+        "B-7103482d"
+      ],
+      "linked_docs": [
+        "specs/drafts/0001-cooklang-parser.md"
+      ],
+      "execution_branch_name": "feature/b-2dfeba7e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-2dfeba7e",
+      "expected_files": [],
+      "expected_globs": [
+        "Packages/CookbookCore/Sources/CookbookCore/Parser*.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Implemented comment stripping in Parser.swift via a preprocessComments method and persistent inBlockComment state. Handles line comments (-- to EOL), single-line block comments ([- ... -]), and multi-line block comments with state tracked across parseStep calls. Build succeeds.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.8003145999999999,
+      "duration_ms": 375399,
+      "duration_api_ms": 351729,
+      "num_turns": 25,
+      "input_tokens": 25,
+      "output_tokens": 18142,
+      "cache_creation_tokens": 46305,
+      "cache_read_tokens": 839286,
+      "stop_reason": "end_turn",
+      "session_id": "6bf0a46a-3ff9-4b3d-8d2a-97eea3146819",
+      "permission_denials": [],
+      "prompt_chars": 6404,
+      "prompt_lines": 141,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.8003145999999999,
+        "duration_ms": 375399,
+        "duration_api_ms": 351729,
+        "num_turns": 25,
+        "input_tokens": 25,
+        "output_tokens": 18142,
+        "cache_creation_tokens": 46305,
+        "cache_read_tokens": 839286,
+        "stop_reason": "end_turn",
+        "session_id": "6bf0a46a-3ff9-4b3d-8d2a-97eea3146819",
+        "permission_denials": [],
+        "prompt_chars": 6404,
+        "prompt_lines": 141,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "d79da5c0a84f7792dbac7de411b952ee0bb10f8a"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,78 @@
+{
+  "bead_id": "B-9dfe16b5",
+  "title": "ShoppingListDetailView: core structure",
+  "agent_type": "developer",
+  "description": "Add `CookbookApp/ShoppingLists/ShoppingListDetailView.swift` with the core detail view: navigation title set to the list display name, a \"X of Y items checked\" progress header (`.subheadline`, `.secondary`, hidden when list is empty), aisle-grouped sections produced by `ShoppingListAisleGrouper` each rendered with an `AisleIconMap`-derived SF Symbol, the aisle name (\"Other\" for nil-named bucket), a badge count, and a collapsible disclosure (in-memory per-section collapse state, not persisted across launches). Each item in a section is rendered with `ShoppingListItemRow`. Empty-list empty state: `cart` icon, \"Empty list\", \"Tap + to add an item.\".",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-55784b81",
+    "B-0509bd25",
+    "B-4c767853"
+  ],
+  "acceptance_criteria": [
+    "Navigation title equals the list's display name",
+    "\"X of Y items checked\" header is visible and recomputes after each toggle",
+    "Header is hidden when the list has zero items",
+    "Sections are in the order returned by ShoppingListAisleGrouper",
+    "Each section header shows the correct AisleIconMap SF Symbol, aisle name, and item count badge",
+    "Sections are collapsible; collapse state persists across re-renders of the same view instance but not across app launches",
+    "Empty-list empty state renders correctly (cart icon, correct title and subtitle)",
+    "Compiles without errors"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md",
+    "docs/mockups/shopping list detail.png",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:54.159847+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

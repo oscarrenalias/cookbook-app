@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-47b253eb",
+  "title": "ShoppingListsView: core list structure",
+  "agent_type": "developer",
+  "description": "Add `CookbookApp/ShoppingLists/ShoppingListsView.swift` with the core list-of-lists view: `NavigationStack` with navigation title \"Shopping Lists\", a `List` of `ShoppingListCardView` rows driven by `ShoppingListFiles.discover` sorted reverse-chronologically, `NavigationLink` / `.navigationDestination` wiring to `ShoppingListDetailView`, and the empty state (SF Symbol `cart`, \"No shopping lists yet.\", \"Tap + to create your first shopping list.\"). No top-trailing toolbar icons (no folder, no ellipsis menu). FAB and search are added in the next bead.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-19cff022",
+    "B-74796f39"
+  ],
+  "acceptance_criteria": [
+    "`NavigationStack` present with \"Shopping Lists\" navigation title",
+    "`.md` files in the folder render as `ShoppingListCardView` rows sorted reverse-chronologically",
+    "Tapping a row pushes `ShoppingListDetailView` via navigationDestination",
+    "Empty state renders with `cart` icon, correct title, and subtitle when no `.md` files exist",
+    "No folder icon or ellipsis toolbar item in the top-trailing area (v1 omits both)",
+    "Compiles and previews without errors"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md",
+    "docs/mockups/shopping list view.png",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:52.498159+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

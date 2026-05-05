@@ -1,0 +1,97 @@
+{
+  "bead_id": "B-3d580235",
+  "title": "Spec 0007: shared tests",
+  "agent_type": "tester",
+  "description": "Add all tests for spec 0007. CookbookCore (Swift Testing, `import Testing`): extend `ShoppingListTests.swift` or add `ShoppingListMutationTests.swift` \u2014 seven scenarios covering `updateItem` (text replacement, bracket preservation, no-op for non-item lines) and `appendItem(_:toAisle:)` (section insertion, case-insensitive heading match, new section creation, preservation of other sections, items-before-first-heading). CookbookApp: add `ShoppingListAisleGrouperTests.swift` (nil bucket, section switch, consecutive headings), `ShoppingListFilesTests.swift` (discovery count, reverse-mtime sort, display-name derivation via temp directory), `AisleCatalogTests.swift` (load from fixture, canonical fallback when absent, re-load on folder change), and view-structure tests verifying list view (search field present, FAB rendered, no folder/\u22ef toolbar) and detail view (aisle sections rendered, swipe actions wired, AddItemSheet contains TextField and Picker). Run `xcodebuild test` to confirm all pass.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-e2eee35e",
+    "B-f2517058",
+    "B-74796f39",
+    "B-e4718a6b",
+    "B-0509bd25",
+    "B-55784b81",
+    "B-19cff022",
+    "B-47b253eb",
+    "B-8d9b70ce",
+    "B-4c767853",
+    "B-68d7ed9c",
+    "B-9dfe16b5",
+    "B-5056f486",
+    "B-aa991d7c"
+  ],
+  "acceptance_criteria": [
+    "updateItemReplacesTextPreservingBracket: text becomes `- [ ] *500 g* spinach` (bracket unchanged)",
+    "updateItemPreservesCheckedState: `- [x] foo` \u2192 `- [x] bar`",
+    "updateItemNoOpForNonItemLine: `## heading` line left unchanged",
+    "appendItemToExistingAisleInsertsAtSectionEnd: new item between broccoli and `## dairy` heading",
+    "appendItemToAisleIsCaseInsensitive: `## Produce` and `produce` match as the same aisle",
+    "appendItemCreatesNewAisleHeadingWhenAbsent: `\\n## dairy\\n- [ ] milk\\n` appended, produce section unchanged",
+    "appendItemToAislePreservesItemsBeforeFirstHeading: leading nil-bucket items survive untouched",
+    "ShoppingListAisleGrouperTests: nil bucket, section switch, multiple consecutive headings all pass",
+    "ShoppingListFilesTests: correct count, reverse-mtime order, `.md` extension stripped",
+    "AisleCatalogTests: load from aisle.conf returns ordered aisles; absent config returns canonical fallback list; re-load replaces cache",
+    "View-structure tests for list view and detail view pass",
+    "`xcodebuild test` exits 0 with no failures"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "CookbookAppTests/ShoppingListAisleGrouperTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift",
+    "CookbookAppTests/AisleCatalogTests.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingList*Tests.swift",
+    "CookbookAppTests/ShoppingList*.swift",
+    "CookbookAppTests/AisleCatalog*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:55.452808+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

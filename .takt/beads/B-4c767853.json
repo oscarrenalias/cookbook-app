@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-4c767853",
+  "title": "ShoppingListItemRow",
+  "agent_type": "developer",
+  "description": "Add `CookbookApp/ShoppingLists/ShoppingListItemRow.swift` \u2014 the item row rendered inside each aisle section. Leading: tappable circular checkbox (`circle` / `checkmark.circle.fill`) calling `ShoppingList.toggle(itemAt:)`, persisted immediately. Centre: item text via SwiftUI `Text` markdown rendering, strikethrough and `.secondary` foreground when checked. Trailing: decorative `line.3.horizontal` drag handle (no gesture, no-op). Swipe-to-delete (red `.swipeActions` button, calls `removeItem(atLine:)`). Swipe-to-edit (gray button, presents `.alert` prefilled with current text; on Save calls `updateItem(atLine:newText:)`). All icon-only controls carry accessibility labels.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-e2eee35e"
+  ],
+  "acceptance_criteria": [
+    "Tapping the checkbox calls `ShoppingList.toggle(itemAt:)` and the mutation is persisted to disk",
+    "Checked items render with strikethrough and `.secondary` foreground colour",
+    "`line.3.horizontal` drag handle is visible but has no attached gesture (decorative only)",
+    "Right-to-left swipe reveals a red \"Delete\" button and a gray \"Edit\" button",
+    "Delete button calls `removeItem(atLine:)` with no confirmation dialog",
+    "Edit button presents `.alert` prefilled with the item's current text; Save calls `updateItem(atLine:newText:)`",
+    "Cancel on the edit alert leaves the item unchanged",
+    "Accessibility labels present on checkbox, delete, and edit actions"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md",
+    "docs/mockups/shopping list detail.png"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:53.516156+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-f2517058",
+  "title": "CookbookCore: appendItem(_:toAisle:)",
+  "agent_type": "developer",
+  "description": "Add `public mutating func appendItem(_ text: String, toAisle aisle: String)` to `ShoppingList.swift`. Finds the `## <aisle>` heading with a case-insensitive match on the trimmed heading text. Inserts `- [ ] <text>` immediately above the next `##` heading, or at end-of-section if none follows. If no matching heading exists, appends `## <aisle>\\n- [ ] <text>\\n` at end of file. Aisle heading written with caller-supplied casing. Whitespace: single trailing newline after the inserted item; adds one before new content if file did not end with a newline.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-e2eee35e"
+  ],
+  "acceptance_criteria": [
+    "Method signature is `public mutating func appendItem(_ text: String, toAisle aisle: String)`",
+    "Given `## produce\\n- [ ] broccoli\\n## dairy\\n- [ ] milk\\n`, appendItem(\"carrots\", toAisle: \"produce\") inserts the new line between broccoli and the `## dairy` heading",
+    "Given `## Produce\\n- [ ] broccoli\\n`, appendItem(\"carrots\", toAisle: \"produce\") inserts under the existing `## Produce` heading (case-insensitive match, no new heading created)",
+    "Given `## produce\\n- [ ] broccoli\\n`, appendItem(\"milk\", toAisle: \"dairy\") appends `\\n## dairy\\n- [ ] milk\\n` and leaves the produce section unchanged",
+    "Items appearing before the first `##` heading are preserved unchanged",
+    "All other sections' line ordering and content are byte-identical after the call"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:50.645918+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

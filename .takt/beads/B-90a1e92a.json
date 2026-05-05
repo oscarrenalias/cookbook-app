@@ -1,0 +1,233 @@
+{
+  "bead_id": "B-90a1e92a",
+  "title": "Add RecipeImageLoader async helper",
+  "agent_type": "developer",
+  "description": "Create RecipeImageLoader.swift with an async function (or actor) that accepts a recipe source-file URL obtained from the security-scoped bookmark established in 0003. It searches for a sibling file sharing the same base name with extensions .jpg, .jpeg, .png, .heic (in that order), calls startAccessingSecurityScopedResource() before reading, and stopAccessingSecurityScopedResource() in all exit paths (success and failure). Returns a SwiftUI Image on success or nil when no sibling exists.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "startAccessingSecurityScopedResource() is called before any file-system access.",
+    "stopAccessingSecurityScopedResource() is called in all exit paths.",
+    "Extensions are tried in order: jpg, jpeg, png, heic.",
+    "Returns nil without throwing when no sibling image exists.",
+    "Returns a non-nil Image when a valid sibling is found."
+  ],
+  "linked_docs": [
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeImageLoader.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeImageLoader.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeImageLoader.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "Created CookbookApp/Recipes/RecipeImageLoader.swift: namespace enum RecipeImageLoader with static async func loadImage(for:) -> Image?. Security-scoped access is bracketed with start/stop via defer. Extensions are iterated in spec order. Returns nil when no sibling exists, SwiftUI Image when one is found. Syntax-checked clean.",
+    "remaining": "None for this bead. Downstream tester bead should verify: start called before FS access, stop called on all paths (success, nil-sibling, each loop iteration), extension ordering, nil return for missing sibling, non-nil return for present sibling.",
+    "risks": "RecipeThumbnailView currently loads images without security-scoped access (it runs within RecipeDiscovery.scan's active scope). If RecipeImageLoader is called independently (outside an active folder scope), startAccessingSecurityScopedResource() on a non-bookmarked file URL will return false and reads may fail silently. Callers must ensure the folder scope is active, or RecipeImageLoader should accept the folder URL instead. This is a pre-existing design ambiguity \u2014 not introduced by this bead.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeImageLoader.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Tester agent should write unit tests verifying all five acceptance criteria, particularly the security-scoped resource call ordering and the nil/non-nil return paths.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeImageLoader.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeImageLoader.swift"
+    ],
+    "conflict_risks": "None. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.",
+    "design_decisions": "Used a namespace enum (matching RecipeDiscovery pattern) rather than an actor or class, since the loader is stateless. Used Task.detached(priority: .utility) for file I/O off the main thread, matching RecipeThumbnailView's approach. Followed RecipeDiscovery.scan's defer-guarded start/stop pattern. startAccessingSecurityScopedResource() is called on the recipe URL (the security-scoped resource), not on each candidate image URL, so one start/stop pair covers all sibling checks.",
+    "test_coverage_notes": "No tests written \u2014 tester agent's responsibility. Key test cases: (1) no sibling \u2192 nil; (2) jpg sibling present \u2192 Image; (3) extension ordering (jpeg preferred over png when both exist would actually pick jpg first per ordering); (4) start called exactly once before fileExists; (5) stop called when start returned true on success and on nil path.",
+    "known_limitations": "If the recipe URL passed in is not itself a security-scoped bookmark (i.e., it was obtained by enumerating a folder's bookmark scope), startAccessingSecurityScopedResource() will return false and stop will not be called. File reads will still succeed as long as the caller holds the folder scope open. This mirrors the existing RecipeThumbnailView behavior."
+  },
+  "block_reason": "",
+  "conflict_risks": "None. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.",
+  "branch_name": "feature/b-1dd57ece",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:41.847143+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:02:12.787744+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T06:02:12.787777+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:02:13.029116+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-90a1e92a/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-90a1e92a/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T06:05:43.878753+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created RecipeImageLoader.swift as a namespace enum with a static async loadImage(for:) function. It calls startAccessingSecurityScopedResource() on the recipe URL before any file-system access, uses defer to guarantee stopAccessingSecurityScopedResource() in all exit paths, tries sibling extensions in order (jpg, jpeg, png, heic), and returns a SwiftUI Image or nil. Implementation follows the same pattern as RecipeDiscovery.scan. Compiled cleanly with swiftc -typecheck against the iOS simulator SDK.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-90a1e92a",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-90a1e92a/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-90a1e92a/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T06:02:13.029100+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-90a1e92a",
+      "feature_root_id": "B-1dd57ece",
+      "title": "Add RecipeImageLoader async helper",
+      "agent_type": "developer",
+      "description": "Create RecipeImageLoader.swift with an async function (or actor) that accepts a recipe source-file URL obtained from the security-scoped bookmark established in 0003. It searches for a sibling file sharing the same base name with extensions .jpg, .jpeg, .png, .heic (in that order), calls startAccessingSecurityScopedResource() before reading, and stopAccessingSecurityScopedResource() in all exit paths (success and failure). Returns a SwiftUI Image on success or nil when no sibling exists.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "startAccessingSecurityScopedResource() is called before any file-system access.",
+        "stopAccessingSecurityScopedResource() is called in all exit paths.",
+        "Extensions are tried in order: jpg, jpeg, png, heic.",
+        "Returns nil without throwing when no sibling image exists.",
+        "Returns a non-nil Image when a valid sibling is found."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-1dd57ece",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeImageLoader.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created RecipeImageLoader.swift as a namespace enum with a static async loadImage(for:) function. It calls startAccessingSecurityScopedResource() on the recipe URL before any file-system access, uses defer to guarantee stopAccessingSecurityScopedResource() in all exit paths, tries sibling extensions in order (jpg, jpeg, png, heic), and returns a SwiftUI Image or nil. Implementation follows the same pattern as RecipeDiscovery.scan. Compiled cleanly with swiftc -typecheck against the iOS simulator SDK.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.4416783500000001,
+      "duration_ms": 210184,
+      "duration_api_ms": 197931,
+      "num_turns": 14,
+      "input_tokens": 14,
+      "output_tokens": 9665,
+      "cache_creation_tokens": 28408,
+      "cache_read_tokens": 339241,
+      "stop_reason": "end_turn",
+      "session_id": "6778f9e9-bfe5-4b01-bc21-0dbe9dca0c67",
+      "permission_denials": [],
+      "prompt_chars": 5891,
+      "prompt_lines": 131,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.4416783500000001,
+        "duration_ms": 210184,
+        "duration_api_ms": 197931,
+        "num_turns": 14,
+        "input_tokens": 14,
+        "output_tokens": 9665,
+        "cache_creation_tokens": 28408,
+        "cache_read_tokens": 339241,
+        "stop_reason": "end_turn",
+        "session_id": "6778f9e9-bfe5-4b01-bc21-0dbe9dca0c67",
+        "permission_denials": [],
+        "prompt_chars": 5891,
+        "prompt_lines": 131,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "df3e1434959af54fa823c24e5e4f57cdcee898f8"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,85 @@
+{
+  "bead_id": "B-7f306960",
+  "title": "Spec 0007: documentation",
+  "agent_type": "documentation",
+  "description": "Finalize documentation for spec 0007. Move the spec file from `specs/drafts/0007-shopping-lists-tab.md` to `specs/done/0007-shopping-lists-tab.md` using the project's skill-spec-management tooling. Add single-line doc comments (project convention: one short line max) to `updateItem(atLine:newText:)` and `appendItem(_:toAisle:)` in `ShoppingList.swift`. Add a type-level doc comment to `AisleCatalog` noting it is the single parse point for `aisle.conf`. Add a type-level doc comment to `ShoppingListFiles` noting the security-scoped bookmark requirement for all file I/O.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-bbc48bfa",
+  "dependencies": [
+    "B-e2eee35e",
+    "B-f2517058",
+    "B-74796f39",
+    "B-e4718a6b",
+    "B-0509bd25",
+    "B-55784b81",
+    "B-19cff022",
+    "B-47b253eb",
+    "B-8d9b70ce",
+    "B-4c767853",
+    "B-68d7ed9c",
+    "B-9dfe16b5",
+    "B-5056f486",
+    "B-aa991d7c"
+  ],
+  "acceptance_criteria": [
+    "Spec file exists at `specs/done/0007-shopping-lists-tab.md` and is absent from `specs/drafts/`",
+    "`updateItem(atLine:newText:)` has a single-line doc comment in ShoppingList.swift",
+    "`appendItem(_:toAisle:)` has a single-line doc comment in ShoppingList.swift",
+    "`AisleCatalog` has a type-level doc comment identifying it as the sole aisle.conf load point",
+    "`ShoppingListFiles` has a type-level doc comment noting security-scoped bookmark requirement",
+    "No multi-line comment blocks or multi-paragraph docstrings introduced"
+  ],
+  "linked_docs": [
+    "specs/drafts/0007-shopping-lists-tab.md"
+  ],
+  "feature_root_id": "B-bbc48bfa",
+  "execution_branch_name": "feature/b-bbc48bfa",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "expected_files": [],
+  "expected_globs": [
+    "specs/done/0007-*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T12:06:56.393309+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
