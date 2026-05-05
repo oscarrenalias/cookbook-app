@@ -135,7 +135,9 @@
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
-    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
+    "docs/examples/recipe.cook"
   ],
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
@@ -242,7 +244,9 @@
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
-    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
+    "docs/examples/recipe.cook"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -346,7 +350,9 @@
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
-    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
+    "docs/examples/recipe.cook"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -370,7 +376,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.",
+  "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.\nNo Swift source files touched; no conflict risk with parallel beads.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
