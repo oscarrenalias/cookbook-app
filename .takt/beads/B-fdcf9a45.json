@@ -375,7 +375,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.",
+  "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
