@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-19d7b0a5",
+  "title": "Add StepsView",
+  "agent_type": "developer",
+  "description": "Create StepsView.swift. Iterates Recipe.sections; for each section with a non-nil name, renders a section header in .headline style. For each .step content item, renders a numbered row showing RecipeStepCombiner.combine(step:recipe:). Step numbering starts at 1 and restarts at 1 in each named section; the implicit unnamed leading section also starts at 1. For each .text content item, renders the raw string without a number prefix. Empty state shows 'No steps listed' when no step items exist in any section.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Named sections render a .headline section header.",
+    "Steps are numbered starting from 1 and restart at 1 in each named section.",
+    "Section .text content items render without a number prefix.",
+    "Step text is produced by RecipeStepCombiner.combine(step:recipe:).",
+    "Empty state 'No steps listed' shown when no steps exist across all sections."
+  ],
+  "linked_docs": [],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/StepsView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:43.749771+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
