@@ -1,0 +1,94 @@
+{
+  "bead_id": "B-77482551-corrective",
+  "title": "Corrective fix for B-77482551: Shared Format Tests And Fixtures",
+  "agent_type": "developer",
+  "description": "Blocked reason: Production code crash in ShoppingList.swift:rangeInText(for:) lines 85\u201390: content.index(lowerBound, offsetBy:) uses contentRange.lowerBound (an index in text) as a base index in content (a fresh String copy). Swift String indices are not interchangeable across distinct String instances. This crashes with \\\"String index is out of bounds\\\" whenever toggle() targets a line beyond the first few characters of a multi-line document.\n\nRemaining work: Fix production code defect in ShoppingList.swift:rangeInText(for:) lines 85\u201390: replace content.index(lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound) and content.index($0, offsetBy: length, ...) with calls that advance text indices from contentRange.lowerBound (requires passing text as a parameter or changing content from String to Substring). Once fixed, re-run swift test --filter ShoppingListParserTests.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-77482551",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Implement the minimum fix required to unblock B-77482551.",
+    "Update tests/docs as needed for the corrective change.",
+    "Leave a handoff summary that states how the parent bead can be retried."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://cooklang.org/docs/use-cases/meal-planning/",
+    "https://cooklang.org/docs/cli/aisle-file/",
+    "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/*"
+  ],
+  "touched_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension methods. No other bead files overlap with this path.",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T11:27:05.731282+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "auto_corrective_for": "B-77482551"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
