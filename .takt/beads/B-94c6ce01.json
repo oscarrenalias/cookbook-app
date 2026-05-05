@@ -329,7 +329,10 @@
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
-    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift",
+    "specs/done/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md",
+    "specs/planned/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -480,7 +483,10 @@
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
-    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift",
+    "specs/done/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md",
+    "specs/planned/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
