@@ -88,6 +88,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T18:47:40.256898+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-b13e8907/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-b13e8907/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -104,7 +113,61 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b13e8907/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-b13e8907/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T18:47:40.256872+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-b13e8907",
+      "feature_root_id": "B-65bfad3d",
+      "title": "Update ShoppingListFiles.discover(in:) to search subfolder",
+      "agent_type": "developer",
+      "description": "Modify discover(in:) to call shoppingListsURL(in:) first, then enumerate .md files from the returned subfolder URL instead of from the parent folderURL. All existing behaviour \u2014 sort by mtime descending, .md extension filter, security-scoped bracketing on the parent \u2014 is preserved. Root-level .md files in the configured folder are no longer returned.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "discover(in:) enumerates <folderURL>/shopping-lists/ for .md files, not <folderURL>/",
+        "Sort order (mtime descending) and .md filter are unchanged",
+        "Security-scoped bracketing on parent folderURL is preserved",
+        ".md files at the configured folder root are excluded from results"
+      ],
+      "dependencies": [
+        "B-3c4ca7d4"
+      ],
+      "linked_docs": [
+        "specs/drafts/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
+      ],
+      "execution_branch_name": "feature/b-65bfad3d",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-65bfad3d",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/ShoppingListFiles.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
