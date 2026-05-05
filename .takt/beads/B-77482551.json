@@ -489,6 +489,15 @@
       "agent_type": "tester",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:29:33.141390+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "tester",
+      "summary": "Applied guardrails from .takt/agent-runs/B-77482551/repo/templates/agents/tester.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-77482551/repo/templates/agents/tester.md"
+      }
     }
   ],
   "metadata": {
@@ -509,7 +518,7 @@
       "agent_type": "tester",
       "template_path": ".takt/agent-runs/B-77482551/repo/templates/agents/tester.md",
       "template_text": "# Tester Guardrails\n\nPrimary responsibility: Add or update automated tests, run validation, and report defects or missing coverage.\n\nAllowed actions:\n- Write or update tests relevant to the assigned bead.\n- Run only the test files related to the bead's changed files, not the full test suite. Use `` to target individual test files. If unsure which tests are relevant, use the bead's expected_files and touched_files fields as a guide.\n- Make minimal test-enablement fixes (e.g. import corrections, fixture setup) only when strictly necessary to run the relevant tests. Do not refactor production code under the guise of test enablement.\n\nDisallowed actions:\n- Run the full test suite instead of targeting specific tests. Always use `` for targeted runs. Running the full suite wastes time and often exceeds the agent timeout.\n- Use `run_in_background` for any Bash commands. All test commands must run synchronously so their output is available before the structured verdict is submitted. Background tasks cause the structured output to be lost, resulting in a failed bead.\n- Implement feature logic beyond minimal test-enablement work.\n- Reframe a feature implementation task as testing work to bypass handoff.\n- Perform review signoff or broad documentation rewrites.\n\nExpected outputs:\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the tester signoff decision: `approved` means testing can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when testing is complete with no unresolved tester-scope findings.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved defect or coverage gap count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when follow-up work is required.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Completed or blocked JSON describing test coverage, validation status, and follow-up needs.\n- Precise defect or coverage notes when the bead cannot be completed within tester scope.",
-      "captured_at": "2026-05-05T11:22:26.942859+00:00"
+      "captured_at": "2026-05-05T11:29:33.141360+00:00"
     },
     "worker_prompt_context": {
       "bead_id": "B-77482551",
@@ -670,12 +679,6 @@
         ".takt/beads/B-fdcf9a45-corrective.json",
         ".takt/beads/B-fdcf9a45.json",
         ".takt/beads/B-fe0ec28e.json",
-        "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
-        "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
-        "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
-        "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
-        "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
-        "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
         "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
         "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift",
         "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
@@ -688,21 +691,15 @@
         "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
         "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
       ],
-      "conflict_risks": "Low. This pass only added new test files and copied fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/`; downstream feature code should not be affected unless another agent is editing the same new test suite files concurrently.",
+      "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension methods. No other bead files overlap with this path.",
       "handoff_summary": {
-        "completed": "Created `MealPlanParserTests.swift`, `AisleConfigParserTests.swift`, and `ShoppingListParserTests.swift` covering the Section E behaviours within tester scope. Copied canonical fixture files for `meal-plan.menu`, `aisle.conf`, and `shopping-list.md` from `docs/examples/` into the package test fixtures directory. Performed a syntax-only validation pass with `swiftc -parse` over the three new test files; that parse pass succeeded.",
-        "remaining": "Run the targeted SwiftPM test commands for `MealPlanParserTests`, `AisleConfigParserTests`, and `ShoppingListParserTests` in an environment where SwiftPM manifest execution is permitted, then resolve any runtime or compile failures they expose. If package-level Xcode testing is required, it needs a usable package/project invocation path outside this sandbox. Confirm how to handle the spec-vs-fixture aisle section count mismatch before treating the aisle suite as final.",
-        "risks": "`swift test` could not be executed here, so there is no runtime proof that the new suites build and pass under Swift Testing. The aisle spec text says the canonical fixture should produce 21 sections, but the checked-in `docs/examples/aisle.conf` currently contains 23 section headers (`eggs` and `alko` are present), so the implemented test follows the actual canonical fixture and leaves that contract mismatch unresolved.",
+        "completed": "MealPlanParserTests: 7/7 pass. AisleConfigParserTests: 10/10 pass. 23-section aisle fixture expectation confirmed correct against actual fixture. ShoppingListParserTests: 8/9 pass. fixtureProducesExpectedUncheckedItems (63-item count, specific texts, all unchecked) verified passing in isolation. swift test --filter commands ran synchronously from Packages/CookbookCore/.",
+        "remaining": "Fix production code defect in ShoppingList.swift:rangeInText(for:) lines 85\u201390: replace content.index(lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound) and content.index($0, offsetBy: length, ...) with calls that advance text indices from contentRange.lowerBound (requires passing text as a parameter or changing content from String to Substring). Once fixed, re-run swift test --filter ShoppingListParserTests.",
+        "risks": "The crash in arbitraryContentRemainsByteIdenticalAsideFromToggledLine is a real runtime defect that affects any toggle() call on multi-line documents where the target item is not on the first few lines. This includes the core use case of the ShoppingList type.",
         "verdict": "needs_changes",
-        "findings_count": 2,
+        "findings_count": 1,
         "requires_followup": true,
         "changed_files": [
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
           "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
           "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
           "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
@@ -711,9 +708,9 @@
           "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
         ],
         "updated_docs": [],
-        "next_action": "Run the targeted `swift test --filter ...` commands in a less restricted environment, then either fix any resulting failures or explicitly reconcile the aisle fixture/spec section-count mismatch.",
+        "next_action": "Fix ShoppingList.swift:rangeInText(for:) to compute start/end indices using text (not content) as the index space. The simplest correct fix is to change LineRecord.content from String to Substring so it shares indices with text, then remove the lowerBound offset arithmetic entirely (contentLocalRange already maps directly back to text ranges via the shared index space). Alternatively, pass text into rangeInText and use text.index(contentRange.lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound). After fixing, re-run swift test --filter ShoppingListParserTests to confirm all 9 tests pass.",
         "next_agent": "developer",
-        "block_reason": "Required validation could not be completed in this sandbox: targeted `swift test --filter MealPlanParserTests`, `AisleConfigParserTests`, and `ShoppingListParserTests` failed before build because SwiftPM manifest execution hit sandbox restrictions (`sandbox-exec: sandbox_apply: Operation not permitted`, plus unwritable module-cache paths). `xcodebuild -list` in `Packages/CookbookCore/` also failed because that directory is not recognized here as an Xcode project, workspace, or package entrypoint.",
+        "block_reason": "Production code crash in ShoppingList.swift:rangeInText(for:) lines 85\u201390: content.index(lowerBound, offsetBy:) uses contentRange.lowerBound (an index in text) as a base index in content (a fresh String copy). Swift String indices are not interchangeable across distinct String instances. This crashes with \\\"String index is out of bounds\\\" whenever toggle() targets a line beyond the first few characters of a multi-line document.",
         "expected_files": [
           "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
           "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
@@ -727,12 +724,6 @@
           "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/*"
         ],
         "touched_files": [
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
-          "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/repo/Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
           "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
           "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
           "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
@@ -740,10 +731,10 @@
           "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
           "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
         ],
-        "conflict_risks": "Low. This pass only added new test files and copied fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/`; downstream feature code should not be affected unless another agent is editing the same new test suite files concurrently.",
-        "design_decisions": "Used the checked-in `docs/examples/*` files as the canonical fixture source and copied them verbatim into the package resources directory. Encoded the aisle section-order assertion against the actual fixture contents (23 sections) rather than the stale 21-section statement in the draft spec, because the fixture is the concrete repository artifact under test.",
-        "test_coverage_notes": "Meal plan coverage includes empty input, YAML frontmatter parsing, day block parsing, named block parsing, recipe-vs-ingredient discrimination, comment-item parsing, and parse/serialise/parse round-tripping on the canonical fixture. Aisle coverage includes empty/comment-only input, canonical fixture section ordering, canonical and alias lookups, multi-word tokens, whitespace trimming around aliases, case-insensitive lookup, cross-section token resolution (`thyme` vs `dried thyme`), and skipping orphan items outside sections. Shopping list coverage includes empty documents, canonical fixture item count and representative texts, unchecked-state expectations, checked-state detection, targeted toggle semantics, non-item no-op toggles, append semantics, targeted removal semantics, non-item no-op removal, and preservation of arbitrary surrounding Markdown content. Validation actually executed: `swiftc -parse Tests/CookbookCoreTests/MealPlanParserTests.swift Tests/CookbookCoreTests/AisleConfigParserTests.swift Tests/CookbookCoreTests/ShoppingListParserTests.swift` succeeded. Validation blocked: all targeted `swift test --filter ...` runs and package/Xcode test discovery.",
-        "known_limitations": "No runtime Swift Testing execution occurred in this sandbox. `xcodebuild` could not provide a usable package test path from `Packages/CookbookCore/`. The draft spec's aisle fixture expectation says 21 sections, but `docs/examples/aisle.conf` currently has 23 section headers; this remains unresolved and may require spec or fixture follow-up."
+        "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension methods. No other bead files overlap with this path.",
+        "design_decisions": "Did not modify production code per tester guardrails. Reported the defect precisely so the developer agent can apply the minimal targeted fix.",
+        "test_coverage_notes": "MealPlanParser: emptyInputReturnsEmptyPlan, frontmatterParsesIntoMetadata, dayBlockParsesRecipeSectionAndOrdinal, namedBlockCreatesUnnamedSection, slashDiscriminatesRecipesFromIngredients, lineCommentBecomesCommentItem, fixtureRoundTripsThroughSerialise \u2014 all 7 pass. AisleConfigParser: emptyInputReturnsEmptyConfig, commentOnlyInputReturnsEmptyConfig, fixtureParsesSectionsInOrder, canonicalLookupFindsProducePotato, aliasLookupFindsProducePotatoes, multiWordCanonicalTokenStaysWhole, surroundingAliasWhitespaceIsTrimmed, lookupIsCaseInsensitive, sameTokenCanResolveToDifferentSections, itemsOutsideSectionsAreSkipped \u2014 all 10 pass. ShoppingList: 8/9 pass; arbitraryContentRemainsByteIdenticalAsideFromToggledLine crashes.",
+        "known_limitations": "The aisle spec text referenced \\\"21 sections\\\" but the actual fixture has 23; the test was written to match the fixture (23 sections) and passes \u2014 this spec/fixture discrepancy should be noted for documentation but does not affect correctness."
       }
     },
     "last_agent_result": {
