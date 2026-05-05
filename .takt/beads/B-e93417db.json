@@ -88,6 +88,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:00:02.007726+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-e93417db/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-e93417db/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -104,7 +113,61 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-e93417db/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-e93417db/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T06:00:02.007712+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-e93417db",
+      "feature_root_id": "B-1dd57ece",
+      "title": "Add RecipeScale enum with apply helpers",
+      "agent_type": "developer",
+      "description": "Create RecipeScale.swift defining a Scale enum with four cases (half = 0.5\u00d7, one = 1\u00d7, two = 2\u00d7, three = 3\u00d7). Add apply(to: Quantity?) \u2192 String? that scales .number values (whole-number results omit trailing zeros; fractional results use up to two decimal places), passes .text values through unchanged, and returns nil for a nil quantity. Add apply(toServings: String) \u2192 String that parses the string as an integer, multiplies by the factor, rounds to the nearest whole (minimum 1), and returns the original string unchanged when unparseable. All scaling math stays in the view layer; CookbookCore is not modified.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Scale enum has exactly four cases covering 0.5\u00d7, 1\u00d7, 2\u00d7, 3\u00d7.",
+        "apply(to:) with .number(4) \u00d7 2\u00d7 returns \"8\" (no trailing zero).",
+        "apply(to:) with .number(1) \u00d7 0.5\u00d7 returns \"0.5\" (two decimals max).",
+        "apply(to:) with .text(\"a pinch\") returns \"a pinch\" unchanged for any factor.",
+        "apply(to:) with nil quantity returns nil.",
+        "apply(toServings: \"4\") \u00d7 2\u00d7 returns \"8\".",
+        "apply(toServings: \"3\") \u00d7 0.5\u00d7 returns \"2\" (rounded, minimum 1).",
+        "apply(toServings: \"abc\") returns \"abc\" unchanged."
+      ],
+      "dependencies": [],
+      "linked_docs": [],
+      "execution_branch_name": "feature/b-1dd57ece",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeScale.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
