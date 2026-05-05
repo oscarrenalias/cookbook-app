@@ -134,6 +134,7 @@
     "CookbookApp/Recipes/IngredientsView.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
@@ -143,7 +144,10 @@
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Recipes/StepsView.swift"
   ],
-  "expected_globs": [],
+  "expected_globs": [
+    "CookbookApp/Recipes/*List*.swift",
+    "CookbookApp/Recipes/*Recipes*.swift"
+  ],
   "touched_files": [
     ".takt/beads/.gitkeep",
     ".takt/beads/B-01f592ff.json",
@@ -236,6 +240,7 @@
     "CookbookApp/Recipes/IngredientsView.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
@@ -337,6 +342,7 @@
     "CookbookApp/Recipes/IngredientsView.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
     "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
@@ -368,7 +374,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.\nNo file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.\nNone \u2014 RecipeTagChips.swift is a new file. RecipeStatStrip.swift edit is a one-line reorder in the preview block only; no logic conflict risk for sibling beads.\nNone \u2014 this is a new file with no overlap with sibling beads.\nIngredientsView.swift (added in B-59821ae0) is also absent from project.pbxproj \u2014 a sibling bead registering it may edit the same pbxproj file. Coordinate insertion points to avoid merge conflicts.\nNone. RecipeStepCombiner.swift is a new file with no overlap with existing files.\nNone \u2014 StepsView.swift is a new file with no overlap with sibling beads.\nNo overlap with other in-progress beads; RecipeBottomBar.swift is a new file with no edits to existing files.\nRecipesListView.swift was modified to remove the placeholder sheet. Any concurrent bead editing that file would conflict. No other file overlaps expected.",
+  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.\nNo file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.\nNone \u2014 RecipeTagChips.swift is a new file. RecipeStatStrip.swift edit is a one-line reorder in the preview block only; no logic conflict risk for sibling beads.\nNone \u2014 this is a new file with no overlap with sibling beads.\nIngredientsView.swift (added in B-59821ae0) is also absent from project.pbxproj \u2014 a sibling bead registering it may edit the same pbxproj file. Coordinate insertion points to avoid merge conflicts.\nNone. RecipeStepCombiner.swift is a new file with no overlap with existing files.\nNone \u2014 StepsView.swift is a new file with no overlap with sibling beads.\nNo overlap with other in-progress beads; RecipeBottomBar.swift is a new file with no edits to existing files.\nRecipesListView.swift was modified to remove the placeholder sheet. Any concurrent bead editing that file would conflict. No other file overlaps expected.\nNone. No files were modified.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
