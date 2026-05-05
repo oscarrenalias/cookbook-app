@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-0b882796",
+  "title": "B9: Collapsible folder sections in RecipesListView",
+  "agent_type": "developer",
+  "description": "Make each Section in RecipesListView collapsible. Tapping the section header toggles that section's collapsed state. Default on first render: all sections expanded. Store collapsed section names in a @State Set<String> at the RecipesListView level (or a @StateObject-owned simple model if cleaner). State is in-memory only and survives tab switches within the same app session but does NOT persist across app launches. Section headers remain visible whether the section is collapsed or expanded. Existing search-filter behaviour (sections with no matching rows hide entirely) is preserved; collapse state for sections that DO match is retained.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fa1cbeb6",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Each section header is tappable and toggles expanded/collapsed state",
+    "Default state on first render: all sections expanded",
+    "Collapsing one section does not affect collapsed state of other sections",
+    "Section headers remain visible when the section is collapsed",
+    "Collapsed state survives tab switches within the same app session",
+    "Search filtering still hides sections with no matching rows; collapse state for matching sections is preserved",
+    "State does not persist across app launches (in-memory only)"
+  ],
+  "linked_docs": [
+    "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+  ],
+  "feature_root_id": "B-fa1cbeb6",
+  "execution_branch_name": "feature/b-fa1cbeb6",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T07:40:01.077303+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

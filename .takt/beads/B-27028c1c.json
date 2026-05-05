@@ -1,0 +1,77 @@
+{
+  "bead_id": "B-27028c1c",
+  "title": "B2: Replace == Name == section headers with = Name",
+  "agent_type": "developer",
+  "description": "Update the section-header parsing rule in CooklangParser.swift (and/or Parser.swift) so that a line matching = <name> (exactly one leading =, a space, then the section name to end of line) opens a new section whose name is the captured text trimmed. The old == Name == syntax is dropped \u2014 lines starting with == become plain step text. All other section rules from spec 0001 are unchanged: implicit unnamed leading section for steps before the first = header, step numbering restarts at 1 in each named section, blank lines tolerated.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fa1cbeb6",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "= Name lines open a new section whose name is the captured text trimmed",
+    "== Name == lines are treated as plain step text \u2014 no section opened",
+    "Implicit unnamed leading section still works for steps before the first = header",
+    "Step numbering restarts at 1 in each named section (existing rule preserved)"
+  ],
+  "linked_docs": [
+    "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+  ],
+  "feature_root_id": "B-fa1cbeb6",
+  "execution_branch_name": "feature/b-fa1cbeb6",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "file-scope conflict with in-progress B-bf21ece4",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T07:39:57.350507+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:40:18.565313+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-bf21ece4",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
