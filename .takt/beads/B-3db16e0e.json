@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-3db16e0e",
+  "title": "Implement ShoppingList Mutations",
+  "agent_type": "developer",
+  "description": "Add focused line-based mutation helpers for checklist items: toggle checked state, append unchecked items, and remove checklist lines while preserving all non-targeted Markdown byte-for-byte.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-419f1418",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`toggle(itemAt:)` flips only the bracket character on checklist lines and is a no-op for non-item lines.",
+    "`appendItem(_:)` appends exactly `- [ ] <itemText>\\n`, inserting a newline first when needed.",
+    "`removeItem(atLine:)` removes the targeted checklist line including its trailing newline and is a no-op for non-item lines.",
+    "Untouched document content remains byte-identical after each mutation."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T10:44:18.272456+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
