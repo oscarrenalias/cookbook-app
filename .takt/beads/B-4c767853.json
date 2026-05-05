@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-e2eee35e"
+  ],
   "acceptance_criteria": [
     "Tapping the checkbox calls `ShoppingList.toggle(itemAt:)` and the mutation is persisted to disk",
     "Checked items render with strikethrough and `.secondary` foreground colour",
