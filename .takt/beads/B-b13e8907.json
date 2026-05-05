@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-65bfad3d",
-  "dependencies": [],
+  "dependencies": [
+    "B-3c4ca7d4"
+  ],
   "acceptance_criteria": [
     "discover(in:) enumerates <folderURL>/shopping-lists/ for .md files, not <folderURL>/",
     "Sort order (mtime descending) and .md filter are unchanged",
