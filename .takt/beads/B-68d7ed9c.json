@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-e4718a6b",
+    "B-f2517058"
+  ],
   "acceptance_criteria": [
     "Sheet uses `NavigationStack` with title \"Add item\"",
     "Form has a TextField for item text and a `.menu` Picker for aisle",
