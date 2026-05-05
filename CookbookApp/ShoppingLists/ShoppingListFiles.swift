@@ -8,6 +8,21 @@ enum ShoppingListFiles {
         return f
     }()
 
+    /// Returns the `shopping-lists/` subdirectory URL inside `folderURL`, creating it if absent.
+    /// Security-scoped access is bracketed on `folderURL`. Directory creation errors are swallowed;
+    /// callers handle downstream I/O failures via their own error paths.
+    static func shoppingListsURL(in folderURL: URL) -> URL {
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer {
+            if didStart {
+                folderURL.stopAccessingSecurityScopedResource()
+            }
+        }
+        let subfolderURL = folderURL.appendingPathComponent("shopping-lists", isDirectory: true)
+        try? FileManager.default.createDirectory(at: subfolderURL, withIntermediateDirectories: true)
+        return subfolderURL
+    }
+
     /// Returns all `.md` files in `folderURL`, sorted reverse-chronologically by modification date.
     static func discover(in folderURL: URL) -> [URL] {
         let didStart = folderURL.startAccessingSecurityScopedResource()
