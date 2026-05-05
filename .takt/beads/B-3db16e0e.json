@@ -3,7 +3,7 @@
   "title": "Implement ShoppingList Mutations",
   "agent_type": "developer",
   "description": "Add focused line-based mutation helpers for checklist items: toggle checked state, append unchecked items, and remove checklist lines while preserving all non-targeted Markdown byte-for-byte.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -28,33 +28,45 @@
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Implemented exact-range toggle mutation in `Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift` by mapping the regex capture for the checkbox marker back into the source text and replacing only that single-character range. Added a small `LineRecord` helper to translate per-line regex ranges into document ranges. Verified the file parses with `swiftc -parse`.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "No behavioral tests were run per developer guardrails, so mutation behavior is syntax-checked but not execution-validated in this pass.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
     "updated_docs": [],
     "next_action": "",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
+    "conflict_risks": "Low. Changes are isolated to `ShoppingList.swift`; downstream agents touching the same file should preserve the new exact-range mutation helper.",
+    "design_decisions": "Chose direct source-range replacement for `toggle(itemAt:)` instead of reconstructing the line so only the bracket marker is mutated and all other bytes in the document remain untouched.",
+    "test_coverage_notes": "Per guardrails, no test suite or test runner was executed. Validation was limited to `swiftc -parse Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift`.",
+    "known_limitations": "This pass does not provide runtime proof of the mutation semantics; that remains for the tester agent."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "Low. Changes are isolated to `ShoppingList.swift`; downstream agents touching the same file should preserve the new exact-range mutation helper.",
+  "branch_name": "feature/b-419f1418",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -64,9 +76,147 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:01:48.686345+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:01:48.686369+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:01:50.021652+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-3db16e0e/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-3db16e0e/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:03:00.219868+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Updated `ShoppingList.toggle(itemAt:)` to mutate the exact checklist marker range in the backing text instead of rebuilding the full line, preserving non-targeted content byte-for-byte. `appendItem(_:)` and `removeItem(atLine:)` remained aligned with the bead scope.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-3db16e0e",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-3db16e0e/home",
+    "runner_backend": "codex",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-3db16e0e/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T11:01:50.021636+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-3db16e0e",
+      "feature_root_id": "B-419f1418",
+      "title": "Implement ShoppingList Mutations",
+      "agent_type": "developer",
+      "description": "Add focused line-based mutation helpers for checklist items: toggle checked state, append unchecked items, and remove checklist lines while preserving all non-targeted Markdown byte-for-byte.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`toggle(itemAt:)` flips only the bracket character on checklist lines and is a no-op for non-item lines.",
+        "`appendItem(_:)` appends exactly `- [ ] <itemText>\\n`, inserting a newline first when needed.",
+        "`removeItem(atLine:)` removes the targeted checklist line including its trailing newline and is a no-op for non-item lines.",
+        "Untouched document content remains byte-identical after each mutation."
+      ],
+      "dependencies": [
+        "B-23ff7ba4"
+      ],
+      "linked_docs": [
+        "spec-ee1d75fa",
+        "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+      ],
+      "execution_branch_name": "feature/b-419f1418",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+      ],
+      "expected_globs": [
+        "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Updated `ShoppingList.toggle(itemAt:)` to mutate the exact checklist marker range in the backing text instead of rebuilding the full line, preserving non-targeted content byte-for-byte. `appendItem(_:)` and `removeItem(atLine:)` remained aligned with the bead scope.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "duration_ms": 69595,
+      "prompt_chars": 5919,
+      "prompt_lines": 135,
+      "source": "measured",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "duration_ms": 69595,
+        "prompt_chars": 5919,
+        "prompt_lines": 135,
+        "source": "measured",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "36c79c42f78bb46046451075826a5c6102b2bf8e"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
