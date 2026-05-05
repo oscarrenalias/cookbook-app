@@ -24,7 +24,7 @@ struct AddItemSheet: View {
                     if !catalog.isLoaded {
                         Text("Loading aisles…").tag(Optional<String>.none)
                     } else {
-                        ForEach(catalog.aisles, id: \.self) { aisle in
+                        ForEach(catalog.aisles.sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }, id: \.self) { aisle in
                             Text(aisle.capitalized).tag(Optional(aisle))
                         }
                         Text("Other").tag(Optional<String>.none)
