@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
-  "dependencies": [],
+  "dependencies": [
+    "B-bf21ece4",
+    "B-27028c1c",
+    "B-9a46d66c"
+  ],
   "acceptance_criteria": [
     "No test asserts the old >> or == == syntax produces metadata or sections",
     "YAML frontmatter test passes: scalar title parsed, YAML block excised from step text",
