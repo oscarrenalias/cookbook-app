@@ -254,3 +254,150 @@ The app uses the file convention from
 plain text file enumerating one recipe path per line, optionally with a date
 prefix. Concrete file naming and on-disk layout is decided in the meal-plan
 feature spec.
+
+## RecipeDetailSheet
+
+`RecipeDetailSheet` (`CookbookApp/Recipes/RecipeDetailSheet.swift`) is the
+modal sheet presented when the user taps a recipe row. It owns recipe parsing
+and the single source of truth for the current serving scale.
+
+### Component hierarchy
+
+```
+RecipeDetailSheet                    ← owns @State currentScale, selectedTab, parsedRecipe
+├── RecipeHeroHeader                 ← hero image + gradient + dismiss button
+│   └── [async] RecipeImageLoader   ← sibling-image lookup (see below)
+├── RecipeStatStrip(scale: $currentScale)   ← scrollable stat strip; binds to scale
+├── RecipeTagChips                   ← horizontal tag chips; read-only
+├── Picker (segmented)               ← tab selection: Ingredients / Cookware / Steps
+├── [tab content]
+│   ├── IngredientsView(scale: $currentScale)  ← ingredient list + gather toggle; binds to scale
+│   ├── CookwareView                 ← cookware list; no scale dependency
+│   └── StepsView                   ← section/step list; uses RecipeStepCombiner
+└── RecipeBottomBar(scale: $currentScale)    ← action bar + scale picker; binds to scale
+```
+
+`RecipeDetailSheet` parses the `.cook` file off the main thread using a
+detached `Task` with `.userInitiated` priority, keyed on `recipe.url` via
+`.task(id:)`. While parsing, a `ProgressView()` replaces the tab content;
+`RecipeBottomBar` is always visible (both states) so the scale picker is
+accessible immediately.
+
+### Scale @State sharing
+
+`RecipeDetailSheet` owns a single `@State private var currentScale: RecipeScale = .one`.
+Three child views receive it as a `@Binding`:
+
+| Child | Role |
+|-------|------|
+| `RecipeStatStrip` | Re-computes the servings display when scale changes |
+| `IngredientsView` | Scales each ingredient quantity; also hosts a redundant scale `Picker` in its section header |
+| `RecipeBottomBar` | Hosts the primary scale `Picker`; writes back to the binding |
+
+Both pickers (in `IngredientsView`'s section header and in `RecipeBottomBar`)
+drive the same `@State` in the parent. Either picker updates all three
+consumers simultaneously — no explicit observation or notification needed.
+
+`RecipeScale` is an `enum : Double` with cases `.half (0.5)`, `.one (1.0)`,
+`.two (2.0)`, `.three (3.0)`. `RecipeScale.apply(to:)` leaves `.text`
+quantities unchanged and multiplies `.number` quantities by the scale factor,
+formatting the result without trailing zeros or a redundant decimal point.
+
+### Sibling-image loading and security-scoped bookmark lifecycle
+
+`RecipeImageLoader` (`CookbookApp/Recipes/RecipeImageLoader.swift`) is a
+caseless enum (namespace only) with a single static method:
+
+```swift
+static func loadImage(for recipeURL: URL) async -> Image?
+```
+
+It runs on a detached `Task` with `.utility` priority. The lifecycle inside
+the task:
+
+1. Call `recipeURL.startAccessingSecurityScopedResource()` and record whether
+   it returned `true` in `didStart`.
+2. Register a `defer` block: `if didStart { recipeURL.stopAccessingSecurityScopedResource() }`.
+   This guarantees the stop call even if an early `return nil` fires.
+3. Derive the candidate image URL by calling `recipeURL.deletingPathExtension()`
+   and appending each candidate extension in order: `jpg`, `jpeg`, `png`, `heic`.
+4. Return the first `UIImage(data:)` that loads successfully, wrapped as a
+   `SwiftUI.Image`. Return `nil` if none match.
+
+`RecipeHeroHeader` triggers this load via `.task(id: recipe.url)`, storing the
+result in a `@State private var heroImage: Image?`. While `heroImage` is `nil`
+the header shows a solid tint rectangle with a `fork.knife` SF Symbol
+fallback; once the image arrives it is displayed with `.resizable().scaledToFill()`.
+
+**iOS note:** `startAccessingSecurityScopedResource()` / `stopAccessingSecurityScopedResource()`
+are the correct iOS bookmark APIs. `.withSecurityScope` is macOS-only and
+must not be used here.
+
+### RecipeStepCombiner item-resolution algorithm
+
+`RecipeStepCombiner` (`CookbookApp/Recipes/RecipeStepCombiner.swift`) converts
+a parsed `Step` into a plain `String` suitable for display. It is a caseless
+enum (namespace only) with one public method:
+
+```swift
+static func combine(step: Step, recipe: Recipe) -> String
+```
+
+The algorithm iterates `step.items` — an array of `StepItem` enum cases — and
+resolves each to a string:
+
+| Item case | Resolution |
+|-----------|------------|
+| `.text(s)` | Use `s` verbatim |
+| `.ingredient(idx)` | `recipe.ingredients[idx].name` |
+| `.cookware(idx)` | `recipe.cookware[idx].name` |
+| `.timer(idx)` | `timerDisplay(recipe.timers[idx])` |
+
+All resolved strings are concatenated with no separator — whitespace is part
+of the original `.text` items in the CooklangParser output.
+
+`timerDisplay` formats a `Timer` as `"<name> <value> <unit>"`, compacting nil
+fields with `compactMap` and joining with a space. The quantity value follows
+the same integer/decimal rules as `RecipeScale.format`: whole numbers are
+rendered without a decimal point; fractional values use up to two significant
+digits (`%.2g` format).
+
+`StepsView` drives `RecipeStepCombiner` via `RecipeSectionStepsView`, which
+also assigns sequential step numbers per section and distinguishes `.step` rows
+(numbered, primary color) from `.text` rows (unnumbered, secondary color).
+
+### Placeholder alert pattern
+
+`RecipeBottomBar` contains two deferred actions that are not yet implemented:
+
+| Button | Icon | Follow-up spec |
+|--------|------|----------------|
+| Add to menu | `bookmark` | spec 0007 (meal plans) |
+| Add to shopping list | `cart` | spec 0013 (shopping lists) |
+
+Each button sets a local `@State` flag (`showMenuAlert` / `showShoppingListAlert`)
+which triggers a `.alert("Coming in a future update", …)` with a single
+`Button("OK", role: .cancel)` dismissal. No data is written; the alert is
+purely informational.
+
+When spec 0007 and 0013 are implemented, replace the flag-and-alert pattern
+with the actual action for each button. The button labels, icons, and
+accessibility labels are already correct and do not need to change.
+
+### Visual aspects — manual review required
+
+The following visual behaviors are implemented per spec but cannot be verified
+by automated tests. **A human must review these before shipping:**
+
+- Hero gradient legibility: `LinearGradient` from `.clear` at center to
+  `.black.opacity(0.65)` at bottom. Verify the recipe title remains readable
+  against both light and dark hero images.
+- Hero image fill and crop: `.resizable().scaledToFill()` may crop the image
+  unpredictably on very wide or very tall images. Review with real recipe
+  photos.
+- `RecipeTagChips` capsule layout and `.regularMaterial` background at various
+  tag counts and lengths.
+- `RecipeStatStrip` horizontal scroll behaviour and spacing at the minimum
+  (one stat) and maximum (five stats) cardinalities.
+- Dismiss button overlay position and contrast against the hero image.
+- Segmented picker tab transitions (no custom animation; SwiftUI default).

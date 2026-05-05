@@ -23,26 +23,7 @@ struct RecipesListView: View {
         listContent
             .searchable(text: $query, prompt: "Search recipes")
             .sheet(item: $selectedRecipe) { recipe in
-                NavigationStack {
-                    VStack(spacing: 16) {
-                        Text(recipe.displayName)
-                            .font(.title)
-                        Text(recipe.url.path)
-                            .font(.body)
-                            .foregroundStyle(.secondary)
-                        Text("Detailed view coming in 0004")
-                            .font(.caption)
-                    }
-                    .padding()
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("Done") {
-                                selectedRecipe = nil
-                            }
-                        }
-                    }
-                    .presentationDetents([.large])
-                }
+                RecipeDetailSheet(recipe: recipe)
             }
             .task {
                 let loaded = await Task.detached(priority: .userInitiated) {
