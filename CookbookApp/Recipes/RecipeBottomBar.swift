@@ -1,10 +1,19 @@
 import SwiftUI
+import CookbookCore
 
 // MARK: - View
 
 struct RecipeBottomBar: View {
+    let recipe: Recipe?
+    let scale: RecipeScale
+    let onAddToShoppingList: () -> Void
+
     @State private var showMenuAlert = false
-    @State private var showShoppingListAlert = false
+
+    private var hasIngredients: Bool {
+        guard let recipe else { return false }
+        return !recipe.ingredients.isEmpty
+    }
 
     var body: some View {
         HStack {
@@ -22,17 +31,14 @@ struct RecipeBottomBar: View {
             }
 
             Button {
-                showShoppingListAlert = true
+                onAddToShoppingList()
             } label: {
                 Label("Add to shopping list", systemImage: "cart")
             }
             .accessibilityLabel("Add to shopping list")
+            .accessibilityHint(hasIngredients ? "" : "Recipe has no ingredients")
+            .disabled(!hasIngredients)
             .frame(maxWidth: .infinity)
-            .alert("Coming in a future update", isPresented: $showShoppingListAlert) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text("This feature is not available yet.")
-            }
         }
         .padding()
     }
@@ -41,5 +47,5 @@ struct RecipeBottomBar: View {
 // MARK: - Preview
 
 #Preview {
-    RecipeBottomBar()
+    RecipeBottomBar(recipe: nil, scale: .one, onAddToShoppingList: {})
 }

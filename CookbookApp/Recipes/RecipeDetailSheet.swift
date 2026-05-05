@@ -15,43 +15,84 @@ struct RecipeDetailSheet: View {
     let recipe: RecipeFile
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(RecipesFolderStore.self) private var store
+    @Environment(AisleCatalog.self) private var catalog
+
     @State private var currentScale: RecipeScale = .one
     @State private var selectedTab: RecipeTab = .ingredients
     @State private var parsedRecipe: Recipe?
+    @State private var showAddSheet = false
+    @State private var successMessage: String? = nil
 
     var body: some View {
-        VStack(spacing: 0) {
-            RecipeHeroHeader(recipe: recipe, onDismiss: { dismiss() })
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                RecipeHeroHeader(recipe: recipe, onDismiss: { dismiss() })
 
-            if let parsedRecipe {
-                RecipeStatStrip(metadata: parsedRecipe.metadata, scale: $currentScale)
-                RecipeTagChips(metadata: parsedRecipe.metadata)
+                if let parsedRecipe {
+                    RecipeStatStrip(metadata: parsedRecipe.metadata, scale: $currentScale)
+                    RecipeTagChips(metadata: parsedRecipe.metadata)
 
-                Picker("Tab", selection: $selectedTab) {
-                    ForEach(RecipeTab.allCases, id: \.self) { tab in
-                        Text(tab.rawValue).tag(tab)
+                    Picker("Tab", selection: $selectedTab) {
+                        ForEach(RecipeTab.allCases, id: \.self) { tab in
+                            Text(tab.rawValue).tag(tab)
+                        }
                     }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+
+                    tabContent(for: parsedRecipe)
+                        .frame(maxHeight: .infinity)
+                } else {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
                 }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-
-                tabContent(for: parsedRecipe)
-                    .frame(maxHeight: .infinity)
 
                 Divider()
-                RecipeBottomBar()
-            } else {
-                Spacer()
-                ProgressView()
-                Spacer()
-                Divider()
-                RecipeBottomBar()
+                RecipeBottomBar(recipe: parsedRecipe, scale: currentScale) {
+                    showAddSheet = true
+                }
+            }
+
+            if let message = successMessage {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                    Text(message)
+                        .font(.subheadline)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(.regularMaterial, in: Capsule())
+                .padding(.bottom, 88)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: successMessage != nil)
         .presentationDetents([.large])
         .task(id: recipe.url) {
             await loadRecipe()
+        }
+        .sheet(isPresented: $showAddSheet) {
+            if let folderURL = store.folderURL {
+                AddToShoppingListSheet(
+                    recipe: parsedRecipe ?? Recipe(),
+                    scale: currentScale,
+                    folderURL: folderURL,
+                    catalog: catalog,
+                    recipeName: recipe.displayName,
+                    onSuccess: { count, listName in
+                        let noun = count == 1 ? "item" : "items"
+                        successMessage = "\(count) \(noun) added to \(listName)"
+                        Task {
+                            try? await Task.sleep(for: .seconds(2.5))
+                            successMessage = nil
+                        }
+                    }
+                )
+            }
         }
     }
 
