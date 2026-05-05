@@ -3,7 +3,7 @@
   "title": "Shared Format Tests And Fixtures",
   "agent_type": "tester",
   "description": "Add the canonical fixtures under `Tests/CookbookCoreTests/Fixtures/`, implement Swift Testing behavioural coverage for all three modules, and run package-level verification commands required by the spec.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -372,7 +372,10 @@
   "conflict_risks": "Low. This pass only added new test files and copied fixture files under `Packages/CookbookCore/Tests/CookbookCoreTests/`; downstream feature code should not be affected unless another agent is editing the same new test suite files concurrently.",
   "branch_name": "feature/b-419f1418",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
-  "lease": null,
+  "lease": {
+    "owner": "tester:B-77482551",
+    "expires_at": "2026-05-05T11:52:23.901444+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -434,6 +437,29 @@
       "agent_type": "tester",
       "summary": "Bead requeued",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:22:24.085034+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:22:24.085057+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
   "metadata": {
@@ -449,7 +475,7 @@
     ],
     "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551/home",
-    "runner_backend": "codex",
+    "runner_backend": "claude",
     "guardrails": {
       "agent_type": "tester",
       "template_path": ".takt/agent-runs/B-77482551/repo/templates/agents/tester.md",
