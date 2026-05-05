@@ -34,8 +34,8 @@ public struct CooklangParser {
                 continue
             }
 
-            if trimmed.hasPrefix("==") && trimmed.hasSuffix("==") {
-                let inner = String(trimmed.dropFirst(2).dropLast(2)).trimmingCharacters(in: .whitespaces)
+            if trimmed.hasPrefix("= ") {
+                let inner = String(trimmed.dropFirst(2)).trimmingCharacters(in: .whitespaces)
                 if !inner.isEmpty {
                     if !currentStepLines.isEmpty {
                         let step = try inlineParser.parseRawStep(currentStepLines.joined(separator: " "))
