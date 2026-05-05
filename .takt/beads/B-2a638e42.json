@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
-  "dependencies": [],
+  "dependencies": [
+    "B-d6d71fda",
+    "B-43085da0",
+    "B-f0f3a9f8",
+    "B-59821ae0",
+    "B-d094ca5b",
+    "B-19d7b0a5",
+    "B-e23f6496"
+  ],
   "acceptance_criteria": [
     "Sheet uses .large detent with working swipe-down dismiss.",
     "RecipeHeroHeader dismiss button calls the sheet dismiss action.",
