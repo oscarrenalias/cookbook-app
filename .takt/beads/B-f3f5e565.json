@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-f3f5e565",
+  "title": "Documentation for 0008 polish changes",
+  "agent_type": "documentation",
+  "description": "Add a concise doc-comment to shoppingListsURL(in:) describing its contract (auto-create, swallows errors, returns URL regardless). Update the spec file status to reflect completion. No other doc changes are needed \u2014 the view fixes are self-evident.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-65bfad3d",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "shoppingListsURL(in:) has a one- to two-line doc-comment covering the auto-create behaviour and the silent-error-swallow contract",
+    "Spec 0008 frontmatter status field updated to reflect completion"
+  ],
+  "linked_docs": [
+    "specs/drafts/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
+  ],
+  "feature_root_id": "B-65bfad3d",
+  "execution_branch_name": "feature/b-65bfad3d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-65bfad3d",
+  "expected_files": [],
+  "expected_globs": [
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+    "specs/drafts/0008-shopping-lists-polish-capitalisation-picker-order-subfolder.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T14:03:40.496792+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
