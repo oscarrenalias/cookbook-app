@@ -1,15 +1,13 @@
 import SwiftUI
 
 struct ShoppingListsTab: View {
+    @Environment(RecipesFolderStore.self) private var store
+
     var body: some View {
-        EmptyStateView(
-            systemImage: "cart",
-            title: "Shopping Lists",
-            subtitle: "No shopping lists yet."
-        )
+        ShoppingListsView(folderURL: store.folderURL!)
     }
 }
 
 #Preview {
-    ShoppingListsTab()
+    ShoppingListsView(folderURL: URL(fileURLWithPath: NSTemporaryDirectory()))
 }
