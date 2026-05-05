@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AppRoot: View {
     @State private var store: RecipesFolderStore
+    @State private var catalog = AisleCatalog()
 
     static let tabTitles = ["Recipes", "Meal Plans", "Shopping Lists"]
 
@@ -27,6 +28,12 @@ struct AppRoot: View {
             }
         }
         .environment(store)
+        .environment(catalog)
+        .task(id: store.folderURL) {
+            if let url = store.folderURL {
+                catalog.load(from: url)
+            }
+        }
     }
 }
 

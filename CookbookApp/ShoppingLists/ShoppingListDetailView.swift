@@ -6,12 +6,12 @@ struct ShoppingListDetailView: View {
     var onDelete: (() -> Void)? = nil
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(AisleCatalog.self) private var catalog
     @State private var list = ShoppingList("")
     @State private var isLoaded = false
     @State private var showAddSheet = false
     @State private var showDeleteConfirmation = false
     @State private var collapsedSections: Set<String> = []
-    @State private var catalog = AisleCatalog()
     @State private var searchText = ""
 
     private var listName: String { ShoppingListFiles.displayName(for: url) }
@@ -89,7 +89,6 @@ struct ShoppingListDetailView: View {
             Text("This shopping list will be permanently removed.")
         }
         .task {
-            catalog.load(from: url.deletingLastPathComponent())
             if let text = ShoppingListFiles.readText(from: url) {
                 list = ShoppingList(text)
             }
@@ -200,4 +199,5 @@ private struct AisleSectionHeader: View {
     NavigationStack {
         ShoppingListDetailView(url: URL(fileURLWithPath: "/tmp/Weekend BBQ.md"))
     }
+    .environment(AisleCatalog())
 }
