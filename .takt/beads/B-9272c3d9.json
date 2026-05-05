@@ -6,7 +6,16 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
-  "dependencies": [],
+  "dependencies": [
+    "B-519a9307",
+    "B-a2c492e1",
+    "B-992aac59",
+    "B-0c9926df",
+    "B-30f7ab84",
+    "B-cd3c52af",
+    "B-23ff7ba4",
+    "B-3db16e0e"
+  ],
   "acceptance_criteria": [
     "Public-facing package documentation or source-level documentation identifies the three supported data formats and their scope boundaries.",
     "Documentation references the canonical example files for `.menu`, `aisle.conf`, and shopping lists.",
