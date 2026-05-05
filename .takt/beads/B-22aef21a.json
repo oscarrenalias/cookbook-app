@@ -399,7 +399,15 @@
     "CookbookApp/ShoppingLists/ShoppingListHeaderExtractor.swift",
     "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
     "CookbookApp/ShoppingLists/ShoppingListLineFormatter.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    "CookbookAppTests/AddToShoppingListServiceTests.swift",
+    "CookbookAppTests/AisleCatalogTests.swift",
+    "CookbookAppTests/RecipeScaleScaledTests.swift",
+    "CookbookAppTests/ShoppingListHeaderExtractorTests.swift",
+    "CookbookAppTests/ShoppingListLineFormatterTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMealsTests.swift",
+    "docs/architecture.md",
+    "docs/examples/shopping-list.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -584,7 +592,15 @@
     "CookbookApp/ShoppingLists/ShoppingListHeaderExtractor.swift",
     "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
     "CookbookApp/ShoppingLists/ShoppingListLineFormatter.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    "CookbookAppTests/AddToShoppingListServiceTests.swift",
+    "CookbookAppTests/AisleCatalogTests.swift",
+    "CookbookAppTests/RecipeScaleScaledTests.swift",
+    "CookbookAppTests/ShoppingListHeaderExtractorTests.swift",
+    "CookbookAppTests/ShoppingListLineFormatterTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMealsTests.swift",
+    "docs/architecture.md",
+    "docs/examples/shopping-list.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
