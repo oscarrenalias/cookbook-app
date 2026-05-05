@@ -3,7 +3,7 @@
   "title": "Shared Format Tests And Fixtures",
   "agent_type": "tester",
   "description": "Add the canonical fixtures under `Tests/CookbookCoreTests/Fixtures/`, implement Swift Testing behavioural coverage for all three modules, and run package-level verification commands required by the spec.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -104,7 +104,7 @@
     "test_coverage_notes": "MealPlanParser: emptyInputReturnsEmptyPlan, frontmatterParsesIntoMetadata, dayBlockParsesRecipeSectionAndOrdinal, namedBlockCreatesUnnamedSection, slashDiscriminatesRecipesFromIngredients, lineCommentBecomesCommentItem, fixtureRoundTripsThroughSerialise \u2014 all 7 pass. AisleConfigParser: emptyInputReturnsEmptyConfig, commentOnlyInputReturnsEmptyConfig, fixtureParsesSectionsInOrder, canonicalLookupFindsProducePotato, aliasLookupFindsProducePotatoes, multiWordCanonicalTokenStaysWhole, surroundingAliasWhitespaceIsTrimmed, lookupIsCaseInsensitive, sameTokenCanResolveToDifferentSections, itemsOutsideSectionsAreSkipped \u2014 all 10 pass. ShoppingList: 8/9 pass; arbitraryContentRemainsByteIdenticalAsideFromToggledLine crashes.",
     "known_limitations": "The aisle spec text referenced \\\"21 sections\\\" but the actual fixture has 23; the test was written to match the fixture (23 sections) and passes \u2014 this spec/fixture discrepancy should be noted for documentation but does not affect correctness."
   },
-  "block_reason": "Production code crash in ShoppingList.swift:rangeInText(for:) lines 85\u201390: content.index(lowerBound, offsetBy:) uses contentRange.lowerBound (an index in text) as a base index in content (a fresh String copy). Swift String indices are not interchangeable across distinct String instances. This crashes with \\\"String index is out of bounds\\\" whenever toggle() targets a line beyond the first few characters of a multi-line document.",
+  "block_reason": "",
   "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension methods. No other bead files overlap with this path.",
   "branch_name": "feature/b-419f1418",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
@@ -215,6 +215,13 @@
       "event": "corrective_planned",
       "agent_type": "tester",
       "summary": "Created corrective bead B-77482551-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:29:21.631681+00:00",
+      "event": "retried",
+      "agent_type": "tester",
+      "summary": "Requeued blocked bead after corrective bead B-77482551-corrective completed",
       "details": {}
     }
   ],
@@ -525,7 +532,9 @@
         "attempt": 2
       }
     ],
-    "auto_corrective_bead_id": "B-77482551-corrective"
+    "auto_corrective_bead_id": "B-77482551-corrective",
+    "last_corrective_retry_source": "B-77482551-corrective",
+    "last_corrective_retry_commit": "f998e4ee31e249f8d5debfa0546719f631139777"
   },
   "labels": [],
   "recovery_for": null,
