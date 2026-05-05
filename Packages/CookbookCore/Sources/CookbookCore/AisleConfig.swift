@@ -6,9 +6,14 @@ public struct AisleConfig: Sendable, Equatable {
     }
 
     public func aisle(for ingredient: String) -> AisleSection? {
-        sections.first { section in
+        let normalizedIngredient = ingredient.lowercased()
+
+        return sections.first { section in
             section.items.contains { item in
-                item.canonical == ingredient || item.aliases.contains(ingredient)
+                item.canonical.lowercased() == normalizedIngredient
+                    || item.aliases.contains { alias in
+                        alias.lowercased() == normalizedIngredient
+                    }
             }
         }
     }
