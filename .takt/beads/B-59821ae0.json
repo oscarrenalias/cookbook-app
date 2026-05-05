@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
-  "dependencies": [],
+  "dependencies": [
+    "B-e93417db"
+  ],
   "acceptance_criteria": [
     "Section header shows 'Ingredients' leading and scale Picker trailing bound to external binding.",
     "Each row shows checkbox, name, and scaled quantity.",
