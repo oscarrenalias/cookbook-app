@@ -3,7 +3,7 @@
   "title": "Shared Documentation And Examples Alignment",
   "agent_type": "documentation",
   "description": "Document the delivered CookbookCore format support and ensure canonical example references are aligned between production docs and test fixtures without introducing UI-scope documentation.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
@@ -431,9 +431,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Low. The change is isolated to a new source file in CookbookCore and reads existing parsing primitives without modifying them.\nLow. The change is isolated to `MealPlanParser.swift`, but downstream tester/reviewer agents should evaluate parser behavior around canonicalized quantity/frontmatter formatting and unnamed-section comments.\nDownstream beads `B-30f7ab84` and `B-cd3c52af` are expected to edit the same file family (`AisleConfig.swift` and parser companion) to add parsing and case-insensitive alias lookup behavior.\nLow. Work was confined to a new source file in the assigned scope within a shared worktree.\nLow. Change is isolated to lookup behavior in `AisleConfig.swift`; downstream agents touching the same file should preserve the explicit `return` and case-insensitive comparisons.\nLow. Work is isolated to the new `ShoppingList.swift` file in the expected scope.\nLow. Changes are isolated to `ShoppingList.swift`; downstream agents touching the same file should preserve the new exact-range mutation helper.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-419f1418",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "lease": {
+    "owner": "documentation:B-9272c3d9",
+    "expires_at": "2026-05-05T11:38:42.373910+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -442,9 +445,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:08:42.621022+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:08:42.621042+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-9272c3d9",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-9272c3d9/home",
+    "runner_backend": "codex"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
