@@ -180,6 +180,13 @@
       "agent_type": "tester",
       "summary": "Added the three CookbookCore behavioural test suites and copied the canonical `docs/examples` fixtures into `Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/`, but required runtime validation is still blocked by the sandboxed SwiftPM/Xcode environment.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:08:41.575914+00:00",
+      "event": "corrective_planned",
+      "agent_type": "tester",
+      "summary": "Created corrective bead B-77482551-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -541,7 +548,8 @@
         "source": "measured",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-77482551-corrective"
   },
   "labels": [],
   "recovery_for": null,
