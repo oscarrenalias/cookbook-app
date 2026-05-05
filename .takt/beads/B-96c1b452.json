@@ -6,7 +6,12 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
-  "dependencies": [],
+  "dependencies": [
+    "B-d1862714",
+    "B-e0d352b6",
+    "B-97593027",
+    "B-f35bed46"
+  ],
   "acceptance_criteria": [
     "Public doc comments on the aggregation types and `ShoppingList.aggregate` clearly describe canonicalisation, nil `Other` aisle semantics, stable ordering, and quantity-merging boundaries.",
     "`AisleConfig.canonical(for:)` is documented as alias-aware canonical lookup returning `nil` when unmatched.",
