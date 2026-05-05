@@ -91,6 +91,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:40:21.181806+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-bf21ece4/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-bf21ece4/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -107,7 +116,64 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-bf21ece4/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-bf21ece4/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T07:40:21.181791+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-bf21ece4",
+      "feature_root_id": "B-fa1cbeb6",
+      "title": "B1: YAML frontmatter parser (replace >> metadata)",
+      "agent_type": "developer",
+      "description": "Hand-roll a small YAML reader (~80 lines) inside CooklangParser.swift and/or Metadata.swift that detects and parses a --- ... --- frontmatter block when it is the first content in the file. Scalar values are stored verbatim under the bare key; list values (indented - items) are joined with ', ' and stored under the bare key. The old >> metadata syntax is dropped entirely \u2014 lines starting with >> become plain step text. Read Parser.swift, Scanner.swift, and Metadata.swift before designing the change. No third-party YAML library.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "--- frontmatter block detected when it is the first content in the file (blank lines and leading whitespace may precede it)",
+        "Scalar YAML values (title: x, servings: 5) stored verbatim as strings under the bare key",
+        "YAML list values (key: followed by indented - item lines) joined with ', ' and stored under the bare key",
+        ">> lines no longer populate metadata; they are treated as plain step text",
+        "Frontmatter --- delimiters do not appear in any step text",
+        "No third-party YAML library added to Package.swift"
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "execution_branch_name": "feature/b-fa1cbeb6",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
+      ],
+      "expected_globs": [
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
