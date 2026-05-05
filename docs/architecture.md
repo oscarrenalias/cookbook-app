@@ -402,23 +402,21 @@ digits (`%.2g` format).
 also assigns sequential step numbers per section and distinguishes `.step` rows
 (numbered, primary color) from `.text` rows (unnumbered, secondary color).
 
-### Placeholder alert pattern
+### Bottom-bar action wiring
 
-`RecipeBottomBar` contains two deferred actions that are not yet implemented:
+`RecipeBottomBar` exposes an `onAddToShoppingList: () -> Void` callback.
+`RecipeDetailSheet` owns a `@State private var showAddSheet = false` and
+passes a closure that sets it to `true`, then presents `AddToShoppingListSheet`
+as a `.sheet`. The "Add to menu" button still shows a placeholder alert
+(`showMenuAlert` → `.alert("Coming in a future update", …)`) — that action is
+deferred to the meal-plans feature.
 
-| Button | Icon | Follow-up spec |
-|--------|------|----------------|
-| Add to menu | `calendar` | spec 0011 (meal plans) |
-| Add to shopping list | `cart` | spec 0009 (shopping lists) |
-
-Each button sets a local `@State` flag (`showMenuAlert` / `showShoppingListAlert`)
-which triggers a `.alert("Coming in a future update", …)` with a single
-`Button("OK", role: .cancel)` dismissal. No data is written; the alert is
-purely informational.
-
-When spec 0011 and 0009 are implemented, replace the flag-and-alert pattern
-with the actual action for each button. The button labels, icons, and
-accessibility labels are already correct and do not need to change.
+The "Add to shopping list" button is disabled when the parsed recipe has no
+ingredients (`recipe.ingredients.isEmpty`). `RecipeDetailSheet` passes the
+current `parsedRecipe` and `currentScale` through to `AddToShoppingListSheet`,
+so the sheet always reflects the scale the user has selected in the Ingredients
+tab. A transient success toast (`successMessage`) appears for 2.5 s after a
+successful append or create, reporting the item count and list name.
 
 ### Visual aspects — manual review required
 
@@ -462,3 +460,137 @@ by automated tests. **A human must review these before shipping:**
   Pasta Bolognese recipe produces three named sections ("Soffritto", "Meat
   Sauce", "Pasta"). Steps tab shows each section name as a header with step
   numbers restarting at 1 in each section.
+
+## Recipe → shopping list flow
+
+### AisleCatalog
+
+`AisleCatalog` (`CookbookApp/ShoppingLists/AisleCatalog.swift`) is a single
+`@Observable` parse point for `aisle.conf`. It is injected into the environment
+at app startup and consumed by `RecipeDetailSheet` and `ShoppingListDetailView`
+via `@Environment(AisleCatalog.self)`.
+
+`load(from:)` reads `aisle.conf` from the provided folder URL and populates:
+
+| Property | Value when file present | Value when file absent |
+|----------|------------------------|----------------------|
+| `config` | Parsed `AisleConfig` | `nil` |
+| `aisles` | Section names from config, or `defaultAisles` if config has no sections | `defaultAisles` |
+| `isLoaded` | `true` | `true` |
+
+`defaultAisles` is a hard-coded list of 22 common aisle names used as a
+fallback. The `AddToShoppingListSheet` defers list discovery until `isLoaded`
+is `true`, displaying a spinner in the interim.
+
+### AddToShoppingListService
+
+`AddToShoppingListService` (`CookbookApp/ShoppingLists/AddToShoppingListService.swift`)
+is a caseless enum (namespace only) with two public entry points.
+
+**Scale interaction.** The caller passes a `RecipeScale` alongside the `Recipe`.
+`AddToShoppingListService` calls `scale.scaled(recipe)` before aggregation, so
+all ingredient quantities reflect the user's chosen multiplier (½×, 1×, 2×,
+3×). `.text` quantities — e.g. "a pinch" — are passed through unchanged.
+
+**Aisle config interaction.** An optional `AisleConfig` is forwarded directly
+to `ShoppingList.aggregate(recipes:aisleConfig:)`. When non-nil, the aggregator
+maps each ingredient to a named aisle section; when nil, all items fall into a
+single unnamed aisle bucket and are written flat.
+
+**Flat vs aisle-structured append.** When appending to an _existing_ list,
+`isAisleBacked(_:)` determines which write path to use:
+
+- Returns `true` when any `## ` heading section contains at least one GFM
+  checklist line (`- [ ]` / `- [x]`). Items are written under their aisle
+  headings via `ShoppingList.appendItem(_:toAisle:)`.
+- Returns `false` for flat lists (no aisle headings) or lists whose only `## `
+  headings are prose sections (e.g. `## Meals`). Items are appended at the
+  bottom via `ShoppingList.appendItem(_:)`.
+
+When _creating_ a new list, `isAisleBacked` is not called: new lists always
+receive aisle-structured output (`aisleMode: true`), because `aisle.conf` is
+available and there is no pre-existing structure to honour.
+
+**`## Meals` provenance bullet.** Before writing items, both `append` and
+`create` call `ShoppingList.appendMealsBullet("**\(recipeName)**")`. This
+inserts a plain bullet `- **RecipeName**` under a `## Meals` section, which is
+created after the H1 line if not already present. The call is idempotent: a
+second append of the same recipe name to the same list produces no duplicate
+bullet. The `## Meals` section uses plain bullets (not checklist items), so
+`isAisleBacked` never treats it as an aisle — it is always part of the header
+area (see below).
+
+**Error surface.** `AppendError` has three cases:
+
+| Case | Meaning |
+|------|---------|
+| `readFailed` | The target file could not be read |
+| `writeFailed(Error)` | The write to disk failed; wraps the underlying file error |
+| `listAlreadyExists` | `create` was called with a name whose `.md` file already exists |
+
+### ShoppingListHeaderExtractor
+
+`ShoppingListHeaderExtractor` (`CookbookApp/ShoppingLists/ShoppingListHeaderExtractor.swift`)
+parses the free-text region of a shopping list that precedes the checklist
+aisles.
+
+`extract(from:)` returns a `HeaderContent?`:
+
+- Skips the H1 title line.
+- Accumulates lines until it encounters either a raw checklist line (`- [ ]` /
+  `- [x]`) or a `## ` heading whose section contains at least one checklist
+  line. That boundary line is _not_ included in the header.
+- Prose-only `## ` sections (e.g. `## Meals`, `## Notes`) are included in the
+  header because their sections contain no checklist items.
+- Returns `nil` when the extracted content is empty after trimming.
+
+`HeaderContent` carries:
+
+| Field | Content |
+|-------|---------|
+| `markdown` | Raw markdown of the header area, whitespace-trimmed |
+| `firstHeading` | Text of the first `## ` heading found, or `nil` |
+
+The canonical example (`docs/examples/shopping-list.md`) shows a `## Meals`
+section with recipe bullets followed by aisle sections with checklist items;
+the extractor captures only the `## Meals` block as the header.
+
+### ShoppingListHeaderView
+
+`ShoppingListHeaderView` (`CookbookApp/ShoppingLists/ShoppingListHeaderView.swift`)
+renders a `HeaderContent` as a collapsible `Section` at the top of the
+shopping-list detail screen.
+
+**Rendering rules:**
+
+- The section header button shows `content.firstHeading ?? "Notes"` as the
+  disclosure label and a chevron icon (`chevron.down` / `chevron.right`).
+- Body lines are rendered one at a time:
+  - `## ` headings → `.subheadline` semibold `Text` (the heading prefix is
+    stripped; this handles any secondary headings inside the header area).
+  - All other lines → `Text(AttributedString(markdown:))` so inline bold/italic
+    from the markdown source renders correctly.
+- The `firstHeading` line itself is suppressed from the body to avoid
+  duplication with the disclosure label.
+- Blank lines are filtered out.
+- Expanded/collapsed state is persisted per list file via `@SceneStorage`,
+  keyed by `"shoppingList.header.expanded.<filename>"`.
+
+**Read-only contract.** The header view is display-only; there is no text
+editor or tap-to-edit gesture. Users who want to edit the `## Meals` section
+or other free-text notes must do so in a plain-text editor outside the app.
+This is intentional: the header area is considered structured provenance
+metadata, not a user-editable field.
+
+### ShoppingListLineFormatter
+
+`ShoppingListLineFormatter` (`CookbookApp/ShoppingLists/ShoppingListLineFormatter.swift`)
+converts an `AggregatedItem` into a display string for insertion into the
+shopping list:
+
+- No quantities → bare ingredient name (`chicken`)
+- Single quantity → `*<qty>* name` (e.g., `*500 g* chicken`)
+- Multiple quantities → `*<qty1>, <qty2>* name` (e.g., `*2 tsp, 3 cloves* garlic`)
+
+Numbers are formatted without trailing zeros (`1.5` not `1.50`; `2` not `2.0`).
+The asterisk wrapping renders as italic in Markdown-aware renderers.
