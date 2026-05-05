@@ -22,13 +22,12 @@ public struct ShoppingList: Sendable, Equatable {
     public mutating func toggle(itemAt lineIndex: Int) {
         guard let record = lineRecords().first(where: { $0.lineIndex == lineIndex }),
               let match = ShoppingList.matchItem(in: record.content),
-              let checkedRange = Range(match.range(at: 1), in: record.content) else {
+              let checkedRange = record.rangeInText(for: match.range(at: 1)) else {
             return
         }
 
         let replacement = ShoppingList.isChecked(match: match, in: record.content) ? " " : "x"
-        let updatedLine = record.content.replacingCharacters(in: checkedRange, with: replacement)
-        text.replaceSubrange(record.contentRange, with: updatedLine)
+        text.replaceSubrange(checkedRange, with: replacement)
     }
 
     public mutating func appendItem(_ itemText: String) {
@@ -71,6 +70,19 @@ private extension ShoppingList {
         let content: String
         let contentRange: Range<String.Index>
         let fullRange: Range<String.Index>
+
+        func rangeInText(for localRange: NSRange) -> Range<String.Index>? {
+            guard let contentLocalRange = Range(localRange, in: content) else {
+                return nil
+            }
+
+            let lowerBound = contentRange.lowerBound
+            let offset = content.distance(from: content.startIndex, to: contentLocalRange.lowerBound)
+            let length = content.distance(from: contentLocalRange.lowerBound, to: contentLocalRange.upperBound)
+            let start = content.index(lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound)
+            let end = start.flatMap { content.index($0, offsetBy: length, limitedBy: contentRange.upperBound) }
+            return start.flatMap { start in end.map { start..<$0 } }
+        }
     }
 
     func lineRecords() -> [LineRecord] {
