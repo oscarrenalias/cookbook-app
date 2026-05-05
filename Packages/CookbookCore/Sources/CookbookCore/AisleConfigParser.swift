@@ -1,6 +1,10 @@
 import Foundation
 
+/// Parser for the Cooklang `aisle.conf` format.
+///
+/// Canonical example: `docs/examples/aisle.conf`.
 public enum AisleConfigParser {
+    /// Parses `aisle.conf` section headers and alias rows into an `AisleConfig`.
     public static func parse(_ input: String) -> AisleConfig {
         var sections: [AisleSection] = []
         var currentSectionName: String?

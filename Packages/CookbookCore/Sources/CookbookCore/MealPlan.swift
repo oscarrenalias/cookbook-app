@@ -1,5 +1,10 @@
 import Foundation
 
+/// Parsed representation of a Cooklang meal plan (`.menu`) document.
+///
+/// Canonical example: `docs/examples/meal-plan.menu`.
+/// Scope boundary: CookbookCore preserves frontmatter, day blocks, sections, comments, and
+/// parsed item quantities, but it does not resolve app-layer recipe paths or meal-plan dates.
 public struct MealPlan: Sendable, Equatable {
     public var metadata: Metadata
     public var blocks: [MealPlanBlock]
@@ -10,6 +15,7 @@ public struct MealPlan: Sendable, Equatable {
     }
 }
 
+/// A block headed by `== ... ==`, commonly used for `Day N` sections in `.menu` files.
 public struct MealPlanBlock: Sendable, Equatable {
     public var heading: String
     public var sections: [MealPlanSection]
@@ -31,6 +37,7 @@ public struct MealPlanBlock: Sendable, Equatable {
     }
 }
 
+/// A named or unnamed section within a meal-plan block.
 public struct MealPlanSection: Sendable, Equatable {
     public var name: String?
     public var items: [MealPlanItem]
@@ -41,12 +48,14 @@ public struct MealPlanSection: Sendable, Equatable {
     }
 }
 
+/// A parsed meal-plan entry.
 public enum MealPlanItem: Sendable, Equatable {
     case recipe(MealPlanRecipe)
     case ingredient(MealPlanIngredient)
     case comment(String)
 }
 
+/// A meal-plan item whose `@name` contains `/`, treated as a recipe path reference.
 public struct MealPlanRecipe: Sendable, Equatable {
     public var path: String
     public var quantity: Quantity?
@@ -57,6 +66,7 @@ public struct MealPlanRecipe: Sendable, Equatable {
     }
 }
 
+/// A meal-plan item whose `@name` does not contain `/`, treated as a free ingredient entry.
 public struct MealPlanIngredient: Sendable, Equatable {
     public var name: String
     public var quantity: Quantity?

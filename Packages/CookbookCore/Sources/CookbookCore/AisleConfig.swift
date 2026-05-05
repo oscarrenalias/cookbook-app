@@ -1,3 +1,8 @@
+/// Read-only representation of a Cooklang `aisle.conf` file.
+///
+/// Canonical example: `docs/examples/aisle.conf`.
+/// Scope boundary: CookbookCore parses sections and case-insensitive ingredient aliases for lookup,
+/// but it does not provide aisle-file write support.
 public struct AisleConfig: Sendable, Equatable {
     public var sections: [AisleSection]
 
@@ -19,6 +24,7 @@ public struct AisleConfig: Sendable, Equatable {
     }
 }
 
+/// A named aisle section from `aisle.conf`.
 public struct AisleSection: Sendable, Equatable {
     public var name: String
     public var items: [AisleItem]
@@ -29,6 +35,7 @@ public struct AisleSection: Sendable, Equatable {
     }
 }
 
+/// A canonical ingredient plus any `aisle.conf` aliases declared on the same line.
 public struct AisleItem: Sendable, Equatable {
     public var canonical: String
     public var aliases: [String]

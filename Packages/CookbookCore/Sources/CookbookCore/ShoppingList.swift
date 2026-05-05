@@ -1,5 +1,10 @@
 import Foundation
 
+/// Markdown-backed shopping-list text with checklist-item helpers.
+///
+/// Canonical example: `docs/examples/shopping-list.md`.
+/// Scope boundary: CookbookCore only parses checklist items of the form `- [ ]` / `- [x]`,
+/// and leaves all other shopping-list structure as raw text.
 public struct ShoppingList: Sendable, Equatable {
     public var text: String
 
@@ -48,6 +53,7 @@ public struct ShoppingList: Sendable, Equatable {
     }
 }
 
+/// A parsed checklist item from a shopping-list markdown document.
 public struct ShoppingListItem: Sendable, Equatable {
     public let lineIndex: Int
     public let checked: Bool

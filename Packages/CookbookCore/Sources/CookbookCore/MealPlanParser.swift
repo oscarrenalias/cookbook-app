@@ -1,6 +1,11 @@
 import Foundation
 
+/// Parser and serializer for Cooklang meal-plan (`.menu`) files.
+///
+/// Canonical example: `docs/examples/meal-plan.menu`.
 public enum MealPlanParser {
+    /// Parses meal-plan frontmatter, `== block ==` headings, optional section headings, checklist
+    /// comments, and `@item{quantity}` entries without applying app-layer path or date resolution.
     public static func parse(_ input: String) -> MealPlan {
         let lines = input.components(separatedBy: "\n")
         let (metadataEntries, consumed) = parseFrontmatter(lines)
@@ -88,6 +93,7 @@ public enum MealPlanParser {
         return MealPlan(metadata: Metadata(metadataEntries), blocks: blocks)
     }
 
+    /// Serializes the parsed meal-plan structure back into `.menu` text using CookbookCore's model.
     public static func serialise(_ plan: MealPlan) -> String {
         var lines: [String] = []
 
