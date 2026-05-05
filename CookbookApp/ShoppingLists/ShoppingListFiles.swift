@@ -23,7 +23,8 @@ enum ShoppingListFiles {
         return subfolderURL
     }
 
-    /// Returns all `.md` files in `folderURL`, sorted reverse-chronologically by modification date.
+    /// Returns all `.md` files in the `shopping-lists/` subdirectory of `folderURL`,
+    /// sorted reverse-chronologically by modification date.
     static func discover(in folderURL: URL) -> [URL] {
         let didStart = folderURL.startAccessingSecurityScopedResource()
         defer {
@@ -32,9 +33,10 @@ enum ShoppingListFiles {
             }
         }
 
+        let subfolderURL = shoppingListsURL(in: folderURL)
         let resourceKeys: [URLResourceKey] = [.contentModificationDateKey]
         guard let contents = try? FileManager.default.contentsOfDirectory(
-            at: folderURL,
+            at: subfolderURL,
             includingPropertiesForKeys: resourceKeys,
             options: [.skipsHiddenFiles]
         ) else {
