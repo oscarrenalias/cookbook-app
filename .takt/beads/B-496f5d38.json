@@ -3,7 +3,7 @@
   "title": "Validate canonical lookup and aggregation behavior",
   "agent_type": "tester",
   "description": "Add and run focused CookbookCore tests covering the new canonical lookup helper and the full aggregation behavior matrix, including ordering and determinism.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
   "dependencies": [
@@ -530,9 +530,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 only `AisleConfig.swift` was modified; no sibling bead has a claim on this file.\nB-97593027 and B-f35bed46 both extend Aggregation.swift; they must run sequentially (B-97593027 before B-f35bed46 per declared dependencies).\nNo conflicts expected. This bead only appended to `Aggregation.swift`; no other bead in this feature tree modifies that file.\nNo conflict risks. Only `Aggregation.swift` was modified in its private `mergeQuantity` function. No public API surface changed.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-dd16f765",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-dd16f765",
+  "lease": {
+    "owner": "tester:B-496f5d38",
+    "expires_at": "2026-05-05T20:15:23.785413+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -541,9 +544,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T19:45:23.999644+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T19:45:23.999672+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-496f5d38",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-496f5d38/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
