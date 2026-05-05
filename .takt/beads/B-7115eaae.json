@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
-  "dependencies": [],
+  "dependencies": [
+    "B-934af3a1"
+  ],
   "acceptance_criteria": [
     "`RecipeBottomBar` accepts `recipe: Recipe?` and `scale: RecipeScale`.",
     "The Add to shopping list action is disabled while the recipe is loading or has no ingredients, with the specified accessibility hint for empty recipes.",
