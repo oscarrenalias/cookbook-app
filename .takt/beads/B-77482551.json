@@ -209,6 +209,13 @@
       "agent_type": "tester",
       "summary": "All fixture files verified present (meal-plan.menu, aisle.conf, shopping-list.md). MealPlanParser (7/7) and AisleConfigParser (10/10) suites pass fully. ShoppingListParserTests (8/9): fixtureProducesExpectedUncheckedItems passes when isolated; arbitraryContentRemainsByteIdenticalAsideFromToggledLine crashes with \\\"Fatal error: String index is out of bounds\\\" due to a production code bug in ShoppingList.swift:rangeInText(for:) \u2014 the method uses contentRange.lowerBound (an index in text) as a starting position in content (a fresh String copy), which produces out-of-bounds access when the line sits deep in a multi-line document.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:27:06.077296+00:00",
+      "event": "corrective_planned",
+      "agent_type": "tester",
+      "summary": "Created corrective bead B-77482551-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
