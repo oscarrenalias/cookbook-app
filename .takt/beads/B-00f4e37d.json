@@ -443,6 +443,13 @@
       "agent_type": "review",
       "summary": "Review finds 2 spec-required test cases missing and a var/let API deviation; implementation logic is correct throughout.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T19:54:38.674153+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-00f4e37d-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -878,7 +885,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-00f4e37d-corrective"
   },
   "labels": [],
   "recovery_for": null,
