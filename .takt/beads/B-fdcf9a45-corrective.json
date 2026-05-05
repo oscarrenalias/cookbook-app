@@ -3,7 +3,7 @@
   "title": "Corrective fix for B-fdcf9a45: REVIEW: Spec 0005 review",
   "agent_type": "developer",
   "description": "Blocked reason: recipeFixtureSpotChecks (CooklangParserTests.swift:195-208) asserts only metadata[\"title\"] != nil, metadata[\"servings\"] != nil, and metadata[\"tags\"] != nil. The spec requires exact-value assertions: == \"Pasta Bolognese\", == \"4\", and == \"italian, pasta, classic\" respectively. Weak nil-checks allow a parser regression that returns wrong values to pass undetected.\n\nRemaining work: Developer must strengthen recipeFixtureSpotChecks to assert exact metadata values: metadata[\"title\"] == \"Pasta Bolognese\", metadata[\"servings\"] == \"4\", metadata[\"tags\"] == \"italian, pasta, classic\". Optionally: add RecipesListView collapse-state test or document its deliberate exclusion.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fdcf9a45",
   "dependencies": [],
@@ -91,9 +91,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Any sibling bead touching CooklangParser.swift or CooklangParserTests.swift will conflict with the corrective change. No other conflict risks identified.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-fa1cbeb6",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+  "lease": {
+    "owner": "developer:B-fdcf9a45-corrective",
+    "expires_at": "2026-05-05T09:04:30.681965+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -102,10 +105,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T08:34:31.112753+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T08:34:31.112773+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
   "metadata": {
-    "auto_corrective_for": "B-fdcf9a45"
+    "auto_corrective_for": "B-fdcf9a45",
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-fdcf9a45-corrective",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-fdcf9a45-corrective/home",
+    "runner_backend": "claude"
   },
   "labels": [],
   "recovery_for": null,
