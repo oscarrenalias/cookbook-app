@@ -72,15 +72,14 @@ struct RecipeStatStrip: View {
 
     var body: some View {
         if !stats.isEmpty {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 24) {
-                    ForEach(stats, id: \.label) { stat in
-                        StatCell(item: stat)
-                    }
+            HStack(alignment: .top, spacing: 8) {
+                ForEach(stats, id: \.label) { stat in
+                    StatCell(item: stat)
+                        .frame(maxWidth: .infinity)
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
             }
+            .padding(.horizontal)
+            .padding(.vertical, 8)
         }
     }
 }
@@ -98,12 +97,13 @@ private struct StatCell: View {
             Text(item.value)
                 .font(.subheadline)
                 .fontWeight(.semibold)
-                .lineLimit(1)
+                .multilineTextAlignment(.center)
             Text(item.label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-                .lineLimit(1)
+                .multilineTextAlignment(.center)
         }
+        .fixedSize(horizontal: false, vertical: true)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(item.label): \(item.value)")
     }

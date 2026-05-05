@@ -10,13 +10,17 @@ enum RecipeScale: Double, CaseIterable {
 
     func apply(to quantity: Quantity?) -> String? {
         guard let quantity else { return nil }
+        let valueStr: String
         switch quantity.value {
         case .text(let s):
-            return s
+            valueStr = s
         case .number(let n):
-            let result = n * factor
-            return Self.format(result)
+            valueStr = Self.format(n * factor)
         }
+        if let unit = quantity.unit, !unit.isEmpty {
+            return "\(valueStr) \(unit)"
+        }
+        return valueStr
     }
 
     func apply(toServings string: String) -> String {
