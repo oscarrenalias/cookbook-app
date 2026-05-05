@@ -137,16 +137,16 @@ public extension ShoppingList {
     private static func mergeQuantity(_ quantity: Quantity, into quantities: inout [Quantity]) {
         switch quantity.value {
         case .number(let newValue):
-            let newUnit = quantity.unit?.trimmingCharacters(in: .whitespaces).lowercased()
+            let newUnit = quantity.unit?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             if let idx = quantities.firstIndex(where: { existing in
                 guard case .number = existing.value else { return false }
-                return existing.unit?.trimmingCharacters(in: .whitespaces).lowercased() == newUnit
+                return existing.unit?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == newUnit
             }) {
                 if case .number(let existingValue) = quantities[idx].value {
                     quantities[idx] = Quantity(value: .number(existingValue + newValue), unit: quantities[idx].unit)
                 }
             } else {
-                quantities.append(quantity)
+                quantities.append(Quantity(value: .number(newValue), unit: newUnit))
             }
         case .text:
             quantities.append(quantity)
