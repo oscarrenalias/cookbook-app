@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
-  "dependencies": [],
+  "dependencies": [
+    "B-bf21ece4",
+    "B-27028c1c",
+    "B-9a46d66c"
+  ],
   "acceptance_criteria": [
     "Parsing Pasta Bolognese fixture produces 3 sections with names 'Getting the meat browned', 'Preparing the sofrito', 'Finishing the sauce and cooking the pasta'",
     "Steps tab renders a visible header for each section name",
