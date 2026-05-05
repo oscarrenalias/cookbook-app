@@ -3,7 +3,7 @@
   "title": "B6: Remove bottom-bar scale picker and change Add-to-menu icon to calendar",
   "agent_type": "developer",
   "description": "In RecipeBottomBar.swift: remove the scale picker that duplicates the one in the Ingredients tab header, so the bottom bar contains exactly two action buttons (Add to menu, Add to shopping list) evenly distributed across available width. Change the SF Symbol on the Add to menu button from 'bookmark' to 'calendar'. If the scale @State was owned by the bottom bar, move ownership to RecipeDetailSheet.swift so the Ingredients-tab picker still binds to the same value. Button label text and accessibility labels are unchanged.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [],
@@ -27,37 +27,50 @@
   "expected_globs": [
     "CookbookApp/Recipes/RecipeDetailSheet.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Removed Picker and flanking Spacers from RecipeBottomBar. Changed systemImage from 'bookmark' to 'calendar'. Added .frame(maxWidth: .infinity) to each button. Removed @Binding var scale from RecipeBottomBar. Updated RecipeDetailSheet's two RecipeBottomBar() call sites to remove the scale: argument.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "None \u2014 changes are purely UI/layout; scale binding in IngredientsView is untouched and continues to work.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to verify bottom bar layout and scale-binding behaviour in the Ingredients tab.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
+    "conflict_risks": "No conflicts expected; changes are limited to RecipeBottomBar.swift and the two RecipeBottomBar() call sites in RecipeDetailSheet.swift.",
+    "design_decisions": "Used .frame(maxWidth: .infinity) on each button (rather than Spacer() between them) so both buttons have symmetric hit targets that fill the bar width evenly.",
+    "test_coverage_notes": "Tester should verify: bottom bar shows exactly two buttons; 'calendar' icon appears on Add-to-menu; Ingredients-tab scale picker still updates quantities; no scale picker visible in bottom bar.",
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No conflicts expected; changes are limited to RecipeBottomBar.swift and the two RecipeBottomBar() call sites in RecipeDetailSheet.swift.",
   "branch_name": "feature/b-fa1cbeb6",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
-  "lease": {
-    "owner": "developer:B-a11e5ac3",
-    "expires_at": "2026-05-05T08:24:39.066567+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -99,6 +112,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-a11e5ac3/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T07:55:49.293813+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Removed the scale picker from RecipeBottomBar, changed the Add-to-menu SF Symbol from 'bookmark' to 'calendar', distributed the two remaining buttons evenly with .frame(maxWidth: .infinity), removed the now-unused @Binding var scale parameter, and updated both RecipeBottomBar() call sites in RecipeDetailSheet to drop the scale argument. Scale state ownership remains solely in RecipeDetailSheet.currentScale, which continues to bind to IngredientsView.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -171,7 +191,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Removed the scale picker from RecipeBottomBar, changed the Add-to-menu SF Symbol from 'bookmark' to 'calendar', distributed the two remaining buttons evenly with .frame(maxWidth: .infinity), removed the now-unused @Binding var scale parameter, and updated both RecipeBottomBar() call sites in RecipeDetailSheet to drop the scale argument. Scale state ownership remains solely in RecipeDetailSheet.currentScale, which continues to bind to IngredientsView.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.1712496,
+      "duration_ms": 68176,
+      "duration_api_ms": 62737,
+      "num_turns": 10,
+      "input_tokens": 10,
+      "output_tokens": 3682,
+      "cache_creation_tokens": 15578,
+      "cache_read_tokens": 184597,
+      "stop_reason": "end_turn",
+      "session_id": "aad6f078-a5b4-4908-bd47-87d08bae8e03",
+      "permission_denials": [],
+      "prompt_chars": 6244,
+      "prompt_lines": 134,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.1712496,
+        "duration_ms": 68176,
+        "duration_api_ms": 62737,
+        "num_turns": 10,
+        "input_tokens": 10,
+        "output_tokens": 3682,
+        "cache_creation_tokens": 15578,
+        "cache_read_tokens": 184597,
+        "stop_reason": "end_turn",
+        "session_id": "aad6f078-a5b4-4908-bd47-87d08bae8e03",
+        "permission_denials": [],
+        "prompt_chars": 6244,
+        "prompt_lines": 134,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "f77a29e01c461ee26a709c7b70292420c030c8ce"
   },
   "labels": [],
   "recovery_for": null,
