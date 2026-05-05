@@ -93,6 +93,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T12:39:32.134925+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-4c767853/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-4c767853/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -109,7 +118,66 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4c767853/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-4c767853/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T12:39:32.134908+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-4c767853",
+      "feature_root_id": "B-bbc48bfa",
+      "title": "ShoppingListItemRow",
+      "agent_type": "developer",
+      "description": "Add `CookbookApp/ShoppingLists/ShoppingListItemRow.swift` \u2014 the item row rendered inside each aisle section. Leading: tappable circular checkbox (`circle` / `checkmark.circle.fill`) calling `ShoppingList.toggle(itemAt:)`, persisted immediately. Centre: item text via SwiftUI `Text` markdown rendering, strikethrough and `.secondary` foreground when checked. Trailing: decorative `line.3.horizontal` drag handle (no gesture, no-op). Swipe-to-delete (red `.swipeActions` button, calls `removeItem(atLine:)`). Swipe-to-edit (gray button, presents `.alert` prefilled with current text; on Save calls `updateItem(atLine:newText:)`). All icon-only controls carry accessibility labels.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Tapping the checkbox calls `ShoppingList.toggle(itemAt:)` and the mutation is persisted to disk",
+        "Checked items render with strikethrough and `.secondary` foreground colour",
+        "`line.3.horizontal` drag handle is visible but has no attached gesture (decorative only)",
+        "Right-to-left swipe reveals a red \"Delete\" button and a gray \"Edit\" button",
+        "Delete button calls `removeItem(atLine:)` with no confirmation dialog",
+        "Edit button presents `.alert` prefilled with the item's current text; Save calls `updateItem(atLine:newText:)`",
+        "Cancel on the edit alert leaves the item unchanged",
+        "Accessibility labels present on checkbox, delete, and edit actions"
+      ],
+      "dependencies": [
+        "B-e2eee35e"
+      ],
+      "linked_docs": [
+        "specs/drafts/0007-shopping-lists-tab.md",
+        "docs/mockups/shopping list detail.png"
+      ],
+      "execution_branch_name": "feature/b-bbc48bfa",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
