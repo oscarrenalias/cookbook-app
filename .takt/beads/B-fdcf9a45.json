@@ -7,18 +7,18 @@
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [
-    "B-bf21ece4",
-    "B-27028c1c",
-    "B-9a46d66c",
-    "B-cd5452b3",
-    "B-9a95b83c",
-    "B-a11e5ac3",
-    "B-368f685a",
-    "B-747262c3",
     "B-0b882796",
     "B-1c52ecfe",
+    "B-27028c1c",
+    "B-368f685a",
+    "B-747262c3",
     "B-74f58f45",
-    "B-c6a7a4f4"
+    "B-9a46d66c",
+    "B-9a95b83c",
+    "B-a11e5ac3",
+    "B-bf21ece4",
+    "B-c6a7a4f4",
+    "B-cd5452b3"
   ],
   "acceptance_criteria": [
     "All developer bead acceptance criteria are met in the final code",
