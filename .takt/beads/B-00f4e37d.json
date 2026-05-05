@@ -526,7 +526,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 only `AisleConfig.swift` was modified; no sibling bead has a claim on this file.\nB-97593027 and B-f35bed46 both extend Aggregation.swift; they must run sequentially (B-97593027 before B-f35bed46 per declared dependencies).\nNo conflicts expected. This bead only appended to `Aggregation.swift`; no other bead in this feature tree modifies that file.",
+  "conflict_risks": "None \u2014 only `AisleConfig.swift` was modified; no sibling bead has a claim on this file.\nB-97593027 and B-f35bed46 both extend Aggregation.swift; they must run sequentially (B-97593027 before B-f35bed46 per declared dependencies).\nNo conflicts expected. This bead only appended to `Aggregation.swift`; no other bead in this feature tree modifies that file.\nNo conflict risks. Only `Aggregation.swift` was modified in its private `mergeQuantity` function. No public API surface changed.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
