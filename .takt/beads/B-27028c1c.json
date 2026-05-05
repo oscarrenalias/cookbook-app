@@ -95,6 +95,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:42:34.952807+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-27028c1c/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-27028c1c/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -111,7 +120,61 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-27028c1c/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-27028c1c/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T07:42:34.952790+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-27028c1c",
+      "feature_root_id": "B-fa1cbeb6",
+      "title": "B2: Replace == Name == section headers with = Name",
+      "agent_type": "developer",
+      "description": "Update the section-header parsing rule in CooklangParser.swift (and/or Parser.swift) so that a line matching = <name> (exactly one leading =, a space, then the section name to end of line) opens a new section whose name is the captured text trimmed. The old == Name == syntax is dropped \u2014 lines starting with == become plain step text. All other section rules from spec 0001 are unchanged: implicit unnamed leading section for steps before the first = header, step numbering restarts at 1 in each named section, blank lines tolerated.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "= Name lines open a new section whose name is the captured text trimmed",
+        "== Name == lines are treated as plain step text \u2014 no section opened",
+        "Implicit unnamed leading section still works for steps before the first = header",
+        "Step numbering restarts at 1 in each named section (existing rule preserved)"
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "execution_branch_name": "feature/b-fa1cbeb6",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+      ],
+      "expected_globs": [
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
