@@ -288,7 +288,13 @@
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -410,7 +416,13 @@
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
