@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
-  "dependencies": [],
+  "dependencies": [
+    "B-9dfe16b5",
+    "B-68d7ed9c"
+  ],
   "acceptance_criteria": [
     "`.searchable` modifier uses prompt \"Search items\"",
     "Sections with no matching items are hidden while search is active",
