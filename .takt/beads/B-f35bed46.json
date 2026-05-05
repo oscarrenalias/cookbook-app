@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-f35bed46",
+  "title": "Implement quantity merge rules for aggregated items",
+  "agent_type": "developer",
+  "description": "Add the quantity accumulation logic inside the aggregator so exact-unit numeric quantities sum while mismatched units, text quantities, and quantity-less occurrences remain represented according to spec.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-dd16f765",
+  "dependencies": [
+    "B-97593027"
+  ],
+  "acceptance_criteria": [
+    "Numeric quantities sum only when both values are `.number` and their units match after lowercasing and trimming, with `nil` matching `nil`.",
+    "The retained merged unit uses the canonical lowercased form derived from the first matching numeric occurrence.",
+    "Text quantities never merge and remain as separate entries in encounter order.",
+    "Quantity-less occurrences do not add `Quantity` entries but still ensure the aggregated item exists, including the all-quantity-less case with an empty `quantities` array.",
+    "Mixed quantity-less and quantified occurrences produce one aggregated item whose quantity list reflects only the quantified entries.",
+    "No unit conversion, plural normalisation beyond aisle aliases, or recipe-note preservation is introduced."
+  ],
+  "linked_docs": [
+    "spec-3cc80e55"
+  ],
+  "feature_root_id": "B-dd16f765",
+  "execution_branch_name": "feature/b-dd16f765",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-dd16f765",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T19:32:35.594596+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

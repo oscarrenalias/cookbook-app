@@ -1,3 +1,5 @@
+import Foundation
+
 /// Read-only representation of a Cooklang `aisle.conf` file.
 ///
 /// Canonical example: `docs/examples/aisle.conf`.
@@ -21,6 +23,22 @@ public struct AisleConfig: Sendable, Equatable {
                     }
             }
         }
+    }
+
+    public func canonical(for ingredient: String) -> String? {
+        let normalizedIngredient = ingredient.trimmingCharacters(in: .whitespaces).lowercased()
+
+        for section in sections {
+            for item in section.items {
+                if item.canonical.trimmingCharacters(in: .whitespaces).lowercased() == normalizedIngredient {
+                    return item.canonical
+                }
+                if item.aliases.contains(where: { $0.trimmingCharacters(in: .whitespaces).lowercased() == normalizedIngredient }) {
+                    return item.canonical
+                }
+            }
+        }
+        return nil
     }
 }
 
