@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-30f7ab84",
+  "title": "Implement AisleConfig Parsing",
+  "agent_type": "developer",
+  "description": "Implement `AisleConfigParser.parse(_:)` for bracketed sections, `|`-delimited aliases, comment skipping, blank-line skipping, and silent dropping of items outside sections.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-419f1418",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`AisleConfigParser.parse(_:)` returns an empty config for empty or comment-only input.",
+    "Section headers are parsed from `[name]` lines with trimmed names preserved verbatim.",
+    "Item lines split on `|` only, trim each token, preserve internal whitespace, and map first token to canonical plus remainder to aliases.",
+    "Items outside sections are skipped without inventing a bucket."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://cooklang.org/docs/cli/aisle-file/"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T10:44:17.071670+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
