@@ -7,13 +7,13 @@
   "bead_type": "task",
   "parent_id": "B-65bfad3d",
   "dependencies": [
-    "B-e482e7f3",
-    "B-8051298b",
     "B-3c4ca7d4",
-    "B-b13e8907",
-    "B-f966ff2e",
+    "B-8051298b",
     "B-926a1d82",
-    "B-f3f5e565"
+    "B-b13e8907",
+    "B-e482e7f3",
+    "B-f3f5e565",
+    "B-f966ff2e"
   ],
   "acceptance_criteria": [
     "No changes outside declared scope \u2014 CookbookCore untouched, no auto-migration logic",
