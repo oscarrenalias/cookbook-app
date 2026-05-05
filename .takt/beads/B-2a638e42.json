@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-2a638e42",
+  "title": "Add RecipeDetailSheet root assembly",
+  "agent_type": "developer",
+  "description": "Create RecipeDetailSheet.swift. Assembles all component views into a single sheet: RecipeHeroHeader (passing a dismiss closure), RecipeStatStrip, RecipeTagChips, a Picker(.segmented) with segments 'Ingredients' / 'Cookware' / 'Steps' defaulting to Ingredients, the active tab view, and RecipeBottomBar pinned at the bottom. Owns @State currentScale (Scale, default .one) passed as a binding to IngredientsView's header picker and RecipeBottomBar. Owns @State selectedTab. Accepts a Recipe and is presented via .sheet(item:).",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Sheet uses .large detent with working swipe-down dismiss.",
+    "RecipeHeroHeader dismiss button calls the sheet dismiss action.",
+    "Single @State currentScale flows as a binding to both IngredientsView's header picker and RecipeBottomBar.",
+    "Segmented picker defaults to Ingredients tab.",
+    "Switching tabs shows the correct component view.",
+    "RecipeBottomBar is always visible at the bottom.",
+    "Gathered state in IngredientsView resets on sheet re-presentation (non-persistent)."
+  ],
+  "linked_docs": [
+    "docs/mockups/recipe detail (sheet).png",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:44.776122+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
