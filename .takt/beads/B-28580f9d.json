@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-28580f9d",
+  "title": "Add shopping list line formatter",
+  "agent_type": "developer",
+  "description": "Create a pure formatter that converts aggregated shopping-list items into markdown-ready checklist text with italicised quantity spans.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-27e1396e",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`ShoppingListLineFormatter.format(_:)` exists as a pure helper.",
+    "Formatting covers empty, single, and multi-quantity branches from the spec.",
+    "Numeric formatting matches the recipe-scale display style for whole and fractional values."
+  ],
+  "linked_docs": [
+    "spec-4e3e388a"
+  ],
+  "feature_root_id": "B-27e1396e",
+  "execution_branch_name": "feature/b-27e1396e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListLineFormatter.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T20:30:41.914864+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,84 @@
+{
+  "bead_id": "B-2080a8d8",
+  "title": "Shared test pass for recipe shopping-list flow",
+  "agent_type": "tester",
+  "description": "Add and run focused automated coverage for the new core mutation, scaling helpers, formatter, append orchestration, catalog config exposure, and header extraction/rendering behavior.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-27e1396e",
+  "dependencies": [
+    "B-349c61b1",
+    "B-a9c17ef5",
+    "B-941263e8",
+    "B-28580f9d",
+    "B-5340934f",
+    "B-934af3a1",
+    "B-7115eaae",
+    "B-7b891bbe",
+    "B-c3bd52e2"
+  ],
+  "acceptance_criteria": [
+    "CookbookCore tests cover `appendMealsBullet(_:)` creation, insertion, idempotency, and text preservation cases.",
+    "App tests cover `RecipeScale.scaled`, `ShoppingListLineFormatter`, `AisleCatalog.config`, `ShoppingListHeaderExtractor`, and append-service flow scenarios from the spec.",
+    "Project/test configuration is updated as needed for new files, `xcodegen generate` is run if required, and the relevant `xcodebuild test` target passes or failures are documented precisely."
+  ],
+  "linked_docs": [
+    "spec-4e3e388a"
+  ],
+  "feature_root_id": "B-27e1396e",
+  "execution_branch_name": "feature/b-27e1396e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMealsTests.swift",
+    "CookbookAppTests/RecipeScaleScaledTests.swift",
+    "CookbookAppTests/ShoppingListLineFormatterTests.swift",
+    "CookbookAppTests/ShoppingListHeaderExtractorTests.swift",
+    "CookbookAppTests/AddToShoppingListServiceTests.swift",
+    "CookbookAppTests/AisleCatalogTests.swift"
+  ],
+  "expected_globs": [
+    "**/*Tests.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T20:30:44.043918+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

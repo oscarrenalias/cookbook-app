@@ -1,0 +1,77 @@
+{
+  "bead_id": "B-7cd46e8b",
+  "title": "Shared documentation updates",
+  "agent_type": "documentation",
+  "description": "Document the new recipe-to-shopping-list flow, provenance behavior, and free-text header rendering so the implementation and user-visible rules are discoverable.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-27e1396e",
+  "dependencies": [
+    "B-349c61b1",
+    "B-a9c17ef5",
+    "B-941263e8",
+    "B-28580f9d",
+    "B-5340934f",
+    "B-934af3a1",
+    "B-7115eaae",
+    "B-7b891bbe",
+    "B-c3bd52e2"
+  ],
+  "acceptance_criteria": [
+    "Documentation covers how recipe scale, aisle config, and flat-versus-aisled append behavior interact.",
+    "Documentation explains the `## Meals` provenance section and header-area rendering behavior, including read-only editing expectations.",
+    "Any developer-facing notes needed for future maintenance of the new service or helpers are captured in the appropriate project docs or inline documentation targets."
+  ],
+  "linked_docs": [
+    "spec-4e3e388a"
+  ],
+  "feature_root_id": "B-27e1396e",
+  "execution_branch_name": "feature/b-27e1396e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "expected_files": [],
+  "expected_globs": [
+    "**/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T20:30:44.346124+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
