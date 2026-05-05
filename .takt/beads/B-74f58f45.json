@@ -3,7 +3,7 @@
   "title": "TEST: Spec 0005 shared tester",
   "agent_type": "tester",
   "description": "Run and verify all automated tests introduced or modified by spec 0005. Execute swift test in Packages/CookbookCore/ to confirm parser tests pass (YAML frontmatter, = sections, Pasta Bolognese fixture, negative tests for dropped syntaxes). Execute xcodebuild test for CookbookApp to confirm sentence-case extension tests, scale-state tests (after picker removal), and RecipesListView collapse-state tests all pass. Report any failures with file and line. Flag the following visual-only items that require manual verification: hero title fully visible with real images (Tiramisu, Pepperoni Pizza, Blackened Salmon), calendar icon on Add to menu button, collapse animation feel, bottom-bar two-button layout.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [
@@ -414,9 +414,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.\nNo Swift source files touched; no conflict risk with parallel beads.\nNo conflicts expected. recipe.cook was last touched by B-9a46d66c (dependency already merged). metadata.cook and section-header.cook are test-only fixtures with no other dependents.\nNo other beads in this feature touch RecipeHeroHeader.swift; no conflict risk.\nNo conflicts expected; changes are limited to RecipeBottomBar.swift and the two RecipeBottomBar() call sites in RecipeDetailSheet.swift.\nNone \u2014 new file only, no modifications to existing files.\nNone \u2014 both files are leaf view components with no overlapping edits expected from sibling beads.\nNone \u2014 no files were modified.\nNone \u2014 no files were modified.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-fa1cbeb6",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+  "lease": {
+    "owner": "tester:B-74f58f45",
+    "expires_at": "2026-05-05T08:32:51.703334+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -425,9 +428,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T08:02:51.893823+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T08:02:51.893844+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-74f58f45",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-74f58f45/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
