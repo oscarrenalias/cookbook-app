@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
-  "dependencies": [],
+  "dependencies": [
+    "B-97593027"
+  ],
   "acceptance_criteria": [
     "Numeric quantities sum only when both values are `.number` and their units match after lowercasing and trimming, with `nil` matching `nil`.",
     "The retained merged unit uses the canonical lowercased form derived from the first matching numeric occurrence.",
