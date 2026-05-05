@@ -249,7 +249,11 @@
     "CookbookApp/Recipes/RecipeStepCombiner.swift",
     "CookbookApp/Recipes/RecipeTagChips.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
-    "CookbookApp/Recipes/StepsView.swift"
+    "CookbookApp/Recipes/StepsView.swift",
+    "CookbookAppTests/RecipeScaleTests.swift",
+    "CookbookAppTests/RecipeStatsTests.swift",
+    "CookbookAppTests/RecipeStepCombinerTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -351,7 +355,11 @@
     "CookbookApp/Recipes/RecipeStepCombiner.swift",
     "CookbookApp/Recipes/RecipeTagChips.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
-    "CookbookApp/Recipes/StepsView.swift"
+    "CookbookApp/Recipes/StepsView.swift",
+    "CookbookAppTests/RecipeScaleTests.swift",
+    "CookbookAppTests/RecipeStatsTests.swift",
+    "CookbookAppTests/RecipeStepCombinerTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
