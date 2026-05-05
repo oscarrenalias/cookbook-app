@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
-  "dependencies": [],
+  "dependencies": [
+    "B-e93417db"
+  ],
   "acceptance_criteria": [
     "All five stats render when all metadata keys are present with correct SF Symbols: person.fill, dial.medium, clock, flame, fork.knife.",
     "Each stat is individually hidden when its metadata key is absent.",
