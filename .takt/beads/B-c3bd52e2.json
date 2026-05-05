@@ -3,7 +3,7 @@
   "title": "Render collapsible shopping list header area",
   "agent_type": "developer",
   "description": "Add the reusable header view and integrate it into the shopping-list detail screen above progress and aisle sections with scene-scoped collapse persistence.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
   "dependencies": [
@@ -25,37 +25,53 @@
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "New ShoppingListHeaderView renders HeaderContent with per-file @SceneStorage collapse persistence (defaulting to expanded), a disclosure toggle labeled with firstHeading ?? \"Notes\", and line-by-line markdown rendering that skips the first ## heading. ShoppingListDetailView now calls ShoppingListHeaderExtractor.extract(from: list.text) and shows the header section conditionally above the progress row. Added ShoppingListHeaderView.swift to the Xcode project (PBXBuildFile, PBXFileReference, group, and Sources build phase). Type-check of ShoppingListHeaderView + ShoppingListHeaderExtractor passed cleanly.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "The ShoppingListDetailView calls ShoppingListHeaderExtractor.extract on every view update; this is a pure parsing call on a short string and should be negligible, but could be memoized if performance becomes a concern.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent for unit/UI test coverage of ShoppingListHeaderView collapse behaviour and ShoppingListDetailView header integration.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+    ],
+    "conflict_risks": "No known conflicts; only ShoppingListDetailView.swift and the new ShoppingListHeaderView.swift were touched.",
+    "design_decisions": "Used @SceneStorage with dynamic init (_isExpanded = SceneStorage(wrappedValue: true, storageKey)) to support per-file persistence without static key literals. Storage key format: \"shoppingList.header.expanded.\\(url.lastPathComponent)\". Disclosure label falls back to \"Notes\" when firstHeading is nil. The first ## heading line is excluded from body rendering since it is already shown as the disclosure label.",
+    "test_coverage_notes": "Tester should verify: (1) collapse/expand toggle persists across navigation; (2) header section absent when extraction returns nil; (3) firstHeading nil falls back to \"Notes\" label; (4) second ## heading in body renders with semibold subheadline styling.",
+    "known_limitations": "SwiftUI Text(AttributedString(markdown:)) supports inline formatting only \u2014 block-level markdown (headings, lists) is not rendered with special styling unless handled by lineView logic."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No known conflicts; only ShoppingListDetailView.swift and the new ShoppingListHeaderView.swift were touched.",
   "branch_name": "feature/b-27e1396e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
-  "lease": {
-    "owner": "developer:B-c3bd52e2",
-    "expires_at": "2026-05-05T21:37:26.818537+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -97,6 +113,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T21:13:56.144399+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created ShoppingListHeaderView.swift and updated ShoppingListDetailView.swift to render a collapsible header area above the progress section when shopping list markdown contains header content.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -167,7 +190,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created ShoppingListHeaderView.swift and updated ShoppingListDetailView.swift to render a collapsible header area above the progress section when shopping list markdown contains header content.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 1.0562638000000002,
+      "duration_ms": 386322,
+      "duration_api_ms": 366033,
+      "num_turns": 37,
+      "input_tokens": 1697,
+      "output_tokens": 22800,
+      "cache_creation_tokens": 54520,
+      "cache_read_tokens": 1457793,
+      "stop_reason": "end_turn",
+      "session_id": "d4121754-1a0b-486f-a2b5-29c49d08a2b3",
+      "permission_denials": [],
+      "prompt_chars": 5690,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 1.0562638000000002,
+        "duration_ms": 386322,
+        "duration_api_ms": 366033,
+        "num_turns": 37,
+        "input_tokens": 1697,
+        "output_tokens": 22800,
+        "cache_creation_tokens": 54520,
+        "cache_read_tokens": 1457793,
+        "stop_reason": "end_turn",
+        "session_id": "d4121754-1a0b-486f-a2b5-29c49d08a2b3",
+        "permission_denials": [],
+        "prompt_chars": 5690,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "ec40bbf20fb2e032a81fa6528839e04e64778eda"
   },
   "labels": [],
   "recovery_for": null,
