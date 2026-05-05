@@ -175,7 +175,8 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift"
   ],
   "expected_globs": [],
   "touched_files": [
@@ -325,7 +326,8 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -474,7 +476,8 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -498,7 +501,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 single-line change in an isolated view file.\nNo conflict risk \u2014 single-line change to a view file with no other in-flight beads touching AddItemSheet.swift.",
+  "conflict_risks": "None \u2014 single-line change in an isolated view file.\nNo conflict risk \u2014 single-line change to a view file with no other in-flight beads touching AddItemSheet.swift.\nNo conflict risk. No existing methods or call sites were modified.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
