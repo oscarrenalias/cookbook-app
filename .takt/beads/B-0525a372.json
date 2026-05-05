@@ -129,6 +129,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
@@ -220,6 +221,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
@@ -310,6 +312,7 @@
     ".takt/beads/B-f8dad46b.json",
     ".takt/beads/B-fc200845.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
     "CookbookApp/Recipes/RecipeImageLoader.swift",
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
@@ -335,7 +338,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.",
+  "conflict_risks": "No conflicts expected \u2014 new file with no sibling bead overlap.\nNone. RecipeImageLoader.swift is a new file with no overlap with existing files. No existing file was modified.\nNo conflicts expected. RecipeHeroHeader.swift is a new file with no overlap with sibling beads. RecipesListView.swift is not modified; integration of this header into the sheet is deferred.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
