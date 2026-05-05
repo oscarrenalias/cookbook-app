@@ -3,7 +3,7 @@
   "title": "Tab integration and AisleCatalog wiring",
   "agent_type": "developer",
   "description": "Replace the existing empty-state placeholder in `CookbookApp/Tabs/ShoppingListsTab.swift` with `ShoppingListsView`. In `CookbookApp/CookbookAppApp.swift` (or the root scene composer), instantiate `AisleCatalog` once when the configured folder URL becomes available; call `catalog.load(from:)` when the folder is first opened and whenever the user changes folders; inject the catalog into the environment via `.environment` or `.environmentObject` so all shopping-list views can access it. Run `xcodegen generate` from the repo root after all new source files have been added.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
   "dependencies": [
@@ -30,37 +30,49 @@
     "CookbookApp/CookbookAppApp.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/AppRoot.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/AppRoot.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "1. ShoppingListsTab.swift already had ShoppingListsView wired (no change needed). 2. AppRoot.swift updated: AisleCatalog instantiated once, .environment(catalog) injects it, .task(id: store.folderURL) triggers load on folder open and change. 3. ShoppingListDetailView.swift updated: @Environment(AisleCatalog.self) replaces @State local instance, per-view catalog.load removed. 4. Preview updated to inject AisleCatalog. 5. xcodegen generate: success. 6. Build: BUILD SUCCEEDED.",
+    "remaining": "None \u2014 all acceptance criteria met.",
+    "risks": "None identified. AisleCatalog.load is synchronous; calling from .task on the main actor is consistent with the prior per-view approach. The .task(id:) pattern handles both first-open and folder-change events.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/AppRoot.swift",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to verify AisleCatalog environment injection, catalog reload on folder change, and ShoppingListsView rendering under test.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Tabs/ShoppingListsTab.swift",
+      "CookbookApp/CookbookAppApp.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/AppRoot.swift",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    ],
+    "conflict_risks": "None. Changes are confined to AppRoot.swift and ShoppingListDetailView.swift. No sibling beads touch these files.",
+    "design_decisions": "AisleCatalog is injected via .environment(catalog) (not .environmentObject) because AisleCatalog is @Observable, consistent with RecipesFolderStore's pattern. .task(id: store.folderURL) was chosen over .onChange because it also handles the initial-appearance case, avoiding a separate onAppear or onChange(initial:) call. The actual root file changed was AppRoot.swift, not CookbookAppApp.swift \u2014 AppRoot is where the scene composition lives.",
+    "test_coverage_notes": "AisleCatalogTests should verify: catalog available via environment in ShoppingListDetailView, load triggered once on folder open, load re-triggered on folder change, no duplicate loads when folderURL is unchanged.",
+    "known_limitations": "CookbookAppApp.swift was not modified (it just instantiates AppRoot). The AisleCatalog.load call is synchronous on the main actor \u2014 fine for cheap aisle.conf parsing but would need to move to a background task if the file ever becomes expensive to parse."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None. Changes are confined to AppRoot.swift and ShoppingListDetailView.swift. No sibling beads touch these files.",
   "branch_name": "feature/b-bbc48bfa",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
-  "lease": {
-    "owner": "developer:B-aa991d7c",
-    "expires_at": "2026-05-05T13:24:33.550781+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -102,6 +114,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-aa991d7c/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T12:58:33.192135+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Tab integration and AisleCatalog wiring is complete. ShoppingListsTab.swift already rendered ShoppingListsView. AppRoot.swift now instantiates AisleCatalog once at root scope, triggers catalog.load(from:) on folder open and folder change via .task(id: store.folderURL), and injects it into the environment. ShoppingListDetailView.swift now reads AisleCatalog from the environment instead of creating its own instance per view. xcodegen generate ran cleanly and BUILD SUCCEEDED.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -177,7 +196,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Tab integration and AisleCatalog wiring is complete. ShoppingListsTab.swift already rendered ShoppingListsView. AppRoot.swift now instantiates AisleCatalog once at root scope, triggers catalog.load(from:) on folder open and folder change via .task(id: store.folderURL), and injects it into the environment. ShoppingListDetailView.swift now reads AisleCatalog from the environment instead of creating its own instance per view. xcodegen generate ran cleanly and BUILD SUCCEEDED.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.5833678,
+      "duration_ms": 237179,
+      "duration_api_ms": 158445,
+      "num_turns": 29,
+      "input_tokens": 23,
+      "output_tokens": 10798,
+      "cache_creation_tokens": 45966,
+      "cache_read_tokens": 822371,
+      "stop_reason": "end_turn",
+      "session_id": "1c3ca169-418f-4e5a-9b4f-cc82f0fbe2e6",
+      "permission_denials": [],
+      "prompt_chars": 6221,
+      "prompt_lines": 137,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.5833678,
+        "duration_ms": 237179,
+        "duration_api_ms": 158445,
+        "num_turns": 29,
+        "input_tokens": 23,
+        "output_tokens": 10798,
+        "cache_creation_tokens": 45966,
+        "cache_read_tokens": 822371,
+        "stop_reason": "end_turn",
+        "session_id": "1c3ca169-418f-4e5a-9b4f-cc82f0fbe2e6",
+        "permission_denials": [],
+        "prompt_chars": 6221,
+        "prompt_lines": 137,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "61aa595d7a40a6d75977ffb41bae5527a802bbc9"
   },
   "labels": [],
   "recovery_for": null,
