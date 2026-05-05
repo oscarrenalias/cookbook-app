@@ -3,15 +3,31 @@ import CookbookCore
 
 struct ShoppingListDetailView: View {
     let url: URL
+    var onDelete: (() -> Void)? = nil
 
+    @Environment(\.dismiss) private var dismiss
     @State private var list = ShoppingList("")
     @State private var isLoaded = false
     @State private var showAddSheet = false
+    @State private var showDeleteConfirmation = false
     @State private var collapsedSections: Set<String> = []
     @State private var catalog = AisleCatalog()
+    @State private var searchText = ""
+
+    private var listName: String { ShoppingListFiles.displayName(for: url) }
 
     private var groups: [(name: String?, items: [ShoppingListItem])] {
         ShoppingListAisleGrouper.group(list).filter { !$0.items.isEmpty }
+    }
+
+    private var filteredGroups: [(name: String?, items: [ShoppingListItem])] {
+        guard !searchText.isEmpty else { return groups }
+        return groups.compactMap { group in
+            let matching = group.items.filter {
+                $0.text.localizedCaseInsensitiveContains(searchText)
+            }
+            return matching.isEmpty ? nil : (name: group.name, items: matching)
+        }
     }
 
     private var checkedCount: Int { list.items.filter(\.checked).count }
@@ -31,15 +47,27 @@ struct ShoppingListDetailView: View {
                 listContent
             }
         }
-        .navigationTitle(ShoppingListFiles.displayName(for: url))
+        .navigationTitle(listName)
+        .searchable(text: $searchText, prompt: "Search items")
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
                 Button {
                     showAddSheet = true
                 } label: {
                     Image(systemName: "plus")
                 }
                 .accessibilityLabel("Add item")
+
+                Menu {
+                    Button(role: .destructive) {
+                        showDeleteConfirmation = true
+                    } label: {
+                        Label("Delete list", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+                .accessibilityLabel("More options")
             }
         }
         .sheet(isPresented: $showAddSheet) {
@@ -47,6 +75,18 @@ struct ShoppingListDetailView: View {
                 list = updated
                 save()
             }
+        }
+        .confirmationDialog(
+            "Delete '\(listName)'?",
+            isPresented: $showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                deleteList()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This shopping list will be permanently removed.")
         }
         .task {
             catalog.load(from: url.deletingLastPathComponent())
@@ -67,7 +107,7 @@ struct ShoppingListDetailView: View {
             }
             .listRowBackground(Color.clear)
 
-            ForEach(groups, id: \.name) { group in
+            ForEach(filteredGroups, id: \.name) { group in
                 let sectionKey = group.name ?? "Other"
                 let isCollapsed = collapsedSections.contains(sectionKey)
                 Section {
@@ -118,6 +158,15 @@ struct ShoppingListDetailView: View {
 
     private func save() {
         try? ShoppingListFiles.writeText(list.text, to: url)
+    }
+
+    private func deleteList() {
+        let folderURL = url.deletingLastPathComponent()
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
+        try? FileManager.default.removeItem(at: url)
+        dismiss()
+        onDelete?()
     }
 }
 
