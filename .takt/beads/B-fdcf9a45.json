@@ -3,7 +3,7 @@
   "title": "REVIEW: Spec 0005 review",
   "agent_type": "review",
   "description": "Review all changes introduced by spec 0005 for correctness, quality, and spec compliance. Verify parser changes match the AC (YAML frontmatter, = sections, backward-compatibility breaks for >> and ==). Confirm no third-party YAML library was added. Check UI changes are scoped to the listed files with no unintended regressions. Confirm sentence-case is view-layer only. Confirm collapse state is in-memory only (no @SceneStorage / @AppStorage). Verify visual-only items are explicitly flagged for manual verification in the tester handoff.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [
@@ -386,7 +386,10 @@
   "conflict_risks": "Any sibling bead touching CooklangParser.swift or CooklangParserTests.swift will conflict with the corrective change. No other conflict risks identified.",
   "branch_name": "feature/b-fa1cbeb6",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-fdcf9a45",
+    "expires_at": "2026-05-05T09:05:41.390275+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -447,6 +450,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-fdcf9a45-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T08:35:41.713520+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T08:35:41.713544+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
