@@ -6,7 +6,12 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
-  "dependencies": [],
+  "dependencies": [
+    "B-d1862714",
+    "B-e0d352b6",
+    "B-97593027",
+    "B-f35bed46"
+  ],
   "acceptance_criteria": [
     "`AisleConfigParserTests` covers canonical-token lookup, alias lookup, trimming/casing behavior, and unmatched lookup for `canonical(for:)`.",
     "A new `AggregationTests.swift` covers the acceptance matrix for empty input, nil-vs-configured aisle behavior, same-unit summing, mixed-unit preservation, alias canonicalisation, text quantities, quantity-less ingredients, unmatched ingredients, aisle ordering, item ordering, and determinism.",
