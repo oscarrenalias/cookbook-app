@@ -343,7 +343,9 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -502,7 +504,9 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
