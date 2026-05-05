@@ -94,25 +94,41 @@ in-memory state preserved across tab switches.
 
 ---
 
-## CookbookCore data formats
+## CookbookCore parser & data formats
+
+### 0005 — First-run polish: parser updates and recipe-detail UI tweaks ✅
+
+`spec-505a7fd5`. Brings the spec 0001 parser in line with the modern
+CookLang format actually used by the user's recipes (YAML frontmatter
+replaces `>>` metadata, single-`=` section headers replace `== Name ==`),
+plus a batch of recipe-detail UI tweaks that surfaced from first-run
+testing: hero title clipping fix, redundant scale-picker removal,
+calendar icon for Add-to-menu, sentence-cased ingredient/cookware
+names, collapsible folder sections in the Recipes list with
+in-memory state across tab switches.
+
+**Unlocks:** the user's actual recipes parse correctly — metadata
+populates the recipe-detail view's stats strip and tag chips,
+sections render with the right names — and the recipe-detail view
+looks right with real images.
+
 
 ### 0006 — CookbookCore data formats: meal plans, aisle.conf, shopping lists 📝
 
 `spec-ee1d75fa`. Bundles three pure-data extensions to the
 `CookbookCore` package, all `swift test`-able with no simulator:
 
-- **Meal plan format** (CookLang convention) — read/write of `<date>:
-  <recipe>` lines, comments, round-trip.
-- **`aisle.conf` parser** (CookLang aisle file) — sectioned items with
-  `|`-separated aliases, alias-aware lookup; read-only in v1.
-- **Shopping list format** (custom Markdown per the user's production
-  sample at
-  <https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md>)
-  — `# title`, optional `## Meals` provenance section, `##
-  <aisle>` sections with `- [ ]` / `- [x]` items supporting
-  multi-quantity (`*2 tsp, 17 piece*`), free-form names, and
-  arbitrary user Markdown blocks preserved through round-trip.
-  Manual items are first-class.
+- **Meal plan format** (CookLang `.menu` with YAML frontmatter,
+  `==Day N==` blocks, indented meal-category sections, `@`
+  recipe / ingredient references reusing spec 0001's quantity
+  grammar).
+- **`aisle.conf` parser** (CookLang aisle file) — sectioned items
+  with `|`-separated aliases, alias-aware lookup; read-only in v1.
+- **Shopping list** as opaque Markdown text — minimal `ShoppingList`
+  with `text`, computed `items`, and `toggle` / `appendItem` /
+  `removeItem` helpers for GFM checklist lines. No structural
+  parsing of italics, sections, or provenance — write-time
+  formatting is the generator's choice.
 
 Bundled because all three live in the same SwiftPM package and share
 `swift test` as the inner loop. They have no inter-dependencies in
@@ -298,12 +314,14 @@ the layout.
 - **Recipe images live in 0003**, not 0002 — see `docs/architecture.md`
   "Recipe thumbnails" for the convention.
 - **0004 and 0005 are complete** — recipe details view and first-run
-  parser/UI polish, respectively. See `specs/done/` for their full specs.
+  parser/UI polish, respectively. See `specs/done/` for their full
+  specs.
 - **0015 (iPad) is parked** unless real need surfaces during iPhone use.
 - **Shopping ships before meal plans** — 0007-0009 deliver a complete
   ad-hoc + recipe-driven shopping experience with no meal-plan
   dependency. Meal plans (0010-0012) layer on later as an additional
   source of shopping lists.
+- **0015 (iPad) is parked** unless real need surfaces during iPhone use.
 - **Settings doesn't get its own spec** — each setting lands in the
   feature spec that needs it (folder in 0003, aisle.conf path likely
   in 0007 or 0009).

@@ -3,7 +3,7 @@
   "title": "B2: Replace == Name == section headers with = Name",
   "agent_type": "developer",
   "description": "Update the section-header parsing rule in CooklangParser.swift (and/or Parser.swift) so that a line matching = <name> (exactly one leading =, a space, then the section name to end of line) opens a new section whose name is the captured text trimmed. The old == Name == syntax is dropped \u2014 lines starting with == become plain step text. All other section rules from spec 0001 are unchanged: implicit unnamed leading section for steps before the first = header, step numbering restarts at 1 in each named section, blank lines tolerated.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [],
@@ -25,33 +25,45 @@
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Changed section-header detection from `== Name ==` to `= Name` in CooklangParser.swift:37-38. Build verified clean.",
+    "remaining": "None for this bead.",
+    "risks": "Existing tests that fixture `== Sauce ==` as a section header will now fail \u2014 they must be updated to use `= Sauce`. The tester agent should update those fixtures/assertions.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should run swift test, update any fixtures that used `== Name ==` syntax to `= Name`, and add/verify tests for: (1) `= Name` opens a section, (2) `== Name ==` is treated as plain step text, (3) implicit unnamed section still works, (4) step numbering resets per section.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+    ],
+    "conflict_risks": "Tests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.",
+    "design_decisions": "Used `hasPrefix(\"= \")` (equals + space) rather than a regex. This is sufficient: a line starting with `= ` cannot start with `==` since the second character differs. Empty name after trimming (`= ` with no trailing text) falls through the `!inner.isEmpty` guard and is treated as plain step text.",
+    "test_coverage_notes": "No tests run per developer guardrails. Tester agent must cover: = Name \u2192 named section; == Name == \u2192 plain step; implicit section; step numbering reset.",
+    "known_limitations": "Parser.swift was not modified \u2014 it handles inline step parsing only and has no section-header logic, so no changes were needed there."
   },
-  "block_reason": "file-scope conflict with in-progress B-bf21ece4",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "block_reason": "",
+  "conflict_risks": "Tests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.",
+  "branch_name": "feature/b-fa1cbeb6",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -68,9 +80,164 @@
       "agent_type": "developer",
       "summary": "file-scope conflict with in-progress B-bf21ece4",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:42:34.085391+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T07:42:34.085416+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:42:34.952807+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-27028c1c/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-27028c1c/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T07:44:31.067794+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Updated CooklangParser.swift to use `= Name` section header syntax. Replaced `hasPrefix(\"==\") && hasSuffix(\"==\")` + `dropFirst(2).dropLast(2)` with `hasPrefix(\"= \")` + `dropFirst(2)`. The `\"= \"` prefix is mutually exclusive with `\"==\"` at the second character, so `== Name ==` lines naturally fall through to plain step text. Build passes.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-27028c1c",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-27028c1c/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-27028c1c/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T07:42:34.952790+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-27028c1c",
+      "feature_root_id": "B-fa1cbeb6",
+      "title": "B2: Replace == Name == section headers with = Name",
+      "agent_type": "developer",
+      "description": "Update the section-header parsing rule in CooklangParser.swift (and/or Parser.swift) so that a line matching = <name> (exactly one leading =, a space, then the section name to end of line) opens a new section whose name is the captured text trimmed. The old == Name == syntax is dropped \u2014 lines starting with == become plain step text. All other section rules from spec 0001 are unchanged: implicit unnamed leading section for steps before the first = header, step numbering restarts at 1 in each named section, blank lines tolerated.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "= Name lines open a new section whose name is the captured text trimmed",
+        "== Name == lines are treated as plain step text \u2014 no section opened",
+        "Implicit unnamed leading section still works for steps before the first = header",
+        "Step numbering restarts at 1 in each named section (existing rule preserved)"
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "execution_branch_name": "feature/b-fa1cbeb6",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift"
+      ],
+      "expected_globs": [
+        "Packages/CookbookCore/Sources/CookbookCore/Parser.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Updated CooklangParser.swift to use `= Name` section header syntax. Replaced `hasPrefix(\"==\") && hasSuffix(\"==\")` + `dropFirst(2).dropLast(2)` with `hasPrefix(\"= \")` + `dropFirst(2)`. The `\"= \"` prefix is mutually exclusive with `\"==\"` at the second character, so `== Name ==` lines naturally fall through to plain step text. Build passes.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.2529789,
+      "duration_ms": 115146,
+      "duration_api_ms": 106623,
+      "num_turns": 14,
+      "input_tokens": 13,
+      "output_tokens": 4737,
+      "cache_creation_tokens": 24464,
+      "cache_read_tokens": 292923,
+      "stop_reason": "end_turn",
+      "session_id": "1a23f91c-76b4-41d7-ba2c-379af8b85dd0",
+      "permission_denials": [],
+      "prompt_chars": 6371,
+      "prompt_lines": 139,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.2529789,
+        "duration_ms": 115146,
+        "duration_api_ms": 106623,
+        "num_turns": 14,
+        "input_tokens": 13,
+        "output_tokens": 4737,
+        "cache_creation_tokens": 24464,
+        "cache_read_tokens": 292923,
+        "stop_reason": "end_turn",
+        "session_id": "1a23f91c-76b4-41d7-ba2c-379af8b85dd0",
+        "permission_denials": [],
+        "prompt_chars": 6371,
+        "prompt_lines": 139,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "e2ce227513db129e06da7e94475a597c50feb649"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
