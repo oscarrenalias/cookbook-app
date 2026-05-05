@@ -3,7 +3,7 @@
   "title": "Add RecipeStepCombiner",
   "agent_type": "developer",
   "description": "Create RecipeStepCombiner.swift with an internal struct exposing a static combine(step: Step, recipe: Recipe) \u2192 String method. It iterates each Item in the step: Item.text(s) \u2192 appends s verbatim; Item.ingredient(idx) \u2192 appends Recipe.ingredients[idx].name; Item.cookware(idx) \u2192 appends Recipe.cookware[idx].name; Item.timer(idx) \u2192 appends the timer's display string (\"<name?> <quantity?>\", trimmed). The struct must be at internal access level so CookbookAppTests can reach it.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
   "dependencies": [],
@@ -48,9 +48,12 @@
   },
   "block_reason": "",
   "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-1dd57ece",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "lease": {
+    "owner": "developer:B-6558937d",
+    "expires_at": "2026-05-05T06:54:53.157891+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -59,9 +62,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:24:53.345598+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T06:24:53.345626+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-6558937d",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-6558937d/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
