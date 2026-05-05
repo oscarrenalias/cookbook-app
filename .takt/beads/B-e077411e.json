@@ -152,7 +152,8 @@
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/*",
@@ -163,6 +164,7 @@
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Scanner.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/*",
     "docs/examples/*"
   ],
@@ -285,7 +287,8 @@
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -406,7 +409,8 @@
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift",
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfigParser.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -430,7 +434,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Low. The change is isolated to a new source file in CookbookCore and reads existing parsing primitives without modifying them.\nLow. The change is isolated to `MealPlanParser.swift`, but downstream tester/reviewer agents should evaluate parser behavior around canonicalized quantity/frontmatter formatting and unnamed-section comments.\nDownstream beads `B-30f7ab84` and `B-cd3c52af` are expected to edit the same file family (`AisleConfig.swift` and parser companion) to add parsing and case-insensitive alias lookup behavior.\nLow. Work was confined to a new source file in the assigned scope within a shared worktree.\nLow. Change is isolated to lookup behavior in `AisleConfig.swift`; downstream agents touching the same file should preserve the explicit `return` and case-insensitive comparisons.",
+  "conflict_risks": "Low. The change is isolated to a new source file in CookbookCore and reads existing parsing primitives without modifying them.\nLow. The change is isolated to `MealPlanParser.swift`, but downstream tester/reviewer agents should evaluate parser behavior around canonicalized quantity/frontmatter formatting and unnamed-section comments.\nDownstream beads `B-30f7ab84` and `B-cd3c52af` are expected to edit the same file family (`AisleConfig.swift` and parser companion) to add parsing and case-insensitive alias lookup behavior.\nLow. Work was confined to a new source file in the assigned scope within a shared worktree.\nLow. Change is isolated to lookup behavior in `AisleConfig.swift`; downstream agents touching the same file should preserve the explicit `return` and case-insensitive comparisons.\nLow. Work is isolated to the new `ShoppingList.swift` file in the expected scope.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
