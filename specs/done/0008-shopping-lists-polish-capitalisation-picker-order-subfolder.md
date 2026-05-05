@@ -5,7 +5,7 @@ description: "Three small polish fixes against 0007: capitalise aisle section he
 dependencies: null
 priority: high
 complexity: low
-status: planned
+status: done
 tags:
 - ui
 - shopping-lists
