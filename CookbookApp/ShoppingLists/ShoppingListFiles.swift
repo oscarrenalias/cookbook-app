@@ -1,5 +1,6 @@
 import Foundation
 
+/// Static helpers for shopping-list file I/O; all operations require a security-scoped bookmark URL.
 enum ShoppingListFiles {
     static let dateFormatter: RelativeDateTimeFormatter = {
         let f = RelativeDateTimeFormatter()

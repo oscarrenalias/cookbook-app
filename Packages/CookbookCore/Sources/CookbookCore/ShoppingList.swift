@@ -43,6 +43,7 @@ public struct ShoppingList: Sendable, Equatable {
         text.append("- [ ] \(itemText)\n")
     }
 
+    /// Inserts a new unchecked item under the `## aisle` heading, creating the heading if absent.
     public mutating func appendItem(_ text: String, toAisle aisle: String) {
         let lines = self.text.components(separatedBy: "\n")
         let normalizedAisle = aisle.trimmingCharacters(in: .whitespaces)
@@ -98,6 +99,7 @@ public struct ShoppingList: Sendable, Equatable {
         text.removeSubrange(record.fullRange)
     }
 
+    /// Replaces the display text of the checklist item at `lineIndex`, leaving its checked state intact.
     public mutating func updateItem(atLine lineIndex: Int, newText: String) {
         guard let record = lineRecords().first(where: { $0.lineIndex == lineIndex }),
               let match = ShoppingList.matchItem(in: record.content),

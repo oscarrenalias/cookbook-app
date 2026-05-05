@@ -2,6 +2,7 @@ import Foundation
 import Observation
 import CookbookCore
 
+/// Single parse point for `aisle.conf`; falls back to `defaultAisles` when the file is absent.
 @Observable
 final class AisleCatalog {
     static let defaultAisles: [String] = [
