@@ -340,6 +340,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
   ],
   "changed_files": [
@@ -498,6 +499,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
     "Packages/CookbookCore/Sources/CookbookCore/AisleConfig.swift"
   ],
   "updated_docs": [],
@@ -522,7 +524,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 only `AisleConfig.swift` was modified; no sibling bead has a claim on this file.",
+  "conflict_risks": "None \u2014 only `AisleConfig.swift` was modified; no sibling bead has a claim on this file.\nB-97593027 and B-f35bed46 both extend Aggregation.swift; they must run sequentially (B-97593027 before B-f35bed46 per declared dependencies).",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
