@@ -341,7 +341,14 @@
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
     "CookbookApp/ShoppingLists/ShoppingListsView.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    "CookbookAppTests/AisleCatalogTests.swift",
+    "CookbookAppTests/ShoppingListAisleGrouperTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift",
+    "CookbookAppTests/ShoppingListViewTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMutationTests.swift",
+    "specs/done/0007-shopping-lists-tab.md",
+    "specs/planned/0007-shopping-lists-tab.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -491,7 +498,14 @@
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
     "CookbookApp/ShoppingLists/ShoppingListsView.swift",
     "CookbookApp/Tabs/ShoppingListsTab.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    "CookbookAppTests/AisleCatalogTests.swift",
+    "CookbookAppTests/ShoppingListAisleGrouperTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift",
+    "CookbookAppTests/ShoppingListViewTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMutationTests.swift",
+    "specs/done/0007-shopping-lists-tab.md",
+    "specs/planned/0007-shopping-lists-tab.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
