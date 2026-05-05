@@ -65,7 +65,7 @@ struct ShoppingListsView: View {
             .replacingOccurrences(of: "/", with: "-")
         guard !sanitised.isEmpty else { return }
 
-        let fileURL = folderURL.appendingPathComponent("\(sanitised).md")
+        let fileURL = ShoppingListFiles.shoppingListsURL(in: folderURL).appendingPathComponent("\(sanitised).md")
 
         let didStart = folderURL.startAccessingSecurityScopedResource()
         defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
