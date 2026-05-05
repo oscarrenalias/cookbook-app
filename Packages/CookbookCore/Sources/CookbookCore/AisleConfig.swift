@@ -12,6 +12,10 @@ public struct AisleConfig: Sendable, Equatable {
         self.sections = sections
     }
 
+    /// Returns the first `AisleSection` whose canonical name or aliases match `ingredient`.
+    ///
+    /// Lookup is case-insensitive. Returns `nil` when no section in this config contains
+    /// the ingredient, either directly or via an alias.
     public func aisle(for ingredient: String) -> AisleSection? {
         let normalizedIngredient = ingredient.lowercased()
 
@@ -25,6 +29,14 @@ public struct AisleConfig: Sendable, Equatable {
         }
     }
 
+    /// Returns the canonical ingredient name for `ingredient` using alias-aware lookup.
+    ///
+    /// Matching is case-insensitive and trims surrounding whitespace. Returns the
+    /// canonical form declared in `aisle.conf` when `ingredient` matches either a
+    /// canonical name or any declared alias. Returns `nil` when no match is found.
+    ///
+    /// This method does not perform unit conversion, markdown formatting, or any
+    /// transformation beyond returning the stored canonical string.
     public func canonical(for ingredient: String) -> String? {
         let normalizedIngredient = ingredient.trimmingCharacters(in: .whitespaces).lowercased()
 
