@@ -191,15 +191,15 @@ struct CooklangParserTests {
     @Test func recipeFixtureSpotChecks() throws {
         let recipe = try CooklangParser.canonical.parse(try fixture("recipe"))
 
-        // Metadata keys present
-        #expect(recipe.metadata["title"] != nil)
-        #expect(recipe.metadata["servings"] != nil)
-        #expect(recipe.metadata["prep time"] != nil)
-        #expect(recipe.metadata["cook time"] != nil)
-        #expect(recipe.metadata["difficulty"] != nil)
-        #expect(recipe.metadata["course"] != nil)
-        #expect(recipe.metadata["tags"] != nil)
-        #expect(recipe.metadata["equipment"] != nil)
+        // Metadata exact values
+        #expect(recipe.metadata["title"] == "Pasta Bolognese")
+        #expect(recipe.metadata["servings"] == "4")
+        #expect(recipe.metadata["prep time"] == "15 min")
+        #expect(recipe.metadata["cook time"] == "1 hour")
+        #expect(recipe.metadata["difficulty"] == "medium")
+        #expect(recipe.metadata["course"] == "main")
+        #expect(recipe.metadata["tags"] == "italian, pasta, classic")
+        #expect(recipe.metadata["equipment"] == "Dutch oven, oven")
 
         // Section count and names
         #expect(recipe.sections.count == 3)
