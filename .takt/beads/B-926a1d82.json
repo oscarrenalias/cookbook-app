@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-65bfad3d",
-  "dependencies": [],
+  "dependencies": [
+    "B-e482e7f3",
+    "B-8051298b",
+    "B-3c4ca7d4",
+    "B-b13e8907",
+    "B-f966ff2e"
+  ],
   "acceptance_criteria": [
     "All existing discovery, sort-order, and displayName tests pass with fixtures in <temp>/shopping-lists/",
     "shoppingListsURL_creates_missing_subfolder: asserts directory is created, and a second call is idempotent",
