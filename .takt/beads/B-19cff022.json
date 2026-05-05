@@ -92,6 +92,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T12:24:59.782279+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-19cff022/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-19cff022/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -108,7 +117,65 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-19cff022/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-19cff022/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T12:24:59.782264+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-19cff022",
+      "feature_root_id": "B-bbc48bfa",
+      "title": "ShoppingListCardView",
+      "agent_type": "developer",
+      "description": "Add `CookbookApp/ShoppingLists/ShoppingListCardView.swift` \u2014 the card row rendered in the list-of-lists view. Displays: a leading `cart.fill` SF Symbol on a `.tint`-tinted rounded square (matching the recipes-list thumbnail fallback pattern); title in `.headline`; a relative-time modification date string (via `ShoppingListFiles`'s shared `RelativeDateTimeFormatter`); a subtitle row showing total item count with `list.bullet` and done-item count with `checkmark.circle.fill`; a trailing `chevron.right`. All icon-only controls carry accessibility labels.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Leading icon is `cart.fill` on a `.tint`-coloured square background",
+        "Title renders in `.headline` text style",
+        "Relative-time string is derived from the file's contentModificationDate",
+        "Item count uses `list.bullet` icon; done count uses `checkmark.circle.fill` icon",
+        "Trailing `chevron.right` is present",
+        "Accessibility labels set on all non-text icon elements",
+        "Compiles without errors and renders correctly in a SwiftUI Preview"
+      ],
+      "dependencies": [
+        "B-74796f39"
+      ],
+      "linked_docs": [
+        "specs/drafts/0007-shopping-lists-tab.md",
+        "docs/mockups/shopping list view.png"
+      ],
+      "execution_branch_name": "feature/b-bbc48bfa",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/ShoppingListCardView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
