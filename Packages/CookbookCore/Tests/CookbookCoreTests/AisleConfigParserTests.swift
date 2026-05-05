@@ -89,4 +89,43 @@ struct AisleConfigParserTests {
 
         #expect(config.sections == [AisleSection(name: "produce", items: [AisleItem(canonical: "carrot")])])
     }
+
+    // MARK: – canonical(for:)
+
+    @Test func canonicalForExactMatchReturnsCanonicalName() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "potato", aliases: ["potatoes"])])
+        ])
+        #expect(config.canonical(for: "potato") == "potato")
+    }
+
+    @Test func canonicalForAliasMatchReturnsCanonicalName() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "potato", aliases: ["potatoes", "spud"])])
+        ])
+        #expect(config.canonical(for: "potatoes") == "potato")
+        #expect(config.canonical(for: "spud") == "potato")
+    }
+
+    @Test func canonicalLookupIsCaseInsensitive() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "potato", aliases: ["Potatoes"])])
+        ])
+        #expect(config.canonical(for: "POTATO") == "potato")
+        #expect(config.canonical(for: "POTATOES") == "potato")
+    }
+
+    @Test func canonicalLookupTrimsLeadingAndTrailingWhitespace() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "potato")])
+        ])
+        #expect(config.canonical(for: "  potato  ") == "potato")
+    }
+
+    @Test func canonicalForUnrecognisedIngredientIsNil() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "potato", aliases: ["potatoes"])])
+        ])
+        #expect(config.canonical(for: "carrot") == nil)
+    }
 }
