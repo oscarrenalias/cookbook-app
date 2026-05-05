@@ -6,7 +6,18 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
-  "dependencies": [],
+  "dependencies": [
+    "B-bf21ece4",
+    "B-27028c1c",
+    "B-9a46d66c",
+    "B-cd5452b3",
+    "B-9a95b83c",
+    "B-a11e5ac3",
+    "B-368f685a",
+    "B-747262c3",
+    "B-0b882796",
+    "B-1c52ecfe"
+  ],
   "acceptance_criteria": [
     "docs/roadmap.md updated to reflect spec 0005 status",
     "Any doc references to >> metadata syntax updated to describe YAML frontmatter",
