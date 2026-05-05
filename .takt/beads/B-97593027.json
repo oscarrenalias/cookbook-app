@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-97593027",
+  "title": "Implement aisle bucketing and stable aggregate ordering",
+  "agent_type": "developer",
+  "description": "Implement `ShoppingList.aggregate(recipes:aisleConfig:)` to flatten recipe ingredients, canonicalise names, group items by aisle, preserve first-occurrence ordering within buckets, and append the unmatched `Other` bucket last.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-dd16f765",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`ShoppingList.aggregate(recipes:aisleConfig:)` is added as a static pure function in `Aggregation.swift`.",
+    "When `aisleConfig` is present, ingredients are assigned to aisle buckets using alias-aware lookup and canonical names come from the matched aisle item.",
+    "When `aisleConfig` is absent or no aisle match exists, ingredients are normalised with lowercased trimmed names and grouped under `name == nil`.",
+    "Aisle ordering follows `aisleConfig.sections` order, with the nil `Other` bucket appended last only when needed.",
+    "Items within each bucket retain stable first-occurrence order across the input recipe list.",
+    "Only recipe ingredients participate; cookware, timers, notes, formatting, and I/O remain out of scope."
+  ],
+  "linked_docs": [
+    "spec-3cc80e55"
+  ],
+  "feature_root_id": "B-dd16f765",
+  "execution_branch_name": "feature/b-dd16f765",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-dd16f765",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T19:32:35.420216+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
