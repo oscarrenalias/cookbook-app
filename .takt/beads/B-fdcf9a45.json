@@ -3,7 +3,7 @@
   "title": "REVIEW: Spec 0005 review",
   "agent_type": "review",
   "description": "Review all changes introduced by spec 0005 for correctness, quality, and spec compliance. Verify parser changes match the AC (YAML frontmatter, = sections, backward-compatibility breaks for >> and ==). Confirm no third-party YAML library was added. Check UI changes are scoped to the listed files with no unintended regressions. Confirm sentence-case is view-layer only. Confirm collapse state is in-memory only (no @SceneStorage / @AppStorage). Verify visual-only items are explicitly flagged for manual verification in the tester handoff.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fa1cbeb6",
   "dependencies": [
@@ -427,9 +427,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Any sibling bead touching CooklangParser.swift will conflict. Downstream beads that depend on >> metadata keys being populated will break \u2014 those keys now return nil from Metadata.\nTests in CookbookCoreTests that assert `== Sauce ==` creates a named section will break \u2014 tester agent must update them.\nNo Swift source files touched; no conflict risk with parallel beads.\nNo conflicts expected. recipe.cook was last touched by B-9a46d66c (dependency already merged). metadata.cook and section-header.cook are test-only fixtures with no other dependents.\nNo other beads in this feature touch RecipeHeroHeader.swift; no conflict risk.\nNo conflicts expected; changes are limited to RecipeBottomBar.swift and the two RecipeBottomBar() call sites in RecipeDetailSheet.swift.\nNone \u2014 new file only, no modifications to existing files.\nNone \u2014 both files are leaf view components with no overlapping edits expected from sibling beads.\nNone \u2014 no files were modified.\nNone \u2014 no files were modified.",
-  "branch_name": "",
+  "branch_name": "feature/b-fa1cbeb6",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-fdcf9a45",
+    "expires_at": "2026-05-05T09:01:10.742305+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -438,9 +441,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T08:31:10.890076+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T08:31:10.890100+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-fdcf9a45",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-fdcf9a45/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
