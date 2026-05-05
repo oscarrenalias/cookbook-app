@@ -6,7 +6,14 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-dd16f765",
-  "dependencies": [],
+  "dependencies": [
+    "B-d1862714",
+    "B-e0d352b6",
+    "B-97593027",
+    "B-f35bed46",
+    "B-496f5d38",
+    "B-96c1b452"
+  ],
   "acceptance_criteria": [
     "Review confirms the public API signatures and value-type shapes match the specification exactly.",
     "Review confirms aisle grouping, canonical naming, quantity-merging behavior, and ordering rules are all covered by tests.",
