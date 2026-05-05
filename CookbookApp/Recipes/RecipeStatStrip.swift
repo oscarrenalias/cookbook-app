@@ -112,6 +112,8 @@ private struct StatCell: View {
 // MARK: - Preview
 
 #Preview {
+    @Previewable @State var scale: RecipeScale = .one
+
     let metadata = Metadata([
         ("servings", "4"),
         ("difficulty", "Easy"),
@@ -119,8 +121,6 @@ private struct StatCell: View {
         ("cook time", "30 min"),
         ("meal type", "Dinner")
     ])
-
-    @Previewable @State var scale: RecipeScale = .one
 
     VStack(alignment: .leading, spacing: 16) {
         RecipeStatStrip(metadata: metadata, scale: $scale)
