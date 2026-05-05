@@ -6,7 +6,17 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
-  "dependencies": [],
+  "dependencies": [
+    "B-349c61b1",
+    "B-a9c17ef5",
+    "B-941263e8",
+    "B-28580f9d",
+    "B-5340934f",
+    "B-934af3a1",
+    "B-7115eaae",
+    "B-7b891bbe",
+    "B-c3bd52e2"
+  ],
   "acceptance_criteria": [
     "Documentation covers how recipe scale, aisle config, and flat-versus-aisled append behavior interact.",
     "Documentation explains the `## Meals` provenance section and header-area rendering behavior, including read-only editing expectations.",
