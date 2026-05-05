@@ -7,16 +7,16 @@
   "bead_type": "task",
   "parent_id": "B-419f1418",
   "dependencies": [
-    "B-519a9307",
-    "B-a2c492e1",
-    "B-992aac59",
     "B-0c9926df",
-    "B-30f7ab84",
-    "B-cd3c52af",
     "B-23ff7ba4",
+    "B-30f7ab84",
     "B-3db16e0e",
+    "B-519a9307",
     "B-77482551",
-    "B-9272c3d9"
+    "B-9272c3d9",
+    "B-992aac59",
+    "B-a2c492e1",
+    "B-cd3c52af"
   ],
   "acceptance_criteria": [
     "Review confirms the public API matches the spec for all three formats.",
