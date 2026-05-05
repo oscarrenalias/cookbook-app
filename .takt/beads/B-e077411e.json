@@ -149,11 +149,16 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
   ],
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/*",
+    "Packages/CookbookCore/Sources/CookbookCore/CommentStripper.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Parser.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Scanner.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/*",
     "docs/examples/*"
   ],
@@ -273,7 +278,8 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -391,7 +397,8 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -415,7 +422,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "Low. The change is isolated to a new source file in CookbookCore and reads existing parsing primitives without modifying them.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
