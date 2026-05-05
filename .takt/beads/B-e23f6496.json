@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-1dd57ece",
-  "dependencies": [],
+  "dependencies": [
+    "B-e93417db"
+  ],
   "acceptance_criteria": [
     "'Add to menu' button shows bookmark icon with 'Add to menu' label.",
     "'Add to shopping list' button shows cart icon with 'Add to shopping list' label.",
