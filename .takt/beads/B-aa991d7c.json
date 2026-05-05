@@ -3,7 +3,7 @@
   "title": "Tab integration and AisleCatalog wiring",
   "agent_type": "developer",
   "description": "Replace the existing empty-state placeholder in `CookbookApp/Tabs/ShoppingListsTab.swift` with `ShoppingListsView`. In `CookbookApp/CookbookAppApp.swift` (or the root scene composer), instantiate `AisleCatalog` once when the configured folder URL becomes available; call `catalog.load(from:)` when the folder is first opened and whenever the user changes folders; inject the catalog into the environment via `.environment` or `.environmentObject` so all shopping-list views can access it. Run `xcodegen generate` from the repo root after all new source files have been added.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
   "dependencies": [
@@ -55,9 +55,12 @@
   },
   "block_reason": "",
   "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-bbc48bfa",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "lease": {
+    "owner": "developer:B-aa991d7c",
+    "expires_at": "2026-05-05T13:24:33.550781+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -66,9 +69,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T12:54:33.705361+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T12:54:33.705382+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-aa991d7c",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-aa991d7c/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
