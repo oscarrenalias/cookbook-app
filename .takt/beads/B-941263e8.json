@@ -3,7 +3,7 @@
   "title": "Add recipe scaling helpers",
   "agent_type": "developer",
   "description": "Add reusable `RecipeScale` helpers for scaling individual quantities and full recipes without mutating non-ingredient content.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
   "dependencies": [],
@@ -22,37 +22,44 @@
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeScale.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeScale.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Both acceptance-criteria methods implemented: `RecipeScale.scaled(_ quantity:)` and `RecipeScale.scaled(_ recipe:)`. All three acceptance criteria are satisfied.",
+    "remaining": "None for this bead.",
+    "risks": "None. Changes are additive (new methods only) and do not touch any existing method.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeScale.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should write unit tests for `scaled(_ quantity:)` (numeric scales, text passthrough, nil-quantity ingredient) and `scaled(_ recipe:)` (ingredient quantities scaled, cookware/timers/metadata/sections unchanged).",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeScale.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeScale.swift"
+    ],
+    "conflict_risks": "None \u2014 only new methods added to an existing enum; no API surface changed.",
+    "design_decisions": "Returns `Quantity` (not `String`) from `scaled(_ quantity:)` so callers can compose further transformations and the recipe copy contains proper typed data rather than rendered strings.",
+    "test_coverage_notes": "No tests exist yet for the new methods. Tester bead should cover: `.number` scaling at each `RecipeScale` case, `.text` passthrough, ingredient with `nil` quantity, full recipe round-trip with cookware/timers/metadata/sections invariant checks.",
+    "known_limitations": "SourceKit reports `No such module 'CookbookCore'` in the worktree due to missing derived data \u2014 this is a pre-existing diagnostic unrelated to the changes (the original file had the same import)."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 only new methods added to an existing enum; no API surface changed.",
   "branch_name": "feature/b-27e1396e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
-  "lease": {
-    "owner": "developer:B-941263e8",
-    "expires_at": "2026-05-05T21:06:26.759108+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -94,6 +101,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-941263e8/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-05T20:39:19.820781+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Added `scaled(_ quantity:) -> Quantity` and `scaled(_ recipe:) -> Recipe` helpers to the existing `RecipeScale` enum. Numeric quantities are multiplied by `factor`; text quantities are returned unchanged. Only `recipe.ingredients` are mutated in the recipe copy \u2014 cookware, timers, metadata, and sections pass through as-is.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -161,7 +175,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Added `scaled(_ quantity:) -> Quantity` and `scaled(_ recipe:) -> Recipe` helpers to the existing `RecipeScale` enum. Numeric quantities are multiplied by `factor`; text quantities are returned unchanged. Only `recipe.ingredients` are mutated in the recipe copy \u2014 cookware, timers, metadata, and sections pass through as-is.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.29979710000000004,
+      "duration_ms": 169408,
+      "duration_api_ms": 111862,
+      "num_turns": 11,
+      "input_tokens": 11,
+      "output_tokens": 3567,
+      "cache_creation_tokens": 18516,
+      "cache_read_tokens": 195661,
+      "stop_reason": "end_turn",
+      "session_id": "135ae41b-5ebd-4c46-818d-553df50cc284",
+      "permission_denials": [],
+      "prompt_chars": 5480,
+      "prompt_lines": 129,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.29979710000000004,
+        "duration_ms": 169408,
+        "duration_api_ms": 111862,
+        "num_turns": 11,
+        "input_tokens": 11,
+        "output_tokens": 3567,
+        "cache_creation_tokens": 18516,
+        "cache_read_tokens": 195661,
+        "stop_reason": "end_turn",
+        "session_id": "135ae41b-5ebd-4c46-818d-553df50cc284",
+        "permission_denials": [],
+        "prompt_chars": 5480,
+        "prompt_lines": 129,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "f24cde7279e7374140a0d8473a0fb73aba06388a"
   },
   "labels": [],
   "recovery_for": null,
