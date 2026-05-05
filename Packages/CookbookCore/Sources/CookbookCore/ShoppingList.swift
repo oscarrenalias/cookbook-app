@@ -27,7 +27,7 @@ public struct ShoppingList: Sendable, Equatable {
     public mutating func toggle(itemAt lineIndex: Int) {
         guard let record = lineRecords().first(where: { $0.lineIndex == lineIndex }),
               let match = ShoppingList.matchItem(in: record.content),
-              let checkedRange = record.rangeInText(for: match.range(at: 1)) else {
+              let checkedRange = record.rangeInText(for: match.range(at: 1), in: text) else {
             return
         }
 
@@ -77,17 +77,18 @@ private extension ShoppingList {
         let contentRange: Range<String.Index>
         let fullRange: Range<String.Index>
 
-        func rangeInText(for localRange: NSRange) -> Range<String.Index>? {
+        func rangeInText(for localRange: NSRange, in text: String) -> Range<String.Index>? {
             guard let contentLocalRange = Range(localRange, in: content) else {
                 return nil
             }
 
-            let lowerBound = contentRange.lowerBound
+            // Compute offsets inside `content`, then advance from contentRange.lowerBound
+            // (a text index) using `text` — mixing text indices with a distinct String copy crashes.
             let offset = content.distance(from: content.startIndex, to: contentLocalRange.lowerBound)
             let length = content.distance(from: contentLocalRange.lowerBound, to: contentLocalRange.upperBound)
-            let start = content.index(lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound)
-            let end = start.flatMap { content.index($0, offsetBy: length, limitedBy: contentRange.upperBound) }
-            return start.flatMap { start in end.map { start..<$0 } }
+            let start = text.index(contentRange.lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound)
+            let end = start.flatMap { text.index($0, offsetBy: length, limitedBy: contentRange.upperBound) }
+            return start.flatMap { s in end.map { s..<$0 } }
         }
     }
 
