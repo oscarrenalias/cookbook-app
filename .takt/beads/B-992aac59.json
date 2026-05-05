@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
-  "dependencies": [],
+  "dependencies": [
+    "B-a2c492e1"
+  ],
   "acceptance_criteria": [
     "`MealPlanParser.serialise(_:)` emits optional frontmatter, block headings, section headers, comments, and item lines in a form accepted by `parse(_:)`.",
     "`serialise(parse(x))` reparses to an equal `MealPlan` for canonical sample content.",
