@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
-  "dependencies": [],
+  "dependencies": [
+    "B-7b891bbe"
+  ],
   "acceptance_criteria": [
     "A new header view renders extracted markdown content with the specified line handling, disclosure label, and typography.",
     "`ShoppingListDetailView` shows the header area only when extraction returns content and places it above the progress header.",
