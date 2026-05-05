@@ -3,7 +3,6 @@ import SwiftUI
 // MARK: - View
 
 struct RecipeBottomBar: View {
-    @Binding var scale: RecipeScale
     @State private var showMenuAlert = false
     @State private var showShoppingListAlert = false
 
@@ -12,25 +11,15 @@ struct RecipeBottomBar: View {
             Button {
                 showMenuAlert = true
             } label: {
-                Label("Add to menu", systemImage: "bookmark")
+                Label("Add to menu", systemImage: "calendar")
             }
             .accessibilityLabel("Add to menu")
+            .frame(maxWidth: .infinity)
             .alert("Coming in a future update", isPresented: $showMenuAlert) {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text("This feature is not available yet.")
             }
-
-            Spacer()
-
-            Picker("Scale", selection: $scale) {
-                ForEach(RecipeScale.allCases, id: \.self) { s in
-                    Text(s.rawValue == 0.5 ? "½×" : "\(Int(s.rawValue))×").tag(s)
-                }
-            }
-            .pickerStyle(.menu)
-
-            Spacer()
 
             Button {
                 showShoppingListAlert = true
@@ -38,6 +27,7 @@ struct RecipeBottomBar: View {
                 Label("Add to shopping list", systemImage: "cart")
             }
             .accessibilityLabel("Add to shopping list")
+            .frame(maxWidth: .infinity)
             .alert("Coming in a future update", isPresented: $showShoppingListAlert) {
                 Button("OK", role: .cancel) {}
             } message: {
@@ -51,6 +41,5 @@ struct RecipeBottomBar: View {
 // MARK: - Preview
 
 #Preview {
-    @Previewable @State var scale: RecipeScale = .one
-    RecipeBottomBar(scale: $scale)
+    RecipeBottomBar()
 }
