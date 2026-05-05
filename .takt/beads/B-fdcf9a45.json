@@ -272,12 +272,16 @@
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Recipes/StepsView.swift",
     "CookbookApp/Recipes/StringExtensions.swift",
+    "CookbookAppTests/StringExtensionTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
-    "docs/examples/recipe.cook"
+    "docs/architecture.md",
+    "docs/examples/recipe.cook",
+    "docs/roadmap.md",
+    "specs/done/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -389,12 +393,16 @@
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Recipes/StepsView.swift",
     "CookbookApp/Recipes/StringExtensions.swift",
+    "CookbookAppTests/StringExtensionTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/CooklangParser.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/CooklangParserTests.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/metadata.cook",
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/recipe.cook",
     "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/section-header.cook",
-    "docs/examples/recipe.cook"
+    "docs/architecture.md",
+    "docs/examples/recipe.cook",
+    "docs/roadmap.md",
+    "specs/done/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
