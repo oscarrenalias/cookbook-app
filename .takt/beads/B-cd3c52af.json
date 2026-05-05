@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-419f1418",
-  "dependencies": [],
+  "dependencies": [
+    "B-0c9926df",
+    "B-30f7ab84"
+  ],
   "acceptance_criteria": [
     "`aisle(for:)` matches canonical tokens case-insensitively.",
     "`aisle(for:)` matches aliases case-insensitively.",
