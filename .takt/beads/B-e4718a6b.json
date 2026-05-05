@@ -3,7 +3,7 @@
   "title": "AisleCatalog service",
   "agent_type": "developer",
   "description": "Add `CookbookApp/ShoppingLists/AisleCatalog.swift` \u2014 an `@Observable` (iOS 17) service that calls the existing `AisleConfigParser.parse(_:)` from CookbookCore when the configured folder URL is set or changes, caches the result, and exposes `aisles: [String]` (ordered as in `aisle.conf`, lowercase as written) and `isLoaded: Bool`. When `aisle.conf` is absent or fails to parse, `aisles` falls back to the canonical default order: produce, herbs, meat, seafood, dairy, eggs, cheese, bakery, pantry, canned, frozen, spices, pasta, rice, flours, oils, nuts, sauces, juices, world, baking, alko.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-bbc48bfa",
   "dependencies": [],
@@ -50,9 +50,12 @@
   },
   "block_reason": "",
   "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-bbc48bfa",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-bbc48bfa",
+  "lease": {
+    "owner": "developer:B-e4718a6b",
+    "expires_at": "2026-05-05T12:44:50.701553+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -61,9 +64,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T12:14:50.891761+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T12:14:50.891786+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-e4718a6b",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-e4718a6b/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
