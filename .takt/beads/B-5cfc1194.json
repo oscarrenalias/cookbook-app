@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
-  "dependencies": [],
+  "dependencies": [
+    "B-f5403aed",
+    "B-955af572",
+    "B-a5fb654d"
+  ],
   "acceptance_criteria": [
     "Detail view loads and parses a plan via `MealPlanFiles` plus `MealPlanParser` and sets the navigation title from the filename.",
     "Header shows deduped recipe count plus a stubbed `Create shopping list` CTA with the exact future-update alert copy.",
