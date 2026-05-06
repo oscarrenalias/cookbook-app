@@ -3,7 +3,7 @@
   "title": "Build meal-plan detail shell, search, collapse, and delete-plan flow",
   "agent_type": "developer",
   "description": "Implement the detail view structure: header strip, stub CTA, per-block collapsible sections, search filtering, empty-plan state, and destructive plan deletion.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
@@ -31,33 +31,47 @@
     "CookbookApp/MealPlans/MealPlanDetailView.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All five acceptance criteria implemented and build verified:\n1. Detail view loads plan via MealPlanFiles.readText + MealPlanParser.parse; navigation title from MealPlanFiles.displayName.\n2. Header strip shows uniqueRecipeCount (deduped Set of recipe paths); Create shopping list button presents alert(\"Coming in a future update\") with OK button; button is .disabled when plan.blocks.isEmpty.\n3. Each MealPlanBlock renders as Section(isExpanded:) using @SceneStorage(\"mealPlanDetail.collapsedBlocks\") with keys encoded as \"filename.heading\" joined by newline, matching the RecipesListView pattern.\n4. visibleBlocks computed property filters blocks via blockHasMatchingRecipe which checks recipe display names (filename portion of path) against searchText.\n5. Toolbar ellipsis.circle Menu contains destructive \"Delete plan\" button; confirmationDialog with exact spec copy; deletePlan() removes file, dismiss(), onDelete?(). MealPlansView onDelete closure filters deleted URL from entries.",
+    "remaining": "No remaining work for this bead. Downstream: tester agent should validate swipe-delete round-trips through MealPlanParser, empty-plan state, search edge cases, and the shopping list stub alert text. xcodegen must be run again if project.yml is touched by another bead.",
+    "risks": "1. @SceneStorage shared key \"mealPlanDetail.collapsedBlocks\" is global \u2014 all plan detail views share one string. Keys are namespaced by filename so collisions are unlikely but possible if two plans share the same filename (impossible since filenames are unique in the plans/ folder).\n2. The loadPlan() Task.detached starts a new security-scoped access on folderURL for thumbnail resolution; this is additive on top of any existing access opened by MealPlansView.loadEntries. Should be safe (reference-counted).\n3. FlatItem ids use positional strings (e.g. \"0-s0-i1\"). After swipe-delete, remaining items get new positional ids which prevents SwiftUI from animating the removal as a slide-out. Content correctness is unaffected.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to validate all acceptance criteria, swipe-delete round-trips, empty states, and search behaviour.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/MealPlans/MealPlanDetailView.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift"
+    ],
+    "conflict_risks": "No other in-flight beads touch MealPlanDetailView.swift (new file). MealPlansView.swift change is a 3-line navigation destination swap; low conflict risk unless another bead also edits that file. CookbookApp.xcodeproj was regenerated \u2014 any bead that also runs xcodegen will overwrite; safe because both will pick up the new source file.",
+    "design_decisions": "1. Collapsed-block SceneStorage follows the RecipesListView single-key serialised-set pattern rather than per-heading static keys (which are impossible for dynamic block headings).\n2. Recipe thumbnails are resolved in loadPlan() background task (with security-scoped access on folderURL) rather than synchronously during body render, avoiding main-thread FileManager calls.\n3. .comment items are rendered identically to .text items (MealPlanTextRow) since the spec does not define separate styling for comments; they participate in swipe-to-delete the same way.\n4. Header strip placed as safeAreaInset(edge: .top) so it stays visible over both list and empty-state content without duplicating it across branches.\n5. Inner MealPlanSection names are rendered as flat list rows (Text with .subheadline.weight(.semibold), listRowBackground clear, separator hidden) within the outer block's Section, matching the spec's \"sub-header text row\" description.",
+    "test_coverage_notes": "No tests written (developer bead). Tester agent should cover: (a) plan load + parse round-trip including .text/.comment items, (b) uniqueRecipeCount deduplication, (c) search filter hides zero-matching-recipe blocks, (d) swipe-delete updates plan and serialises to file, (e) delete-plan removes file and triggers onDelete, (f) Create shopping list alert shows exact copy \"Coming in a future update\", (g) empty plan state (zero blocks) shows EmptyStateView and disabled CTA.",
+    "known_limitations": "1. FlatItem positional IDs mean swipe-delete removal animation is not a smooth slide-out (content is correct, animation is a re-render). Can be improved with stable item identifiers in a future polish bead.\n2. Thumbnail resolution in loadPlan checks only [\"jpg\",\"jpeg\",\"png\",\"heic\"] extensions; matches RecipeDiscovery behaviour so no regression.\n3. If a recipe path does not start with \"./\" the full path is appended to folderURL as-is, which is consistent with the spec (\"relative to folderURL if path starts with ./, otherwise as-is\")."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "No other in-flight beads touch MealPlanDetailView.swift (new file). MealPlansView.swift change is a 3-line navigation destination swap; low conflict risk unless another bead also edits that file. CookbookApp.xcodeproj was regenerated \u2014 any bead that also runs xcodegen will overwrite; safe because both will pick up the new source file.",
+  "branch_name": "feature/b-920f3e84",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -67,9 +81,170 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T10:03:42.252760+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T10:03:42.252786+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T10:03:47.154987+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-5cfc1194/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-5cfc1194/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-06T10:16:09.332431+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created MealPlanDetailView.swift implementing all five acceptance criteria: plan loading via MealPlanFiles+MealPlanParser, header strip with deduped recipe count and stubbed Create shopping list CTA, @SceneStorage-backed collapsible blocks keyed by filename+heading, search filtering hiding blocks with no matching recipes, and toolbar delete-plan flow that confirms, removes the file, pops the view, and notifies the list. Updated MealPlansView.swift to wire the real detail view into the navigation destination with an onDelete callback. Build succeeded (xcodebuild + xcodegen).",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-5cfc1194",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-5cfc1194/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-5cfc1194/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T10:03:47.154963+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-5cfc1194",
+      "feature_root_id": "B-920f3e84",
+      "title": "Build meal-plan detail shell, search, collapse, and delete-plan flow",
+      "agent_type": "developer",
+      "description": "Implement the detail view structure: header strip, stub CTA, per-block collapsible sections, search filtering, empty-plan state, and destructive plan deletion.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Detail view loads and parses a plan via `MealPlanFiles` plus `MealPlanParser` and sets the navigation title from the filename.",
+        "Header shows deduped recipe count plus a stubbed `Create shopping list` CTA with the exact future-update alert copy.",
+        "Each block renders as a collapsible section with `@SceneStorage`-backed expanded state keyed by filename and heading.",
+        "Active search filters by recipe display name and hides sections with zero matching recipes.",
+        "Toolbar delete-plan action confirms, removes the file, pops the view, and notifies the list for refresh."
+      ],
+      "dependencies": [
+        "B-f5403aed",
+        "B-955af572",
+        "B-a5fb654d"
+      ],
+      "linked_docs": [
+        "spec-d7a891ba",
+        "specs/drafts/meal-plans-tab.md",
+        "docs/mockups/meal plan detail.png",
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-920f3e84",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+      "expected_files": [
+        "CookbookApp/MealPlans/MealPlanDetailView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created MealPlanDetailView.swift implementing all five acceptance criteria: plan loading via MealPlanFiles+MealPlanParser, header strip with deduped recipe count and stubbed Create shopping list CTA, @SceneStorage-backed collapsible blocks keyed by filename+heading, search filtering hiding blocks with no matching recipes, and toolbar delete-plan flow that confirms, removes the file, pops the view, and notifies the list. Updated MealPlansView.swift to wire the real detail view into the navigation destination with an onDelete callback. Build succeeded (xcodebuild + xcodegen).",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 1.4698779499999999,
+      "duration_ms": 741504,
+      "duration_api_ms": 714820,
+      "num_turns": 33,
+      "input_tokens": 742,
+      "output_tokens": 42514,
+      "cache_creation_tokens": 84322,
+      "cache_read_tokens": 1306363,
+      "stop_reason": "end_turn",
+      "session_id": "58d0333b-a53b-4a38-87b2-8c237582aefa",
+      "permission_denials": [],
+      "prompt_chars": 6039,
+      "prompt_lines": 140,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 1.4698779499999999,
+        "duration_ms": 741504,
+        "duration_api_ms": 714820,
+        "num_turns": 33,
+        "input_tokens": 742,
+        "output_tokens": 42514,
+        "cache_creation_tokens": 84322,
+        "cache_read_tokens": 1306363,
+        "stop_reason": "end_turn",
+        "session_id": "58d0333b-a53b-4a38-87b2-8c237582aefa",
+        "permission_denials": [],
+        "prompt_chars": 6039,
+        "prompt_lines": 140,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "3b831e495c591fb240055fd8010990a1c9a4ca13"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null

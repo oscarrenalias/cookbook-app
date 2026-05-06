@@ -3,7 +3,7 @@
   "title": "Render meal-plan item rows and persist swipe deletions",
   "agent_type": "developer",
   "description": "Add row rendering for recipe, text, and ingredient items, hook recipe taps into `RecipeDetailSheet`, and persist swipe deletions through typed plan mutation and reserialisation.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
@@ -31,33 +31,52 @@
     "CookbookApp/MealPlans/MealPlanDetailView.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "- Created CookbookApp/MealPlans/MealPlanItemRow.swift with MealPlanRecipeRow (thumbnail via RecipeThumbnailView, sentence-cased display name, optional servings label, chevron, tap handler, swipe-delete), MealPlanTextRow (semibold for colon-suffix, swipe-delete), MealPlanIngredientRow (cart icon, name+quantity text, swipe-delete).\\n- Removed 6 redundant private structs from MealPlanDetailView.swift (RecipeListItem, TextListItem, IngredientListItem, MealPlanRecipeRow, MealPlanTextRow, MealPlanIngredientRow).\\n- Updated planItemRow in MealPlanDetailView to call the extracted row structs directly.\\n- Ran xcodegen generate to register MealPlanItemRow.swift in the Xcode project.\\n- Build succeeded (xcodebuild BUILD SUCCEEDED).",
+    "remaining": "Tester agent should verify: recipe rows show thumbnails/placeholders with sentence-cased names; text rows apply semibold for colon-suffix strings; ingredient rows render cart icon and quantity text; swipe-delete correctly mutates MealPlan, serialises, and writes via MealPlanFiles.writeText.",
+    "risks": "None significant. SourceKit emits a false-positive 'No such module CookbookCore' diagnostic on the new file because the index hasn't refreshed after xcodegen; the build itself passes cleanly.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookApp/MealPlans/MealPlanItemRow.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to verify row rendering and swipe-delete persistence against the acceptance criteria.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/MealPlans/MealPlanItemRow.swift",
+      "CookbookApp/MealPlans/MealPlanDetailView.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookApp/MealPlans/MealPlanItemRow.swift"
+    ],
+    "conflict_risks": "None \u2014 MealPlanItemRow.swift is a new file; MealPlanDetailView.swift changes are additive (removal of private dead code after extraction). No overlap with sibling beads expected.",
+    "design_decisions": "Row views are self-contained (tap + swipe actions included) rather than split into content-only and interaction-wrapper structs, following the ShoppingListItemRow pattern. sentence-casing applied to recipe display names per spec. Thumbnail size remains 44\u00d744 (clipped from RecipeThumbnailView's internal 56\u00d756) to match the pre-existing detail-view style.",
+    "test_coverage_notes": "No tests added \u2014 test coverage is the tester agent's responsibility. The three row view structs are internal (not private) so they are unit-testable by CookbookAppTests.",
+    "known_limitations": "RecipeThumbnailView.loadImage uses Data(contentsOf:) without an explicit security-scoped resource bracket. This works because RecipesFolderStore holds continuous access on the folder; it would fail if the store's access ever lapses mid-load."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "None \u2014 MealPlanItemRow.swift is a new file; MealPlanDetailView.swift changes are additive (removal of private dead code after extraction). No overlap with sibling beads expected.",
+  "branch_name": "feature/b-920f3e84",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -67,9 +86,170 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T10:16:10.572629+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T10:16:10.572662+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T10:16:17.567860+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-4e264740/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-4e264740/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-06T10:20:46.164463+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created MealPlanItemRow.swift with three internal row views (MealPlanRecipeRow, MealPlanTextRow, MealPlanIngredientRow), each self-contained with swipe-to-delete. Removed the 6 inlined private structs from MealPlanDetailView.swift (3 content-only Row views + 3 ListItem swipe-action wrappers) and updated planItemRow to use the extracted views directly. Ran xcodegen generate; build succeeded.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4e264740",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4e264740/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-4e264740/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T10:16:17.567838+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-4e264740",
+      "feature_root_id": "B-920f3e84",
+      "title": "Render meal-plan item rows and persist swipe deletions",
+      "agent_type": "developer",
+      "description": "Add row rendering for recipe, text, and ingredient items, hook recipe taps into `RecipeDetailSheet`, and persist swipe deletions through typed plan mutation and reserialisation.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Recipe rows resolve recipe URLs, show thumbnails or placeholders, display optional servings text, and open the existing recipe detail sheet.",
+        "Text rows render plain text with semibold styling only for trailing-colon labels and remain non-interactive.",
+        "Ingredient rows render the cart icon and quantity text formatting required by the spec.",
+        "Swipe-to-delete on supported row types mutates the in-memory `MealPlan`, serialises it once, and writes back via `MealPlanFiles.writeText` without string surgery in the view layer."
+      ],
+      "dependencies": [
+        "B-35b69af1",
+        "B-f5403aed",
+        "B-5cfc1194"
+      ],
+      "linked_docs": [
+        "spec-d7a891ba",
+        "specs/drafts/meal-plans-tab.md",
+        "specs/done/0004-recipe-details.md",
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-920f3e84",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+      "expected_files": [
+        "CookbookApp/MealPlans/MealPlanItemRow.swift",
+        "CookbookApp/MealPlans/MealPlanDetailView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created MealPlanItemRow.swift with three internal row views (MealPlanRecipeRow, MealPlanTextRow, MealPlanIngredientRow), each self-contained with swipe-to-delete. Removed the 6 inlined private structs from MealPlanDetailView.swift (3 content-only Row views + 3 ListItem swipe-action wrappers) and updated planItemRow to use the extracted views directly. Ran xcodegen generate; build succeeded.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.9216081000000002,
+      "duration_ms": 267615,
+      "duration_api_ms": 250341,
+      "num_turns": 33,
+      "input_tokens": 1151,
+      "output_tokens": 17942,
+      "cache_creation_tokens": 65888,
+      "cache_read_tokens": 1332547,
+      "stop_reason": "end_turn",
+      "session_id": "8e2cebfc-3f0f-4ef4-8659-e59e1bb953a8",
+      "permission_denials": [],
+      "prompt_chars": 6024,
+      "prompt_lines": 139,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.9216081000000002,
+        "duration_ms": 267615,
+        "duration_api_ms": 250341,
+        "num_turns": 33,
+        "input_tokens": 1151,
+        "output_tokens": 17942,
+        "cache_creation_tokens": 65888,
+        "cache_read_tokens": 1332547,
+        "stop_reason": "end_turn",
+        "session_id": "8e2cebfc-3f0f-4ef4-8659-e59e1bb953a8",
+        "permission_denials": [],
+        "prompt_chars": 6024,
+        "prompt_lines": 139,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "2354353195c49c692b47d87465a80008694c6502"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
