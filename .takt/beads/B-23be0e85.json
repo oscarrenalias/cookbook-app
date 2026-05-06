@@ -3,7 +3,7 @@
   "title": "Add app-level meal-plan file and view tests",
   "agent_type": "developer",
   "description": "Add Swift Testing coverage for meal-plan file helpers, list/create behaviour, detail rendering, CTA stubbing, and swipe-delete persistence.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
@@ -31,37 +31,54 @@
     "CookbookAppTests/MealPlanDetailViewTests.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/MealPlansViewTests.swift"
+  ],
+  "changed_files": [
+    "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/MealPlansViewTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All three test files written: MealPlanFilesTests.swift, MealPlansViewTests.swift, MealPlanDetailViewTests.swift.",
+    "remaining": "Tester agent should run the test suite to validate compilation and test pass rates.",
+    "risks": "The SourceKit 'No such module Testing' diagnostics are false positives (same pattern in all other test files); the module resolves at build time. No functional risks identified.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookAppTests/MealPlanDetailViewTests.swift",
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/MealPlansViewTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Run the CookbookAppTests test suite to confirm compilation and all new tests pass.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/MealPlansViewTests.swift",
+      "CookbookAppTests/MealPlanDetailViewTests.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookAppTests/MealPlanDetailViewTests.swift",
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/MealPlansViewTests.swift"
+    ],
+    "conflict_risks": "None \u2014 new files only, no modifications to existing sources.",
+    "design_decisions": "Tests mirror the ShoppingListFilesTests / ShoppingListViewTests patterns already established in the project. View-state behaviour (handleCreate, deleteItem, block collapse) is tested indirectly through file-system state and MealPlanParser, since those methods are private/file-private. Row-type rendering tests use instantiation smoke tests matching existing view test conventions.",
+    "test_coverage_notes": "MealPlanFilesTests: 11 tests covering plansURL, discover, displayName, readText/writeText. MealPlansViewTests: 12 tests covering instantiation, recipe counting, name sanitization, create-plan flow, duplicate detection. MealPlanDetailViewTests: 14 tests covering instantiation, all 3 row types, swipe-delete persistence (3 variants), recipe deduplication, block filtering (3 variants), CTA stub.",
+    "known_limitations": "SwiftUI view body rendering is not testable without ViewInspector or XCUITest \u2014 tests cover instantiation and the data-layer logic that drives rendering instead."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 new files only, no modifications to existing sources.",
   "branch_name": "feature/b-920f3e84",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
-  "lease": {
-    "owner": "developer:B-23be0e85",
-    "expires_at": "2026-05-06T10:50:47.424711+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -103,6 +120,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-23be0e85/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T10:26:15.214476+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Added Swift Testing coverage for the meal-plans feature across three new test files. MealPlanFilesTests covers the full surface of the MealPlanFiles helper (subfolder creation/idempotency, discover filtering and reverse-chronological sorting, displayName extension stripping, and read/write round-trips). MealPlansViewTests covers view/card/alert instantiation, recipe-count calculation via MealPlanParser, name-sanitization rules (trim + slash\u2192dash), create-plan file behaviour, and duplicate-name detection. MealPlanDetailViewTests covers view instantiation (with and without onDelete), all three row types (recipe, text, ingredient), swipe-delete persistence (removes item and persists file, preserves other blocks), unique-recipe-count deduplication, block search filtering, and CTA stub instantiation. No project.yml changes required \u2014 the CookbookAppTests sources path glob picks up all new .swift files.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -179,7 +203,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Added Swift Testing coverage for the meal-plans feature across three new test files. MealPlanFilesTests covers the full surface of the MealPlanFiles helper (subfolder creation/idempotency, discover filtering and reverse-chronological sorting, displayName extension stripping, and read/write round-trips). MealPlansViewTests covers view/card/alert instantiation, recipe-count calculation via MealPlanParser, name-sanitization rules (trim + slash\u2192dash), create-plan file behaviour, and duplicate-name detection. MealPlanDetailViewTests covers view instantiation (with and without onDelete), all three row types (recipe, text, ingredient), swipe-delete persistence (removes item and persists file, preserves other blocks), unique-recipe-count deduplication, block search filtering, and CTA stub instantiation. No project.yml changes required \u2014 the CookbookAppTests sources path glob picks up all new .swift files.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.8536029500000001,
+      "duration_ms": 321881,
+      "duration_api_ms": 315310,
+      "num_turns": 24,
+      "input_tokens": 21,
+      "output_tokens": 21571,
+      "cache_creation_tokens": 51854,
+      "cache_read_tokens": 757750,
+      "stop_reason": "end_turn",
+      "session_id": "236cec49-e85e-4f60-813f-750df5433f28",
+      "permission_denials": [],
+      "prompt_chars": 5867,
+      "prompt_lines": 138,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.8536029500000001,
+        "duration_ms": 321881,
+        "duration_api_ms": 315310,
+        "num_turns": 24,
+        "input_tokens": 21,
+        "output_tokens": 21571,
+        "cache_creation_tokens": 51854,
+        "cache_read_tokens": 757750,
+        "stop_reason": "end_turn",
+        "session_id": "236cec49-e85e-4f60-813f-750df5433f28",
+        "permission_denials": [],
+        "prompt_chars": 5867,
+        "prompt_lines": 138,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "fde1d9112248452cebbd05857692bd9988f9b9d9"
   },
   "labels": [],
   "recovery_for": null,
