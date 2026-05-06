@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-5e7b1885",
+    "B-357ef996"
+  ],
   "acceptance_criteria": [
     "`AddToShoppingListService` reads existing markdown into `ShoppingListDocument`, adds meals and items via typed APIs, and writes a single rendered markdown string.",
     "`AddToShoppingListService.writeItems` no longer contains flat-vs-aisle detection or string append logic.",
