@@ -3,7 +3,7 @@
   "title": "Shared final review",
   "agent_type": "review",
   "description": "Perform final review of the combined logging changes for correctness, scope compliance, privacy handling, and behavioral neutrality before merge.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
   "dependencies": [
@@ -872,7 +872,10 @@
   "conflict_risks": "None introduced by this review pass.",
   "branch_name": "feature/b-148e9ad9",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-3e9fde9b",
+    "expires_at": "2026-05-06T19:31:55.523437+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -933,6 +936,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-3e9fde9b-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T19:01:55.732398+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T19:01:55.732425+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
