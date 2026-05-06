@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-36a590ee",
+    "B-bd0c0266",
+    "B-0ed77b55"
+  ],
   "acceptance_criteria": [
     "`addItem`, `updateItem`, `toggle`, `removeItem`, `deleteAisle`, and `addMealsEntry` are implemented against structured fields rather than text editing.",
     "Aisle lookup for `addItem` is case-insensitive and appends a new aisle when no match exists.",
