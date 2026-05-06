@@ -4,6 +4,7 @@ import CookbookCore
 struct ShoppingListDetailView: View {
     let url: URL
     var onDelete: (() -> Void)? = nil
+    var onRename: ((URL) -> Void)? = nil
 
     @Environment(\.dismiss) private var dismiss
     @Environment(AisleCatalog.self) private var catalog
@@ -14,6 +15,11 @@ struct ShoppingListDetailView: View {
     @State private var collapsedSections: Set<String> = []
     @State private var searchText = ""
     @State private var editingItem: EditingItem? = nil
+    @State private var showRenameAlert = false
+    @State private var renameText = ""
+    @State private var renameDuplicateError = false
+    @State private var showRenameError = false
+    @State private var renameErrorMessage = ""
 
     private struct EditingItem: Identifiable {
         var id: String { "\(index.aisle)-\(index.position)" }
@@ -95,6 +101,13 @@ struct ShoppingListDetailView: View {
                 .accessibilityLabel("Add item")
 
                 Menu {
+                    Button {
+                        renameText = listName
+                        renameDuplicateError = false
+                        showRenameAlert = true
+                    } label: {
+                        Label("Rename…", systemImage: "pencil")
+                    }
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
                     } label: {
@@ -132,6 +145,25 @@ struct ShoppingListDetailView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This shopping list will be permanently removed.")
+        }
+        .alert("Rename list", isPresented: $showRenameAlert) {
+            TextField("List name", text: $renameText)
+            Button("Save") {
+                renameList()
+            }
+            .disabled(renameText.trimmingCharacters(in: .whitespaces).isEmpty)
+            Button("Cancel", role: .cancel) {
+                renameDuplicateError = false
+            }
+        } message: {
+            if renameDuplicateError {
+                Text("A list with that name already exists.")
+            }
+        }
+        .alert("Rename failed", isPresented: $showRenameError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(renameErrorMessage)
         }
         .task {
             if let text = ShoppingListFiles.readText(from: url) {
@@ -239,6 +271,47 @@ struct ShoppingListDetailView: View {
         try? FileManager.default.removeItem(at: url)
         dismiss()
         onDelete?()
+    }
+
+    private func renameList() {
+        let sanitised = renameText
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "/", with: "-")
+        guard !sanitised.isEmpty, sanitised != listName else { return }
+
+        let folderURL = url.deletingLastPathComponent()
+        let newURL = folderURL.appendingPathComponent("\(sanitised).md")
+
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
+
+        if FileManager.default.fileExists(atPath: newURL.path) {
+            renameDuplicateError = true
+            showRenameAlert = true
+            return
+        }
+
+        var renamed = document
+        renamed.title = sanitised
+
+        do {
+            try renamed.renderMarkdown().write(to: newURL, atomically: true, encoding: .utf8)
+        } catch {
+            renameErrorMessage = "Could not write the renamed file."
+            showRenameError = true
+            return
+        }
+
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            renameErrorMessage = "The list was renamed but the old file could not be deleted."
+            showRenameError = true
+            return
+        }
+
+        dismiss()
+        onRename?(newURL)
     }
 }
 
