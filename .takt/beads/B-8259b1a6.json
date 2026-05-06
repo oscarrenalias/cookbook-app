@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
-  "dependencies": [],
+  "dependencies": [
+    "B-f5403aed",
+    "B-955af572"
+  ],
   "acceptance_criteria": [
     "`MealPlansTab` renders the new browser view using the configured recipes folder URL.",
     "List entry loading resolves plan files through `MealPlanFiles.discover(in:)`.",
