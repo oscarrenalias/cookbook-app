@@ -3,7 +3,7 @@
   "title": "Implement typed ShoppingListDocument mutations",
   "agent_type": "developer",
   "description": "Implement the typed mutation APIs on `ShoppingListDocument` for item insertion, update, toggle, removal, meal insertion, and aisle deletion with the locked-in aisle lifecycle behavior.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
   "dependencies": [
@@ -28,37 +28,46 @@
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All six mutation methods are implemented against structured fields. `addItem` uses case-insensitive aisle lookup and appends a new aisle when no match exists. `removeItem` now auto-prunes the aisle when its last item is removed. `addMealsEntry` is idempotent on exact string equality.",
+    "remaining": "No remaining work in this bead. Test coverage for the mutation APIs (including the auto-prune behavior) belongs to the tester bead.",
+    "risks": "The auto-prune behavior in `removeItem` is a behavior change from the prior stub (which kept empty aisles). Any view-layer code that expected an empty aisle to persist after all items are removed will need updating in its own bead.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Scheduler should schedule the tester bead for mutation coverage.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/*.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
+    "conflict_risks": "View-layer beads that call `removeItem` and then inspect the aisle list should account for auto-pruning \u2014 an aisle may no longer exist after the last item is removed.",
+    "design_decisions": "Auto-prune on `removeItem` matches the locked Key Design Decision in spec-855cd963. The aisle is removed in the same mutation call rather than lazily on render.",
+    "test_coverage_notes": "The auto-prune path (remove last item \u2192 aisle disappears) and the non-prune path (remove non-last item \u2192 aisle persists) both need unit test coverage in the tester bead.",
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "View-layer beads that call `removeItem` and then inspect the aisle list should account for auto-pruning \u2014 an aisle may no longer exist after the last item is removed.",
   "branch_name": "feature/b-265bdf43",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
-  "lease": {
-    "owner": "developer:B-5e7b1885",
-    "expires_at": "2026-05-06T08:03:18.064807+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +109,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-5e7b1885/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T07:35:38.494036+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Implemented auto-prune behavior in `removeItem`: after removing an item, the aisle is also removed if it becomes empty. All other mutations (`addItem`, `updateItem`, `toggle`, `deleteAisle`, `addMealsEntry`) were already correctly implemented in prior beads. Build passes cleanly.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +189,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Implemented auto-prune behavior in `removeItem`: after removing an item, the aisle is also removed if it becomes empty. All other mutations (`addItem`, `updateItem`, `toggle`, `deleteAisle`, `addMealsEntry`) were already correctly implemented in prior beads. Build passes cleanly.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.25758925,
+      "duration_ms": 135097,
+      "duration_api_ms": 116420,
+      "num_turns": 9,
+      "input_tokens": 9,
+      "output_tokens": 4179,
+      "cache_creation_tokens": 20502,
+      "cache_read_tokens": 155508,
+      "stop_reason": "end_turn",
+      "session_id": "07430140-6388-4ee8-9778-c73f32a13d6a",
+      "permission_denials": [],
+      "prompt_chars": 5814,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.25758925,
+        "duration_ms": 135097,
+        "duration_api_ms": 116420,
+        "num_turns": 9,
+        "input_tokens": 9,
+        "output_tokens": 4179,
+        "cache_creation_tokens": 20502,
+        "cache_read_tokens": 155508,
+        "stop_reason": "end_turn",
+        "session_id": "07430140-6388-4ee8-9778-c73f32a13d6a",
+        "permission_denials": [],
+        "prompt_chars": 5814,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "27197d2d8e232757a2a6d9a471060e0f7e3f2581"
   },
   "labels": [],
   "recovery_for": null,
