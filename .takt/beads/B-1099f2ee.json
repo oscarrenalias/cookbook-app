@@ -475,7 +475,11 @@
     "CookbookAppTests/MealPlansViewTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "docs/architecture.md",
+    "docs/roadmap.md",
+    "specs/done/meal-plans-tab.md",
+    "specs/planned/meal-plans-tab.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -694,7 +698,11 @@
     "CookbookAppTests/MealPlansViewTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "docs/architecture.md",
+    "docs/roadmap.md",
+    "specs/done/meal-plans-tab.md",
+    "specs/planned/meal-plans-tab.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
