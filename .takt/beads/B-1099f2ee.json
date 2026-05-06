@@ -238,7 +238,8 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
   ],
   "expected_globs": [
     "CookbookApp/MealPlans/*",
@@ -451,7 +452,8 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -658,7 +660,8 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -682,7 +685,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "The `MealPlanItemIndex` rename deviates from the spec's `ItemIndex` name. Any sibling bead that references `ItemIndex` for meal-plan use will need to use `MealPlanItemIndex`. No file-scope conflicts with other meal-plans beads since this bead owns MealPlan.swift exclusively.\nNo file-scope conflicts expected; MealPlanParser.swift is only modified in the parse() body and no sibling beads are known to touch this file.",
+  "conflict_risks": "The `MealPlanItemIndex` rename deviates from the spec's `ItemIndex` name. Any sibling bead that references `ItemIndex` for meal-plan use will need to use `MealPlanItemIndex`. No file-scope conflicts with other meal-plans beads since this bead owns MealPlan.swift exclusively.\nNo file-scope conflicts expected; MealPlanParser.swift is only modified in the parse() body and no sibling beads are known to touch this file.\nNo production code changed. Test file is the sole output. No conflict risk for downstream agents working in other files.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
