@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-722d9070",
+  "title": "Enhance AddItemSheet focus and last-used aisle defaults",
+  "agent_type": "developer",
+  "description": "Add auto-focus behavior to AddItemSheet and persist the last-picked aisle with SceneStorage so repeated item entry defaults to the prior aisle when it still exists in the current catalog.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "AddItemSheet uses FocusState so the item text field is focused when the sheet appears.",
+    "Opening AddItemSheet auto-summons keyboard focus reliably on supported sheet presentation paths.",
+    "AddItemSheet stores the last selected aisle name in SceneStorage when Add succeeds.",
+    "When a stored aisle still exists in catalog.aisles, the picker defaults to that aisle on open.",
+    "When there is no stored aisle or the stored aisle is absent from the current catalog, the sheet falls back to the existing default behavior without crashing.",
+    "The Other/default aisle path remains consistent when re-opening the sheet."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:05.402897+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
