@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-96ff40f2"
+  ],
   "acceptance_criteria": [
     "`MealPlanDetailView` removes the stub alert state and no longer presents the coming-soon message.",
     "Tapping the CTA opens a `New shopping list` alert with the meal plan name prefilled and create disabled for empty trimmed input.",
