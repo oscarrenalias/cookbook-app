@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
-  "dependencies": [],
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029"
+  ],
   "acceptance_criteria": [
     "`AddToShoppingListService.append(...)` and `.create(...)` log entry context and exit outcome, including relevant counts.",
     "Any helper write/orchestration path in `AddToShoppingListService` logs success or failure without changing control flow.",
