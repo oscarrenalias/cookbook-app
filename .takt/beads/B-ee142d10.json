@@ -242,6 +242,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "CookbookAppTests/AddToMealPlanServiceTests.swift",
     "CookbookAppTests/AddToMealPlanSheetTests.swift",
     "CookbookAppTests/RecipeBottomBarTests.swift",
@@ -249,6 +250,7 @@
     "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift"
   ],
   "expected_globs": [
+    "CookbookApp/MealPlans/*.swift",
     "CookbookAppTests/*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/*.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
@@ -469,6 +471,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "changed_files": [
@@ -687,6 +690,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "updated_docs": [],
@@ -711,7 +715,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.",
+  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
