@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-c5e225e0",
+  "title": "Shared documentation for meal-plan shopping list flow",
+  "agent_type": "documentation",
+  "description": "Document the new meal-plan to shopping-list flow, the generic scaling primitive, and any developer-facing notes needed to understand duplicate-name handling, provenance formatting, and sheet-based post-create navigation.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-a599b55b",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Documentation explains that meal plans can now generate shopping lists from the detail view.",
+    "Developer-facing notes capture the role of `Recipe.scaled(by:)` as the canonical arbitrary-factor scaling helper.",
+    "Documentation records the duplicate-name error behavior, provenance bullet format, and sheet-based `View` flow.",
+    "Any touched docs or inline code documentation remain consistent with the shipped behavior and scope boundaries."
+  ],
+  "linked_docs": [
+    "spec-0800a442"
+  ],
+  "feature_root_id": "B-a599b55b",
+  "execution_branch_name": "feature/b-a599b55b",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
+  "expected_files": [],
+  "expected_globs": [
+    "**/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T14:18:07.604322+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
