@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-36a590ee",
+    "B-bd0c0266"
+  ],
   "acceptance_criteria": [
     "Rendering order is `Title -> Notes -> Meals -> Aisles` with canonical blank-line handling.",
     "Aisle names are written exactly as stored and checklist items render with canonical `- [ ]` / `- [x]` formatting.",
