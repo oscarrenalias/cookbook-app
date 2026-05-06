@@ -277,9 +277,12 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/Loggers.swift",
+    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
     "CookbookAppTests/LoggersTests.swift"
   ],
-  "expected_globs": [],
+  "expected_globs": [
+    "CookbookApp/**/*.swift"
+  ],
   "touched_files": [
     ".takt/beads/.gitkeep",
     ".takt/beads/B-00f4e37d-corrective.json",
@@ -530,7 +533,8 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj/project.pbxproj",
-    "CookbookApp/Common/Loggers.swift"
+    "CookbookApp/Common/Loggers.swift",
+    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -782,7 +786,8 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj/project.pbxproj",
-    "CookbookApp/Common/Loggers.swift"
+    "CookbookApp/Common/Loggers.swift",
+    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -806,7 +811,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "The regenerated `project.pbxproj` may conflict with sibling beads that also regenerate the Xcode project. Sibling developer beads should coordinate on who runs XcodeGen last, or a single regeneration pass should occur after all source additions are done.",
+  "conflict_risks": "The regenerated `project.pbxproj` may conflict with sibling beads that also regenerate the Xcode project. Sibling developer beads should coordinate on who runs XcodeGen last, or a single regeneration pass should occur after all source additions are done.\nNone \u2014 only touched MealPlans/CreateShoppingListFromMealPlanService.swift, a file not claimed by any sibling bead.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
