@@ -557,7 +557,9 @@
     "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
     "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    "CookbookAppTests/LoggersTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -820,7 +822,9 @@
     "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
     "CookbookApp/ShoppingLists/AisleCatalog.swift",
     "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    "CookbookAppTests/LoggersTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
