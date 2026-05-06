@@ -491,7 +491,10 @@
     "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
+    "CookbookAppTests/CreateShoppingListFromMealPlanServiceTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/RecipeScalingTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -723,7 +726,10 @@
     "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/Recipes/RecipeScale.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
+    "CookbookAppTests/CreateShoppingListFromMealPlanServiceTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/RecipeScalingTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
