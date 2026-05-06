@@ -3,7 +3,7 @@
   "title": "Recipe detail entry-point wiring",
   "agent_type": "developer",
   "description": "Rename the bottom-bar action, remove the stub alert path, add the new callback, and present the meal-plan sheet from the recipe detail flow with the required recipe and scale context.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
   "dependencies": [
@@ -28,37 +28,51 @@
   "expected_globs": [
     "CookbookApp/Recipes/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "RecipeBottomBar: replaced showMenuAlert state and alert with onAddToMealPlan callback; renamed label; set disabled(recipe == nil). RecipeDetailSheet: added showAddToMealPlanSheet @State; updated RecipeBottomBar call with onAddToMealPlan and onAddToShoppingList labels; added .sheet(isPresented: $showAddToMealPlanSheet) presenting AddToMealPlanSheet with parsedRecipe, recipe (RecipeFile), currentScale, folderURL, and onSuccess toast handler.",
+    "remaining": "Nothing remaining for this bead.",
+    "risks": "No risks. Changes are confined to the two expected files and introduce no new dependencies beyond AddToMealPlanSheet (already built in B-37884968).",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify the button label, disabled state, and sheet presentation flow.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
+    "conflict_risks": "None \u2014 both files are leaf UI files not touched by sibling beads.",
+    "design_decisions": "onAddToMealPlan is a plain () -> Void callback matching the same pattern as onAddToShoppingList; no architectural change. The meal plan sheet guard on store.folderURL mirrors the shopping list sheet guard for consistency.",
+    "test_coverage_notes": "Button disabled state (recipe == nil vs has ingredients), callback invocation, and sheet presentation with correct recipe/scale context are the key test targets.",
+    "known_limitations": "SourceKit reports false-positive CookbookCore module errors in the worktree \u2014 these were pre-existing and do not affect compilation."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 both files are leaf UI files not touched by sibling beads.",
   "branch_name": "feature/b-3383c60d",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
-  "lease": {
-    "owner": "developer:B-12274fa7",
-    "expires_at": "2026-05-06T11:59:32.558812+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +114,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-12274fa7/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T11:31:02.604478+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Wired the recipe detail entry-point for Add to Meal Plan. RecipeBottomBar now has an onAddToMealPlan callback, uses the label \"Add to meal plan\" with the calendar symbol, disables only when recipe == nil, and removes the stub alert. RecipeDetailSheet owns showAddToMealPlanSheet state, passes the callback into the bar, and presents AddToMealPlanSheet with the parsed recipe, RecipeFile, and current scale.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +194,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Wired the recipe detail entry-point for Add to Meal Plan. RecipeBottomBar now has an onAddToMealPlan callback, uses the label \"Add to meal plan\" with the calendar symbol, disables only when recipe == nil, and removes the stub alert. RecipeDetailSheet owns showAddToMealPlanSheet state, passes the callback into the bar, and presents AddToMealPlanSheet with the parsed recipe, RecipeFile, and current scale.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.246924,
+      "duration_ms": 83984,
+      "duration_api_ms": 81133,
+      "num_turns": 13,
+      "input_tokens": 13,
+      "output_tokens": 5244,
+      "cache_creation_tokens": 21398,
+      "cache_read_tokens": 286245,
+      "stop_reason": "end_turn",
+      "session_id": "ef72b807-91fe-4439-87f4-0cb4267af09f",
+      "permission_denials": [],
+      "prompt_chars": 5837,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.246924,
+        "duration_ms": 83984,
+        "duration_api_ms": 81133,
+        "num_turns": 13,
+        "input_tokens": 13,
+        "output_tokens": 5244,
+        "cache_creation_tokens": 21398,
+        "cache_read_tokens": 286245,
+        "stop_reason": "end_turn",
+        "session_id": "ef72b807-91fe-4439-87f4-0cb4267af09f",
+        "permission_denials": [],
+        "prompt_chars": 5837,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "289770c0e7fd41e8262e41e42a4e118f4153edf3"
   },
   "labels": [],
   "recovery_for": null,
