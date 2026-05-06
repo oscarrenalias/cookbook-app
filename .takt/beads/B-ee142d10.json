@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-ee142d10",
+  "title": "Shared testing: add-to-meal-plan coverage and gate",
+  "agent_type": "tester",
+  "description": "Add the required CookbookCore and CookbookApp automated coverage for the new flow, regenerate the project if needed, and run the project test gate.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-3383c60d",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "CookbookCore mutation tests cover addItem placement, out-of-bounds no-op behavior, addBlock return/index semantics, duplicate headings, and round-trip parsing/serialisation expectations.",
+    "CookbookApp tests cover bottom-bar label/disabled behavior, sheet structure/loading state, and service behaviors for existing-plan add, new-plan creation, new-section creation, quantity rendering, and path encoding.",
+    "`xcodegen generate` and the relevant `xcodebuild test` gate have been run, with failures resolved or clearly reported."
+  ],
+  "linked_docs": [
+    "spec-2ca2e4f2"
+  ],
+  "feature_root_id": "B-3383c60d",
+  "execution_branch_name": "feature/b-3383c60d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift",
+    "CookbookAppTests/AddToMealPlanServiceTests.swift",
+    "CookbookAppTests/RecipeBottomBarTests.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+    "CookbookAppTests/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T11:05:12.796056+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
