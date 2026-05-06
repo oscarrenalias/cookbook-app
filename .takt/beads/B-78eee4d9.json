@@ -6,7 +6,19 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-36a590ee",
+    "B-bd0c0266",
+    "B-0ed77b55",
+    "B-5e7b1885",
+    "B-357ef996",
+    "B-7871ee84",
+    "B-f7f69190",
+    "B-227649ee",
+    "B-692930d9",
+    "B-913394d2",
+    "B-bf1bdb8b"
+  ],
   "acceptance_criteria": [
     "Review verifies the old regex-driven mutation path is fully removed and all shopping-list writes flow through the structured document model.",
     "Review checks the locked decisions in the spec are reflected in behavior, especially canonical render order, `Other` handling, `ItemIndex` usage, and aisle lifecycle.",
