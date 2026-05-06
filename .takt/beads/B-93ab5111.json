@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-93ab5111",
+  "title": "Build shopping-list edit item sheet with aisle reassignment",
+  "agent_type": "developer",
+  "description": "Replace the current edit-item alert flow with a sheet-based editor that mirrors AddItemSheet, pre-fills item text and aisle, auto-focuses the text field, disables Save for empty trimmed input, and performs the correct update vs remove-and-add mutation flow before persisting markdown.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Swipe-to-Edit presents a sheet with text field and aisle picker instead of a one-field alert.",
+    "The edit sheet pre-fills the current item text and current aisle from the document.",
+    "The text field auto-focuses when the sheet appears.",
+    "Save is disabled when the trimmed text is empty.",
+    "Same-aisle text edits call updateItem(at:newText:) and persist without unnecessary remove/add churn.",
+    "Aisle changes remove the old item first, add the edited item to the target aisle, and persist the rendered markdown.",
+    "Unchanged values are treated as a no-op or equivalent non-drifting save path."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
+    "CookbookApp/ShoppingLists/EditItemSheet.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/ShoppingLists/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:04.871064+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
