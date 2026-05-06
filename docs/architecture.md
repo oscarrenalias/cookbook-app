@@ -339,6 +339,14 @@ picker (removed in spec 0005).
 quantities unchanged and multiplies `.number` quantities by the scale factor,
 formatting the result without trailing zeros or a redundant decimal point.
 
+`RecipeScale.scaled(_:Recipe)` delegates to `recipe.scaled(by: factor)`.
+`Recipe.scaled(by:)` (in `CookbookCore`) is the canonical arbitrary-factor
+scaling primitive — it accepts any `Double` multiplier and returns a new
+`Recipe` with all numeric ingredient quantities multiplied. Text quantities
+(`"a pinch"`) are passed through unchanged. Both `RecipeScale` (fixed UI
+enum) and `CreateShoppingListFromMealPlanService` (computed servings ratio)
+call this method; no other scaling path exists.
+
 ### Sibling-image loading and security-scoped bookmark lifecycle
 
 `RecipeImageLoader` (`CookbookApp/Recipes/RecipeImageLoader.swift`) is a
@@ -678,8 +686,9 @@ list. Key layout choices:
 
 - **Header strip** (`.safeAreaInset(edge: .top)`): recipe count (`.subheadline`,
   `.secondary`) + a `.borderedProminent` capsule "Create shopping list" button.
-  The button is **stubbed in v1** to an alert "Coming in a future update". It is
-  disabled when the plan has no blocks.
+  Tapping the button opens a "New shopping list" alert pre-filled with the plan
+  name; the user can edit the name before confirming. The button is disabled
+  when the plan has no blocks. See "Meal plan → shopping list generation" below.
 - **`.searchable`** with prompt "Search recipes". Filters recipe items
   by display name; sections with no matching recipes are hidden. Text and
   ingredient items are not filtered.
@@ -704,10 +713,73 @@ by downstream specs without a new spec:
 - In-place editing of free-text lines or section names.
 - Reordering items or moving items between sections.
 - Auto-pruning empty sections after swipe-delete.
-- Real "Create shopping list from meal plan" generation.
 - Calendar / date binding — plans are date-agnostic; section names are
   freeform strings.
 - Plan title in YAML frontmatter — the filename is the title.
+
+### Meal plan → shopping list generation
+
+`CreateShoppingListFromMealPlanService` (`CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift`)
+is a caseless enum (namespace only) with one public entry point:
+
+```swift
+static func create(
+    planURL: URL,
+    named name: String,
+    recipesFolder: URL,
+    aisleConfig: AisleConfig?
+) throws -> URL
+```
+
+It writes the new list to `<recipesFolder>/shopping-lists/<sanitised-name>.md`
+and returns the output URL.
+
+**Sanitisation.** `name` is whitespace-trimmed and `/` is replaced with `-`
+before use as a filename. This matches the sanitisation applied in
+`MealPlanDetailView` before calling the service.
+
+**Duplicate-name guard.** If a file already exists at the output path,
+the service throws `CreateError.listAlreadyExists`. `MealPlanDetailView`
+catches this case, sets `createListError` to a human-readable message
+("A list named \"…\" already exists."), and re-presents the name input
+alert so the user can choose a different name. All other errors (read
+failures, write failures) are discarded silently in the view layer.
+
+**Scale factor calculation.** For each `.recipe` item in the plan, the
+service calls `scaleFactor(reference:recipe:)`:
+
+- If the plan item's quantity is a `.number` with `unit == "servings"` and
+  the recipe's metadata specifies at least one positive servings value,
+  the factor is `requestedServings / recipeServings`.
+- Otherwise the factor defaults to `1.0` (no scaling).
+
+The scaled recipe is obtained via `recipe.scaled(by: factor)` —
+`Recipe.scaled(by:)` is the sole scaling path used here. See the
+`RecipeScale` section above for the canonical definition.
+
+**Provenance bullet format.** For every recipe item processed, the service
+appends one bullet to the document's `## Meals` section:
+
+```
+**<block.heading>** — <displayName>
+```
+
+`displayName` is taken from the recipe's `title` metadata key if present;
+otherwise it falls back to the `.cook` filename without extension. Bullets
+are written in processing order (block order, then section order, then item
+order within each section).
+
+**Post-create sheet flow.** After a successful write, `MealPlanDetailView`
+presents a "Shopping list created" confirmation alert with two actions:
+
+| Button | Effect |
+|--------|--------|
+| **View** | Dismisses the alert and immediately presents `ShoppingListDetailView` for the new file in a `NavigationStack` modal sheet |
+| **OK** | Dismisses the alert; the user can navigate to the Shopping Lists tab to open it later |
+
+The sheet is presented via `@State private var showCreatedSheet` and receives
+`createdListURL` as its data source. The modal sheet includes a "Done" toolbar
+button (`.confirmationAction` placement) that dismisses it.
 
 ### Visual aspects — manual review required
 
