@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-227649ee",
+    "B-7871ee84"
+  ],
   "acceptance_criteria": [
     "The old `ShoppingList.swift` text-backed model is deleted or fully retired from active use.",
     "`ShoppingListAisleGrouper`, `ShoppingListHeaderExtractor`, and `ShoppingListLineFormatter` are deleted with call sites migrated.",
