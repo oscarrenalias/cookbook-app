@@ -94,6 +94,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T10:20:52.507342+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-23be0e85/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-23be0e85/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -110,7 +119,67 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-23be0e85/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-23be0e85/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T10:20:52.507321+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-23be0e85",
+      "feature_root_id": "B-920f3e84",
+      "title": "Add app-level meal-plan file and view tests",
+      "agent_type": "developer",
+      "description": "Add Swift Testing coverage for meal-plan file helpers, list/create behaviour, detail rendering, CTA stubbing, and swipe-delete persistence.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`MealPlanFilesTests` covers subfolder creation, discovery filtering/sorting, and display name stripping.",
+        "`MealPlansViewTests` covers card rendering, create-plan flow, and duplicate-name handling.",
+        "`MealPlanDetailViewTests` or equivalent covers block rendering, row-type rendering, CTA alert behaviour, and swipe-delete file updates.",
+        "Project test sources are available to the generated Xcode project after running `xcodegen generate`."
+      ],
+      "dependencies": [
+        "B-955af572",
+        "B-a5fb654d",
+        "B-5cfc1194",
+        "B-4e264740"
+      ],
+      "linked_docs": [
+        "spec-d7a891ba",
+        "specs/drafts/meal-plans-tab.md"
+      ],
+      "execution_branch_name": "feature/b-920f3e84",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+      "expected_files": [
+        "CookbookAppTests/MealPlanFilesTests.swift",
+        "CookbookAppTests/MealPlansViewTests.swift",
+        "CookbookAppTests/MealPlanDetailViewTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
