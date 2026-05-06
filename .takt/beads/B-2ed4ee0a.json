@@ -253,6 +253,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/RecipeScale.swift",
     "CookbookAppTests/CreateShoppingListFromMealPlanServiceTests.swift",
     "CookbookAppTests/MealPlanDetailViewTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
@@ -489,6 +490,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/RecipeScale.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
   ],
   "changed_files": [
@@ -718,6 +720,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/RecipeScale.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
   ],
   "updated_docs": [],
@@ -742,7 +745,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None. Only Recipe.swift was modified; no overlap with sibling beads expected.",
+  "conflict_risks": "None. Only Recipe.swift was modified; no overlap with sibling beads expected.\nNone. Only `RecipeScale.swift` was modified. No sibling beads touch this file.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
