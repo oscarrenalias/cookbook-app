@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-9f781e0d",
+  "title": "Regenerate Xcode project entries for new test/view files",
+  "agent_type": "developer",
+  "description": "Update generated project files after adding any new source or test files required by the feature, using the repo's xcodegen workflow so the new files are included in builds and tests.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Any newly added Swift source or test files for this feature are included in the generated Xcode project.",
+    "xcodegen generate has been run after file additions.",
+    "Project generation changes are limited to expected generated artifacts."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [],
+  "expected_globs": [
+    "project.yml",
+    "*.xcodeproj/**"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:05.731405+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
