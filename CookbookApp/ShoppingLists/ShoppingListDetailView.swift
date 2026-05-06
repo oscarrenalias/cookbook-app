@@ -16,6 +16,13 @@ struct ShoppingListDetailView: View {
 
     private var listName: String { ShoppingListFiles.displayName(for: url) }
 
+    private var addSheetDocBinding: Binding<ShoppingListDocument> {
+        Binding(
+            get: { ShoppingListDocument(markdown: list.text) },
+            set: { _ in }
+        )
+    }
+
     private var headerStorageKey: String {
         "shoppingList.header.expanded.\(url.lastPathComponent)"
     }
@@ -75,8 +82,8 @@ struct ShoppingListDetailView: View {
             }
         }
         .sheet(isPresented: $showAddSheet) {
-            AddItemSheet(list: $list, catalog: catalog) { updated in
-                list = updated
+            AddItemSheet(document: addSheetDocBinding, catalog: catalog) { updated in
+                list = ShoppingList(updated.renderMarkdown())
                 save()
             }
         }

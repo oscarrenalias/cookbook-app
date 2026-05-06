@@ -22,9 +22,9 @@ struct ShoppingListViewTests {
     }
 
     @Test func addItemSheetInstantiatesWithCatalogAndList() {
-        var list = ShoppingList("# Weekend BBQ\n")
+        var document = ShoppingListDocument(title: "Weekend BBQ")
         let catalog = AisleCatalog()
-        _ = AddItemSheet(list: .constant(list), catalog: catalog) { _ in }
+        _ = AddItemSheet(document: .constant(document), catalog: catalog) { _ in }
     }
 
     @Test func addItemSheetIsAddEnabledRequiresCatalogLoaded() throws {
