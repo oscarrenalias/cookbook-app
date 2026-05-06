@@ -3,7 +3,7 @@
   "title": "Drop flat-vs-aisle detection from AddToShoppingListService",
   "agent_type": "developer",
   "description": "Fixes a real-use defect found after the feature run. The original spec defined a flat-vs-aisle detection rule that returned 'flat' for empty/new lists (because they have no '## ' heading whose section contains a checklist item). This caused recipe-add on a fresh list to produce flat output with meal bullets interleaved between checklist items rather than the intended aisle-grouped output with all meal bullets at the top under '## Meals'.\n\nThe spec at specs/planned/add-to-shopping-list-from-recipe.md has been revised to remove the detection rule entirely. Both existing-list and new-list flows now always use aisle-aware appending. See in particular sections 'Append flow (existing list)' (step 6), 'Append flow (create new list)' (step 5), and the 'Edge cases' / 'Tests' sections.\n\nWhat to change in code:\n- CookbookApp/ShoppingLists/AddToShoppingListService.swift: remove the conditional that selected between flat and aisle-aware append. Always use aisle-aware append: appendItem(_:toAisle:) for non-nil aisle names, appendItem(_:) for the nil 'Other' bucket. Order of operations stays the same: read file, appendMealsBullet first (idempotent provenance bullet under ## Meals at the top), then iterate aggregated.aisles in their natural order, then within each aisle iterate items in order, calling the appropriate appendItem variant per item.\n- CookbookAppTests/AddToShoppingListServiceTests.swift: drop any 'existing flat list, flat append' test. Replace with the test described in the spec's 'Tests' section under 'AddToShoppingListServiceTests': 'Existing list with hand-written flat items, items still go to aisle sections.' Also retain the 'Existing aisle-grouped list' test, 'Create-new flow' test, 'No aisle.conf' test, and 'Recipe scale applied' test, refreshing any of them where the language references the dropped detection rule.\n- Run xcodegen generate in the worktree before xcodebuild to pick up any test-file additions.\n- Verify build clean and all tests green.\n\nDo not change CookbookCore. Do not change ShoppingListLineFormatter, AisleCatalog, RecipeScale, or the header view/extractor. The fix is localized to the service and its tests.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-27e1396e",
   "dependencies": [],
@@ -50,9 +50,12 @@
   },
   "block_reason": "",
   "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-27e1396e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "lease": {
+    "owner": "developer:B-c3d0164a",
+    "expires_at": "2026-05-06T06:17:54.023427+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -61,9 +64,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T05:47:54.349578+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T05:47:54.349601+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c3d0164a",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c3d0164a/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": "high"
