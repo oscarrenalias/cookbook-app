@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-34268e60",
+  "title": "Add CookbookCore meal-plan parser and mutation coverage",
+  "agent_type": "developer",
+  "description": "Expand CookbookCore tests to cover free-text parsing, empty-line dropping, serialisation fixed points, and `removeItem(at:)` semantics.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Tests cover parsing free-text lines into `.text` while preserving section names.",
+    "Tests cover dropping blank lines from section items.",
+    "Tests cover serialising and reparsing `.text` items and a real fixture fixed point.",
+    "Tests cover item deletion, empty-section preservation, and out-of-bounds no-op behaviour."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "docs/examples/meal-plan.menu"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:45.883399+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
