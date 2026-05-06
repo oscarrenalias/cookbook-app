@@ -878,3 +878,71 @@ already exists.
 - Quantity stored when adding to an existing plan or block.
 - Displaying plan item counts or dates in the picker sheet.
 - Multi-recipe or batch addition.
+
+## Logging instrumentation
+
+All structured logging uses Apple's `os.Logger` API via the `Loggers` enum in
+`CookbookApp/Common/Loggers.swift`. The subsystem is `com.cookbookapp` across
+all categories.
+
+### Logger categories
+
+| Category | Logger | Used by |
+|----------|--------|---------|
+| `shoppingLists` | `Loggers.shoppingLists` | `ShoppingListFiles`, `AddToShoppingListService`, `AddItemSheet`, `AddToShoppingListSheet` |
+| `mealPlans` | `Loggers.mealPlans` | `MealPlanFiles`, `AddToMealPlanService`, `CreateShoppingListFromMealPlanService`, `MealPlanDetailView` |
+| `aisleCatalog` | `Loggers.aisleCatalog` | `AisleCatalog` |
+| `recipes` | `Loggers.recipes` | `RecipeDiscovery` |
+| `common` | `Loggers.common` | Reserved; unused in this instrumentation pass |
+
+### File coverage by subsystem
+
+**Shopping lists**
+
+| File | Log points |
+|------|------------|
+| `ShoppingListFiles` | Entry/exit for `shoppingListsURL`, `discover`, `readText`, `writeText`; byte counts on read/write |
+| `AddToShoppingListService` | Entry/exit for `append` and `create`; warnings on `readFailed`, `writeFailed`, `listAlreadyExists` |
+| `AddItemSheet` | `onAppear` (list title) and `handleAdd` (item text, aisle) |
+| `AddToShoppingListSheet` | `onAppear` (recipe name), `loadLists` (count), `appendToExisting` (entry/exit/errors), `handleCreate` (entry/exit/errors) |
+
+**Meal plans**
+
+| File | Log points |
+|------|------------|
+| `MealPlanFiles` | Entry/exit for `plansURL`, `discover`, `readText`, `writeText`; byte counts on read/write |
+| `AddToMealPlanService` | Entry/exit for `addToBlock`, `addNewBlock`, `createNewPlan`; warnings on `readFailed`, `pathResolutionFailed`, `writeFailed`, `duplicatePlan` |
+| `CreateShoppingListFromMealPlanService` | Entry/exit for `create`; per-recipe load success/skip; warnings on `listAlreadyExists`, `readPlanFailed`, `writeFailed` |
+| `MealPlanDetailView` | Entry/exit for `loadPlan`; block and recipe resolution counts |
+
+**Aisle catalog**
+
+| File | Log points |
+|------|------------|
+| `AisleCatalog` | Entry to `load`; config-not-found (defaults used); parse-failed/empty (defaults used); successful load with section count |
+
+**Recipes**
+
+| File | Log points |
+|------|------------|
+| `RecipeDiscovery` | Entry to `scan`; directory-read failure; exit with section and recipe counts |
+
+**Not instrumented**
+
+- `ShoppingListDocument` (in `CookbookCore`) — a pure model/parsing type in the framework layer; it must not take a dependency on an app-level logger.
+- `EditItemSheet` — this file does not exist in the worktree. It appeared in the spec's expected globs as an optional candidate but was never created; no logging was added.
+
+### Privacy convention
+
+All log values follow a single rule: **paths and user-visible names are `.public`; file content is never logged.**
+
+Concretely:
+
+- **`.public`:** file names (`url.lastPathComponent`), folder paths (`folderURL.path`), recipe names, list names, plan names, aisle names, item text (in UI sheets only), error descriptions (`error.localizedDescription`).
+- **Never logged:** raw file content (markdown text, cooklang source), ingredient quantities, recipe ingredient lists. Byte counts (`text.utf8.count`) are used instead of content in read/write log lines.
+
+This convention ensures logs are useful for diagnosing file access and service failures without capturing recipe content or shopping-list data that could be considered private.
+
+### Viewing logs
+
+Instrument CLI or Console.app. Filter by subsystem `com.cookbookapp` and use the category as a secondary filter. All log points are at `.debug` level unless an error occurs (`.warning` for all recoverable failures).
