@@ -5,7 +5,7 @@ description: "Replace the opaque-text ShoppingList model from spec 0006 with a s
 dependencies: null
 priority: high
 complexity: high
-status: planned
+status: done
 tags:
 - cookbookcore
 - shopping-lists

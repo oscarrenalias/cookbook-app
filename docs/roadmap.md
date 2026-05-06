@@ -164,61 +164,86 @@ off, delete items, delete lists.
 **Unlocks:** ad-hoc shopping list use; the minimum-viable shopping
 flow with no meal-plan or recipe dependency.
 
-### 0008 — Shopping Lists polish: capitalisation, picker order, subfolder 📝
+### 0008 — Shopping Lists polish: capitalisation, picker order, subfolder ✅
 
-`spec-3539998b`. **Depends on:** 0007.
+`spec-3539998b`. **Depended on:** 0007.
 
 Three small follow-ups against 0007 that surfaced during first
 real-use testing:
 
 - **Capitalise aisle section headings** in the detail view via
-  `.localizedCapitalized` (the spec called for sentence case but the
-  implementation rendered raw `aisle.conf` lowercase).
+  `.localizedCapitalized`.
 - **Sort the aisle picker alphabetically** in the add-item sheet so
   finding an aisle in a 20-entry list is easy.
 - **Move shopping lists into a `<folder>/shopping-lists/` subfolder**
-  so they don't pollute the recipes folder root (which on a real
-  device is a cloned git repo of recipes — `README.md`, `CLAUDE.md`,
-  etc. were being picked up as shopping lists).
-
-Pure quality-of-life polish; no CookbookCore changes.
+  so they don't pollute the recipes folder root.
 
 **Unlocks:** a clean recipes folder layout that is friendly to git
 repos of recipes; aisle picker that scales to many aisles.
 
-### Ingredient aggregation 🔜
+### Ingredient aggregation ✅
 
-**Depends on:** 0001, 0006.
+`spec-3cc80e55`. **Depended on:** 0001, 0006.
 
-Adds `ShoppingList.aggregate(recipes:aisle:)` (or equivalent) to
-`CookbookCore`. Given N recipes and an optional `AisleConfig` (both
-types from 0006), returns a flattened, deduplicated list with
-quantities summed per canonical ingredient name and grouped by aisle
-section. Pure logic, fully testable via `swift test`. No UI. Used by
-the add-to-shopping flow and (later) the meal-plan→shopping-list flow.
+Pure-data CookbookCore extension:
+`AggregatedShoppingList.aggregate(recipes:aisleConfig:)`. Given N
+recipes and an optional `AisleConfig`, returns a flattened,
+deduplicated, aisle-grouped summary. Same-unit numerics sum;
+mismatched units stay as separate quantities under the same item.
+No unit conversion. Pure logic, `swift test`-only.
 
 **Unlocks:** smart shopping-list generation from any recipe set.
 
-### "Add to shopping list" flow from a recipe 🔜
+### "Add to shopping list" flow from a recipe ✅
 
-**Depends on:** 0004, 0007, *Ingredient aggregation*.
+`spec-4e3e388a`. **Depended on:** 0004, 0007, *Ingredient
+aggregation*.
 
 Recipe-detail "Add to shopping list" button presents a sheet listing
-existing shopping lists plus a "Create new…" row. Selecting either
-aggregates this recipe's ingredients into that list. New rows are
-appended via `ShoppingList.appendItem(_:)` with formatting this spec
-chooses — typically italicised quantities so the resulting markdown
-looks consistent with manually-curated lists.
+existing shopping lists + a "Create new…" row. Selecting either
+scales the recipe by the current detail-view scale, aggregates,
+appends one provenance bullet to `## Meals`, then appends each item
+under its aisle's `## <aisle>` section (creating sections on demand).
+A leading collapsible "Notes / Meals" header area was added to the
+detail view so provenance is visible.
 
-The MARKDOWN STRUCTURE this spec produces (italicised quantities,
-optional aisle headers when aisle.conf is present) is a write-time
-presentation choice made by this spec — not something CookbookCore
-parses. The 0007 detail view treats the file as ordinary markdown
-with toggleable items regardless of who wrote it.
+**Unlocks:** the recipe → shopping list flow. After this landed, the
+shopping domain was complete for recipe-driven use.
 
-**Unlocks:** the recipe → shopping list flow. After this spec lands,
-the shopping domain is complete for recipe-driven use; meal plans
-become optional convenience.
+### Shopping list structured-model rewrite ✅
+
+`spec-855cd963`. **Depended on:** *all of the above shopping specs*.
+
+Architecture cleanup: replaced the opaque-text `ShoppingList` model
+from 0006 with a structured `ShoppingListDocument` (title / notes /
+meals / aisles[*].items). Mutations operate on typed data; markdown
+is parsed in / rendered out at the I/O boundary. Eliminated the
+regex-driven text-editing that produced every shopping-list bug
+we'd shipped (flat-vs-aisle detection, meals placement, "Other"
+attribution). Vanilla markdown on disk, no app-specific markers;
+round-trip is semantic, not byte-identical. Deleted the
+`ShoppingListAisleGrouper`, `ShoppingListLineFormatter`, and
+`ShoppingListHeaderExtractor` helpers (their concerns absorbed into
+the document model).
+
+**Unlocks:** future shopping-list features can mutate typed data
+instead of text. First downstream beneficiary: the user-editable
+Notes spec below.
+
+### Shopping list user-editable notes 📝
+
+`spec-14771ea4`. **Depends on:** *Structured-model rewrite*.
+
+Per-list `## Notes` block, user-editable in-app via a pencil
+affordance on the leading Notes section (or via the detail-view ⋯
+menu when notes are empty). Replaces the structured rewrite's
+`notes: [Block]` preservation field with a `notes: String`. The
+parser now recognises exactly four block kinds (title, Notes,
+Meals, aisles); unmodelled free text is dropped on save.
+
+**Unlocks:** quick in-app annotation of shopping lists (store
+reminders, party context, anything that doesn't belong as a
+checklist item).
 
 ---
 
@@ -305,6 +330,26 @@ the layout.
 
 ---
 
+## Collector specs
+
+These open-ended specs accumulate small items that don't warrant
+individual specs. They get planned and run when the inventory reaches
+useful size or something on the list becomes blocking.
+
+### Shopping lists follow-up tweaks 📝
+
+`spec-d0e796fa`. Small fine-tunings to the Shopping Lists tab
+surfaced during real-use testing of 0007 / 0008. Currently seeded
+with: edit-item flow should allow changing the aisle.
+
+### Tech debt 📝
+
+`spec-1957fe45`. Developer / maintainer-experience improvements
+that don't change user-visible behaviour. Currently seeded with:
+replace ad-hoc `print()` debugging with `os.Logger`.
+
+---
+
 ## Notes on this roadmap
 
 - **Order is a suggestion, not a contract.** Within a layer, specs can
@@ -318,11 +363,18 @@ the layout.
   `swift test` inner loop, with no inter-dependencies in code.
 - **Recipe images live in 0003**, not 0002 — see `docs/architecture.md`
   "Recipe thumbnails" for the convention.
-- **0004, 0005, 0006, 0007 are complete** — see `specs/done/` for their
-  full specs.
-- **0008 is the first polish spec since 0005**, surfaced from real-use
-  testing of 0007 on a physical device against a Working Copy git
-  repo of recipes.
+- **The shopping-list domain is now complete end-to-end:** 0007
+  (ad-hoc tab), 0008 (polish), Ingredient aggregation, Add-to-
+  shopping flow, and the Structured-model rewrite have all landed.
+  `specs/done/` has the full set.
+- **0008 was the first polish spec since 0005**, surfaced from
+  real-use testing of 0007 on a physical device against a Working
+  Copy git repo of recipes.
+- **The Structured-model rewrite was an architecture course-correction**
+  prompted by recurring bugs in the text-based ShoppingList model from
+  0006. Those bugs (flat-vs-aisle detection, meals placement, Other
+  attribution) all dissolved when items, aisles, and provenance moved
+  from line offsets in a string into typed fields on a document.
 - **New specs from 0008 onward drop the numeric prefix.** Numbers
   conflated two unrelated things: filename uniqueness (already
   handled by the `spec-XXXXXXXX` ID) and roadmap ordering (which
