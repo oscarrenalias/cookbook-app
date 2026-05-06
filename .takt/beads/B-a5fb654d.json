@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
-  "dependencies": [],
+  "dependencies": [
+    "B-955af572",
+    "B-8259b1a6"
+  ],
   "acceptance_criteria": [
     "Meal plans render as searchable card rows mirroring the shopping-list list pattern.",
     "The no-plans and no-search-matches empty states match the spec copy and keep the FAB visible when appropriate.",
