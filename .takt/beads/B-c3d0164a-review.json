@@ -25,11 +25,13 @@
   "expected_globs": [],
   "touched_files": [
     "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
-    "CookbookAppTests/AddToShoppingListServiceTests.swift"
+    "CookbookAppTests/AddToShoppingListServiceTests.swift",
+    "specs/planned/add-to-shopping-list-from-recipe.md"
   ],
   "changed_files": [
     "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
-    "CookbookAppTests/AddToShoppingListServiceTests.swift"
+    "CookbookAppTests/AddToShoppingListServiceTests.swift",
+    "specs/planned/add-to-shopping-list-from-recipe.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
