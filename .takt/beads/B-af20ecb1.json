@@ -263,6 +263,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
@@ -274,6 +275,7 @@
   ],
   "expected_globs": [
     "CookbookApp/ShoppingLists/*.swift",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookAppTests/*.swift"
   ],
   "touched_files": [
@@ -513,6 +515,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
@@ -755,6 +758,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
@@ -782,7 +786,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 only files within CookbookApp/ShoppingLists/ were modified. No shared utilities or models were changed.\nNo conflicts expected \u2014 only ShoppingListDetailView.swift and ShoppingListsView.swift were modified, neither overlapping with any sibling bead's known file scope.",
+  "conflict_risks": "None \u2014 only files within CookbookApp/ShoppingLists/ were modified. No shared utilities or models were changed.\nNo conflicts expected \u2014 only ShoppingListDetailView.swift and ShoppingListsView.swift were modified, neither overlapping with any sibling bead's known file scope.\nNone \u2014 changes are self-contained to AddItemSheet.swift with no shared state beyond the SceneStorage key.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
