@@ -88,6 +88,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T14:22:22.906763+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-398593a7/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-398593a7/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -104,7 +113,61 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-398593a7/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-398593a7/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T14:22:22.906744+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-398593a7",
+      "feature_root_id": "B-a599b55b",
+      "title": "Create meal-plan shopping list generation service",
+      "agent_type": "developer",
+      "description": "Add `CreateShoppingListFromMealPlanService` to load meal plans, resolve referenced recipes, tolerate per-recipe read/parse failures, compute scaling factors, and aggregate scaled recipes with existing aisle infrastructure.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift` defines the requested service and `CreateError` cases.",
+        "The service reads the meal plan through existing helpers, resolves recipe references, parses recipes, and skips failed recipe loads with logging.",
+        "Scaling factor uses plan-reference servings divided by recipe metadata servings, defaulting to `1.0` when either side is unavailable or non-serving based.",
+        "The service calls `AggregatedShoppingList.aggregate(recipes:aisleConfig:)` with scaled recipes and existing aisle configuration."
+      ],
+      "dependencies": [
+        "B-242ce981"
+      ],
+      "linked_docs": [
+        "spec-0800a442"
+      ],
+      "execution_branch_name": "feature/b-a599b55b",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
+      "expected_files": [
+        "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
