@@ -1,0 +1,71 @@
+{
+  "bead_id": "B-dfa4291c",
+  "title": "Instrument meal plan file and mutation services",
+  "agent_type": "developer",
+  "description": "Add structured debug logs to meal-plan file IO and the add/create mutation services, mirroring the shopping-list file patterns and including recipe/plan/serving context for service entry and exit.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-148e9ad9",
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029"
+  ],
+  "acceptance_criteria": [
+    "`MealPlanFiles.discover(in:)`, `readText`, `writeText`, and `plansURL(in:)` log the same boundary information pattern required for shopping lists.",
+    "`AddToMealPlanService.addToBlock`, `addNewBlock`, and `createNewPlan` log entry context including recipe URL, plan URL, servings, and scale factor where applicable.",
+    "The meal-plan service exits log success or error outcomes without introducing behavior changes."
+  ],
+  "linked_docs": [
+    "spec-1957fe45"
+  ],
+  "feature_root_id": "B-148e9ad9",
+  "execution_branch_name": "feature/b-148e9ad9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-148e9ad9",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanFiles.swift",
+    "CookbookApp/MealPlans/AddToMealPlanService.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:40:53.039354+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
