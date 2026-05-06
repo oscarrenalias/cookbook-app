@@ -6,7 +6,16 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-242ce981",
+    "B-e015e412",
+    "B-398593a7",
+    "B-96ff40f2",
+    "B-b947299f",
+    "B-fe603be6",
+    "B-2ed4ee0a",
+    "B-c5e225e0"
+  ],
   "acceptance_criteria": [
     "Review verifies the implementation stays orchestration-focused and does not reimplement existing aggregation, rendering, or file I/O helpers.",
     "Review checks locked UX decisions: default name, duplicate-name retry, provenance format, modal View flow, and out-of-scope exclusions.",
