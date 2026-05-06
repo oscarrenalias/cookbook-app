@@ -5,7 +5,7 @@ description: "Wire the recipe-detail bottom-bar 'Add to shopping list' button (c
 dependencies: null
 priority: high
 complexity: medium
-status: planned
+status: done
 tags:
 - ui
 - swiftui

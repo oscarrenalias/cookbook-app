@@ -11,6 +11,14 @@ struct AisleCatalogTests {
         return dir
     }
 
+    /// Writes `text` to `<dir>/config/aisle.conf`, creating the `config` subdirectory if needed.
+    /// Mirrors the production convention enforced by `AisleCatalog.load(from:)`.
+    private func writeAisleConf(_ text: String, in dir: URL) throws {
+        let configDir = dir.appendingPathComponent("config", isDirectory: true)
+        try FileManager.default.createDirectory(at: configDir, withIntermediateDirectories: true)
+        try text.write(to: configDir.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8)
+    }
+
     @Test func isLoadedFalseBeforeLoad() {
         let catalog = AisleCatalog()
         #expect(catalog.isLoaded == false)
@@ -22,7 +30,7 @@ struct AisleCatalogTests {
         defer { try? FileManager.default.removeItem(at: dir) }
 
         let confText = "[produce]\ncarrot\n\n[dairy]\nmilk\n"
-        try confText.write(to: dir.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8)
+        try writeAisleConf(confText, in: dir)
 
         let catalog = AisleCatalog()
         catalog.load(from: dir)
@@ -47,7 +55,7 @@ struct AisleCatalogTests {
         defer { try? FileManager.default.removeItem(at: dir) }
 
         let confText = "-- just a comment\n"
-        try confText.write(to: dir.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8)
+        try writeAisleConf(confText, in: dir)
 
         let catalog = AisleCatalog()
         catalog.load(from: dir)
@@ -64,6 +72,7 @@ struct AisleCatalogTests {
         catalog.load(from: dir)
 
         #expect(catalog.config == nil)
+        #expect(catalog.rawText == nil)
     }
 
     @Test func loadFromValidAisleConfPopulatesConfig() throws {
@@ -71,13 +80,14 @@ struct AisleCatalogTests {
         defer { try? FileManager.default.removeItem(at: dir) }
 
         let confText = "[produce]\ncarrot\n\n[dairy]\nmilk\n"
-        try confText.write(to: dir.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8)
+        try writeAisleConf(confText, in: dir)
 
         let catalog = AisleCatalog()
         catalog.load(from: dir)
 
         #expect(catalog.config != nil)
         #expect(catalog.config?.sections.map(\.name) == ["produce", "dairy"])
+        #expect(catalog.rawText == confText)
     }
 
     @Test func reloadReplacesPreviousCache() throws {
@@ -88,12 +98,8 @@ struct AisleCatalogTests {
             try? FileManager.default.removeItem(at: dir2)
         }
 
-        try "[produce]\ncarrot\n".write(
-            to: dir1.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8
-        )
-        try "[dairy]\nmilk\n".write(
-            to: dir2.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8
-        )
+        try writeAisleConf("[produce]\ncarrot\n", in: dir1)
+        try writeAisleConf("[dairy]\nmilk\n", in: dir2)
 
         let catalog = AisleCatalog()
         catalog.load(from: dir1)

@@ -13,10 +13,11 @@ final class AisleCatalog {
 
     private(set) var aisles: [String] = []
     private(set) var config: AisleConfig?
+    private(set) var rawText: String?
     private(set) var isLoaded: Bool = false
 
     func load(from folderURL: URL) {
-        let confURL = folderURL.appendingPathComponent("aisle.conf")
+        let confURL = folderURL.appendingPathComponent("config/aisle.conf")
 
         let didStart = folderURL.startAccessingSecurityScopedResource()
         defer {
@@ -27,6 +28,7 @@ final class AisleCatalog {
 
         guard let text = try? String(contentsOf: confURL, encoding: .utf8) else {
             config = nil
+            rawText = nil
             aisles = Self.defaultAisles
             isLoaded = true
             return
@@ -34,6 +36,7 @@ final class AisleCatalog {
 
         let parsed = AisleConfigParser.parse(text)
         config = parsed
+        rawText = text
         let sections = config?.sections ?? []
         aisles = sections.isEmpty ? Self.defaultAisles : sections.map { $0.name }
         isLoaded = true

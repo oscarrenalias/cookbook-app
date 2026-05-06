@@ -54,11 +54,12 @@ struct AddItemSheet: View {
         let trimmed = itemText.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
         var updated = list
-        if let aisle = selectedAisle {
-            updated.appendItem(trimmed, toAisle: aisle)
-        } else {
-            updated.appendItem(trimmed)
-        }
+        // "Other" picker selection writes under an explicit `## Other` heading
+        // so the aisle grouper doesn't visually attach the item to the previous
+        // aisle. Case-insensitive match in the CookbookCore mutation collapses
+        // this with any `[other]` section the user has in aisle.conf.
+        let aisleName = selectedAisle ?? "Other"
+        updated.appendItem(trimmed, toAisle: aisleName)
         onSave(updated)
         dismiss()
     }

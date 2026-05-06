@@ -77,13 +77,13 @@ enum AddToShoppingListService {
         to list: inout ShoppingList
     ) {
         for aisle in aggregated.aisles {
+            // The aggregator's nil bucket means "no aisle.conf match" — render
+            // under an explicit `## Other` heading so items don't visually
+            // attach to whichever aisle ends up last in the file.
+            let aisleName = aisle.name ?? "Other"
             for item in aisle.items {
                 let line = ShoppingListLineFormatter.format(item)
-                if let aisleName = aisle.name {
-                    list.appendItem(line, toAisle: aisleName)
-                } else {
-                    list.appendItem(line)
-                }
+                list.appendItem(line, toAisle: aisleName)
             }
         }
     }
