@@ -3,7 +3,7 @@
   "title": "AddToMealPlanSheet: hierarchical list shell",
   "agent_type": "developer",
   "description": "Build the new sheet view structure with NavigationStack, loading state, cancel toolbar, create-new-plan row, per-plan sections, block rows, and inline add-new-section rows.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
   "dependencies": [],
@@ -25,37 +25,46 @@
   "expected_globs": [
     "CookbookApp/MealPlans/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Implemented `CookbookApp/MealPlans/AddToMealPlanSheet.swift` with: NavigationStack wrapping a Group, loading state (ProgressView + \"Loading meal plans\u2026\" text) until `.task` discovery settles, loaded state with a List containing a top \"Create new plan\u2026\" row (plus.circle.fill), ForEach sections per discovered plan with block-heading rows and an \"Add new section\u2026\" row, Cancel toolbar button, three alert flows for create-new-plan / add-section / error, and delegation to existing `AddToMealPlanService` methods. xcodegen run and `BUILD SUCCEEDED` confirmed.",
+    "remaining": "Downstream beads still needed: wire `RecipeBottomBar` / `RecipeDetailSheet` to present this sheet (rename \"Add to menu\" \u2192 \"Add to meal plan\", add `onAddToMealPlan` callback, add `showAddToMealPlanSheet` state). Tests for the sheet structure and service.",
+    "risks": "The sheet passes `folderURL` as both `recipesFolder` and `folderURL` to `AddToMealPlanService`; this matches the shopping-list pattern but requires the caller to supply the recipes root folder. `addToBlock` / `addNewBlock` service methods do not persist quantity (servings \u00d7 scale) \u2014 only `createNewPlan` does; this is a service-layer gap outside this bead's scope.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/MealPlans/AddToMealPlanSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Wire `RecipeBottomBar` and `RecipeDetailSheet` to present `AddToMealPlanSheet`, rename \"Add to menu\" \u2192 \"Add to meal plan\", add `onAddToMealPlan` callback.",
+    "next_agent": "developer",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/MealPlans/AddToMealPlanSheet.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/MealPlans/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/MealPlans/AddToMealPlanSheet.swift"
+    ],
+    "conflict_risks": "No file-scope conflicts expected. Downstream beads modifying `RecipeBottomBar.swift` and `RecipeDetailSheet.swift` are additive changes to files not touched here.",
+    "design_decisions": "Plans are discovered and parsed synchronously in `.task` since `MealPlanFiles.discover` + `MealPlanParser.parse` are fast local file ops. `PlanEntry` is a private struct holding `url` + parsed `MealPlan` to avoid re-parsing on each render. `addSectionTarget` state drives the dynamically-titled \"New section in \u2026\" alert. The `folderURL` doubles as both `recipesFolder` and plans root, matching the shopping-list sheet convention.",
+    "test_coverage_notes": "Tests deferred to tester bead. Sheet structure tests should verify: loading placeholder visible before isLoaded, \"Create new plan\u2026\" row always present, plan sections with block rows when plans exist, empty state shows only create row, Cancel button present.",
+    "known_limitations": "`addToBlock` and `addNewBlock` in `AddToMealPlanService` don't carry quantity (servings \u00d7 scale); only `createNewPlan` does. Fixing this requires a service-layer change outside this bead."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No file-scope conflicts expected. Downstream beads modifying `RecipeBottomBar.swift` and `RecipeDetailSheet.swift` are additive changes to files not touched here.",
   "branch_name": "feature/b-3383c60d",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
-  "lease": {
-    "owner": "developer:B-37884968",
-    "expires_at": "2026-05-06T11:52:27.953761+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -97,6 +106,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-37884968/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T11:29:31.316309+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created `AddToMealPlanSheet.swift` \u2014 a SwiftUI sheet with NavigationStack, loading placeholder, \"Create new plan\u2026\" row, per-plan sections with block rows and \"Add new section\u2026\" inline rows, and three alert flows (create plan, add section, error). Build confirmed clean.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -167,7 +183,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created `AddToMealPlanSheet.swift` \u2014 a SwiftUI sheet with NavigationStack, loading placeholder, \"Create new plan\u2026\" row, per-plan sections with block rows and \"Add new section\u2026\" inline rows, and three alert flows (create plan, add section, error). Build confirmed clean.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.9204783000000001,
+      "duration_ms": 417080,
+      "duration_api_ms": 281099,
+      "num_turns": 32,
+      "input_tokens": 32,
+      "output_tokens": 14146,
+      "cache_creation_tokens": 49685,
+      "cache_read_tokens": 1286858,
+      "stop_reason": "end_turn",
+      "session_id": "73feaab0-0b26-4b47-8513-79d2bfcbc95d",
+      "permission_denials": [],
+      "prompt_chars": 5695,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.9204783000000001,
+        "duration_ms": 417080,
+        "duration_api_ms": 281099,
+        "num_turns": 32,
+        "input_tokens": 32,
+        "output_tokens": 14146,
+        "cache_creation_tokens": 49685,
+        "cache_read_tokens": 1286858,
+        "stop_reason": "end_turn",
+        "session_id": "73feaab0-0b26-4b47-8513-79d2bfcbc95d",
+        "permission_denials": [],
+        "prompt_chars": 5695,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "848bb8bc027430068d8cb7806963e094030ead17"
   },
   "labels": [],
   "recovery_for": null,
