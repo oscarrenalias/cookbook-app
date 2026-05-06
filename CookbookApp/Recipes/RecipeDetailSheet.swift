@@ -22,6 +22,7 @@ struct RecipeDetailSheet: View {
     @State private var selectedTab: RecipeTab = .ingredients
     @State private var parsedRecipe: Recipe?
     @State private var showAddSheet = false
+    @State private var showAddToMealPlanSheet = false
     @State private var successMessage: String? = nil
 
     var body: some View {
@@ -51,9 +52,12 @@ struct RecipeDetailSheet: View {
                 }
 
                 Divider()
-                RecipeBottomBar(recipe: parsedRecipe, scale: currentScale) {
-                    showAddSheet = true
-                }
+                RecipeBottomBar(
+                    recipe: parsedRecipe,
+                    scale: currentScale,
+                    onAddToMealPlan: { showAddToMealPlanSheet = true },
+                    onAddToShoppingList: { showAddSheet = true }
+                )
             }
 
             if let message = successMessage {
@@ -86,6 +90,23 @@ struct RecipeDetailSheet: View {
                     onSuccess: { count, listName in
                         let noun = count == 1 ? "item" : "items"
                         successMessage = "\(count) \(noun) added to \(listName)"
+                        Task {
+                            try? await Task.sleep(for: .seconds(2.5))
+                            successMessage = nil
+                        }
+                    }
+                )
+            }
+        }
+        .sheet(isPresented: $showAddToMealPlanSheet) {
+            if let folderURL = store.folderURL {
+                AddToMealPlanSheet(
+                    recipe: parsedRecipe,
+                    recipeFile: recipe,
+                    scale: currentScale,
+                    folderURL: folderURL,
+                    onSuccess: { planName in
+                        successMessage = "Added to \(planName)"
                         Task {
                             try? await Task.sleep(for: .seconds(2.5))
                             successMessage = nil

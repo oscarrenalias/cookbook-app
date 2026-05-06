@@ -78,6 +78,22 @@ extension MealPlan {
         else { return }
         blocks[index.block].sections[index.section].items.remove(at: index.position)
     }
+
+    /// Appends `item` to the specified block and section. No-op if either index is out of bounds.
+    public mutating func addItem(_ item: MealPlanItem, toBlock blockIndex: Int, section sectionIndex: Int) {
+        guard blockIndex < blocks.count,
+              sectionIndex < blocks[blockIndex].sections.count
+        else { return }
+        blocks[blockIndex].sections[sectionIndex].items.append(item)
+    }
+
+    /// Appends a new block with `heading` and one empty default section, returning the new block's index.
+    @discardableResult
+    public mutating func addBlock(named heading: String) -> Int {
+        let block = MealPlanBlock(heading: heading, sections: [MealPlanSection()])
+        blocks.append(block)
+        return blocks.count - 1
+    }
 }
 
 /// A meal-plan item whose `@name` contains `/`, treated as a recipe path reference.

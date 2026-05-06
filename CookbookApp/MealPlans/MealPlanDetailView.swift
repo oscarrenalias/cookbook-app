@@ -146,6 +146,7 @@ struct MealPlanDetailView: View {
             }
         }
         .navigationTitle(planName)
+        .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search recipes")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -290,10 +291,14 @@ struct MealPlanDetailView: View {
     private func flatItemView(_ flat: FlatItem) -> some View {
         switch flat.content {
         case .sectionName(let name):
+            // Render sub-headers (Lunch:, Dinner:) inline within the
+            // block's rounded card. Keeping the default list-row
+            // background prevents .insetGrouped from splitting the card
+            // into two visually independent groups around the
+            // clear-background row.
             Text(name)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
-                .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
         case .planItem(let item, let index):
             planItemRow(item: item, at: index)

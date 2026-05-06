@@ -412,12 +412,11 @@ also assigns sequential step numbers per section and distinguishes `.step` rows
 
 ### Bottom-bar action wiring
 
-`RecipeBottomBar` exposes an `onAddToShoppingList: () -> Void` callback.
-`RecipeDetailSheet` owns a `@State private var showAddSheet = false` and
-passes a closure that sets it to `true`, then presents `AddToShoppingListSheet`
-as a `.sheet`. The "Add to menu" button still shows a placeholder alert
-(`showMenuAlert` → `.alert("Coming in a future update", …)`) — that action is
-deferred to the meal-plans feature.
+`RecipeBottomBar` exposes two callbacks: `onAddToMealPlan: () -> Void` and
+`onAddToShoppingList: () -> Void`. `RecipeDetailSheet` owns corresponding
+`@State` booleans (`showAddToMealPlanSheet`, `showAddSheet`) and wires each
+to its respective sheet (see *Add to meal plan flow* and *Recipe → shopping
+list flow* sections).
 
 The "Add to shopping list" button is disabled when the parsed recipe has no
 ingredients (`recipe.ingredients.isEmpty`). `RecipeDetailSheet` passes the
@@ -788,3 +787,94 @@ button (`.confirmationAction` placement) that dismisses it.
 - Thumbnail loading inside `MealPlanRecipeRow` (uses the same `RecipeImageLoader`
   as the Recipes tab; async load with `fork.knife` fallback).
 - Empty-plan state ("Empty plan" / "Add recipes from the Recipes tab.").
+
+## Add to meal plan flow (`spec-2ca2e4f2`)
+
+### Entry point
+
+`RecipeBottomBar` exposes `onAddToMealPlan: () -> Void`. `RecipeDetailSheet`
+owns `@State private var showAddToMealPlanSheet = false`, sets it to `true`
+in the callback, and presents `AddToMealPlanSheet` as a `.sheet`. The button
+is disabled while the recipe is loading (`parsedRecipe == nil`).
+
+`AddToMealPlanSheet` receives the recipe (`Recipe?`), the recipe file
+(`RecipeFile`), the current scale (`RecipeScale`), and the configured folder
+URL. On success it calls `onSuccess(planName)` so `RecipeDetailSheet` can
+show a 2.5-second toast.
+
+### AddToMealPlanSheet — single-screen picker
+
+The sheet is a single `NavigationStack` screen. No drill-down navigation.
+
+Top row: "Create new plan…" button — presents an alert collecting the plan
+name and the first block's name (default: `"Day 1"`).
+
+Below: one `List` section per existing `.menu` plan. Each section shows
+the plan's blocks as tappable rows plus an "Add new section…" row at the
+bottom. There is no inner sub-section picker in v1.
+
+### AddToMealPlanService
+
+`AddToMealPlanService` (`CookbookApp/MealPlans/AddToMealPlanService.swift`)
+is a caseless enum with three static methods, all following the shared
+load → mutate → serialise → write discipline:
+
+```
+MealPlanFiles.readText → MealPlanParser.parse → mutate plan → MealPlanParser.serialise → MealPlanFiles.writeText
+```
+
+| Method | Mutation |
+|--------|----------|
+| `addToBlock(recipeURL:recipesFolder:to:blockIndex:)` | Appends the recipe item to section 0 of the existing block at `blockIndex`. |
+| `addNewBlock(recipeURL:recipesFolder:to:blockHeading:)` | Appends a new block, then appends the recipe to section 0 of it. |
+| `createNewPlan(recipeURL:recipesFolder:folderURL:planName:firstSectionName:servings:scaleFactor:)` | Creates `<folder>/plans/<sanitised>.menu` containing one block and one recipe item. |
+
+### MealPlanRecipePath — relative path contract
+
+All recipe references in `.menu` files use `./relative-without-extension`
+paths (no `.cook` extension, always `./`-prefixed). This is the canonical
+cross-spec contract.
+
+`MealPlanRecipePath` (`CookbookApp/MealPlans/MealPlanRecipePath.swift`):
+
+- `path(for:relativeTo:)` — strips the recipes-folder prefix and `.cook`
+  extension, prepends `./`. Returns `nil` if the recipe is not under the
+  recipes folder.
+- `recipeURL(for:in:)` — strips `./`, appends `.cook`, resolves relative to
+  the recipes folder.
+
+### Servings × scale quantity rule
+
+`createNewPlan` computes a stored quantity when `servings` is non-nil:
+
+```swift
+Quantity(value: .number(Double(servings) * scaleFactor), unit: "servings")
+```
+
+The `servings` value comes from `recipe.metadata.servings?.first`; the
+`scaleFactor` is the current `RecipeScale.factor`. If the recipe has no
+servings metadata, no quantity is stored (item written without braces).
+
+`addToBlock` and `addNewBlock` store **no quantity** — the recipe item is
+written as a bare path reference.
+
+### v1 first-section-only rule
+
+Both `addToBlock` and `addNewBlock` always target `section: 0` of the chosen
+block. The inner sub-section picker is not exposed. Future specs that add
+sub-section selection must explicitly supersede this rule.
+
+### Plan name sanitisation
+
+Names are trimmed (`.whitespaces`) and have `/` replaced with `-` before use
+as filenames. An empty result after trimming is silently ignored. Duplicate
+detection uses `FileManager.default.fileExists(atPath:)` before any write,
+throwing `MutationError.duplicatePlan` when a file with the sanitised name
+already exists.
+
+### Out of scope in v1
+
+- Sub-section picker (all additions go to section 0).
+- Quantity stored when adding to an existing plan or block.
+- Displaying plan item counts or dates in the picker sheet.
+- Multi-recipe or batch addition.
