@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-5cfc1194",
+  "title": "Build meal-plan detail shell, search, collapse, and delete-plan flow",
+  "agent_type": "developer",
+  "description": "Implement the detail view structure: header strip, stub CTA, per-block collapsible sections, search filtering, empty-plan state, and destructive plan deletion.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Detail view loads and parses a plan via `MealPlanFiles` plus `MealPlanParser` and sets the navigation title from the filename.",
+    "Header shows deduped recipe count plus a stubbed `Create shopping list` CTA with the exact future-update alert copy.",
+    "Each block renders as a collapsible section with `@SceneStorage`-backed expanded state keyed by filename and heading.",
+    "Active search filters by recipe display name and hides sections with zero matching recipes.",
+    "Toolbar delete-plan action confirms, removes the file, pops the view, and notifies the list for refresh."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "docs/mockups/meal plan detail.png",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:46.575478+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
