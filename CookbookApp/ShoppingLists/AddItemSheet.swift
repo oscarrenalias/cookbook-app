@@ -53,6 +53,7 @@ struct AddItemSheet: View {
                 }
             }
             .onAppear {
+                Loggers.shoppingLists.debug("[AddItemSheet] onAppear: list=\(document.title ?? "", privacy: .public)")
                 isTextFieldFocused = true
                 applyLastUsedAisleDefault()
             }
@@ -68,9 +69,6 @@ struct AddItemSheet: View {
         guard catalog.isLoaded, !lastUsedAisle.isEmpty else { return }
         if catalog.aisles.contains(lastUsedAisle) {
             selectedAisle = lastUsedAisle
-        }
-        .onAppear {
-            Loggers.shoppingLists.debug("[AddItemSheet] onAppear: list=\(document.title ?? "", privacy: .public)")
         }
     }
 
