@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-a5fb654d",
+  "title": "Build meal-plan list cards and create-plan flow",
+  "agent_type": "developer",
+  "description": "Implement the list presentation, search empty states, card rows, FAB, and create-new-plan alert flow that writes YAML-frontmatter-only blank plans and navigates into detail.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Meal plans render as searchable card rows mirroring the shopping-list list pattern.",
+    "The no-plans and no-search-matches empty states match the spec copy and keep the FAB visible when appropriate.",
+    "The FAB presents the create alert, sanitises names, rejects duplicates, and writes `---\\n---\\n` to new files.",
+    "Successful creation updates local list state and pushes the new plan detail view."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "docs/mockups/meal plans list.png"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlansView.swift",
+    "CookbookApp/MealPlans/MealPlanCardView.swift",
+    "CookbookApp/MealPlans/MealPlanCreateAlert.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:46.412720+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
