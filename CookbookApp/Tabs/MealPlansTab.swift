@@ -1,15 +1,14 @@
 import SwiftUI
 
 struct MealPlansTab: View {
+    @Environment(RecipesFolderStore.self) private var store
+
     var body: some View {
-        EmptyStateView(
-            systemImage: "calendar",
-            title: "Meal Plans",
-            subtitle: "No meal plans yet."
-        )
+        MealPlansView(folderURL: store.folderURL!)
     }
 }
 
 #Preview {
     MealPlansTab()
+        .environment(RecipesFolderStore())
 }

@@ -128,4 +128,98 @@ struct MealPlanParserTests {
 
         #expect(reparsed == parsed)
     }
+
+    @Test func freeTextLineBecomesTextItem() {
+        let plan = MealPlanParser.parse("""
+        ==Day 0==
+        Dinner:
+        bring ingredients from fridge
+        """)
+
+        #expect(plan.blocks[0].sections[0].name == "Dinner")
+        let items = plan.blocks[0].sections[0].items
+        #expect(items.count == 1)
+
+        guard case let .text(text) = items[0] else {
+            Issue.record("Expected text item")
+            return
+        }
+        #expect(text == "bring ingredients from fridge")
+    }
+
+    @Test func blankLinesAreDroppedFromSectionItems() {
+        let plan = MealPlanParser.parse("""
+        ==Day 0==
+        Dinner:
+        @./Pasta/Foo
+
+        @./Fish/Bar
+        """)
+
+        #expect(plan.blocks[0].sections[0].items.count == 2)
+    }
+
+    @Test func textItemRoundTripsThroughSerialise() {
+        let original = """
+        ==Day 0==
+        Dinner:
+        bring ingredients from fridge
+        @./Pasta/Foo
+        """
+        let parsed = MealPlanParser.parse(original)
+        let reparsed = MealPlanParser.parse(MealPlanParser.serialise(parsed))
+
+        #expect(reparsed == parsed)
+    }
+
+    @Test func removeItemDeletesItemAtPosition() {
+        var plan = MealPlanParser.parse("""
+        ==Day 0==
+        Dinner:
+        @./Pasta/Foo
+        @./Fish/Bar
+        """)
+
+        plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 0))
+
+        let items = plan.blocks[0].sections[0].items
+        #expect(items.count == 1)
+
+        guard case let .recipe(recipe) = items[0] else {
+            Issue.record("Expected recipe item after deletion")
+            return
+        }
+        #expect(recipe.path == "./Fish/Bar")
+    }
+
+    @Test func removeItemPreservesEmptySectionAfterLastItemRemoved() {
+        var plan = MealPlanParser.parse("""
+        ==Day 0==
+        Dinner:
+        @./Pasta/Foo
+        """)
+
+        plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 0))
+
+        #expect(plan.blocks[0].sections.count == 1)
+        #expect(plan.blocks[0].sections[0].items.isEmpty)
+    }
+
+    @Test func removeItemIsNoOpForOutOfBoundsIndex() {
+        var plan = MealPlanParser.parse("""
+        ==Day 0==
+        Dinner:
+        @./Pasta/Foo
+        """)
+        let before = plan
+
+        plan.removeItem(at: MealPlanItemIndex(block: 99, section: 0, position: 0))
+        #expect(plan == before)
+
+        plan.removeItem(at: MealPlanItemIndex(block: 0, section: 99, position: 0))
+        #expect(plan == before)
+
+        plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 99))
+        #expect(plan == before)
+    }
 }

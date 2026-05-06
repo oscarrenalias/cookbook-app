@@ -76,9 +76,7 @@ public enum MealPlanParser {
                 continue
             }
 
-            guard let item = parseItem(trimmedLine) else {
-                continue
-            }
+            let item = parseItem(trimmedLine) ?? .text(trimmedLine)
 
             if !currentSectionIsOpen {
                 currentSectionName = nil
@@ -241,6 +239,8 @@ public enum MealPlanParser {
             return "@\(ingredient.name)\(serialise(quantity: ingredient.quantity))"
         case let .comment(comment):
             return comment.isEmpty ? "--" : "-- \(comment)"
+        case let .text(text):
+            return text
         }
     }
 

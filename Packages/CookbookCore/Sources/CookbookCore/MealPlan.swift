@@ -53,6 +53,31 @@ public enum MealPlanItem: Sendable, Equatable {
     case recipe(MealPlanRecipe)
     case ingredient(MealPlanIngredient)
     case comment(String)
+    case text(String)
+}
+
+/// Identifies a single item within a `MealPlan` by its structural position.
+public struct MealPlanItemIndex: Sendable, Equatable, Hashable {
+    public let block: Int       // index into MealPlan.blocks
+    public let section: Int     // index into MealPlanBlock.sections
+    public let position: Int    // index into MealPlanSection.items
+
+    public init(block: Int, section: Int, position: Int) {
+        self.block = block
+        self.section = section
+        self.position = position
+    }
+}
+
+extension MealPlan {
+    /// Removes the item at the given index. No-op if the index is out of bounds.
+    public mutating func removeItem(at index: MealPlanItemIndex) {
+        guard index.block < blocks.count,
+              index.section < blocks[index.block].sections.count,
+              index.position < blocks[index.block].sections[index.section].items.count
+        else { return }
+        blocks[index.block].sections[index.section].items.remove(at: index.position)
+    }
 }
 
 /// A meal-plan item whose `@name` contains `/`, treated as a recipe path reference.
