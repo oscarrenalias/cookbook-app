@@ -366,6 +366,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T16:58:13.015818+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-3e9fde9b-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-3e9fde9b-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -383,7 +392,75 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-3e9fde9b-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-3e9fde9b-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T16:58:13.015801+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-3e9fde9b-corrective",
+      "feature_root_id": "B-148e9ad9",
+      "title": "Corrective fix for B-3e9fde9b: Shared final review",
+      "agent_type": "developer",
+      "description": "Blocked reason: docs/architecture.md \"Not instrumented\" section (lines 930\u2013933) states ShoppingListDocument is not instrumented and must not depend on an app-level logger, but ShoppingListDocument.swift (in CookbookCore) has import os and a private Logger at lines 2\u20134 and uses it at lines 155\u2013157. The code and documentation directly contradict each other. Resolution: update architecture.md to remove ShoppingListDocument from \"Not instrumented\" and document the intentional private-logger design (avoids cross-package dependency on Loggers namespace). No code change required if the documentation path is chosen.\n\nRemaining work: One finding must be resolved: docs/architecture.md \"Not instrumented\" section says ShoppingListDocument is not instrumented, but the code has import os and a private Logger. Either remove the logger from ShoppingListDocument (code change) or update the architecture.md \"Not instrumented\" section to document the intentional private-logger exception (documentation change). The design decision in the handoff justifies the implementation; the doc just needs to match.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-3e9fde9b.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-1957fe45"
+      ],
+      "execution_branch_name": "feature/b-148e9ad9",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-148e9ad9",
+      "expected_files": [
+        "docs/architecture.md"
+      ],
+      "expected_globs": [
+        "docs/**/*.md"
+      ],
+      "touched_files": [
+        "CookbookApp/Common/Loggers.swift",
+        "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+        "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+        "CookbookApp/ShoppingLists/AddItemSheet.swift",
+        "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
+        "CookbookApp/ShoppingLists/AisleCatalog.swift",
+        "CookbookApp/MealPlans/MealPlanFiles.swift",
+        "CookbookApp/MealPlans/AddToMealPlanService.swift",
+        "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+        "CookbookApp/MealPlans/MealPlanDetailView.swift",
+        "CookbookApp/Recipes/RecipeDiscovery.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift",
+        "CookbookAppTests/LoggersTests.swift",
+        "docs/architecture.md"
+      ],
+      "conflict_risks": "None introduced by this review pass.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
