@@ -239,18 +239,18 @@ struct MealPlanDetailView: View {
         switch item {
         case .recipe(let recipe):
             let rf = resolvedRecipes[recipe.path] ?? fallbackRecipeFile(for: recipe.path)
-            RecipeListItem(
+            MealPlanRecipeRow(
                 recipe: recipe,
                 recipeFile: rf,
                 onTap: { selectedRecipe = rf },
                 onDelete: { deleteItem(at: index) }
             )
         case .text(let text):
-            TextListItem(text: text, onDelete: { deleteItem(at: index) })
+            MealPlanTextRow(text: text, onDelete: { deleteItem(at: index) })
         case .comment(let text):
-            TextListItem(text: text, onDelete: { deleteItem(at: index) })
+            MealPlanTextRow(text: text, onDelete: { deleteItem(at: index) })
         case .ingredient(let ingredient):
-            IngredientListItem(ingredient: ingredient, onDelete: { deleteItem(at: index) })
+            MealPlanIngredientRow(ingredient: ingredient, onDelete: { deleteItem(at: index) })
         }
     }
 
@@ -315,133 +315,6 @@ private struct FlatItem: Identifiable {
     }
     let id: String
     let content: Content
-}
-
-// MARK: - Item Row Wrappers
-
-private struct RecipeListItem: View {
-    let recipe: MealPlanRecipe
-    let recipeFile: RecipeFile
-    let onTap: () -> Void
-    let onDelete: () -> Void
-
-    var body: some View {
-        Button(action: onTap) {
-            MealPlanRecipeRow(recipe: recipe, recipeFile: recipeFile)
-        }
-        .buttonStyle(.plain)
-        .swipeActions(edge: .trailing) {
-            Button(role: .destructive, action: onDelete) {
-                Label("Delete", systemImage: "trash")
-            }
-        }
-    }
-}
-
-private struct TextListItem: View {
-    let text: String
-    let onDelete: () -> Void
-
-    var body: some View {
-        MealPlanTextRow(text: text)
-            .swipeActions(edge: .trailing) {
-                Button(role: .destructive, action: onDelete) {
-                    Label("Delete", systemImage: "trash")
-                }
-            }
-    }
-}
-
-private struct IngredientListItem: View {
-    let ingredient: MealPlanIngredient
-    let onDelete: () -> Void
-
-    var body: some View {
-        MealPlanIngredientRow(ingredient: ingredient)
-            .swipeActions(edge: .trailing) {
-                Button(role: .destructive, action: onDelete) {
-                    Label("Delete", systemImage: "trash")
-                }
-            }
-    }
-}
-
-// MARK: - Row Views
-
-private struct MealPlanRecipeRow: View {
-    let recipe: MealPlanRecipe
-    let recipeFile: RecipeFile
-
-    var body: some View {
-        HStack {
-            RecipeThumbnailView(thumbnailURL: recipeFile.thumbnailURL)
-                .frame(width: 44, height: 44)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-            VStack(alignment: .leading, spacing: 2) {
-                Text(recipeFile.displayName)
-                    .font(.body)
-                if let qty = recipe.quantity {
-                    Text(quantityLabel(qty))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.secondary)
-                .accessibilityHidden(true)
-        }
-    }
-
-    private func quantityLabel(_ qty: Quantity) -> String {
-        let valueStr: String
-        switch qty.value {
-        case .number(let n):
-            valueStr = n.isFinite && n.rounded() == n ? "×\(Int(n))" : "×\(n)"
-        case .text(let t):
-            valueStr = t
-        }
-        if let unit = qty.unit, !unit.isEmpty { return "\(valueStr) \(unit)" }
-        return valueStr
-    }
-}
-
-private struct MealPlanTextRow: View {
-    let text: String
-
-    var body: some View {
-        Text(text)
-            .font(text.hasSuffix(":") ? .body.weight(.semibold) : .body)
-            .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
-
-private struct MealPlanIngredientRow: View {
-    let ingredient: MealPlanIngredient
-
-    var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "cart")
-                .foregroundStyle(.secondary)
-                .frame(width: 24)
-            Text(ingredientLabel)
-                .font(.body)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-    }
-
-    private var ingredientLabel: String {
-        guard let qty = ingredient.quantity else { return ingredient.name }
-        let valueStr: String
-        switch qty.value {
-        case .number(let n):
-            valueStr = n.isFinite && n.rounded() == n ? String(Int(n)) : String(n)
-        case .text(let t):
-            valueStr = t
-        }
-        if let unit = qty.unit, !unit.isEmpty { return "\(ingredient.name) \(valueStr) \(unit)" }
-        return "\(ingredient.name) \(valueStr)"
-    }
 }
 
 // MARK: - Preview
