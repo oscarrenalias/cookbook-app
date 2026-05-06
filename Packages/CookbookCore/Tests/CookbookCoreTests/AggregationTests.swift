@@ -243,4 +243,83 @@ struct AggregationTests {
 
         #expect(result1 == result2)
     }
+
+    // MARK: – AggregatedItem.entryText
+
+    @Test func entryTextWithNoQuantitiesIsNameOnly() {
+        let item = AggregatedItem(name: "salt", quantities: [])
+        #expect(item.entryText == "salt")
+    }
+
+    @Test func entryTextWithSingleNumericQuantity() {
+        let item = AggregatedItem(name: "flour", quantities: [numQty(200, unit: "g")])
+        #expect(item.entryText == "*200 g* flour")
+    }
+
+    @Test func entryTextWithSingleUnitlessQuantity() {
+        let item = AggregatedItem(name: "eggs", quantities: [numQty(3)])
+        #expect(item.entryText == "*3* eggs")
+    }
+
+    @Test func entryTextWithSingleTextQuantity() {
+        let item = AggregatedItem(name: "herbs", quantities: [textQty("a handful")])
+        #expect(item.entryText == "*a handful* herbs")
+    }
+
+    @Test func entryTextWithMultipleQuantitiesJoinedByComma() {
+        let item = AggregatedItem(name: "garlic", quantities: [numQty(2, unit: "tsp"), numQty(17, unit: "piece")])
+        #expect(item.entryText == "*2 tsp, 17 piece* garlic")
+    }
+
+    @Test func entryTextWithMixedQuantityTypes() {
+        let item = AggregatedItem(name: "olive oil", quantities: [textQty("a splash"), numQty(10, unit: "ml")])
+        #expect(item.entryText == "*a splash, 10 ml* olive oil")
+    }
+
+    // MARK: – AggregatedShoppingList.apply(to:)
+
+    @Test func applyToDocumentAppendsNamedAisleItems() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "carrot")])
+        ])
+        let recipes = [recipe([ing("carrot", qty: numQty(3))])]
+        let aggregated = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+
+        var doc = ShoppingListDocument(title: "My List")
+        aggregated.apply(to: &doc)
+
+        #expect(doc.aisles.count == 1)
+        #expect(doc.aisles[0].name == "produce")
+        #expect(doc.aisles[0].items[0].text == "*3* carrot")
+    }
+
+    @Test func applyToDocumentMapsNilBucketToOtherAisle() {
+        let recipes = [recipe([ing("saffron")])]
+        let aggregated = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: nil)
+
+        var doc = ShoppingListDocument(title: "My List")
+        aggregated.apply(to: &doc)
+
+        #expect(doc.aisles.count == 1)
+        #expect(doc.aisles[0].name == "Other")
+        #expect(doc.aisles[0].items[0].text == "saffron")
+    }
+
+    @Test func applyToDocumentRoundTripProducesValidMarkdown() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "apple")])
+        ])
+        let recipes = [recipe([ing("apple", qty: numQty(2)), ing("saffron")])]
+        let aggregated = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+
+        var doc = ShoppingListDocument(title: "Grocery Run")
+        aggregated.apply(to: &doc)
+
+        let md = doc.renderMarkdown()
+        let reparsed = ShoppingListDocument(markdown: md)
+
+        #expect(reparsed.title == "Grocery Run")
+        #expect(reparsed.aisles.map(\.name).contains("produce"))
+        #expect(reparsed.aisles.map(\.name).contains("Other"))
+    }
 }
