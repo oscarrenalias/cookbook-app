@@ -50,7 +50,7 @@ struct AddItemSheet: View {
             }
         }
         .onAppear {
-            Loggers.shoppingLists.debug("[AddItemSheet] onAppear: list=\(document.title, privacy: .public)")
+            Loggers.shoppingLists.debug("[AddItemSheet] onAppear: list=\(document.title ?? "", privacy: .public)")
         }
     }
 
