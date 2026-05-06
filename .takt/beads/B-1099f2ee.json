@@ -7,17 +7,17 @@
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
-    "B-35b69af1",
-    "B-f5403aed",
-    "B-34268e60",
-    "B-955af572",
-    "B-8259b1a6",
-    "B-a5fb654d",
-    "B-5cfc1194",
-    "B-4e264740",
     "B-23be0e85",
+    "B-34268e60",
+    "B-35b69af1",
+    "B-4e264740",
+    "B-5cfc1194",
+    "B-7566b06f",
+    "B-8259b1a6",
+    "B-955af572",
     "B-9a78f544",
-    "B-7566b06f"
+    "B-a5fb654d",
+    "B-f5403aed"
   ],
   "acceptance_criteria": [
     "Review confirms the implementation follows the structured load-mutate-serialise-write pattern with no raw text surgery in the view layer.",
