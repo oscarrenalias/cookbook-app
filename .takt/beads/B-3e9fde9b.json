@@ -3,7 +3,7 @@
   "title": "Shared final review",
   "agent_type": "review",
   "description": "Perform final review of the combined logging changes for correctness, scope compliance, privacy handling, and behavioral neutrality before merge.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
   "dependencies": [
@@ -619,7 +619,7 @@
     "test_coverage_notes": "LoggersTests covers all 5 Loggers entries with reachability and callability smoke tests. No test covers the private logger in ShoppingListDocument \u2014 acceptable since it is debug-only and output is not verifiable in unit tests.",
     "known_limitations": "EditItemSheet does not exist in the worktree; its absence is correctly documented in architecture.md under \"Not instrumented.\""
   },
-  "block_reason": "docs/architecture.md \"Not instrumented\" section (lines 930\u2013933) states ShoppingListDocument is not instrumented and must not depend on an app-level logger, but ShoppingListDocument.swift (in CookbookCore) has import os and a private Logger at lines 2\u20134 and uses it at lines 155\u2013157. The code and documentation directly contradict each other. Resolution: update architecture.md to remove ShoppingListDocument from \"Not instrumented\" and document the intentional private-logger design (avoids cross-package dependency on Loggers namespace). No code change required if the documentation path is chosen.",
+  "block_reason": "",
   "conflict_risks": "None introduced by this review pass.",
   "branch_name": "feature/b-148e9ad9",
   "worktree_path": "",
@@ -677,6 +677,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-3e9fde9b-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T16:59:11.093144+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-3e9fde9b-corrective completed",
       "details": {}
     }
   ],
@@ -1328,7 +1335,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-3e9fde9b-corrective"
+    "auto_corrective_bead_id": "B-3e9fde9b-corrective",
+    "last_corrective_retry_source": "B-3e9fde9b-corrective",
+    "last_corrective_retry_commit": "1b40863565ac12a1ff746a75ffd10544ed6a46e3"
   },
   "labels": [],
   "recovery_for": null,
