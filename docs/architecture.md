@@ -927,9 +927,16 @@ all categories.
 |------|------------|
 | `RecipeDiscovery` | Entry to `scan`; directory-read failure; exit with section and recipe counts |
 
+**CookbookCore (framework layer)**
+
+| File | Log points |
+|------|------------|
+| `ShoppingListDocument` | Single `.debug` line in the designated initialiser: parsed aisle count, item count, and presence of notes/meals |
+
+`ShoppingListDocument` lives in `CookbookCore` and therefore cannot import `CookbookApp/Common/Loggers.swift`. It declares its own `private let logger = Logger(subsystem: "com.cookbookapp", category: "shoppingLists")` directly, which keeps the framework layer free of any app-level dependency while still emitting structured log output under the shared subsystem.
+
 **Not instrumented**
 
-- `ShoppingListDocument` (in `CookbookCore`) — a pure model/parsing type in the framework layer; it must not take a dependency on an app-level logger.
 - `EditItemSheet` — this file does not exist in the worktree. It appeared in the spec's expected globs as an optional candidate but was never created; no logging was added.
 
 ### Privacy convention
