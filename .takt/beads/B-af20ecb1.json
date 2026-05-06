@@ -263,6 +263,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlansView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
@@ -276,10 +277,12 @@
     "CookbookAppTests/ShoppingListRenameTests.swift"
   ],
   "expected_globs": [
+    "*.xcodeproj/**",
     "CookbookApp/MealPlans/*.swift",
     "CookbookApp/ShoppingLists/*.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookAppTests/*.swift"
+    "CookbookAppTests/*.swift",
+    "project.yml"
   ],
   "touched_files": [
     ".takt/beads/.gitkeep",
@@ -518,6 +521,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlansView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
@@ -763,6 +767,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlansView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
@@ -793,7 +798,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 only files within CookbookApp/ShoppingLists/ were modified. No shared utilities or models were changed.\nNo conflicts expected \u2014 only ShoppingListDetailView.swift and ShoppingListsView.swift were modified, neither overlapping with any sibling bead's known file scope.\nNone \u2014 changes are self-contained to AddItemSheet.swift with no shared state beyond the SceneStorage key.\nNo conflicts expected. MealPlanDetailView and MealPlansView are within this bead's declared file scope and no sibling beads claim these files.",
+  "conflict_risks": "None \u2014 only files within CookbookApp/ShoppingLists/ were modified. No shared utilities or models were changed.\nNo conflicts expected \u2014 only ShoppingListDetailView.swift and ShoppingListsView.swift were modified, neither overlapping with any sibling bead's known file scope.\nNone \u2014 changes are self-contained to AddItemSheet.swift with no shared state beyond the SceneStorage key.\nNo conflicts expected. MealPlanDetailView and MealPlansView are within this bead's declared file scope and no sibling beads claim these files.\nNone \u2014 xcodeproj is gitignored so there are no merge conflicts possible on this artifact.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
