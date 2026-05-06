@@ -6,9 +6,8 @@ import CookbookCore
 struct RecipeBottomBar: View {
     let recipe: Recipe?
     let scale: RecipeScale
+    let onAddToMealPlan: () -> Void
     let onAddToShoppingList: () -> Void
-
-    @State private var showMenuAlert = false
 
     private var hasIngredients: Bool {
         guard let recipe else { return false }
@@ -18,17 +17,13 @@ struct RecipeBottomBar: View {
     var body: some View {
         HStack {
             Button {
-                showMenuAlert = true
+                onAddToMealPlan()
             } label: {
-                Label("Add to menu", systemImage: "calendar")
+                Label("Add to meal plan", systemImage: "calendar")
             }
-            .accessibilityLabel("Add to menu")
+            .accessibilityLabel("Add to meal plan")
+            .disabled(recipe == nil)
             .frame(maxWidth: .infinity)
-            .alert("Coming in a future update", isPresented: $showMenuAlert) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text("This feature is not available yet.")
-            }
 
             Button {
                 onAddToShoppingList()
@@ -47,5 +42,5 @@ struct RecipeBottomBar: View {
 // MARK: - Preview
 
 #Preview {
-    RecipeBottomBar(recipe: nil, scale: .one, onAddToShoppingList: {})
+    RecipeBottomBar(recipe: nil, scale: .one, onAddToMealPlan: {}, onAddToShoppingList: {})
 }
