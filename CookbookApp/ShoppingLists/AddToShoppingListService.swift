@@ -23,7 +23,7 @@ enum AddToShoppingListService {
             throw AppendError.readFailed
         }
         var doc = ShoppingListDocument(markdown: existingText)
-        let aggregated = ShoppingList.aggregate(
+        let aggregated = AggregatedShoppingList.aggregate(
             recipes: [scale.scaled(recipe)],
             aisleConfig: aisleConfig
         )
@@ -57,7 +57,7 @@ enum AddToShoppingListService {
             throw AppendError.listAlreadyExists
         }
         var doc = ShoppingListDocument(title: name)
-        let aggregated = ShoppingList.aggregate(
+        let aggregated = AggregatedShoppingList.aggregate(
             recipes: [scale.scaled(recipe)],
             aisleConfig: aisleConfig
         )

@@ -57,7 +57,7 @@ public struct AggregatedItem: Sendable, Equatable {
     }
 }
 
-public extension ShoppingList {
+public extension AggregatedShoppingList {
     /// Aggregates ingredients from `recipes` into aisle-grouped buckets.
     ///
     /// When `aisleConfig` is present, each ingredient is looked up by its
