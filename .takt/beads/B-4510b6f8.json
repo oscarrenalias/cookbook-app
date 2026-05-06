@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
-  "dependencies": [],
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029",
+    "B-b5f26d06",
+    "B-a4b59a86",
+    "B-d23ebd9d",
+    "B-dfa4291c",
+    "B-046b1222"
+  ],
   "acceptance_criteria": [
     "Handoff documentation summarizes the new logger namespace and where logs were added by subsystem.",
     "The documentation explicitly notes the privacy convention used for paths versus content.",
