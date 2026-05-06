@@ -3,7 +3,7 @@
   "title": "Refactor detail item interactions to use ItemIndex",
   "agent_type": "developer",
   "description": "Update the detail screen and row component so checklist interactions operate on `ShoppingListEntry` plus `ItemIndex` rather than line indices from parsed text.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
   "dependencies": [
@@ -28,37 +28,51 @@
   "expected_globs": [
     "CookbookApp/ShoppingLists/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "- ShoppingListItemRow: replaced `let item: ShoppingListItem` with `let entry: ShoppingListEntry`; updated all item.checked/item.text references to entry.checked/entry.text; updated preview to use ShoppingListEntry initializer.\\n- ShoppingListDetailView: replaced `@State private var list = ShoppingList(\"\")` with `@State private var document = ShoppingListDocument()`; replaced ShoppingListAisleGrouper-based groups with document.aisles via a private IndexedEntry struct that carries ItemIndex + ShoppingListEntry; updated checkedCount/totalCount to flatMap over document.aisles; updated filteredGroups to preserve original aisle positions when filtering; updated toggleItem/deleteItem/updateItem to call document.toggle/removeItem/updateItem(at:) with ItemIndex; updated save() to write document.renderMarkdown(); updated .task to parse text into ShoppingListDocument(markdown:); updated ShoppingListHeaderExtractor call to pass document.renderMarkdown(); updated AddItemSheet callback to assign updated document directly.",
+    "remaining": "None for this bead.",
+    "risks": "None identified. ShoppingListAisleGrouper is no longer used by ShoppingListDetailView but remains in the codebase \u2014 a follow-up cleanup bead could remove it if no other callers exist.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to verify toggle, update, and delete interactions via ItemIndex, and that search filtering preserves correct original positions.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/ShoppingLists/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    ],
+    "conflict_risks": "ShoppingListAisleGrouper is now unused by the app but still present \u2014 a sibling bead touching that file would be a no-op conflict risk only.",
+    "design_decisions": "Used a private IndexedEntry struct (carrying ItemIndex + ShoppingListEntry) inside ShoppingListDetailView so that filtered groups preserve the original aisle position for correct ItemIndex construction. ForEach uses id: \\\\.index.position which is unique within each aisle group.",
+    "test_coverage_notes": "Toggle, update, and delete paths all exercise ShoppingListDocument mutations (toggle/updateItem/removeItem at ItemIndex) and persist via renderMarkdown(). Search filtering correctly carries original positions so post-filter mutations target the right entries.",
+    "known_limitations": "ShoppingListAisleGrouper is now dead code \u2014 it is no longer called by ShoppingListDetailView. It can be removed in a follow-up cleanup bead."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "ShoppingListAisleGrouper is now unused by the app but still present \u2014 a sibling bead touching that file would be a no-op conflict risk only.",
   "branch_name": "feature/b-265bdf43",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
-  "lease": {
-    "owner": "developer:B-f7f69190",
-    "expires_at": "2026-05-06T08:18:14.844337+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +114,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-f7f69190/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T07:53:35.559804+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Refactored ShoppingListItemRow and ShoppingListDetailView to operate on ShoppingListEntry + ItemIndex rather than line-indexed ShoppingListItem. The detail view now holds a ShoppingListDocument as state, groups items directly from document aisles, and persists via renderMarkdown(). The row component now accepts ShoppingListEntry (text + checked) with no lineIndex dependency. Build succeeds.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +194,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Refactored ShoppingListItemRow and ShoppingListDetailView to operate on ShoppingListEntry + ItemIndex rather than line-indexed ShoppingListItem. The detail view now holds a ShoppingListDocument as state, groups items directly from document aisles, and persists via renderMarkdown(). The row component now accepts ShoppingListEntry (text + checked) with no lineIndex dependency. Build succeeds.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.61779095,
+      "duration_ms": 313787,
+      "duration_api_ms": 273609,
+      "num_turns": 19,
+      "input_tokens": 18,
+      "output_tokens": 15110,
+      "cache_creation_tokens": 37001,
+      "cache_read_tokens": 553764,
+      "stop_reason": "end_turn",
+      "session_id": "cf01a7c2-ddce-4622-b000-fab3b3a600e5",
+      "permission_denials": [],
+      "prompt_chars": 5714,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.61779095,
+        "duration_ms": 313787,
+        "duration_api_ms": 273609,
+        "num_turns": 19,
+        "input_tokens": 18,
+        "output_tokens": 15110,
+        "cache_creation_tokens": 37001,
+        "cache_read_tokens": 553764,
+        "stop_reason": "end_turn",
+        "session_id": "cf01a7c2-ddce-4622-b000-fab3b3a600e5",
+        "permission_denials": [],
+        "prompt_chars": 5714,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "b10e62dc4e391b92faebee8a0d357f897880020f"
   },
   "labels": [],
   "recovery_for": null,
