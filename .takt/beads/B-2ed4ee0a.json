@@ -6,7 +6,14 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-242ce981",
+    "B-e015e412",
+    "B-398593a7",
+    "B-96ff40f2",
+    "B-b947299f",
+    "B-fe603be6"
+  ],
   "acceptance_criteria": [
     "CookbookCore tests cover double-based scaling, preservation of text quantities and non-ingredient items, and factor `1.0` identity behavior.",
     "CookbookApp tests cover service cases for scaling, missing servings, missing reference quantity, aggregation, provenance ordering, duplicate names, and empty plans.",
