@@ -747,7 +747,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None. Only Recipe.swift was modified; no overlap with sibling beads expected.\nNone. Only `RecipeScale.swift` was modified. No sibling beads touch this file.\nNone \u2014 new file only, no modifications to shared files.\nNone \u2014 only CreateShoppingListFromMealPlanService.swift touched; no shared model types modified.\nNone \u2014 only MealPlanDetailView.swift was modified; no shared types or sibling bead file-scope overlap.",
+  "conflict_risks": "None. Only Recipe.swift was modified; no overlap with sibling beads expected.\nNone. Only `RecipeScale.swift` was modified. No sibling beads touch this file.\nNone \u2014 new file only, no modifications to shared files.\nNone \u2014 only CreateShoppingListFromMealPlanService.swift touched; no shared model types modified.\nNone \u2014 only MealPlanDetailView.swift was modified; no shared types or sibling bead file-scope overlap.\nNo file-scope conflicts expected; this bead only touches MealPlanDetailView.swift.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
