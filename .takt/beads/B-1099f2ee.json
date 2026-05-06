@@ -3,7 +3,7 @@
   "title": "Shared review for Meal Plans tab rollout",
   "agent_type": "review",
   "description": "Perform final cross-cutting review of the full feature branch for architectural compliance, scope discipline, and regression risk before merge.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
@@ -727,9 +727,12 @@
   },
   "block_reason": "",
   "conflict_risks": "The `MealPlanItemIndex` rename deviates from the spec's `ItemIndex` name. Any sibling bead that references `ItemIndex` for meal-plan use will need to use `MealPlanItemIndex`. No file-scope conflicts with other meal-plans beads since this bead owns MealPlan.swift exclusively.\nNo file-scope conflicts expected; MealPlanParser.swift is only modified in the parse() body and no sibling beads are known to touch this file.\nNo production code changed. Test file is the sole output. No conflict risk for downstream agents working in other files.\nNo conflicts expected; file is new. Beads that add to `CookbookApp/MealPlans/` must add the group to the `.xcodeproj` target membership.\nMealPlanCardView.swift is a net-new file with no overlap risk. MealPlansView.swift is net-new. MealPlansTab.swift was a stub \u2014 the only prior consumers are AppRoot (unchanged). No sibling bead touches these files.\nMealPlanDetailView.swift does not yet exist \u2014 any sibling bead creating it must update the navigationDestination in MealPlansView.swift. File-level conflict expected on that line.\nNo other in-flight beads touch MealPlanDetailView.swift (new file). MealPlansView.swift change is a 3-line navigation destination swap; low conflict risk unless another bead also edits that file. CookbookApp.xcodeproj was regenerated \u2014 any bead that also runs xcodegen will overwrite; safe because both will pick up the new source file.\nNone \u2014 MealPlanItemRow.swift is a new file; MealPlanDetailView.swift changes are additive (removal of private dead code after extraction). No overlap with sibling beads expected.\nNone \u2014 new files only, no modifications to existing sources.",
-  "branch_name": "",
+  "branch_name": "feature/b-920f3e84",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-1099f2ee",
+    "expires_at": "2026-05-06T11:28:13.128574+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -738,9 +741,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T10:58:13.307754+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T10:58:13.307775+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-1099f2ee",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-1099f2ee/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
