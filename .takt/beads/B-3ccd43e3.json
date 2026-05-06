@@ -267,7 +267,8 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
-    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
   ],
   "expected_globs": [
     "CookbookApp/ShoppingLists/*.swift"
@@ -511,7 +512,8 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
-    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -752,7 +754,8 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
-    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -776,7 +779,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 only files within CookbookApp/ShoppingLists/ were modified. No shared utilities or models were changed.",
+  "conflict_risks": "None \u2014 only files within CookbookApp/ShoppingLists/ were modified. No shared utilities or models were changed.\nNo conflicts expected \u2014 only ShoppingListDetailView.swift and ShoppingListsView.swift were modified, neither overlapping with any sibling bead's known file scope.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
