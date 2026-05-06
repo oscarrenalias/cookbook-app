@@ -21,12 +21,35 @@ A custom control requires explicit approval in the relevant spec.
 
 ## Iconography
 
-Use SF Symbols for all icons. Never bundle PNG/SVG icons unless a specific
-brand or product asset is required and is called out in the spec. Reach
-for the most semantically appropriate symbol (`book.closed` for recipes,
-`calendar` for meal plans, `cart` for shopping, `gearshape` for settings,
-etc.). Variants (`.fill`, `.circle`) are encouraged where they add
-clarity.
+Use SF Symbols by default. Reach for the most semantically appropriate
+symbol (`book.closed` for recipes, `calendar` for meal plans, `cart` for
+shopping, `gearshape` for settings, etc.). Variants (`.fill`, `.circle`)
+are encouraged where they add clarity.
+
+### Bundled Phosphor icons (aisle headers only)
+
+SF Symbols' food coverage is thin — there's no carrot, cheese, egg,
+bread, jar, pepper, etc. Where the right glyph isn't in SF, the shopping
+list aisle headers fall back to bundled [Phosphor](https://phosphoricons.com/)
+fill-weight SVGs in `CookbookApp/Assets.xcassets/`. Phosphor's `Fill`
+weight visually matches SF's `.fill` weight at row size, so mixing the
+two in the same row reads as consistent.
+
+Scope: **aisle icons only**. Toolbar buttons, navigation chrome, status
+glyphs, and everything else still use SF Symbols. New bundled assets
+need a clear reason — log it in the spec.
+
+To add a new aisle icon:
+1. Download the `-fill` variant SVG from phosphoricons.com.
+2. Create `CookbookApp/Assets.xcassets/<name>-fill.imageset/` with the
+   SVG and a `Contents.json` that sets `template-rendering-intent` to
+   `template` and `preserves-vector-representation` to `true` (copy an
+   existing imageset as a reference).
+3. Map the aisle in `CookbookApp/ShoppingLists/AisleIconMap.swift` using
+   `.asset("<name>-fill")` instead of `.system(...)`.
+
+Phosphor Icons is MIT-licensed; bundling the SVGs is fine and no
+in-app attribution is required.
 
 ## Color & Theming
 
@@ -156,3 +179,5 @@ app.
   <https://developer.apple.com/design/human-interface-guidelines/>
 - SF Symbols catalogue:
   <https://developer.apple.com/sf-symbols/>
+- Phosphor Icons (used for aisle headers only):
+  <https://phosphoricons.com/>
