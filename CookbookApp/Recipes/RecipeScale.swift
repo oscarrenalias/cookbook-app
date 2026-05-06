@@ -31,30 +31,15 @@ enum RecipeScale: Double, CaseIterable {
 
     func scaled(_ quantity: Quantity) -> Quantity {
         switch quantity.value {
-        case .number(let n):
-            return Quantity(value: .number(n * factor), unit: quantity.unit)
         case .text:
             return quantity
+        case .number(let n):
+            return Quantity(value: .number(n * factor), unit: quantity.unit)
         }
     }
 
     func scaled(_ recipe: Recipe) -> Recipe {
-        let scaledIngredients = recipe.ingredients.map { ingredient in
-            guard let q = ingredient.quantity else { return ingredient }
-            return Ingredient(
-                name: ingredient.name,
-                alias: ingredient.alias,
-                quantity: scaled(q),
-                note: ingredient.note
-            )
-        }
-        return Recipe(
-            metadata: recipe.metadata,
-            sections: recipe.sections,
-            ingredients: scaledIngredients,
-            cookware: recipe.cookware,
-            timers: recipe.timers
-        )
+        recipe.scaled(by: factor)
     }
 
     // Whole numbers omit the decimal; fractions keep up to two places, no trailing zeros.

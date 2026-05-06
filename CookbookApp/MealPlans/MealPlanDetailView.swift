@@ -8,11 +8,18 @@ struct MealPlanDetailView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    @Environment(AisleCatalog.self) private var aisleCatalog
+
     @State private var plan: MealPlan = MealPlan()
     @State private var resolvedRecipes: [String: RecipeFile] = [:]
     @State private var isLoaded = false
     @State private var showDeleteConfirmation = false
-    @State private var showShoppingListStub = false
+    @State private var showCreateListAlert = false
+    @State private var newListName = ""
+    @State private var createListError: String? = nil
+    @State private var createdListURL: URL? = nil
+    @State private var showCreatedAlert = false
+    @State private var showCreatedSheet = false
     @State private var selectedRecipe: RecipeFile?
     @State private var searchText = ""
 
@@ -81,6 +88,35 @@ struct MealPlanDetailView: View {
         try? MealPlanFiles.writeText(text, to: url)
     }
 
+    private func createShoppingList() {
+        let sanitised = newListName
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "/", with: "-")
+        Task {
+            let didStart = folderURL.startAccessingSecurityScopedResource()
+            defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
+            do {
+                let listURL = try CreateShoppingListFromMealPlanService.create(
+                    planURL: url,
+                    named: sanitised,
+                    recipesFolder: folderURL,
+                    aisleConfig: aisleCatalog.config
+                )
+                await MainActor.run {
+                    createdListURL = listURL
+                    showCreatedAlert = true
+                }
+            } catch CreateShoppingListFromMealPlanService.CreateError.listAlreadyExists {
+                await MainActor.run {
+                    createListError = "A list named \"\(sanitised)\" already exists."
+                    showCreateListAlert = true
+                }
+            } catch {
+                // read/write failures: dismiss silently
+            }
+        }
+    }
+
     private func deletePlan() {
         let parentURL = url.deletingLastPathComponent()
         let didStart = parentURL.startAccessingSecurityScopedResource()
@@ -135,8 +171,36 @@ struct MealPlanDetailView: View {
         } message: {
             Text("This meal plan will be permanently removed.")
         }
-        .alert("Coming in a future update", isPresented: $showShoppingListStub) {
+        .alert("New shopping list", isPresented: $showCreateListAlert) {
+            TextField("Name", text: $newListName)
+            Button("Create") {
+                createShoppingList()
+            }
+            .disabled(newListName.trimmingCharacters(in: .whitespaces).isEmpty)
+            Button("Cancel", role: .cancel) {
+                createListError = nil
+            }
+        } message: {
+            if let error = createListError {
+                Text(error)
+            }
+        }
+        .alert("Shopping list created", isPresented: $showCreatedAlert) {
+            Button("View") { showCreatedSheet = true }
             Button("OK", role: .cancel) {}
+        }
+        .sheet(isPresented: $showCreatedSheet) {
+            if let listURL = createdListURL {
+                NavigationStack {
+                    ShoppingListDetailView(url: listURL)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Done") { showCreatedSheet = false }
+                            }
+                        }
+                }
+                .environment(aisleCatalog)
+            }
         }
         .sheet(item: $selectedRecipe) { recipe in
             RecipeDetailSheet(recipe: recipe)
@@ -192,7 +256,9 @@ struct MealPlanDetailView: View {
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Button {
-                showShoppingListStub = true
+                newListName = planName
+                createListError = nil
+                showCreateListAlert = true
             } label: {
                 Label("Create shopping list", systemImage: "cart")
                     .frame(maxWidth: .infinity)

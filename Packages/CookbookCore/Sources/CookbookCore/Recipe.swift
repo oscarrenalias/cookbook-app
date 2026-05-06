@@ -48,4 +48,23 @@ public struct Recipe: Sendable, Equatable {
         self.cookware = cookware
         self.timers = timers
     }
+
+    public func scaled(by factor: Double) -> Recipe {
+        let scaledIngredients = ingredients.map { ingredient -> Ingredient in
+            guard let quantity = ingredient.quantity,
+                  case .number(let n) = quantity.value else {
+                return ingredient
+            }
+            var scaled = ingredient
+            scaled.quantity = Quantity(value: .number(n * factor), unit: quantity.unit)
+            return scaled
+        }
+        return Recipe(
+            metadata: metadata,
+            sections: sections,
+            ingredients: scaledIngredients,
+            cookware: cookware,
+            timers: timers
+        )
+    }
 }
