@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
-  "dependencies": [],
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029"
+  ],
   "acceptance_criteria": [
     "`ShoppingListFiles.discover(in:)` logs entry with folder URL and exit with discovered markdown file count.",
     "`ShoppingListFiles.readText(from:)` and `writeText(_:to:)` log entry/exit with public file paths and non-sensitive result details.",
