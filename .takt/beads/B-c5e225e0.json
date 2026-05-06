@@ -6,7 +6,14 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-242ce981",
+    "B-e015e412",
+    "B-398593a7",
+    "B-96ff40f2",
+    "B-b947299f",
+    "B-fe603be6"
+  ],
   "acceptance_criteria": [
     "Documentation explains that meal plans can now generate shopping lists from the detail view.",
     "Developer-facing notes capture the role of `Recipe.scaled(by:)` as the canonical arbitrary-factor scaling helper.",
