@@ -47,7 +47,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "file-scope conflict with in-progress B-192fb2c6",
+  "block_reason": "file-scope conflict with in-progress B-af20ecb1",
   "conflict_risks": "",
   "branch_name": "",
   "worktree_path": "",
@@ -73,6 +73,13 @@
       "event": "deferred",
       "agent_type": "developer",
       "summary": "file-scope conflict with in-progress B-192fb2c6",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T16:03:22.200731+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-af20ecb1",
       "details": {}
     }
   ],
