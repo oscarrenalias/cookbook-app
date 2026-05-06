@@ -92,6 +92,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T15:52:11.465346+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-192fb2c6/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-192fb2c6/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -108,7 +117,65 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-192fb2c6/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-192fb2c6/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T15:52:11.465331+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-192fb2c6",
+      "feature_root_id": "B-c3834e6f",
+      "title": "Add meal-plan rename flow in detail view",
+      "agent_type": "developer",
+      "description": "Add a Rename action to the meal-plan detail toolbar menu with alert-based name entry, sanitisation, duplicate detection, security-scoped file handling, atomic file move, and local navigation/list refresh handling.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "MealPlanDetailView toolbar menu includes a Rename\u2026 action alongside delete.",
+        "Rename presents an alert pre-filled with the current display name minus the .menu extension.",
+        "Save is disabled until the trimmed input is non-empty.",
+        "Input is sanitised by trimming and replacing / with -.",
+        "Duplicate target names are detected before move and surface the inline duplicate error.",
+        "Successful rename performs a single moveItem(at:to:) to the new .menu URL without reparsing or rewriting contents.",
+        "The detail view URL or navigation state updates so the stale old URL is not left active, and the list view refreshes if required by existing data flow."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-d0e796fa"
+      ],
+      "execution_branch_name": "feature/b-c3834e6f",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+      "expected_files": [
+        "CookbookApp/MealPlans/MealPlanDetailView.swift",
+        "CookbookApp/MealPlans/MealPlansView.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/MealPlans/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
