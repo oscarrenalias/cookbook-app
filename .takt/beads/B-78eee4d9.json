@@ -220,6 +220,8 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
   ],
   "expected_globs": [
@@ -418,6 +420,8 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
   ],
   "changed_files": [
@@ -610,6 +614,8 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Aggregation.swift",
     "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
   ],
   "updated_docs": [],
@@ -634,7 +640,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "The existing `Aggregation.swift` has a `public extension ShoppingList` block. When the migration bead eventually deletes `ShoppingList.swift`, this extension will break. No conflict on this bead since neither file was modified here.\nNo conflicts expected. ShoppingListDocument.swift is self-contained and no sibling beads claim the same file.\nSibling bead B-bd0c0266 targets the same file (ShoppingListDocument.swift). Its implementation is already present; if the scheduler runs it and attempts to rewrite the parser, there is a merge risk. Recommend inspecting B-bd0c0266 before scheduling.\nView-layer beads that call `removeItem` and then inspect the aisle list should account for auto-pruning \u2014 an aisle may no longer exist after the last item is removed.",
+  "conflict_risks": "The existing `Aggregation.swift` has a `public extension ShoppingList` block. When the migration bead eventually deletes `ShoppingList.swift`, this extension will break. No conflict on this bead since neither file was modified here.\nNo conflicts expected. ShoppingListDocument.swift is self-contained and no sibling beads claim the same file.\nSibling bead B-bd0c0266 targets the same file (ShoppingListDocument.swift). Its implementation is already present; if the scheduler runs it and attempts to rewrite the parser, there is a merge risk. Recommend inspecting B-bd0c0266 before scheduling.\nView-layer beads that call `removeItem` and then inspect the aisle list should account for auto-pruning \u2014 an aisle may no longer exist after the last item is removed.\nAddToShoppingListServiceTests.swift may have hardcoded expected markdown strings that match the old ShoppingList.text output format. B-692930d9 (ShoppingListLineFormatter deletion) depends on this bead; it should proceed safely since ShoppingListLineFormatter is still present and its tests are unaffected.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
