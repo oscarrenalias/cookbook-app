@@ -222,7 +222,7 @@ struct ShoppingListDetailView: View {
                 } header: {
                     AisleSectionHeader(
                         name: sectionKey,
-                        symbolName: AisleIconMap.symbol(for: sectionKey),
+                        iconSource: AisleIconMap.source(for: sectionKey),
                         count: group.items.count,
                         isCollapsed: isCollapsed
                     ) {
@@ -317,7 +317,7 @@ struct ShoppingListDetailView: View {
 
 private struct AisleSectionHeader: View {
     let name: String
-    let symbolName: String
+    let iconSource: AisleIconMap.Source
     let count: Int
     let isCollapsed: Bool
     let onToggle: () -> Void
@@ -325,9 +325,9 @@ private struct AisleSectionHeader: View {
     var body: some View {
         Button(action: onToggle) {
             HStack(spacing: 6) {
-                Image(systemName: symbolName)
-                    .frame(width: 20)
-                Text(name)
+                aisleIcon
+                    .frame(width: 20, height: 20)
+                Text(name.localizedCapitalized)
                 Spacer()
                 Text("\(count)")
                     .monospacedDigit()
@@ -338,6 +338,19 @@ private struct AisleSectionHeader: View {
             }
         }
         .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var aisleIcon: some View {
+        switch iconSource {
+        case .system(let name):
+            Image(systemName: name)
+        case .asset(let name):
+            Image(name)
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+        }
     }
 }
 
