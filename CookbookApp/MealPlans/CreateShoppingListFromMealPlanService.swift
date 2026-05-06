@@ -1,5 +1,6 @@
 import CookbookCore
 import Foundation
+import os
 
 enum CreateShoppingListFromMealPlanService {
 
@@ -50,7 +51,7 @@ enum CreateShoppingListFromMealPlanService {
 
                     guard let recipeText = try? String(contentsOf: recipeURL, encoding: .utf8),
                           let recipe = try? CooklangParser.canonical.parse(recipeText) else {
-                        print("[CreateShoppingListFromMealPlanService] skipping \(clean): read/parse failed")
+                        Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] skipping \(clean, privacy: .public): read/parse failed")
                         continue
                     }
 
