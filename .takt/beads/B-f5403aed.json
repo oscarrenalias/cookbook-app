@@ -90,6 +90,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T09:47:31.527967+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-f5403aed/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-f5403aed/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -106,7 +115,63 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-f5403aed/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-f5403aed/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T09:47:31.527949+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-f5403aed",
+      "feature_root_id": "B-920f3e84",
+      "title": "Teach MealPlanParser to round-trip free-text items",
+      "agent_type": "developer",
+      "description": "Update meal-plan parsing and serialisation so non-empty non-recipe/non-ingredient lines become `.text` items while existing section-header behaviour remains intact.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Parser emits `.text(line)` for eligible free-text lines inside sections.",
+        "Whitespace-only lines are dropped rather than emitted as text items.",
+        "Serialiser writes `.text` items verbatim and preserves canonical ordering.",
+        "Existing recipe, ingredient, and section-header parsing behaviour remains intact."
+      ],
+      "dependencies": [
+        "B-35b69af1"
+      ],
+      "linked_docs": [
+        "spec-d7a891ba",
+        "specs/drafts/meal-plans-tab.md",
+        "docs/examples/meal-plan.menu"
+      ],
+      "execution_branch_name": "feature/b-920f3e84",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+      "expected_files": [
+        "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
