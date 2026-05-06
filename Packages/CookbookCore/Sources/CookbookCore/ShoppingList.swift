@@ -90,6 +90,71 @@ public struct ShoppingList: Sendable, Equatable {
         }
     }
 
+    /// Appends `- markdown` under a `## Meals` section, creating the section after the H1
+    /// (or at the top when no H1 exists) if it is absent. Idempotent: a no-op when the
+    /// identical bullet already exists in the section.
+    public mutating func appendMealsBullet(_ markdown: String) {
+        let bullet = "- \(markdown)"
+        var lines = text.components(separatedBy: "\n")
+
+        if let mealsSectionIdx = lines.firstIndex(where: {
+            $0.trimmingCharacters(in: .whitespaces) == "## Meals"
+        }) {
+            let sectionContentStart = mealsSectionIdx + 1
+            var sectionEnd = lines.endIndex
+            for i in sectionContentStart..<lines.endIndex {
+                if lines[i].trimmingCharacters(in: .whitespaces).hasPrefix("## ") {
+                    sectionEnd = i
+                    break
+                }
+            }
+
+            // Idempotency: bail if bullet already present in the section
+            for i in sectionContentStart..<sectionEnd {
+                if lines[i].trimmingCharacters(in: .whitespacesAndNewlines) == bullet {
+                    return
+                }
+            }
+
+            // Insert after the last non-blank line in the section
+            var insertAt = sectionEnd
+            if sectionContentStart < sectionEnd {
+                for i in stride(from: sectionEnd - 1, through: sectionContentStart, by: -1) {
+                    if !lines[i].trimmingCharacters(in: .whitespaces).isEmpty {
+                        insertAt = i + 1
+                        break
+                    }
+                }
+            }
+
+            lines.insert(bullet, at: insertAt)
+        } else {
+            // Create ## Meals: after the H1 line, or at the top when no H1 exists
+            let h1Index = lines.firstIndex(where: {
+                let t = $0.trimmingCharacters(in: .whitespaces)
+                return t.hasPrefix("# ") && !t.hasPrefix("## ")
+            })
+
+            let insertAt = h1Index.map { $0 + 1 } ?? 0
+            var block: [String] = []
+
+            if insertAt > 0 && !lines[insertAt - 1].trimmingCharacters(in: .whitespaces).isEmpty {
+                block.append("")
+            }
+            block.append("## Meals")
+            block.append(bullet)
+
+            // Trailing blank only when the immediately following line is a ## heading
+            if insertAt < lines.count && lines[insertAt].trimmingCharacters(in: .whitespaces).hasPrefix("## ") {
+                block.append("")
+            }
+
+            lines.insert(contentsOf: block, at: insertAt)
+        }
+
+        text = lines.joined(separator: "\n")
+    }
+
     public mutating func removeItem(atLine lineIndex: Int) {
         guard let record = lineRecords().first(where: { $0.lineIndex == lineIndex }),
               ShoppingList.matchItem(in: record.content) != nil else {

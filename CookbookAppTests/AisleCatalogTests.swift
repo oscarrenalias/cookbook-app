@@ -56,6 +56,30 @@ struct AisleCatalogTests {
         #expect(catalog.aisles == AisleCatalog.defaultAisles)
     }
 
+    @Test func loadFromAbsentAisleConfLeavesConfigNil() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let catalog = AisleCatalog()
+        catalog.load(from: dir)
+
+        #expect(catalog.config == nil)
+    }
+
+    @Test func loadFromValidAisleConfPopulatesConfig() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let confText = "[produce]\ncarrot\n\n[dairy]\nmilk\n"
+        try confText.write(to: dir.appendingPathComponent("aisle.conf"), atomically: true, encoding: .utf8)
+
+        let catalog = AisleCatalog()
+        catalog.load(from: dir)
+
+        #expect(catalog.config != nil)
+        #expect(catalog.config?.sections.map(\.name) == ["produce", "dairy"])
+    }
+
     @Test func reloadReplacesPreviousCache() throws {
         let dir1 = try makeTempDir()
         let dir2 = try makeTempDir()

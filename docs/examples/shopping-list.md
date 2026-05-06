@@ -1,5 +1,13 @@
 # Shopping list: shopping list 03.05.2026
 
+<!--
+  Canonical shopping-list example referenced by ShoppingList.swift and
+  ShoppingListHeaderExtractor.  Structure:
+    H1 title
+    ## Meals   ← prose bullets only; captured as "header area" by ShoppingListHeaderExtractor
+    ## <aisle> ← GFM checklist items; one section per aisle from aisle.conf
+-->
+
 ## Meals
 - **Saturday dinner** — Makaroni with Minced Meat
 - **Saturday dinner** — Grilled Tuna

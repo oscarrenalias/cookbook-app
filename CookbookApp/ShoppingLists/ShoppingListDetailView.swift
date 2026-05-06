@@ -16,6 +16,10 @@ struct ShoppingListDetailView: View {
 
     private var listName: String { ShoppingListFiles.displayName(for: url) }
 
+    private var headerStorageKey: String {
+        "shoppingList.header.expanded.\(url.lastPathComponent)"
+    }
+
     private var groups: [(name: String?, items: [ShoppingListItem])] {
         ShoppingListAisleGrouper.group(list).filter { !$0.items.isEmpty }
     }
@@ -99,6 +103,10 @@ struct ShoppingListDetailView: View {
     @ViewBuilder
     private var listContent: some View {
         List {
+            if let headerContent = ShoppingListHeaderExtractor.extract(from: list.text) {
+                ShoppingListHeaderView(content: headerContent, storageKey: headerStorageKey)
+            }
+
             Section {
                 Text("\(checkedCount) of \(totalCount) items checked")
                     .font(.subheadline)
