@@ -278,10 +278,13 @@
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/Loggers.swift",
     "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
-    "CookbookAppTests/LoggersTests.swift"
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+    "CookbookAppTests/LoggersTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
   ],
   "expected_globs": [
-    "CookbookApp/**/*.swift"
+    "CookbookApp/**/*.swift",
+    "CookbookApp/ShoppingLists/**/*ShoppingListDocument*.swift"
   ],
   "touched_files": [
     ".takt/beads/.gitkeep",
@@ -534,7 +537,9 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/Loggers.swift",
-    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift"
+    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -787,7 +792,9 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/Common/Loggers.swift",
-    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift"
+    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -811,7 +818,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "The regenerated `project.pbxproj` may conflict with sibling beads that also regenerate the Xcode project. Sibling developer beads should coordinate on who runs XcodeGen last, or a single regeneration pass should occur after all source additions are done.\nNone \u2014 only touched MealPlans/CreateShoppingListFromMealPlanService.swift, a file not claimed by any sibling bead.",
+  "conflict_risks": "The regenerated `project.pbxproj` may conflict with sibling beads that also regenerate the Xcode project. Sibling developer beads should coordinate on who runs XcodeGen last, or a single regeneration pass should occur after all source additions are done.\nNone \u2014 only touched MealPlans/CreateShoppingListFromMealPlanService.swift, a file not claimed by any sibling bead.\nNone. Changes are additive (logging only) with no shared mutable state.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
