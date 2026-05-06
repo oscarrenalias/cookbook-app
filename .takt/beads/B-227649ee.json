@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-bd0c0266",
+    "B-0ed77b55",
+    "B-f7f69190"
+  ],
   "acceptance_criteria": [
     "`ShoppingListDetailView` renders notes and meals as separate collapsible sections above aisle groups and iterates `document.aisles` directly in file order.",
     "`ShoppingListHeaderView` reads structured notes and meals content rather than extracted markdown header text.",
