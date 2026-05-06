@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-242ce981"
+  ],
   "acceptance_criteria": [
     "`CookbookApp/Recipes/RecipeScale.swift` calls `recipe.scaled(by:)` internally.",
     "Existing RecipeScale public behavior remains equivalent for its supported enum factors.",
