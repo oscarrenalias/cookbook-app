@@ -1,5 +1,6 @@
 import CookbookCore
 import Foundation
+import os
 
 enum AddToMealPlanService {
 
@@ -24,10 +25,13 @@ enum AddToMealPlanService {
         servings: Int? = nil,
         scaleFactor: Double = 1.0
     ) throws {
+        Loggers.mealPlans.debug("[AddToMealPlanService] addToBlock: entry recipe=\(recipeURL.lastPathComponent, privacy: .public) plan=\(planURL.lastPathComponent, privacy: .public) blockIndex=\(blockIndex) servings=\(servings.map(String.init) ?? "nil", privacy: .public) scale=\(scaleFactor)")
         guard let text = MealPlanFiles.readText(from: planURL) else {
+            Loggers.mealPlans.warning("[AddToMealPlanService] addToBlock: readFailed plan=\(planURL.lastPathComponent, privacy: .public)")
             throw MutationError.readFailed
         }
         guard let path = MealPlanRecipePath.path(for: recipeURL, relativeTo: recipesFolder) else {
+            Loggers.mealPlans.warning("[AddToMealPlanService] addToBlock: pathResolutionFailed recipe=\(recipeURL.lastPathComponent, privacy: .public)")
             throw MutationError.pathResolutionFailed
         }
         var plan = MealPlanParser.parse(text)
@@ -38,8 +42,10 @@ enum AddToMealPlanService {
         do {
             try MealPlanFiles.writeText(serialised, to: planURL)
         } catch {
+            Loggers.mealPlans.warning("[AddToMealPlanService] addToBlock: writeFailed plan=\(planURL.lastPathComponent, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw MutationError.writeFailed(error)
         }
+        Loggers.mealPlans.debug("[AddToMealPlanService] addToBlock: exit success plan=\(planURL.lastPathComponent, privacy: .public)")
     }
 
     /// Appends a new block named `blockHeading` to an existing meal plan and places
@@ -52,10 +58,13 @@ enum AddToMealPlanService {
         servings: Int? = nil,
         scaleFactor: Double = 1.0
     ) throws {
+        Loggers.mealPlans.debug("[AddToMealPlanService] addNewBlock: entry recipe=\(recipeURL.lastPathComponent, privacy: .public) plan=\(planURL.lastPathComponent, privacy: .public) block=\(blockHeading, privacy: .public) servings=\(servings.map(String.init) ?? "nil", privacy: .public) scale=\(scaleFactor)")
         guard let text = MealPlanFiles.readText(from: planURL) else {
+            Loggers.mealPlans.warning("[AddToMealPlanService] addNewBlock: readFailed plan=\(planURL.lastPathComponent, privacy: .public)")
             throw MutationError.readFailed
         }
         guard let path = MealPlanRecipePath.path(for: recipeURL, relativeTo: recipesFolder) else {
+            Loggers.mealPlans.warning("[AddToMealPlanService] addNewBlock: pathResolutionFailed recipe=\(recipeURL.lastPathComponent, privacy: .public)")
             throw MutationError.pathResolutionFailed
         }
         var plan = MealPlanParser.parse(text)
@@ -67,8 +76,10 @@ enum AddToMealPlanService {
         do {
             try MealPlanFiles.writeText(serialised, to: planURL)
         } catch {
+            Loggers.mealPlans.warning("[AddToMealPlanService] addNewBlock: writeFailed plan=\(planURL.lastPathComponent, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw MutationError.writeFailed(error)
         }
+        Loggers.mealPlans.debug("[AddToMealPlanService] addNewBlock: exit success plan=\(planURL.lastPathComponent, privacy: .public)")
     }
 
     /// Creates a new `.menu` plan file under `folderURL/plans/` seeded with the recipe as
@@ -84,12 +95,14 @@ enum AddToMealPlanService {
         servings: Int?,
         scaleFactor: Double
     ) throws {
+        Loggers.mealPlans.debug("[AddToMealPlanService] createNewPlan: entry planName=\(planName, privacy: .public) recipe=\(recipeURL.lastPathComponent, privacy: .public) servings=\(servings.map(String.init) ?? "nil", privacy: .public) scale=\(scaleFactor)")
         let sanitised = planName
             .trimmingCharacters(in: .whitespaces)
             .replacingOccurrences(of: "/", with: "-")
         guard !sanitised.isEmpty else { return }
 
         guard let path = MealPlanRecipePath.path(for: recipeURL, relativeTo: recipesFolder) else {
+            Loggers.mealPlans.warning("[AddToMealPlanService] createNewPlan: pathResolutionFailed recipe=\(recipeURL.lastPathComponent, privacy: .public)")
             throw MutationError.pathResolutionFailed
         }
 
@@ -102,6 +115,7 @@ enum AddToMealPlanService {
         defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
 
         if FileManager.default.fileExists(atPath: planURL.path) {
+            Loggers.mealPlans.warning("[AddToMealPlanService] createNewPlan: duplicatePlan planName=\(sanitised, privacy: .public)")
             throw MutationError.duplicatePlan
         }
 
@@ -113,7 +127,9 @@ enum AddToMealPlanService {
         do {
             try serialised.write(to: planURL, atomically: true, encoding: .utf8)
         } catch {
+            Loggers.mealPlans.warning("[AddToMealPlanService] createNewPlan: writeFailed planName=\(sanitised, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw MutationError.writeFailed(error)
         }
+        Loggers.mealPlans.debug("[AddToMealPlanService] createNewPlan: exit success plan=\(planURL.lastPathComponent, privacy: .public)")
     }
 }
