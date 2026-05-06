@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-36a590ee"
+  ],
   "acceptance_criteria": [
     "`init(markdown:)` classifies the first H1 as title, `## Meals` bullets as meals, non-Meal `##` sections as aisles, and pre-aisle free text as notes.",
     "Checklist entries are parsed into typed aisle items with checked state and raw text preserved.",
