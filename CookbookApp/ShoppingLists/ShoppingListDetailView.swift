@@ -193,10 +193,13 @@ struct ShoppingListDetailView: View {
 
             Section {
                 Text("\(checkedCount) of \(totalCount) items checked")
-                    .font(.subheadline)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
             }
-            .listRowBackground(Color.clear)
 
             ForEach(filteredGroups, id: \.name) { group in
                 let sectionKey = group.name
@@ -237,6 +240,7 @@ struct ShoppingListDetailView: View {
                 }
             }
         }
+        .listSectionSpacing(.compact)
     }
 
     private func toggleItem(at index: ItemIndex) {
