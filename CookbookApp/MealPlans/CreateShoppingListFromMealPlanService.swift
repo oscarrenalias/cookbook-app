@@ -1,5 +1,6 @@
 import CookbookCore
 import Foundation
+import os
 
 enum CreateShoppingListFromMealPlanService {
 
@@ -18,16 +19,19 @@ enum CreateShoppingListFromMealPlanService {
         recipesFolder: URL,
         aisleConfig: AisleConfig?
     ) throws -> URL {
+        Loggers.mealPlans.debug("[CreateShoppingListFromMealPlanService] create: entry plan=\(planURL.lastPathComponent, privacy: .public) name=\(name, privacy: .public)")
         let sanitised = name
             .trimmingCharacters(in: .whitespaces)
             .replacingOccurrences(of: "/", with: "-")
         let subfolder = ShoppingListFiles.shoppingListsURL(in: recipesFolder)
         let outputURL = subfolder.appendingPathComponent("\(sanitised).md")
         if ShoppingListFiles.readText(from: outputURL) != nil {
+            Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: exit listAlreadyExists name=\(sanitised, privacy: .public)")
             throw CreateError.listAlreadyExists
         }
 
         guard let planText = MealPlanFiles.readText(from: planURL) else {
+            Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: exit readPlanFailed plan=\(planURL.lastPathComponent, privacy: .public)")
             throw CreateError.readPlanFailed
         }
         let plan = MealPlanParser.parse(planText)
@@ -50,9 +54,10 @@ enum CreateShoppingListFromMealPlanService {
 
                     guard let recipeText = try? String(contentsOf: recipeURL, encoding: .utf8),
                           let recipe = try? CooklangParser.canonical.parse(recipeText) else {
-                        print("[CreateShoppingListFromMealPlanService] skipping \(clean): read/parse failed")
+                        Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: skip \(clean, privacy: .public) read/parse failed")
                         continue
                     }
+                    Loggers.mealPlans.debug("[CreateShoppingListFromMealPlanService] create: loaded \(clean, privacy: .public)")
 
                     let factor = scaleFactor(reference: ref.quantity, recipe: recipe)
                     scaledRecipes.append(recipe.scaled(by: factor))
@@ -75,9 +80,11 @@ enum CreateShoppingListFromMealPlanService {
         do {
             try ShoppingListFiles.writeText(doc.renderMarkdown(), to: outputURL)
         } catch {
+            Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: exit writeFailed name=\(sanitised, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw CreateError.writeFailed(error)
         }
 
+        Loggers.mealPlans.debug("[CreateShoppingListFromMealPlanService] create: exit url=\(outputURL.lastPathComponent, privacy: .public)")
         return outputURL
     }
 

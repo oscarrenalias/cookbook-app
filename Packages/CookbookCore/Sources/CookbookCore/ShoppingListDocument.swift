@@ -1,4 +1,7 @@
 import Foundation
+import os
+
+private let logger = Logger(subsystem: "com.cookbookapp", category: "shoppingLists")
 
 /// Structured shopping-list document backed by vanilla markdown on disk.
 ///
@@ -147,6 +150,11 @@ extension ShoppingListDocument {
         self.meals = meals
         self.notes = notes
         self.aisles = aisles
+
+        let itemCount = aisles.reduce(0) { $0 + $1.items.count }
+        logger.debug(
+            "[ShoppingListDocument] parsed: aisles=\(aisles.count) items=\(itemCount) hasNotes=\(!notes.isEmpty) hasMeals=\(!meals.isEmpty)"
+        )
     }
 }
 
