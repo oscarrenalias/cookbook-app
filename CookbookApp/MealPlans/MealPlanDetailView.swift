@@ -17,6 +17,9 @@ struct MealPlanDetailView: View {
     @State private var showCreateListAlert = false
     @State private var newListName = ""
     @State private var createListError: String? = nil
+    @State private var createdListURL: URL? = nil
+    @State private var showCreatedAlert = false
+    @State private var showCreatedSheet = false
     @State private var selectedRecipe: RecipeFile?
     @State private var searchText = ""
 
@@ -93,12 +96,16 @@ struct MealPlanDetailView: View {
             let didStart = folderURL.startAccessingSecurityScopedResource()
             defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
             do {
-                _ = try CreateShoppingListFromMealPlanService.create(
+                let listURL = try CreateShoppingListFromMealPlanService.create(
                     planURL: url,
                     named: sanitised,
                     recipesFolder: folderURL,
                     aisleConfig: aisleCatalog.config
                 )
+                await MainActor.run {
+                    createdListURL = listURL
+                    showCreatedAlert = true
+                }
             } catch CreateShoppingListFromMealPlanService.CreateError.listAlreadyExists {
                 await MainActor.run {
                     createListError = "A list named \"\(sanitised)\" already exists."
@@ -176,6 +183,23 @@ struct MealPlanDetailView: View {
         } message: {
             if let error = createListError {
                 Text(error)
+            }
+        }
+        .alert("Shopping list created", isPresented: $showCreatedAlert) {
+            Button("View") { showCreatedSheet = true }
+            Button("OK", role: .cancel) {}
+        }
+        .sheet(isPresented: $showCreatedSheet) {
+            if let listURL = createdListURL {
+                NavigationStack {
+                    ShoppingListDetailView(url: listURL)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Done") { showCreatedSheet = false }
+                            }
+                        }
+                }
+                .environment(aisleCatalog)
             }
         }
         .sheet(item: $selectedRecipe) { recipe in
