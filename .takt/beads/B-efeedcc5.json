@@ -90,6 +90,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:17:35.250585+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-efeedcc5/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-efeedcc5/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -106,7 +115,63 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-efeedcc5/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-efeedcc5/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T11:17:35.250569+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-efeedcc5",
+      "feature_root_id": "B-3383c60d",
+      "title": "Add-to-meal-plan service: new plan creation",
+      "agent_type": "developer",
+      "description": "Extend the service with the create-new-plan flow, including name sanitisation, duplicate-file handling, initial block seeding, recipe insertion, quantity calculation, and serialise/write behavior.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "The service can create a new `.menu` file under the plans folder with a sanitised plan name and caller-provided first section name.",
+        "Duplicate plan filenames are detected before write and surfaced as a recoverable error path.",
+        "Recipe quantity uses servings \u00d7 scale when servings metadata is available and omits quantity when it is not."
+      ],
+      "dependencies": [
+        "B-e032faca"
+      ],
+      "linked_docs": [
+        "spec-2ca2e4f2",
+        "spec-855cd963"
+      ],
+      "execution_branch_name": "feature/b-3383c60d",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+      "expected_files": [
+        "CookbookApp/MealPlans/AddToMealPlanService.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/MealPlans/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
