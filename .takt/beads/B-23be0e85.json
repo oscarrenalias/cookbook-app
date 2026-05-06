@@ -6,7 +6,12 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
-  "dependencies": [],
+  "dependencies": [
+    "B-955af572",
+    "B-a5fb654d",
+    "B-5cfc1194",
+    "B-4e264740"
+  ],
   "acceptance_criteria": [
     "`MealPlanFilesTests` covers subfolder creation, discovery filtering/sorting, and display name stripping.",
     "`MealPlansViewTests` covers card rendering, create-plan flow, and duplicate-name handling.",
