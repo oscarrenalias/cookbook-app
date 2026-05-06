@@ -6,7 +6,17 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
-  "dependencies": [],
+  "dependencies": [
+    "B-c6573e45",
+    "B-e032faca",
+    "B-61b784c9",
+    "B-efeedcc5",
+    "B-37884968",
+    "B-12274fa7",
+    "B-2c36b846",
+    "B-ee142d10",
+    "B-8438f1d4"
+  ],
   "acceptance_criteria": [
     "Review confirms the UI, service, and CookbookCore layers match the locked decisions in spec-2ca2e4f2.",
     "Review checks that tester and documentation work completed and that dependencies on the Meal Plans tab architecture were respected.",
