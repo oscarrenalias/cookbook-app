@@ -29,6 +29,15 @@ enum RecipeScale: Double, CaseIterable {
         return String(Int(scaled))
     }
 
+    func scaled(_ quantity: Quantity) -> Quantity {
+        switch quantity.value {
+        case .text:
+            return quantity
+        case .number(let n):
+            return Quantity(value: .number(n * factor), unit: quantity.unit)
+        }
+    }
+
     func scaled(_ recipe: Recipe) -> Recipe {
         recipe.scaled(by: factor)
     }
