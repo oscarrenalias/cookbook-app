@@ -3,7 +3,7 @@
   "title": "Refactor list and header views to render structured sections directly",
   "agent_type": "developer",
   "description": "Replace view-layer parsing/grouping helpers with direct rendering from `ShoppingListDocument`, including separate notes and meals sections, aisle ordering from the document, and summary counts from flattened aisle items.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
   "dependencies": [
@@ -30,37 +30,56 @@
   "expected_globs": [
     "CookbookApp/ShoppingLists/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All three acceptance criteria implemented and verified with a clean build:\\n1. ShoppingListDetailView.listContent now renders document.notes and document.meals as two separate ShoppingListHeaderView collapsible sections (above aisle groups), and already iterated document.aisles directly via filteredGroups.\\n2. ShoppingListHeaderView rewritten to accept label: String and lines: [String] instead of HeaderContent \u2014 no longer depends on ShoppingListHeaderExtractor or its markdown-parsing logic.\\n3. ShoppingListsView.loadEntries replaced ShoppingList(text).items with ShoppingListDocument(markdown:).aisles.flatMap(.items) for both itemCount and doneCount.",
+    "remaining": "Nothing \u2014 all acceptance criteria satisfied.",
+    "risks": "ShoppingListHeaderExtractor and HeaderContent remain in the codebase (used by their own tests). They are now dead code from the view layer's perspective but harmless. A future cleanup bead could remove them once tests are updated.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Ready for tester agent.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/ShoppingLists/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    ],
+    "conflict_risks": "ShoppingListHeaderExtractor.swift and its HeaderContent type are now unreferenced by any view but still present. No file-scope conflicts expected for downstream beads.",
+    "design_decisions": "ShoppingListHeaderView API changed from (content: HeaderContent, storageKey:) to (label: String, lines: [String], storageKey:) \u2014 simpler, typed, no text extraction. Notes and meals use distinct SceneStorage keys (.notes / .meals suffix) so their collapse states are independent. Notes lines are flattened from Block.lines and pre-filtered for blank lines before passing to the view. Meals lines are formatted as markdown bullets (\\\"- meal\\\") for consistent visual rendering.",
+    "test_coverage_notes": "ShoppingListHeaderExtractorTests remain valid \u2014 the extractor itself is untouched. No view-layer tests existed for ShoppingListHeaderView so no test updates required for the API change.",
+    "known_limitations": "ShoppingListHeaderExtractor / HeaderContent are now view-layer dead code. They should be removed in a follow-up polish bead once their tests are updated or removed."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "ShoppingListHeaderExtractor.swift and its HeaderContent type are now unreferenced by any view but still present. No file-scope conflicts expected for downstream beads.",
   "branch_name": "feature/b-265bdf43",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
-  "lease": {
-    "owner": "developer:B-227649ee",
-    "expires_at": "2026-05-06T08:23:41.948618+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -102,6 +121,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-227649ee/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T07:57:46.741695+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Refactored ShoppingListDetailView, ShoppingListHeaderView, and ShoppingListsView to render directly from ShoppingListDocument structure rather than through text-extraction helpers.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -177,7 +203,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Refactored ShoppingListDetailView, ShoppingListHeaderView, and ShoppingListsView to render directly from ShoppingListDocument structure rather than through text-extraction helpers.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.5686404,
+      "duration_ms": 238570,
+      "duration_api_ms": 204918,
+      "num_turns": 24,
+      "input_tokens": 20,
+      "output_tokens": 10942,
+      "cache_creation_tokens": 37669,
+      "cache_read_tokens": 703136,
+      "stop_reason": "end_turn",
+      "session_id": "7778546f-c762-4dc6-8615-12c334e36019",
+      "permission_denials": [],
+      "prompt_chars": 5955,
+      "prompt_lines": 137,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.5686404,
+        "duration_ms": 238570,
+        "duration_api_ms": 204918,
+        "num_turns": 24,
+        "input_tokens": 20,
+        "output_tokens": 10942,
+        "cache_creation_tokens": 37669,
+        "cache_read_tokens": 703136,
+        "stop_reason": "end_turn",
+        "session_id": "7778546f-c762-4dc6-8615-12c334e36019",
+        "permission_denials": [],
+        "prompt_chars": 5955,
+        "prompt_lines": 137,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "e9f9375709977b62ff5a205372b41e1995eebf18"
   },
   "labels": [],
   "recovery_for": null,
