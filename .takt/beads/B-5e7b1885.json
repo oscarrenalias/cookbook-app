@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-5e7b1885",
+  "title": "Implement typed ShoppingListDocument mutations",
+  "agent_type": "developer",
+  "description": "Implement the typed mutation APIs on `ShoppingListDocument` for item insertion, update, toggle, removal, meal insertion, and aisle deletion with the locked-in aisle lifecycle behavior.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-265bdf43",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`addItem`, `updateItem`, `toggle`, `removeItem`, `deleteAisle`, and `addMealsEntry` are implemented against structured fields rather than text editing.",
+    "Aisle lookup for `addItem` is case-insensitive and appends a new aisle when no match exists.",
+    "Removing the last item auto-prunes the aisle in line with the locked decision, and `addMealsEntry` is idempotent on exact string equality."
+  ],
+  "linked_docs": [
+    "spec-855cd963"
+  ],
+  "feature_root_id": "B-265bdf43",
+  "execution_branch_name": "feature/b-265bdf43",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T07:17:34.928905+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
