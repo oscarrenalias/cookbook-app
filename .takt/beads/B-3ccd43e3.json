@@ -525,7 +525,13 @@
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
-    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+    "CookbookAppTests/AddItemSheetTests.swift",
+    "CookbookAppTests/EditItemSheetTests.swift",
+    "CookbookAppTests/MealPlanRenameTests.swift",
+    "CookbookAppTests/ShoppingListRenameTests.swift",
+    "docs/roadmap.md",
+    "specs/drafts/shopping-lists-follow-up-tweaks.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -771,7 +777,13 @@
     "CookbookApp/ShoppingLists/EditItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
-    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+    "CookbookAppTests/AddItemSheetTests.swift",
+    "CookbookAppTests/EditItemSheetTests.swift",
+    "CookbookAppTests/MealPlanRenameTests.swift",
+    "CookbookAppTests/ShoppingListRenameTests.swift",
+    "docs/roadmap.md",
+    "specs/drafts/shopping-lists-follow-up-tweaks.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
