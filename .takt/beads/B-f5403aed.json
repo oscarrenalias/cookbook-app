@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
-  "dependencies": [],
+  "dependencies": [
+    "B-35b69af1"
+  ],
   "acceptance_criteria": [
     "Parser emits `.text(line)` for eligible free-text lines inside sections.",
     "Whitespace-only lines are dropped rather than emitted as text items.",
