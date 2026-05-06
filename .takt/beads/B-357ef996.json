@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-36a590ee",
+    "B-5e7b1885"
+  ],
   "acceptance_criteria": [
     "Aggregation-facing shopping-list entry formatting no longer depends on `ShoppingListLineFormatter` producing full markdown checklist lines.",
     "`Aggregation.swift` is updated so shopping-list creation/appending can populate `ShoppingListDocument` directly from aggregated aisle data.",
