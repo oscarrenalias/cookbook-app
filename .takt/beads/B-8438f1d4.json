@@ -245,10 +245,12 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "expected_globs": [
     "*.md",
+    "CookbookApp/MealPlans/*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/*.swift",
     "docs/**/*.md"
   ],
@@ -468,6 +470,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "changed_files": [
@@ -686,6 +689,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "updated_docs": [],
@@ -710,7 +714,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.",
+  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
