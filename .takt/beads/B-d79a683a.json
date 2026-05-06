@@ -248,6 +248,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/AddToMealPlanService.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -471,6 +472,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/AddToMealPlanService.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -690,6 +692,7 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp/MealPlans/AddToMealPlanService.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -715,7 +718,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.",
+  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.\nNo conflict risk with sibling beads. `AddToMealPlanService.swift` is a new file not touched by any other in-progress bead. The upstream `MealPlanRecipePath.swift` (B-e032faca) and mutation APIs (B-c6573e45) are already committed on the feature branch.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
