@@ -18,8 +18,11 @@ enum CreateShoppingListFromMealPlanService {
         recipesFolder: URL,
         aisleConfig: AisleConfig?
     ) throws -> URL {
+        let sanitised = name
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "/", with: "-")
         let subfolder = ShoppingListFiles.shoppingListsURL(in: recipesFolder)
-        let outputURL = subfolder.appendingPathComponent("\(name).md")
+        let outputURL = subfolder.appendingPathComponent("\(sanitised).md")
         if ShoppingListFiles.readText(from: outputURL) != nil {
             throw CreateError.listAlreadyExists
         }
@@ -63,7 +66,7 @@ enum CreateShoppingListFromMealPlanService {
 
         let aggregated = AggregatedShoppingList.aggregate(recipes: scaledRecipes, aisleConfig: aisleConfig)
 
-        var doc = ShoppingListDocument(title: name)
+        var doc = ShoppingListDocument(title: sanitised)
         for bullet in provenanceBullets {
             doc.addMealsEntry(bullet)
         }
