@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 struct FolderSection {
     let name: String
@@ -9,6 +10,8 @@ enum RecipeDiscovery {
     static let noFolderSectionName = "(no folder)"
 
     static func scan(folderURL: URL) -> [FolderSection] {
+        Loggers.recipes.debug("[RecipeDiscovery] scan: entry folder=\(folderURL.path, privacy: .public)")
+
         let didStartAccess = folderURL.startAccessingSecurityScopedResource()
         defer {
             if didStartAccess {
@@ -24,6 +27,7 @@ enum RecipeDiscovery {
             includingPropertiesForKeys: resourceKeys,
             options: [.skipsHiddenFiles]
         ) else {
+            Loggers.recipes.debug("[RecipeDiscovery] scan: directory read failed, returning empty")
             return []
         }
 
@@ -64,6 +68,8 @@ enum RecipeDiscovery {
             ))
         }
 
+        let totalRecipes = sections.reduce(0) { $0 + $1.recipes.count }
+        Loggers.recipes.debug("[RecipeDiscovery] scan: exit sections=\(sections.count) recipes=\(totalRecipes)")
         return sections
     }
 
