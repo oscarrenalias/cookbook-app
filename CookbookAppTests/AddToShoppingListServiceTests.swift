@@ -16,28 +16,6 @@ struct AddToShoppingListServiceTests {
         Recipe(ingredients: ingredients)
     }
 
-    // MARK: - isAisleBacked
-
-    @Test func isAisleBackedFlatListReturnsFalse() {
-        let text = "# My List\n- [ ] milk\n- [ ] eggs\n"
-        #expect(AddToShoppingListService.isAisleBacked(text) == false)
-    }
-
-    @Test func isAisleBackedMealsOnlySectionReturnsFalse() {
-        let text = "## Meals\n- **Pasta Bolognese**\n"
-        #expect(AddToShoppingListService.isAisleBacked(text) == false)
-    }
-
-    @Test func isAisleBackedAisleSectionWithChecklistReturnsTrue() {
-        let text = "## produce\n- [ ] apple\n"
-        #expect(AddToShoppingListService.isAisleBacked(text) == true)
-    }
-
-    @Test func isAisleBackedMixedProseAndAisleReturnsTrue() {
-        let text = "## Meals\n- **Pasta**\n## produce\n- [ ] apple\n"
-        #expect(AddToShoppingListService.isAisleBacked(text) == true)
-    }
-
     // MARK: - append
 
     @Test func appendReturnsCorrectItemCount() throws {
@@ -77,22 +55,34 @@ struct AddToShoppingListServiceTests {
         #expect(mealsRange < spinachRange)
     }
 
-    @Test func appendFlatModeDoesNotInjectAisleHeadings() throws {
+    @Test func appendExistingFlatItemsRemainsVerbatim() throws {
         let dir = try makeTempDir()
         defer { try? FileManager.default.removeItem(at: dir) }
         let url = dir.appendingPathComponent("list.md")
-        try "# Test\n- [ ] existing item\n".write(to: url, atomically: true, encoding: .utf8)
+        try "# My List\n- [ ] existing item\n- [ ] another item\n".write(to: url, atomically: true, encoding: .utf8)
 
-        let recipe = makeRecipe(ingredients: [Ingredient(name: "milk")])
+        let aisleConfig = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "apple")])
+        ])
+        let recipe = makeRecipe(ingredients: [
+            Ingredient(name: "apple", quantity: Quantity(value: .number(2)))
+        ])
 
         try AddToShoppingListService.append(
-            recipe: recipe, scale: .one, recipeName: "Recipe", to: url, aisleConfig: nil
+            recipe: recipe, scale: .one, recipeName: "Snack", to: url, aisleConfig: aisleConfig
         )
 
         let text = try String(contentsOf: url, encoding: .utf8)
-        let lines = text.components(separatedBy: "\n")
-        let aisleHeadings = lines.filter { $0.hasPrefix("## ") && $0 != "## Meals" }
-        #expect(aisleHeadings.isEmpty)
+        // Hand-written flat lines remain verbatim
+        #expect(text.contains("- [ ] existing item"))
+        #expect(text.contains("- [ ] another item"))
+        // Aisle section and meals bullet were appended
+        #expect(text.contains("## Meals"))
+        #expect(text.contains("## produce"))
+        // Flat lines appear before the appended aisle sections
+        let existingRange = text.range(of: "existing item")!.lowerBound
+        let aisleRange = text.range(of: "## produce")!.lowerBound
+        #expect(existingRange < aisleRange)
     }
 
     @Test func appendThrowsReadFailedForMissingFile() {
