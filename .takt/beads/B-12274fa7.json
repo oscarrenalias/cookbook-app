@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
-  "dependencies": [],
+  "dependencies": [
+    "B-37884968"
+  ],
   "acceptance_criteria": [
     "`RecipeBottomBar` uses the label `Add to meal plan`, keeps the `calendar` symbol, and invokes a new `onAddToMealPlan` callback instead of the placeholder alert.",
     "The button is disabled only when `recipe == nil` and remains enabled for recipes without ingredients.",
