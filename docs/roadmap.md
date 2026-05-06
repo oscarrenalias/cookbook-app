@@ -249,16 +249,36 @@ checklist item).
 
 ## Meal-plan domain
 
-### Meal Plans tab (list + detail) 🔜
+### Meal Plans tab (list + detail) ✅
 
-**Depends on:** 0003, 0006.
+`spec-d7a891ba`. **Depends on:** 0003, 0006.
 
-Replaces the Meal Plans empty state with a list of plans found in the
-configured folder. Tapping a plan opens a detail view showing its
-recipes; recipes can be removed; whole plans can be deleted. Creating
-a plan is deferred to the "add from recipe" flow below.
+Replaces the Meal Plans tab empty-state placeholder with a working
+meal-plans browser. `.menu` files in `<folder>/plans/` are listed as
+cards (mirrors the Shopping Lists tab). Creating a new blank plan
+writes a YAML-frontmatter-only body via a FAB + alert flow. The
+detail view renders each plan's user-defined `==…==` blocks as
+collapsible sections containing recipe, text, and ingredient item
+rows. Recipe rows tap-open the existing `RecipeDetailSheet`. Swipe-to-
+delete removes individual items; empty sections remain in place (no
+auto-pruning in v1). Whole plans can be deleted via the toolbar `⋯`
+menu. A prominent "Create shopping list" button sits in the detail
+view, stubbed to a "Coming soon" alert — real generation arrives in
+the future "Create shopping list from meal plan" spec.
 
-**Unlocks:** users can browse and manage existing meal plans.
+Plans are **deliberately date-agnostic** — sections are whatever the
+user types between `==…==` (e.g., "Day 1", "Saturday Dinner Party",
+"Batch Prep"). No calendar or weekday binding in v1.
+
+CookbookCore additions: `MealPlanItem.text(String)` for free-text
+lines; `MealPlanItem.comment(String)` for `--`-prefixed comment lines
+(not in the original spec, added for round-trip fidelity);
+`MealPlanItemIndex` (struct renamed from the spec's `ItemIndex` to
+avoid ambiguity with `ShoppingListDocument`'s `ItemIndex`);
+`MealPlan.removeItem(at: MealPlanItemIndex)` typed mutation.
+
+**Unlocks:** users can browse, create, open, and manage meal plans;
+the visual entry point for shopping-list generation is in place.
 
 ### "Add to meal plan" flow from a recipe 🔜
 
@@ -394,3 +414,15 @@ replace ad-hoc `print()` debugging with `os.Logger`.
 - **Settings doesn't get its own spec** — each setting lands in the
   feature spec that needs it (folder in 0003, aisle.conf path likely
   in 0007 or in the add-to-shopping flow).
+- **The Meal Plans tab is now functional (list + detail) with v1
+  scope:** users can browse, create blank plans, open detail views,
+  swipe-delete items, and delete whole plans. Adding recipes from
+  inside the plan view, in-place text editing, reordering, auto-
+  pruning empty sections, and real shopping-list generation are all
+  deferred to follow-up specs. The "Create shopping list" button is
+  rendered but stubbed. Plans are date-agnostic in v1.
+- **`MealPlanItemIndex` is the positional reference for meal-plan
+  items** — analogous to `ItemIndex` in `ShoppingListDocument`. The
+  name differs from the spec (which proposed `ItemIndex`) to avoid
+  the collision; downstream specs that reference meal-plan items must
+  use `MealPlanItemIndex`.

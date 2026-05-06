@@ -609,3 +609,110 @@ editor or tap-to-edit gesture. Users who want to edit the `## Meals` section
 or other free-text notes must do so in a plain-text editor outside the app.
 This is intentional: the header area is considered structured provenance
 metadata, not a user-editable field.
+
+## Meal Plans tab
+
+### MealPlanFiles
+
+`MealPlanFiles` (`CookbookApp/MealPlans/MealPlanFiles.swift`) mirrors
+`ShoppingListFiles`. Plans live under `<folder>/plans/` — a subfolder
+auto-created on first use.
+
+| Method | Behaviour |
+|--------|-----------|
+| `plansURL(in:)` | Returns `<folder>/plans/` URL, creating the directory if missing. Brackets security-scoped resource access on `folderURL`. Idempotent. |
+| `discover(in:)` | Lists `.menu` files in `<folder>/plans/`, reverse-mtime sorted. |
+| `displayName(for:)` | Strips the `.menu` extension. The filename is the plan title; YAML `title:` is not used. |
+| `readText(from:)` | Security-scoped read, returns `String?`. |
+| `writeText(_:to:)` | Security-scoped write; throws on failure. |
+
+### CookbookCore extensions (spec-d7a891ba)
+
+**`MealPlanItem` enum.** Two cases were added beyond the original 0006 model:
+
+```swift
+public enum MealPlanItem: Sendable, Equatable {
+    case recipe(MealPlanRecipe)
+    case ingredient(MealPlanIngredient)
+    case comment(String)   // lines beginning with `--`
+    case text(String)      // all other non-empty non-structural lines
+}
+```
+
+`.comment` captures Cooklang `--`-prefixed comment lines verbatim so they
+survive a load/save round-trip. `.text` captures any remaining non-empty
+line inside a `MealPlanSection` that is neither a recipe/ingredient reference
+nor a section header.
+
+**`MealPlanItemIndex`.** A positional reference into a `MealPlan` structure:
+
+```swift
+public struct MealPlanItemIndex: Sendable, Equatable, Hashable {
+    public let block: Int      // index into MealPlan.blocks
+    public let section: Int    // index into MealPlanBlock.sections
+    public let position: Int   // index into MealPlanSection.items
+}
+```
+
+Named `MealPlanItemIndex` (not `ItemIndex`) to avoid collision with
+`ShoppingListDocument`'s `ItemIndex`. Downstream code must use this name.
+
+**`MealPlan.removeItem(at:)`** removes the targeted item; leaves empty
+sections in place (no auto-pruning in v1).
+
+### Load / mutate / serialise / write lifecycle
+
+All view-layer mutations follow the same discipline as `ShoppingListDocument`:
+
+1. **Load** — `MealPlanFiles.readText(from:)` → `MealPlanParser.parse(_:)` → `@State var plan: MealPlan`.
+2. **Mutate** — typed methods on `MealPlan` (e.g. `removeItem(at:)`). No text surgery.
+3. **Serialise + write** — `MealPlanParser.serialise(plan)` → `MealPlanFiles.writeText(_:to:)`. One write per user action.
+
+The round-trip is semantic, not byte-identical: whitespace and spacing are
+normalised to canonical form on save.
+
+### Detail view structure
+
+`MealPlanDetailView` renders the parsed `MealPlan` as a collapsible-section
+list. Key layout choices:
+
+- **Header strip** (`.safeAreaInset(edge: .top)`): recipe count (`.subheadline`,
+  `.secondary`) + a `.borderedProminent` capsule "Create shopping list" button.
+  The button is **stubbed in v1** to an alert "Coming in a future update". It is
+  disabled when the plan has no blocks.
+- **`.searchable`** with prompt "Search recipes". Filters recipe items
+  by display name; sections with no matching recipes are hidden. Text and
+  ingredient items are not filtered.
+- **Collapsible sections** — one per `MealPlanBlock`. Collapse state persisted
+  via `@SceneStorage` keyed on `"mealPlanDetail.collapsedBlocks"` (a newline-
+  joined sorted string of `"<filename>.<heading>"` keys). Default: expanded.
+- **Sub-section names** — when a `MealPlanSection` has a non-nil `name`, it
+  renders as a `.subheadline.semibold.secondary` text row in the list, not a
+  tappable element.
+- **Item rows** — `MealPlanItemRow.swift` renders the three item kinds:
+  recipe (thumbnail + name + optional quantity), text/comment (body, semibold
+  if ending with `:`), ingredient (`cart` SF Symbol + name + quantity).
+  All support swipe-to-delete.
+
+### v1 scope boundaries
+
+The following are **deliberately out of scope** in v1 and must not be assumed
+by downstream specs without a new spec:
+
+- Adding recipes to a plan from inside the meal-plan view (comes from
+  recipe-detail's "Add to meal plan" button — a follow-up spec).
+- In-place editing of free-text lines or section names.
+- Reordering items or moving items between sections.
+- Auto-pruning empty sections after swipe-delete.
+- Real "Create shopping list from meal plan" generation.
+- Calendar / date binding — plans are date-agnostic; section names are
+  freeform strings.
+- Plan title in YAML frontmatter — the filename is the title.
+
+### Visual aspects — manual review required
+
+- Collapsible section animation and chevron rotation in the detail view.
+- Header strip layout (recipe count + CTA button) at various Dynamic Type sizes.
+- Thumbnail loading inside `MealPlanRecipeRow` (uses the same `RecipeImageLoader`
+  as the Recipes tab; async load with `fork.knife` fallback).
+- Empty-plan state ("Empty plan" / "Add recipes from the Recipes tab.").

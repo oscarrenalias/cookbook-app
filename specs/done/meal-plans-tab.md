@@ -5,7 +5,7 @@ description: "Replace the Meal Plans tab empty state with a working browser: lis
 dependencies: null
 priority: high
 complexity: high
-status: planned
+status: done
 tags:
 - ui
 - swiftui
