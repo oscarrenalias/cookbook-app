@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
-  "dependencies": [],
+  "dependencies": [
+    "B-e032faca"
+  ],
   "acceptance_criteria": [
     "The service can create a new `.menu` file under the plans folder with a sanitised plan name and caller-provided first section name.",
     "Duplicate plan filenames are detected before write and surfaced as a recoverable error path.",
