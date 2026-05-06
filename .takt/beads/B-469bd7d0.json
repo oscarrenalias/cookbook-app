@@ -1,0 +1,63 @@
+{
+  "bead_id": "B-469bd7d0",
+  "title": "0004 Recipe Details View",
+  "agent_type": "planner",
+  "description": "Modal sheet presenting a single recipe's full details \u2014 hero image with title overlay, metadata stats strip, text-only tag chips, Ingredients/Cookware/Steps segmented tabs, a view-layer scale picker (0.5x/1x/2x/3x) affecting ingredient quantities and servings, and placeholder Add-to-menu / Add-to-shopping-list buttons for later specs to wire up. Sheet is triggered from the recipes list (0003) and reads entirely from the parsed Recipe produced by CookbookCore without modifying it.",
+  "status": "done",
+  "bead_type": "epic",
+  "parent_id": null,
+  "dependencies": [],
+  "acceptance_criteria": [],
+  "linked_docs": [
+    "docs/mockups/recipe detail (sheet).png",
+    "docs/architecture.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": null,
+  "execution_branch_name": "",
+  "execution_worktree_path": "",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:40.977268+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

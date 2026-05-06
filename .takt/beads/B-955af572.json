@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-955af572",
+  "title": "Add MealPlanFiles helper for plans subfolder I/O",
+  "agent_type": "developer",
+  "description": "Create the app-layer file helper mirroring `ShoppingListFiles` for `<folder>/plans/` discovery, display naming, and bracketed reads/writes.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`MealPlanFiles.plansURL(in:)` creates and returns `<folder>/plans/`.",
+    "`MealPlanFiles.discover(in:)` returns only `.menu` files sorted by reverse modification date.",
+    "`displayName`, `readText`, and `writeText` mirror the shopping-list helper behaviour for meal plans.",
+    "Security-scoped access is bracketed consistently with existing file helpers."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "specs/done/0007-shopping-lists-tab.md"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanFiles.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:46.040983+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

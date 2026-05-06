@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-f5403aed",
+  "title": "Teach MealPlanParser to round-trip free-text items",
+  "agent_type": "developer",
+  "description": "Update meal-plan parsing and serialisation so non-empty non-recipe/non-ingredient lines become `.text` items while existing section-header behaviour remains intact.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [
+    "B-35b69af1"
+  ],
+  "acceptance_criteria": [
+    "Parser emits `.text(line)` for eligible free-text lines inside sections.",
+    "Whitespace-only lines are dropped rather than emitted as text items.",
+    "Serialiser writes `.text` items verbatim and preserves canonical ordering.",
+    "Existing recipe, ingredient, and section-header parsing behaviour remains intact."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "docs/examples/meal-plan.menu"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlanParser.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:45.730550+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

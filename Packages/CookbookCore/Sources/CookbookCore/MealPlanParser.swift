@@ -241,6 +241,8 @@ public enum MealPlanParser {
             return "@\(ingredient.name)\(serialise(quantity: ingredient.quantity))"
         case let .comment(comment):
             return comment.isEmpty ? "--" : "-- \(comment)"
+        case let .text(text):
+            return text
         }
     }
 
