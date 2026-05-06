@@ -153,3 +153,55 @@ public extension ShoppingList {
         }
     }
 }
+
+// MARK: - ShoppingListDocument integration
+
+public extension AggregatedShoppingList {
+    /// Appends all aggregated aisles and items into `document`.
+    ///
+    /// The nil-named "Other" bucket is written under an explicit "Other" aisle heading.
+    func apply(to document: inout ShoppingListDocument) {
+        for aisle in aisles {
+            let aisleName = aisle.name ?? "Other"
+            for item in aisle.items {
+                document.addItem(item.entryText, toAisle: aisleName)
+            }
+        }
+    }
+}
+
+extension AggregatedItem {
+    /// Formats this item as the display text for a `ShoppingListEntry`.
+    var entryText: String {
+        switch quantities.count {
+        case 0:
+            return name
+        case 1:
+            return "*\(formatQuantity(quantities[0]))* \(name)"
+        default:
+            let joined = quantities.map { formatQuantity($0) }.joined(separator: ", ")
+            return "*\(joined)* \(name)"
+        }
+    }
+
+    private func formatQuantity(_ quantity: Quantity) -> String {
+        switch quantity.value {
+        case .text(let s):
+            return s
+        case .number(let n):
+            if let unit = quantity.unit, !unit.isEmpty {
+                return "\(formatNumber(n)) \(unit)"
+            }
+            return formatNumber(n)
+        }
+    }
+
+    private func formatNumber(_ value: Double) -> String {
+        let intVal = Int(value)
+        if Double(intVal) == value { return String(intVal) }
+        var s = String(format: "%.2f", value)
+        while s.hasSuffix("0") { s = String(s.dropLast()) }
+        if s.hasSuffix(".") { s = String(s.dropLast()) }
+        return s
+    }
+}
