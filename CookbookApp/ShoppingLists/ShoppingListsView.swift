@@ -31,9 +31,19 @@ struct ShoppingListsView: View {
             .navigationTitle("Shopping Lists")
             .searchable(text: $searchText, prompt: "Search shopping lists")
             .navigationDestination(item: $selectedURL) { url in
-                ShoppingListDetailView(url: url, onDelete: {
-                    entries = (entries ?? []).filter { $0.url != url }
-                })
+                ShoppingListDetailView(
+                    url: url,
+                    onDelete: {
+                        entries = (entries ?? []).filter { $0.url != url }
+                    },
+                    onRename: { newURL in
+                        entries = (entries ?? []).map { entry in
+                            entry.url == url
+                                ? ShoppingListEntry(url: newURL, modificationDate: Date(), itemCount: entry.itemCount, doneCount: entry.doneCount)
+                                : entry
+                        }
+                    }
+                )
             }
             .alert("New shopping list", isPresented: $showingCreateAlert) {
                 TextField("Name (e.g., 'Weekend BBQ')", text: $newListName)

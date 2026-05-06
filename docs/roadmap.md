@@ -368,11 +368,39 @@ These open-ended specs accumulate small items that don't warrant
 individual specs. They get planned and run when the inventory reaches
 useful size or something on the list becomes blocking.
 
-### Shopping lists follow-up tweaks 📝
+### Shopping lists follow-up tweaks ✅
 
-`spec-d0e796fa`. Small fine-tunings to the Shopping Lists tab
-surfaced during real-use testing of 0007 / 0008. Currently seeded
-with: edit-item flow should allow changing the aisle.
+`spec-d0e796fa`. Five small fine-tunings to the Shopping Lists and
+Meal Plans tabs surfaced during real-use testing of 0007 / 0008:
+
+- **Edit-item aisle reassignment.** A dedicated `EditItemSheet`
+  (TextField + aisle Picker, pre-filled with the item's current aisle)
+  replaces the text-only edit alert. On save, if the aisle changed the
+  item is removed from its original aisle and appended to the new one
+  (delete-then-append in the view layer; no new CookbookCore mutation
+  required).
+- **Shopping-list rename.** The detail view's ⋯ menu gains a
+  "Rename…" action. An alert with a pre-filled text field writes a new
+  file under the new name (updating the embedded `# Title` heading),
+  then deletes the old file. Duplicate detection re-opens the alert with
+  an inline error message. The list view's entry is updated in-place
+  via the `onRename` callback so no reload is needed.
+- **AddItemSheet auto-focus and last-used aisle.** The item text field
+  receives keyboard focus automatically on sheet open. The last-used
+  aisle is stored under `@SceneStorage("addItemSheet.lastUsedAisle")`
+  and pre-selected the next time the sheet opens, provided the aisle
+  still exists in the catalog. SceneStorage scope means the preference
+  is per-scene (window), not shared across iPad Split View instances.
+- **Meal-plan rename.** The meal-plan detail view's ⋯ menu gains a
+  "Rename…" action. Implemented via `FileManager.moveItem` (the `.menu`
+  file has no embedded title, so no content rewrite is needed). Duplicate
+  detection and the `onRename` callback follow the same pattern as the
+  shopping-list rename.
+- **Out-of-scope tradeoffs.** H1 synchronization on shopping-list rename
+  updates the document title field before writing the new file, so the
+  in-memory `ShoppingListDocument.title` stays consistent with the new
+  filename. Meal-plan files carry no embedded title, so no analogous
+  mutation is needed there.
 
 ### Tech debt 📝
 

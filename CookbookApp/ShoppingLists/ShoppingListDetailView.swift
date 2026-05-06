@@ -4,6 +4,7 @@ import CookbookCore
 struct ShoppingListDetailView: View {
     let url: URL
     var onDelete: (() -> Void)? = nil
+    var onRename: ((URL) -> Void)? = nil
 
     @Environment(\.dismiss) private var dismiss
     @Environment(AisleCatalog.self) private var catalog
@@ -13,6 +14,20 @@ struct ShoppingListDetailView: View {
     @State private var showDeleteConfirmation = false
     @State private var collapsedSections: Set<String> = []
     @State private var searchText = ""
+    @State private var editingItem: EditingItem? = nil
+    @State private var showRenameAlert = false
+    @State private var renameText = ""
+    @State private var renameDuplicateError = false
+    @State private var showRenameError = false
+    @State private var renameErrorMessage = ""
+
+    private struct EditingItem: Identifiable {
+        var id: String { "\(index.aisle)-\(index.position)" }
+        let index: ItemIndex
+        let text: String
+        let aisle: String
+        let checked: Bool
+    }
 
     private var listName: String { ShoppingListFiles.displayName(for: url) }
 
@@ -86,6 +101,13 @@ struct ShoppingListDetailView: View {
                 .accessibilityLabel("Add item")
 
                 Menu {
+                    Button {
+                        renameText = listName
+                        renameDuplicateError = false
+                        showRenameAlert = true
+                    } label: {
+                        Label("Rename…", systemImage: "pencil")
+                    }
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
                     } label: {
@@ -103,6 +125,15 @@ struct ShoppingListDetailView: View {
                 save()
             }
         }
+        .sheet(item: $editingItem) { item in
+            EditItemSheet(
+                initialText: item.text,
+                initialAisle: item.aisle,
+                catalog: catalog
+            ) { newText, newAisle in
+                saveEditedItem(item: item, newText: newText, newAisle: newAisle)
+            }
+        }
         .confirmationDialog(
             "Delete '\(listName)'?",
             isPresented: $showDeleteConfirmation,
@@ -114,6 +145,25 @@ struct ShoppingListDetailView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This shopping list will be permanently removed.")
+        }
+        .alert("Rename list", isPresented: $showRenameAlert) {
+            TextField("List name", text: $renameText)
+            Button("Save") {
+                renameList()
+            }
+            .disabled(renameText.trimmingCharacters(in: .whitespaces).isEmpty)
+            Button("Cancel", role: .cancel) {
+                renameDuplicateError = false
+            }
+        } message: {
+            if renameDuplicateError {
+                Text("A list with that name already exists.")
+            }
+        }
+        .alert("Rename failed", isPresented: $showRenameError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(renameErrorMessage)
         }
         .task {
             if let text = ShoppingListFiles.readText(from: url) {
@@ -158,7 +208,14 @@ struct ShoppingListDetailView: View {
                                 entry: item.entry,
                                 onToggle: { toggleItem(at: item.index) },
                                 onDelete: { deleteItem(at: item.index) },
-                                onUpdate: { updateItem(at: item.index, newText: $0) }
+                                onEdit: {
+                                    editingItem = EditingItem(
+                                        index: item.index,
+                                        text: item.entry.text,
+                                        aisle: item.index.aisle,
+                                        checked: item.entry.checked
+                                    )
+                                }
                             )
                         }
                     }
@@ -192,8 +249,14 @@ struct ShoppingListDetailView: View {
         save()
     }
 
-    private func updateItem(at index: ItemIndex, newText: String) {
-        document.updateItem(at: index, newText: newText)
+    private func saveEditedItem(item: EditingItem, newText: String, newAisle: String) {
+        guard newText != item.text || newAisle != item.aisle else { return }
+        if newAisle == item.aisle {
+            document.updateItem(at: item.index, newText: newText)
+        } else {
+            document.removeItem(at: item.index)
+            document.addItem(newText, toAisle: newAisle, checked: item.checked)
+        }
         save()
     }
 
@@ -208,6 +271,47 @@ struct ShoppingListDetailView: View {
         try? FileManager.default.removeItem(at: url)
         dismiss()
         onDelete?()
+    }
+
+    private func renameList() {
+        let sanitised = renameText
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "/", with: "-")
+        guard !sanitised.isEmpty, sanitised != listName else { return }
+
+        let folderURL = url.deletingLastPathComponent()
+        let newURL = folderURL.appendingPathComponent("\(sanitised).md")
+
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
+
+        if FileManager.default.fileExists(atPath: newURL.path) {
+            renameDuplicateError = true
+            showRenameAlert = true
+            return
+        }
+
+        var renamed = document
+        renamed.title = sanitised
+
+        do {
+            try renamed.renderMarkdown().write(to: newURL, atomically: true, encoding: .utf8)
+        } catch {
+            renameErrorMessage = "Could not write the renamed file."
+            showRenameError = true
+            return
+        }
+
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            renameErrorMessage = "The list was renamed but the old file could not be deleted."
+            showRenameError = true
+            return
+        }
+
+        dismiss()
+        onRename?(newURL)
     }
 }
 
