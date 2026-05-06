@@ -634,7 +634,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "The existing `Aggregation.swift` has a `public extension ShoppingList` block. When the migration bead eventually deletes `ShoppingList.swift`, this extension will break. No conflict on this bead since neither file was modified here.\nNo conflicts expected. ShoppingListDocument.swift is self-contained and no sibling beads claim the same file.",
+  "conflict_risks": "The existing `Aggregation.swift` has a `public extension ShoppingList` block. When the migration bead eventually deletes `ShoppingList.swift`, this extension will break. No conflict on this bead since neither file was modified here.\nNo conflicts expected. ShoppingListDocument.swift is self-contained and no sibling beads claim the same file.\nSibling bead B-bd0c0266 targets the same file (ShoppingListDocument.swift). Its implementation is already present; if the scheduler runs it and attempts to rewrite the parser, there is a merge risk. Recommend inspecting B-bd0c0266 before scheduling.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
