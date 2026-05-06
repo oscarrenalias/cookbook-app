@@ -1,0 +1,66 @@
+{
+  "bead_id": "B-9938d774",
+  "title": "Shared review for meal-plan shopping list feature",
+  "agent_type": "review",
+  "description": "Perform the final cross-cutting review of implementation, tests, and docs with attention to orchestration boundaries, regression risk, and adherence to the locked product decisions in the spec.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-a599b55b",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Review verifies the implementation stays orchestration-focused and does not reimplement existing aggregation, rendering, or file I/O helpers.",
+    "Review checks locked UX decisions: default name, duplicate-name retry, provenance format, modal View flow, and out-of-scope exclusions.",
+    "Review confirms shared testing and documentation beads completed satisfactorily and no uncovered high-risk gaps remain.",
+    "Review output records any residual risks, follow-up items, or sign-off status for the feature."
+  ],
+  "linked_docs": [
+    "spec-0800a442"
+  ],
+  "feature_root_id": "B-a599b55b",
+  "execution_branch_name": "feature/b-a599b55b",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T14:18:07.878399+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
