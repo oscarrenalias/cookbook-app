@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-c3834e6f",
-  "dependencies": [],
+  "dependencies": [
+    "B-93ab5111"
+  ],
   "acceptance_criteria": [
     "Any newly added Swift source or test files for this feature are included in the generated Xcode project.",
     "xcodegen generate has been run after file additions.",
