@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-242ce981"
+  ],
   "acceptance_criteria": [
     "`CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift` defines the requested service and `CreateError` cases.",
     "The service reads the meal plan through existing helpers, resolves recipe references, parses recipes, and skips failed recipe loads with logging.",
