@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-96ff40f2",
+  "title": "Finish shopping list document assembly and file output",
+  "agent_type": "developer",
+  "description": "Complete the orchestration service so it builds the ShoppingListDocument meals and aisle sections, performs duplicate-name protection, and writes the rendered markdown to the shopping-lists folder.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-a599b55b",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Generated document title uses the user-selected list name.",
+    "`## Meals` bullets are emitted in plan order as `**<block heading>** \u2014 <recipe display name>` for recipe occurrences only.",
+    "Aggregated aisles are converted into shopping-list aisles, with unnamed aisles written as `Other` and items formatted via `ShoppingListLineFormatter`.",
+    "Target path resolves to `<folder>/shopping-lists/<sanitised>.md`, duplicate names raise `CreateError.listAlreadyExists`, and successful creation writes the markdown through existing file helpers."
+  ],
+  "linked_docs": [
+    "spec-0800a442"
+  ],
+  "feature_root_id": "B-a599b55b",
+  "execution_branch_name": "feature/b-a599b55b",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
+  "expected_files": [
+    "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T14:18:05.798137+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
