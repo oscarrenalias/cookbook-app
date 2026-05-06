@@ -1,7 +1,7 @@
 ---
 name: Shopping lists follow-up tweaks
 id: spec-d0e796fa
-description: Five small fine-tunings to the Shopping Lists and Meal Plans tabs surfaced during real-use testing of 0007/0008 — edit-item aisle reassignment, shopping-list rename, AddItemSheet auto-focus and last-used aisle, meal-plan rename, and associated tradeoff notes.
+description: "Five small fine-tunings to the Shopping Lists and Meal Plans tabs surfaced during real-use testing of 0007/0008 — edit-item aisle reassignment, shopping-list rename, AddItemSheet auto-focus and last-used aisle, meal-plan rename, and associated tradeoff notes."
 dependencies: null
 priority: null
 complexity: null
