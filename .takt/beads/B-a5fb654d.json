@@ -3,7 +3,7 @@
   "title": "Build meal-plan list cards and create-plan flow",
   "agent_type": "developer",
   "description": "Implement the list presentation, search empty states, card rows, FAB, and create-new-plan alert flow that writes YAML-frontmatter-only blank plans and navigates into detail.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
@@ -30,37 +30,58 @@
     "CookbookApp/MealPlans/MealPlanCreateAlert.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/MealPlans/MealPlanCardView.swift",
+    "CookbookApp/MealPlans/MealPlanCreateAlert.swift",
+    "CookbookApp/MealPlans/MealPlanFiles.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/MealPlanCardView.swift",
+    "CookbookApp/MealPlans/MealPlanCreateAlert.swift",
+    "CookbookApp/MealPlans/MealPlanFiles.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "1. Created CookbookApp/MealPlans/MealPlanCreateAlert.swift with MealPlanCreateAlertModifier ViewModifier (placeholder text 'Weekday meals', duplicate-name error, Cancel clears state). 2. Updated MealPlansView.swift to replace the inline .alert block with .mealPlanCreateAlert(...) and the corrected spec placeholder.",
+    "remaining": "MealPlanDetailView and MealPlanItemRow not yet implemented \u2014 navigationDestination still shows a Text() placeholder. Detail view is a separate bead scope.",
+    "risks": "No xcodeproj exists in the worktree; xcodegen must be run before building. The new MealPlanCreateAlert.swift will be auto-discovered by path-based project.yml source rules. No runtime risk introduced \u2014 all changed code mirrors the existing ShoppingList pattern which is already in production.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/MealPlans/MealPlanCardView.swift",
+      "CookbookApp/MealPlans/MealPlanCreateAlert.swift",
+      "CookbookApp/MealPlans/MealPlanFiles.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Implement MealPlanDetailView.swift and MealPlanItemRow.swift for the detail view bead; wire the navigationDestination in MealPlansView away from the Text() placeholder.",
+    "next_agent": "developer",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/MealPlans/MealPlansView.swift",
+      "CookbookApp/MealPlans/MealPlanCardView.swift",
+      "CookbookApp/MealPlans/MealPlanCreateAlert.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/MealPlans/MealPlanCardView.swift",
+      "CookbookApp/MealPlans/MealPlanCreateAlert.swift",
+      "CookbookApp/MealPlans/MealPlanFiles.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift"
+    ],
+    "conflict_risks": "MealPlanDetailView.swift does not yet exist \u2014 any sibling bead creating it must update the navigationDestination in MealPlansView.swift. File-level conflict expected on that line.",
+    "design_decisions": "Extracted the create alert into a ViewModifier in MealPlanCreateAlert.swift rather than keeping it inline, to satisfy the bead's expected_files list. The modifier uses @Binding for isPresented/name/duplicateNameError and an escaping closure for onCreate, matching the existing ShoppingList pattern. Cancel button clears state inside the modifier to keep MealPlansView free of alert housekeeping.",
+    "test_coverage_notes": "Test coverage for the alert flow (duplicate detection, file write, list prepend, navigation push) is the tester agent's responsibility per guardrails. The modifier's Cancel-clears-state behaviour should be covered by MealPlansViewTests per the spec.",
+    "known_limitations": "navigationDestination resolves to a Text() placeholder; real detail view requires a follow-on bead implementing MealPlanDetailView. No xcodeproj in worktree \u2014 xcodegen generate must be run before this builds in Xcode."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "MealPlanDetailView.swift does not yet exist \u2014 any sibling bead creating it must update the navigationDestination in MealPlansView.swift. File-level conflict expected on that line.",
   "branch_name": "feature/b-920f3e84",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
-  "lease": {
-    "owner": "developer:B-a5fb654d",
-    "expires_at": "2026-05-06T10:29:11.968928+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -102,6 +123,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-a5fb654d/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T10:03:41.145642+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created MealPlanCreateAlert.swift (ViewModifier extracting the create-new-plan alert) and updated MealPlansView.swift to use it with the spec-correct placeholder text. All four acceptance criteria are met: searchable card rows, correct empty states, FAB\u2192create-alert flow with name sanitisation/duplicate rejection/YAML-frontmatter write, and local list update + navigation push on success.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -177,7 +205,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created MealPlanCreateAlert.swift (ViewModifier extracting the create-new-plan alert) and updated MealPlansView.swift to use it with the spec-correct placeholder text. All four acceptance criteria are met: searchable card rows, correct empty states, FAB\u2192create-alert flow with name sanitisation/duplicate rejection/YAML-frontmatter write, and local list update + navigation push on success.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.6412091,
+      "duration_ms": 262774,
+      "duration_api_ms": 255980,
+      "num_turns": 23,
+      "input_tokens": 19,
+      "output_tokens": 13377,
+      "cache_creation_tokens": 45114,
+      "cache_read_tokens": 685706,
+      "stop_reason": "end_turn",
+      "session_id": "ec2dc7c8-05c8-4daa-92e4-4a82d281e81d",
+      "permission_denials": [],
+      "prompt_chars": 5891,
+      "prompt_lines": 138,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.6412091,
+        "duration_ms": 262774,
+        "duration_api_ms": 255980,
+        "num_turns": 23,
+        "input_tokens": 19,
+        "output_tokens": 13377,
+        "cache_creation_tokens": 45114,
+        "cache_read_tokens": 685706,
+        "stop_reason": "end_turn",
+        "session_id": "ec2dc7c8-05c8-4daa-92e4-4a82d281e81d",
+        "permission_denials": [],
+        "prompt_chars": 5891,
+        "prompt_lines": 138,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "3b189d59f0e34a8640c96d668753727ab6fa2866"
   },
   "labels": [],
   "recovery_for": null,
