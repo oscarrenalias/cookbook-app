@@ -6,7 +6,17 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-36a590ee",
+    "B-bd0c0266",
+    "B-0ed77b55",
+    "B-5e7b1885",
+    "B-357ef996",
+    "B-7871ee84",
+    "B-f7f69190",
+    "B-227649ee",
+    "B-692930d9"
+  ],
   "acceptance_criteria": [
     "Documentation explains the canonical markdown format, semantic-not-byte-identical round-trip contract, and tolerant parsing behavior.",
     "Documentation notes the replacement API surface for callers moving from `ShoppingList` to `ShoppingListDocument`.",
