@@ -1,0 +1,74 @@
+{
+  "bead_id": "B-af20ecb1",
+  "title": "Shared test coverage for shopping-list and meal-plan follow-up tweaks",
+  "agent_type": "tester",
+  "description": "Add and run the shared automated test coverage for edit-item behavior, shopping-list rename, meal-plan rename, and AddItemSheet focus/last-aisle behavior, then execute the project test gate.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Edit-item tests cover text-only change, aisle change, and unchanged-value behavior.",
+    "Shopping-list rename tests cover happy path, duplicate-name rejection, and write-success/delete-failure behavior.",
+    "Meal-plan rename tests cover happy path and duplicate-name rejection.",
+    "AddItemSheet tests cover auto-focus on appear, last-aisle persistence, and missing-stored-aisle fallback.",
+    "The repo test gate is executed with xcodebuild test and results are recorded."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [
+    "CookbookAppTests/EditItemSheetTests.swift",
+    "CookbookAppTests/ShoppingListRenameTests.swift",
+    "CookbookAppTests/MealPlanRenameTests.swift",
+    "CookbookAppTests/AddItemSheetTests.swift"
+  ],
+  "expected_globs": [
+    "CookbookAppTests/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:05.900244+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
