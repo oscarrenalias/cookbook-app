@@ -479,12 +479,20 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/MealPlans/AddToMealPlanService.swift",
     "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "CookbookAppTests/AddToMealPlanServiceTests.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift",
+    "CookbookAppTests/RecipeBottomBarTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
+    "docs/architecture.md",
+    "docs/roadmap.md",
+    "specs/done/add-to-meal-plan.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -702,12 +710,20 @@
     ".takt/beads/B-fdcf9a45-corrective.json",
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/MealPlans/AddToMealPlanService.swift",
     "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "CookbookAppTests/AddToMealPlanServiceTests.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift",
+    "CookbookAppTests/RecipeBottomBarTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
+    "docs/architecture.md",
+    "docs/roadmap.md",
+    "specs/done/add-to-meal-plan.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
