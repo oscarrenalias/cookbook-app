@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
-  "dependencies": [],
+  "dependencies": [
+    "B-5e7b1885",
+    "B-7871ee84"
+  ],
   "acceptance_criteria": [
     "`ShoppingListItemRow` accepts structured entry data and no longer depends on `ShoppingListItem.lineIndex`.",
     "`ShoppingListDetailView` toggles, updates, and removes items by `ItemIndex` and persists via `renderMarkdown()`.",
