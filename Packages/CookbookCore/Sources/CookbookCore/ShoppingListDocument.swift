@@ -221,13 +221,14 @@ extension ShoppingListDocument {
         aisles[aisleIdx].items[index.position].checked.toggle()
     }
 
-    /// Removes the item at the given index. The containing aisle is kept even when it becomes empty.
-    ///
-    /// To remove the aisle itself, call `deleteAisle(_:)`.
+    /// Removes the item at the given index. If the aisle becomes empty after removal it is also removed.
     public mutating func removeItem(at index: ItemIndex) {
         guard let aisleIdx = aisles.firstIndex(where: { $0.name == index.aisle }),
               aisles[aisleIdx].items.indices.contains(index.position) else { return }
         aisles[aisleIdx].items.remove(at: index.position)
+        if aisles[aisleIdx].items.isEmpty {
+            aisles.remove(at: aisleIdx)
+        }
     }
 
     /// Removes the named aisle and all its items from the document.
