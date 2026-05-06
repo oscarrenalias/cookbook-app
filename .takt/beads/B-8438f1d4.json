@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
-  "dependencies": [],
+  "dependencies": [
+    "B-c6573e45",
+    "B-e032faca",
+    "B-61b784c9",
+    "B-efeedcc5",
+    "B-37884968",
+    "B-12274fa7",
+    "B-2c36b846"
+  ],
   "acceptance_criteria": [
     "Documentation records the new recipe-detail entry point, the single-screen plan/block picker behavior, and the v1 first-section-only rule.",
     "Documentation notes the persistence discipline, relative path format, and servings \u00d7 scale quantity rule so future work can extend the flow consistently.",
