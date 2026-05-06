@@ -15,7 +15,7 @@ struct RecipeBottomBar: View {
     }
 
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             Button {
                 onAddToMealPlan()
             } label: {

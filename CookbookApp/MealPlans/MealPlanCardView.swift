@@ -36,9 +36,12 @@ struct MealPlanCardView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                Label("\(recipeCount) recipes", systemImage: "book.closed")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 4) {
+                    Image(systemName: "list.bullet")
+                    Text("\(recipeCount) recipes")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
 

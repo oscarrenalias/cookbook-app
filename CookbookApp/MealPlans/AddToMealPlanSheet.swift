@@ -129,7 +129,9 @@ struct AddToMealPlanSheet: View {
                 recipeURL: recipeFile.url,
                 recipesFolder: folderURL,
                 to: planURL,
-                blockIndex: blockIndex
+                blockIndex: blockIndex,
+                servings: recipe?.metadata.servings?.first,
+                scaleFactor: scale.factor
             )
             let planName = MealPlanFiles.displayName(for: planURL)
             dismiss()
@@ -188,7 +190,9 @@ struct AddToMealPlanSheet: View {
                 recipeURL: recipeFile.url,
                 recipesFolder: folderURL,
                 to: target.url,
-                blockHeading: sectionName
+                blockHeading: sectionName,
+                servings: recipe?.metadata.servings?.first,
+                scaleFactor: scale.factor
             )
             let planName = MealPlanFiles.displayName(for: target.url)
             newSectionName = ""

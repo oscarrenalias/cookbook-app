@@ -10,12 +10,19 @@ enum AddToMealPlanService {
         case duplicatePlan
     }
 
+    /// Builds a recipe quantity from servings × scale, or nil when servings is absent.
+    private static func recipeQuantity(servings: Int?, scaleFactor: Double) -> Quantity? {
+        servings.map { Quantity(value: .number(Double($0) * scaleFactor), unit: "servings") }
+    }
+
     /// Appends the recipe to section 0 of `blockIndex` in an existing meal plan.
     static func addToBlock(
         recipeURL: URL,
         recipesFolder: URL,
         to planURL: URL,
-        blockIndex: Int
+        blockIndex: Int,
+        servings: Int? = nil,
+        scaleFactor: Double = 1.0
     ) throws {
         guard let text = MealPlanFiles.readText(from: planURL) else {
             throw MutationError.readFailed
@@ -24,7 +31,8 @@ enum AddToMealPlanService {
             throw MutationError.pathResolutionFailed
         }
         var plan = MealPlanParser.parse(text)
-        let item = MealPlanItem.recipe(MealPlanRecipe(path: path))
+        let quantity = recipeQuantity(servings: servings, scaleFactor: scaleFactor)
+        let item = MealPlanItem.recipe(MealPlanRecipe(path: path, quantity: quantity))
         plan.addItem(item, toBlock: blockIndex, section: 0)
         let serialised = MealPlanParser.serialise(plan)
         do {
@@ -40,7 +48,9 @@ enum AddToMealPlanService {
         recipeURL: URL,
         recipesFolder: URL,
         to planURL: URL,
-        blockHeading: String
+        blockHeading: String,
+        servings: Int? = nil,
+        scaleFactor: Double = 1.0
     ) throws {
         guard let text = MealPlanFiles.readText(from: planURL) else {
             throw MutationError.readFailed
@@ -50,7 +60,8 @@ enum AddToMealPlanService {
         }
         var plan = MealPlanParser.parse(text)
         let newBlockIndex = plan.addBlock(named: blockHeading)
-        let item = MealPlanItem.recipe(MealPlanRecipe(path: path))
+        let quantity = recipeQuantity(servings: servings, scaleFactor: scaleFactor)
+        let item = MealPlanItem.recipe(MealPlanRecipe(path: path, quantity: quantity))
         plan.addItem(item, toBlock: newBlockIndex, section: 0)
         let serialised = MealPlanParser.serialise(plan)
         do {
@@ -82,9 +93,7 @@ enum AddToMealPlanService {
             throw MutationError.pathResolutionFailed
         }
 
-        let quantity: Quantity? = servings.map { s in
-            Quantity(value: .number(Double(s) * scaleFactor), unit: "servings")
-        }
+        let quantity = recipeQuantity(servings: servings, scaleFactor: scaleFactor)
 
         let plansFolder = MealPlanFiles.plansURL(in: folderURL)
         let planURL = plansFolder.appendingPathComponent("\(sanitised).menu")

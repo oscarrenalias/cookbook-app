@@ -37,9 +37,15 @@ struct ShoppingListCardView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                HStack(spacing: 8) {
-                    Label("\(itemCount) items", systemImage: "list.bullet")
-                    Label("\(doneCount) done", systemImage: "checkmark.circle.fill")
+                HStack(spacing: 12) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "list.bullet")
+                        Text("\(itemCount) items")
+                    }
+                    HStack(spacing: 4) {
+                        Image(systemName: "checkmark.circle.fill")
+                        Text("\(doneCount) done")
+                    }
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)
