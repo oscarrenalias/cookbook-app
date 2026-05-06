@@ -12,6 +12,9 @@ struct AddItemSheet: View {
     @State private var itemText = ""
     @State private var selectedAisle: String? = nil
 
+    @FocusState private var isTextFieldFocused: Bool
+    @SceneStorage("addItemSheet.lastUsedAisle") private var lastUsedAisle: String = ""
+
     private var isAddEnabled: Bool {
         catalog.isLoaded && !itemText.trimmingCharacters(in: .whitespaces).isEmpty
     }
@@ -20,6 +23,7 @@ struct AddItemSheet: View {
         NavigationStack {
             Form {
                 TextField("e.g., 2 lemons, 500g flour", text: $itemText)
+                    .focused($isTextFieldFocused)
 
                 Picker("Aisle", selection: $selectedAisle) {
                     if !catalog.isLoaded {
@@ -48,6 +52,22 @@ struct AddItemSheet: View {
                     .disabled(!isAddEnabled)
                 }
             }
+            .onAppear {
+                isTextFieldFocused = true
+                applyLastUsedAisleDefault()
+            }
+            .onChange(of: catalog.isLoaded) { _, isLoaded in
+                if isLoaded {
+                    applyLastUsedAisleDefault()
+                }
+            }
+        }
+    }
+
+    private func applyLastUsedAisleDefault() {
+        guard catalog.isLoaded, !lastUsedAisle.isEmpty else { return }
+        if catalog.aisles.contains(lastUsedAisle) {
+            selectedAisle = lastUsedAisle
         }
         .onAppear {
             Loggers.shoppingLists.debug("[AddItemSheet] onAppear: list=\(document.title ?? "", privacy: .public)")
@@ -61,6 +81,7 @@ struct AddItemSheet: View {
         Loggers.shoppingLists.debug("[AddItemSheet] handleAdd: item=\(trimmed, privacy: .public) aisle=\(aisleName, privacy: .public)")
         var updated = document
         updated.addItem(trimmed, toAisle: aisleName)
+        lastUsedAisle = selectedAisle ?? ""
         onSave(updated)
         dismiss()
     }

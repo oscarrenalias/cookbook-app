@@ -302,24 +302,41 @@ load → mutate → serialise → write discipline as the Meal Plans tab.
 
 **Unlocks:** the primary user flow for building meal plans.
 
-### "Create shopping list from meal plan" 🔜
+### "Create shopping list from meal plan" ✅
 
-**Depends on:** 0007, *Ingredient aggregation*, *Meal Plans tab*.
+`spec-0800a442`. **Depended on:** 0007, *Ingredient aggregation*,
+*Meal Plans tab*, *Add to meal plan from recipe*.
 
-Meal-plan detail view gains a "Create shopping list" button.
-Aggregates the plan's recipes, prompts for a list name, writes a new
-shopping list file (with a `## Meals` provenance section listing the
-plan's recipes, plus aisle-grouped items with italicised quantities),
-opens it in the Shopping Lists tab.
+Replaces the meal-plan detail view's stubbed "Create shopping list"
+button with a real flow:
 
-The MARKDOWN STRUCTURE this spec produces (Meals heading, aisle
-sections, italicised quantities) is a write-time presentation choice
-made by this spec — not something CookbookCore parses. The 0007
-detail view treats the file as ordinary markdown with toggleable
-items.
+- Tap → alert pre-filled with the meal plan's filename.
+- A new `CreateShoppingListFromMealPlanService` loads the plan,
+  resolves and parses every referenced recipe, scales each by
+  `plan-reference-servings / recipe-metadata-servings` (default 1.0
+  when either is missing) using a new `Recipe.scaled(by factor:)`
+  CookbookCore helper, then runs them through the existing
+  `AggregatedShoppingList.aggregate`.
+- Builds a typed `ShoppingListDocument` with provenance bullets
+  (`**<block heading>** — <recipe display name>`, one bullet per
+  recipe occurrence) under `## Meals` and aisle-grouped checklist
+  items mapped from the aggregator's output.
+- Writes to `<folder>/shopping-lists/<name>.md` and presents a
+  confirmation alert with **"View"** (opens the new shopping list
+  as a sheet over the meal-plan detail) and **"OK"** (stays).
+
+CookbookCore additions: `Recipe.scaled(by factor: Double)` (the
+existing `RecipeScale.scaled(_ recipe:)` was refactored to delegate
+to this generic helper). No new mutations on `MealPlan` or
+`ShoppingListDocument`.
+
+The MARKDOWN STRUCTURE produced (Meals heading, aisle sections,
+italicised quantities) is a write-time presentation choice made by
+this spec — not something CookbookCore parses.
 
 **Unlocks:** the meal-plan → shopping list flow; closes the loop on
-weekly planning.
+weekly planning. With this, the full Recipe → Meal plan →
+Shopping list lifecycle is in place.
 
 ---
 
@@ -368,17 +385,59 @@ These open-ended specs accumulate small items that don't warrant
 individual specs. They get planned and run when the inventory reaches
 useful size or something on the list becomes blocking.
 
-### Shopping lists follow-up tweaks 📝
+### Shopping lists follow-up tweaks ✅
 
-`spec-d0e796fa`. Small fine-tunings to the Shopping Lists tab
-surfaced during real-use testing of 0007 / 0008. Currently seeded
-with: edit-item flow should allow changing the aisle.
+`spec-d0e796fa`. Five small fine-tunings to the Shopping Lists and
+Meal Plans tabs surfaced during real-use testing of 0007 / 0008:
 
-### Tech debt 📝
+- **Edit-item aisle reassignment.** A dedicated `EditItemSheet`
+  (TextField + aisle Picker, pre-filled with the item's current aisle)
+  replaces the text-only edit alert. On save, if the aisle changed the
+  item is removed from its original aisle and appended to the new one
+  (delete-then-append in the view layer; no new CookbookCore mutation
+  required).
+- **Shopping-list rename.** The detail view's ⋯ menu gains a
+  "Rename…" action. An alert with a pre-filled text field writes a new
+  file under the new name (updating the embedded `# Title` heading),
+  then deletes the old file. Duplicate detection re-opens the alert with
+  an inline error message. The list view's entry is updated in-place
+  via the `onRename` callback so no reload is needed.
+- **AddItemSheet auto-focus and last-used aisle.** The item text field
+  receives keyboard focus automatically on sheet open. The last-used
+  aisle is stored under `@SceneStorage("addItemSheet.lastUsedAisle")`
+  and pre-selected the next time the sheet opens, provided the aisle
+  still exists in the catalog. SceneStorage scope means the preference
+  is per-scene (window), not shared across iPad Split View instances.
+- **Meal-plan rename.** The meal-plan detail view's ⋯ menu gains a
+  "Rename…" action. Implemented via `FileManager.moveItem` (the `.menu`
+  file has no embedded title, so no content rewrite is needed). Duplicate
+  detection and the `onRename` callback follow the same pattern as the
+  shopping-list rename.
+- **Out-of-scope tradeoffs.** H1 synchronization on shopping-list rename
+  updates the document title field before writing the new file, so the
+  in-memory `ShoppingListDocument.title` stays consistent with the new
+  filename. Meal-plan files carry no embedded title, so no analogous
+  mutation is needed there.
+
+### Tech debt 📝 *(in flight)*
 
 `spec-1957fe45`. Developer / maintainer-experience improvements
-that don't change user-visible behaviour. Currently seeded with:
-replace ad-hoc `print()` debugging with `os.Logger`.
+that don't change user-visible behaviour.
+
+Currently planned + actively running: replace ad-hoc `print()`
+debugging with `os.Logger`. Adds a `Loggers.swift` namespace under
+`CookbookApp/Common/` with per-feature categories (shoppingLists,
+mealPlans, aisleCatalog, recipes, common) and inserts `.debug`
+entry/exit logs at the choke points (file IO, document load/save,
+service orchestration, AisleCatalog config resolution, recipe
+discovery). Privacy specifiers honoured (paths public, content
+private). Apple's `os.Logger` drops `.debug` from Release builds at
+compile time, so production cost is zero.
+
+Run is currently progressing on the `feature/b-148e9ad9` worktree
+in interleaved fashion (takt's claim-based scheduler serialises
+beads when their `expected_files` overlap, even across feature
+roots and worktrees — see *Notes on this roadmap* below).
 
 ---
 
@@ -440,3 +499,26 @@ replace ad-hoc `print()` debugging with `os.Logger`.
   name differs from the spec (which proposed `ItemIndex`) to avoid
   the collision; downstream specs that reference meal-plan items must
   use `MealPlanItemIndex`.
+- **Recipe → Meal plan → Shopping list is now end-to-end working.**
+  The user can browse a recipe, add it to a meal plan (existing
+  block, new block, or new plan), open the plan, and generate an
+  aggregated, aisle-grouped shopping list with provenance bullets in
+  one tap. The "Create shopping list" CTA presents a confirmation
+  with "View" (sheet over the meal-plan detail) and "OK" (stay).
+- **Polish-tweaks landed (`spec-d0e796fa`, see Collector specs)**
+  covering five small UI / file-rename items: edit-item aisle
+  reassignment, shopping-list rename, AddItemSheet auto-focus +
+  last-used aisle, and meal-plan rename.
+- **takt scheduler claim-conflict serialisation is global, not
+  per-worktree.** Even when two feature runs are dispatched against
+  separate worktree directories on separate branches, takt's
+  scheduler defers a bead whose `expected_files` overlap with any
+  in-flight bead's claims — not just within the same feature root.
+  Practical consequence: parallel runs of two features that touch
+  overlapping files (e.g., the polish-tweaks UI changes and the
+  tech-debt logging spec, both touching `CookbookApp/MealPlans/*`
+  and `CookbookApp/ShoppingLists/*`) are interleaved one-bead-at-a-
+  time across the two runs, not truly concurrent. A future patch to
+  takt could add a `merge_safe: true` bead flag (for purely additive
+  changes like logging) or scope claims per-feature-root with
+  conflict detection deferred to merge preflight.

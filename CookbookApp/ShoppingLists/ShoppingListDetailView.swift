@@ -4,6 +4,7 @@ import CookbookCore
 struct ShoppingListDetailView: View {
     let url: URL
     var onDelete: (() -> Void)? = nil
+    var onRename: ((URL) -> Void)? = nil
 
     @Environment(\.dismiss) private var dismiss
     @Environment(AisleCatalog.self) private var catalog
@@ -13,6 +14,20 @@ struct ShoppingListDetailView: View {
     @State private var showDeleteConfirmation = false
     @State private var collapsedSections: Set<String> = []
     @State private var searchText = ""
+    @State private var editingItem: EditingItem? = nil
+    @State private var showRenameAlert = false
+    @State private var renameText = ""
+    @State private var renameDuplicateError = false
+    @State private var showRenameError = false
+    @State private var renameErrorMessage = ""
+
+    private struct EditingItem: Identifiable {
+        var id: String { "\(index.aisle)-\(index.position)" }
+        let index: ItemIndex
+        let text: String
+        let aisle: String
+        let checked: Bool
+    }
 
     private var listName: String { ShoppingListFiles.displayName(for: url) }
 
@@ -86,6 +101,13 @@ struct ShoppingListDetailView: View {
                 .accessibilityLabel("Add item")
 
                 Menu {
+                    Button {
+                        renameText = listName
+                        renameDuplicateError = false
+                        showRenameAlert = true
+                    } label: {
+                        Label("Rename…", systemImage: "pencil")
+                    }
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
                     } label: {
@@ -103,6 +125,15 @@ struct ShoppingListDetailView: View {
                 save()
             }
         }
+        .sheet(item: $editingItem) { item in
+            EditItemSheet(
+                initialText: item.text,
+                initialAisle: item.aisle,
+                catalog: catalog
+            ) { newText, newAisle in
+                saveEditedItem(item: item, newText: newText, newAisle: newAisle)
+            }
+        }
         .confirmationDialog(
             "Delete '\(listName)'?",
             isPresented: $showDeleteConfirmation,
@@ -114,6 +145,25 @@ struct ShoppingListDetailView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This shopping list will be permanently removed.")
+        }
+        .alert("Rename list", isPresented: $showRenameAlert) {
+            TextField("List name", text: $renameText)
+            Button("Save") {
+                renameList()
+            }
+            .disabled(renameText.trimmingCharacters(in: .whitespaces).isEmpty)
+            Button("Cancel", role: .cancel) {
+                renameDuplicateError = false
+            }
+        } message: {
+            if renameDuplicateError {
+                Text("A list with that name already exists.")
+            }
+        }
+        .alert("Rename failed", isPresented: $showRenameError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(renameErrorMessage)
         }
         .task {
             if let text = ShoppingListFiles.readText(from: url) {
@@ -143,10 +193,13 @@ struct ShoppingListDetailView: View {
 
             Section {
                 Text("\(checkedCount) of \(totalCount) items checked")
-                    .font(.subheadline)
+                    .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
             }
-            .listRowBackground(Color.clear)
 
             ForEach(filteredGroups, id: \.name) { group in
                 let sectionKey = group.name
@@ -158,14 +211,21 @@ struct ShoppingListDetailView: View {
                                 entry: item.entry,
                                 onToggle: { toggleItem(at: item.index) },
                                 onDelete: { deleteItem(at: item.index) },
-                                onUpdate: { updateItem(at: item.index, newText: $0) }
+                                onEdit: {
+                                    editingItem = EditingItem(
+                                        index: item.index,
+                                        text: item.entry.text,
+                                        aisle: item.index.aisle,
+                                        checked: item.entry.checked
+                                    )
+                                }
                             )
                         }
                     }
                 } header: {
                     AisleSectionHeader(
                         name: sectionKey,
-                        symbolName: AisleIconMap.symbol(for: sectionKey),
+                        iconSource: AisleIconMap.source(for: sectionKey),
                         count: group.items.count,
                         isCollapsed: isCollapsed
                     ) {
@@ -180,6 +240,7 @@ struct ShoppingListDetailView: View {
                 }
             }
         }
+        .listSectionSpacing(.compact)
     }
 
     private func toggleItem(at index: ItemIndex) {
@@ -192,8 +253,14 @@ struct ShoppingListDetailView: View {
         save()
     }
 
-    private func updateItem(at index: ItemIndex, newText: String) {
-        document.updateItem(at: index, newText: newText)
+    private func saveEditedItem(item: EditingItem, newText: String, newAisle: String) {
+        guard newText != item.text || newAisle != item.aisle else { return }
+        if newAisle == item.aisle {
+            document.updateItem(at: item.index, newText: newText)
+        } else {
+            document.removeItem(at: item.index)
+            document.addItem(newText, toAisle: newAisle, checked: item.checked)
+        }
         save()
     }
 
@@ -209,11 +276,52 @@ struct ShoppingListDetailView: View {
         dismiss()
         onDelete?()
     }
+
+    private func renameList() {
+        let sanitised = renameText
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "/", with: "-")
+        guard !sanitised.isEmpty, sanitised != listName else { return }
+
+        let folderURL = url.deletingLastPathComponent()
+        let newURL = folderURL.appendingPathComponent("\(sanitised).md")
+
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
+
+        if FileManager.default.fileExists(atPath: newURL.path) {
+            renameDuplicateError = true
+            showRenameAlert = true
+            return
+        }
+
+        var renamed = document
+        renamed.title = sanitised
+
+        do {
+            try renamed.renderMarkdown().write(to: newURL, atomically: true, encoding: .utf8)
+        } catch {
+            renameErrorMessage = "Could not write the renamed file."
+            showRenameError = true
+            return
+        }
+
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            renameErrorMessage = "The list was renamed but the old file could not be deleted."
+            showRenameError = true
+            return
+        }
+
+        dismiss()
+        onRename?(newURL)
+    }
 }
 
 private struct AisleSectionHeader: View {
     let name: String
-    let symbolName: String
+    let iconSource: AisleIconMap.Source
     let count: Int
     let isCollapsed: Bool
     let onToggle: () -> Void
@@ -221,9 +329,9 @@ private struct AisleSectionHeader: View {
     var body: some View {
         Button(action: onToggle) {
             HStack(spacing: 6) {
-                Image(systemName: symbolName)
-                    .frame(width: 20)
-                Text(name)
+                aisleIcon
+                    .frame(width: 20, height: 20)
+                Text(name.localizedCapitalized)
                 Spacer()
                 Text("\(count)")
                     .monospacedDigit()
@@ -234,6 +342,19 @@ private struct AisleSectionHeader: View {
             }
         }
         .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var aisleIcon: some View {
+        switch iconSource {
+        case .system(let name):
+            Image(systemName: name)
+        case .asset(let name):
+            Image(name)
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+        }
     }
 }
 

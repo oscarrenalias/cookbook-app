@@ -6,6 +6,7 @@ struct MealPlanDetailView: View {
     let url: URL
     let folderURL: URL
     var onDelete: (() -> Void)? = nil
+    var onRename: ((URL) -> Void)? = nil
 
     @Environment(\.dismiss) private var dismiss
 
@@ -15,6 +16,9 @@ struct MealPlanDetailView: View {
     @State private var resolvedRecipes: [String: RecipeFile] = [:]
     @State private var isLoaded = false
     @State private var showDeleteConfirmation = false
+    @State private var showRenameAlert = false
+    @State private var renameText = ""
+    @State private var renameDuplicateError = false
     @State private var showCreateListAlert = false
     @State private var newListName = ""
     @State private var createListError: String? = nil
@@ -118,6 +122,34 @@ struct MealPlanDetailView: View {
         }
     }
 
+    private func renamePlan() {
+        let sanitised = renameText
+            .trimmingCharacters(in: .whitespaces)
+            .replacingOccurrences(of: "/", with: "-")
+        guard !sanitised.isEmpty, sanitised != planName else { return }
+
+        let parentURL = url.deletingLastPathComponent()
+        let newURL = parentURL.appendingPathComponent("\(sanitised).menu")
+
+        let didStart = parentURL.startAccessingSecurityScopedResource()
+        defer { if didStart { parentURL.stopAccessingSecurityScopedResource() } }
+
+        if FileManager.default.fileExists(atPath: newURL.path) {
+            renameDuplicateError = true
+            showRenameAlert = true
+            return
+        }
+
+        do {
+            try FileManager.default.moveItem(at: url, to: newURL)
+        } catch {
+            return
+        }
+
+        dismiss()
+        onRename?(newURL)
+    }
+
     private func deletePlan() {
         let parentURL = url.deletingLastPathComponent()
         let didStart = parentURL.startAccessingSecurityScopedResource()
@@ -152,6 +184,13 @@ struct MealPlanDetailView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
+                    Button {
+                        renameText = planName
+                        renameDuplicateError = false
+                        showRenameAlert = true
+                    } label: {
+                        Label("Rename…", systemImage: "pencil")
+                    }
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
                     } label: {
@@ -172,6 +211,20 @@ struct MealPlanDetailView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This meal plan will be permanently removed.")
+        }
+        .alert("Rename plan", isPresented: $showRenameAlert) {
+            TextField("Plan name", text: $renameText)
+            Button("Save") {
+                renamePlan()
+            }
+            .disabled(renameText.trimmingCharacters(in: .whitespaces).isEmpty)
+            Button("Cancel", role: .cancel) {
+                renameDuplicateError = false
+            }
+        } message: {
+            if renameDuplicateError {
+                Text("A plan with that name already exists.")
+            }
         }
         .alert("New shopping list", isPresented: $showCreateListAlert) {
             TextField("Name", text: $newListName)
