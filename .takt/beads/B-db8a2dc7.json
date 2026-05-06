@@ -1,0 +1,77 @@
+{
+  "bead_id": "B-db8a2dc7",
+  "title": "Shared documentation for shopping-list and meal-plan follow-up tweaks",
+  "agent_type": "documentation",
+  "description": "Document the user-visible behavior changes, rename-flow tradeoffs, and any implementation notes needed for maintainers, keeping scope limited to the five specified tweaks.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [
+    "B-93ab5111",
+    "B-0ee6b4bf",
+    "B-722d9070",
+    "B-192fb2c6",
+    "B-9f781e0d"
+  ],
+  "acceptance_criteria": [
+    "Documentation captures the new shopping-list item edit behavior including aisle reassignment.",
+    "Documentation captures shopping-list rename behavior, including H1 synchronization and duplicate handling.",
+    "Documentation captures AddItemSheet auto-focus and last-used aisle behavior, including SceneStorage scope.",
+    "Documentation captures meal-plan rename behavior and the absence of embedded title mutation.",
+    "Documentation notes the out-of-scope tradeoffs called out in the spec where relevant to maintainers or release notes."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [],
+  "expected_globs": [
+    "README*",
+    "docs/**",
+    "CHANGELOG*"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:06.055737+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

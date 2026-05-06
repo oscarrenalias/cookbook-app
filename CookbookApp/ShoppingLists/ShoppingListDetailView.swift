@@ -13,6 +13,15 @@ struct ShoppingListDetailView: View {
     @State private var showDeleteConfirmation = false
     @State private var collapsedSections: Set<String> = []
     @State private var searchText = ""
+    @State private var editingItem: EditingItem? = nil
+
+    private struct EditingItem: Identifiable {
+        var id: String { "\(index.aisle)-\(index.position)" }
+        let index: ItemIndex
+        let text: String
+        let aisle: String
+        let checked: Bool
+    }
 
     private var listName: String { ShoppingListFiles.displayName(for: url) }
 
@@ -103,6 +112,15 @@ struct ShoppingListDetailView: View {
                 save()
             }
         }
+        .sheet(item: $editingItem) { item in
+            EditItemSheet(
+                initialText: item.text,
+                initialAisle: item.aisle,
+                catalog: catalog
+            ) { newText, newAisle in
+                saveEditedItem(item: item, newText: newText, newAisle: newAisle)
+            }
+        }
         .confirmationDialog(
             "Delete '\(listName)'?",
             isPresented: $showDeleteConfirmation,
@@ -158,7 +176,14 @@ struct ShoppingListDetailView: View {
                                 entry: item.entry,
                                 onToggle: { toggleItem(at: item.index) },
                                 onDelete: { deleteItem(at: item.index) },
-                                onUpdate: { updateItem(at: item.index, newText: $0) }
+                                onEdit: {
+                                    editingItem = EditingItem(
+                                        index: item.index,
+                                        text: item.entry.text,
+                                        aisle: item.index.aisle,
+                                        checked: item.entry.checked
+                                    )
+                                }
                             )
                         }
                     }
@@ -192,8 +217,14 @@ struct ShoppingListDetailView: View {
         save()
     }
 
-    private func updateItem(at index: ItemIndex, newText: String) {
-        document.updateItem(at: index, newText: newText)
+    private func saveEditedItem(item: EditingItem, newText: String, newAisle: String) {
+        guard newText != item.text || newAisle != item.aisle else { return }
+        if newAisle == item.aisle {
+            document.updateItem(at: item.index, newText: newText)
+        } else {
+            document.removeItem(at: item.index)
+            document.addItem(newText, toAisle: newAisle, checked: item.checked)
+        }
         save()
     }
 

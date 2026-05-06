@@ -1,0 +1,74 @@
+{
+  "bead_id": "B-192fb2c6",
+  "title": "Add meal-plan rename flow in detail view",
+  "agent_type": "developer",
+  "description": "Add a Rename action to the meal-plan detail toolbar menu with alert-based name entry, sanitisation, duplicate detection, security-scoped file handling, atomic file move, and local navigation/list refresh handling.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "MealPlanDetailView toolbar menu includes a Rename\u2026 action alongside delete.",
+    "Rename presents an alert pre-filled with the current display name minus the .menu extension.",
+    "Save is disabled until the trimmed input is non-empty.",
+    "Input is sanitised by trimming and replacing / with -.",
+    "Duplicate target names are detected before move and surface the inline duplicate error.",
+    "Successful rename performs a single moveItem(at:to:) to the new .menu URL without reparsing or rewriting contents.",
+    "The detail view URL or navigation state updates so the stale old URL is not left active, and the list view refreshes if required by existing data flow."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/MealPlans/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:05.570760+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

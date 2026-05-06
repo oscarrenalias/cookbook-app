@@ -1,0 +1,82 @@
+{
+  "bead_id": "B-0ee6b4bf",
+  "title": "Add shopping-list rename flow in detail view",
+  "agent_type": "developer",
+  "description": "Add a Rename action to the shopping-list detail toolbar menu with alert-based name entry, sanitisation, duplicate detection, security-scoped file handling, rewritten H1 title content, old-file deletion, and local navigation/list refresh handling.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-c3834e6f",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "ShoppingListDetailView toolbar menu includes a Rename\u2026 action alongside delete.",
+    "Rename presents an alert pre-filled with the current display name.",
+    "Save is disabled until the trimmed input is non-empty.",
+    "Input is sanitised by trimming and replacing / with -.",
+    "Duplicate target names are detected before overwrite and surface the inline duplicate error.",
+    "Successful rename writes the updated markdown to the new .md URL with document.title updated to match the filename.",
+    "The old file is deleted after the new file is written; if delete fails after write, both files remain and an error is surfaced.",
+    "The view state or navigation updates so the stale old URL is not left active, and the list view refreshes if required by existing data flow."
+  ],
+  "linked_docs": [
+    "spec-d0e796fa"
+  ],
+  "feature_root_id": "B-c3834e6f",
+  "execution_branch_name": "feature/b-c3834e6f",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-c3834e6f",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListsView.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/ShoppingLists/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "file-scope conflict with in-progress B-93ab5111",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T15:35:05.137499+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T15:35:37.680443+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-93ab5111",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,66 @@
+{
+  "bead_id": "B-265bdf43",
+  "title": "Feature Root: Shopping list structured model rewrite",
+  "agent_type": "planner",
+  "description": "Shared execution root for replacing the opaque markdown string model with a structured shopping-list document across CookbookCore and the app UI.",
+  "status": "done",
+  "bead_type": "feature",
+  "parent_id": "B-5fcaee21",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All implementation work for the structured shopping-list rewrite is represented under this feature bead.",
+    "Concrete coding work is split into focused dependent developer beads rather than one large refactor bead.",
+    "Exactly one shared tester bead, one shared documentation bead, and one shared review bead exist as children of this feature bead with the required dependency fan-in."
+  ],
+  "linked_docs": [
+    "spec-855cd963",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md"
+  ],
+  "feature_root_id": "B-265bdf43",
+  "execution_branch_name": "feature/b-265bdf43",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T07:17:31.920983+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

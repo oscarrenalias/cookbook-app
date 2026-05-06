@@ -5,10 +5,7 @@ struct ShoppingListItemRow: View {
     let entry: ShoppingListEntry
     var onToggle: () -> Void
     var onDelete: () -> Void
-    var onUpdate: (String) -> Void
-
-    @State private var showEditAlert = false
-    @State private var editText = ""
+    var onEdit: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
@@ -39,23 +36,12 @@ struct ShoppingListItemRow: View {
             .accessibilityLabel("Delete item")
 
             Button {
-                editText = entry.text
-                showEditAlert = true
+                onEdit()
             } label: {
                 Label("Edit", systemImage: "pencil")
             }
             .tint(.gray)
             .accessibilityLabel("Edit item")
-        }
-        .alert("Edit item", isPresented: $showEditAlert) {
-            TextField("Item text", text: $editText)
-            Button("Save") {
-                let trimmed = editText.trimmingCharacters(in: .whitespaces)
-                if !trimmed.isEmpty {
-                    onUpdate(trimmed)
-                }
-            }
-            Button("Cancel", role: .cancel) {}
         }
     }
 
@@ -80,19 +66,19 @@ struct ShoppingListItemRow: View {
             entry: ShoppingListEntry(text: "*300 g* broccoli", checked: false),
             onToggle: {},
             onDelete: {},
-            onUpdate: { _ in }
+            onEdit: {}
         )
         ShoppingListItemRow(
             entry: ShoppingListEntry(text: "*1 piece* courgette", checked: true),
             onToggle: {},
             onDelete: {},
-            onUpdate: { _ in }
+            onEdit: {}
         )
         ShoppingListItemRow(
             entry: ShoppingListEntry(text: "plain butter", checked: false),
             onToggle: {},
             onDelete: {},
-            onUpdate: { _ in }
+            onEdit: {}
         )
     }
 }
