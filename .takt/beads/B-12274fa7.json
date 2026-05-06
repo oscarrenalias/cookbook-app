@@ -3,7 +3,7 @@
   "title": "Recipe detail entry-point wiring",
   "agent_type": "developer",
   "description": "Rename the bottom-bar action, remove the stub alert path, add the new callback, and present the meal-plan sheet from the recipe detail flow with the required recipe and scale context.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
   "dependencies": [
@@ -28,33 +28,50 @@
   "expected_globs": [
     "CookbookApp/Recipes/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "RecipeBottomBar: replaced showMenuAlert state and alert with onAddToMealPlan callback; renamed label; set disabled(recipe == nil). RecipeDetailSheet: added showAddToMealPlanSheet @State; updated RecipeBottomBar call with onAddToMealPlan and onAddToShoppingList labels; added .sheet(isPresented: $showAddToMealPlanSheet) presenting AddToMealPlanSheet with parsedRecipe, recipe (RecipeFile), currentScale, folderURL, and onSuccess toast handler.",
+    "remaining": "Nothing remaining for this bead.",
+    "risks": "No risks. Changes are confined to the two expected files and introduce no new dependencies beyond AddToMealPlanSheet (already built in B-37884968).",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify the button label, disabled state, and sheet presentation flow.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeBottomBar.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift"
+    ],
+    "conflict_risks": "None \u2014 both files are leaf UI files not touched by sibling beads.",
+    "design_decisions": "onAddToMealPlan is a plain () -> Void callback matching the same pattern as onAddToShoppingList; no architectural change. The meal plan sheet guard on store.folderURL mirrors the shopping list sheet guard for consistency.",
+    "test_coverage_notes": "Button disabled state (recipe == nil vs has ingredients), callback invocation, and sheet presentation with correct recipe/scale context are the key test targets.",
+    "known_limitations": "SourceKit reports false-positive CookbookCore module errors in the worktree \u2014 these were pre-existing and do not affect compilation."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "None \u2014 both files are leaf UI files not touched by sibling beads.",
+  "branch_name": "feature/b-3383c60d",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -64,9 +81,167 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:29:32.765432+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:29:32.765451+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:29:38.096584+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-12274fa7/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-12274fa7/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:31:02.604478+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Wired the recipe detail entry-point for Add to Meal Plan. RecipeBottomBar now has an onAddToMealPlan callback, uses the label \"Add to meal plan\" with the calendar symbol, disables only when recipe == nil, and removes the stub alert. RecipeDetailSheet owns showAddToMealPlanSheet state, passes the callback into the bar, and presents AddToMealPlanSheet with the parsed recipe, RecipeFile, and current scale.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-12274fa7",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-12274fa7/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-12274fa7/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T11:29:38.096566+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-12274fa7",
+      "feature_root_id": "B-3383c60d",
+      "title": "Recipe detail entry-point wiring",
+      "agent_type": "developer",
+      "description": "Rename the bottom-bar action, remove the stub alert path, add the new callback, and present the meal-plan sheet from the recipe detail flow with the required recipe and scale context.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`RecipeBottomBar` uses the label `Add to meal plan`, keeps the `calendar` symbol, and invokes a new `onAddToMealPlan` callback instead of the placeholder alert.",
+        "The button is disabled only when `recipe == nil` and remains enabled for recipes without ingredients.",
+        "`RecipeDetailSheet` owns `showAddToMealPlanSheet`, passes the callback into the bottom bar, and presents `AddToMealPlanSheet` with the current recipe, recipe file, and scale context."
+      ],
+      "dependencies": [
+        "B-37884968"
+      ],
+      "linked_docs": [
+        "spec-2ca2e4f2",
+        "0004"
+      ],
+      "execution_branch_name": "feature/b-3383c60d",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/Recipes/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Wired the recipe detail entry-point for Add to Meal Plan. RecipeBottomBar now has an onAddToMealPlan callback, uses the label \"Add to meal plan\" with the calendar symbol, disables only when recipe == nil, and removes the stub alert. RecipeDetailSheet owns showAddToMealPlanSheet state, passes the callback into the bar, and presents AddToMealPlanSheet with the parsed recipe, RecipeFile, and current scale.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.246924,
+      "duration_ms": 83984,
+      "duration_api_ms": 81133,
+      "num_turns": 13,
+      "input_tokens": 13,
+      "output_tokens": 5244,
+      "cache_creation_tokens": 21398,
+      "cache_read_tokens": 286245,
+      "stop_reason": "end_turn",
+      "session_id": "ef72b807-91fe-4439-87f4-0cb4267af09f",
+      "permission_denials": [],
+      "prompt_chars": 5837,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.246924,
+        "duration_ms": 83984,
+        "duration_api_ms": 81133,
+        "num_turns": 13,
+        "input_tokens": 13,
+        "output_tokens": 5244,
+        "cache_creation_tokens": 21398,
+        "cache_read_tokens": 286245,
+        "stop_reason": "end_turn",
+        "session_id": "ef72b807-91fe-4439-87f4-0cb4267af09f",
+        "permission_denials": [],
+        "prompt_chars": 5837,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "289770c0e7fd41e8262e41e42a4e118f4153edf3"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
