@@ -671,6 +671,13 @@
       "agent_type": "review",
       "summary": "Final review: 1 documentation inconsistency found \u2014 architecture.md \"Not instrumented\" section contradicts ShoppingListDocument.swift, which does have a private os.Logger. All other acceptance criteria pass.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T16:58:06.605664+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-3e9fde9b-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -1320,7 +1327,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-3e9fde9b-corrective"
   },
   "labels": [],
   "recovery_for": null,
