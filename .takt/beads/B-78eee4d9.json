@@ -7,17 +7,17 @@
   "bead_type": "task",
   "parent_id": "B-265bdf43",
   "dependencies": [
-    "B-36a590ee",
-    "B-bd0c0266",
     "B-0ed77b55",
-    "B-5e7b1885",
-    "B-357ef996",
-    "B-7871ee84",
-    "B-f7f69190",
     "B-227649ee",
+    "B-357ef996",
+    "B-36a590ee",
+    "B-5e7b1885",
     "B-692930d9",
+    "B-7871ee84",
     "B-913394d2",
-    "B-bf1bdb8b"
+    "B-bd0c0266",
+    "B-bf1bdb8b",
+    "B-f7f69190"
   ],
   "acceptance_criteria": [
     "Review verifies the old regex-driven mutation path is fully removed and all shopping-list writes flow through the structured document model.",
