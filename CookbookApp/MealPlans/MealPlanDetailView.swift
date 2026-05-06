@@ -1,5 +1,6 @@
 import SwiftUI
 import CookbookCore
+import os
 
 struct MealPlanDetailView: View {
     let url: URL
@@ -212,6 +213,7 @@ struct MealPlanDetailView: View {
     }
 
     private func loadPlan() async {
+        Loggers.mealPlans.debug("[MealPlanDetailView] loadPlan: entry plan=\(url.lastPathComponent, privacy: .public)")
         let fileURL = url
         let folder = folderURL
         let result = await Task.detached(priority: .userInitiated) {
@@ -247,6 +249,7 @@ struct MealPlanDetailView: View {
         plan = result.0
         resolvedRecipes = result.1
         isLoaded = true
+        Loggers.mealPlans.debug("[MealPlanDetailView] loadPlan: exit blocks=\(plan.blocks.count) recipes=\(resolvedRecipes.count)")
     }
 
     @ViewBuilder
