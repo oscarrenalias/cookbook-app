@@ -76,9 +76,7 @@ public enum MealPlanParser {
                 continue
             }
 
-            guard let item = parseItem(trimmedLine) else {
-                continue
-            }
+            let item = parseItem(trimmedLine) ?? .text(trimmedLine)
 
             if !currentSectionIsOpen {
                 currentSectionName = nil
