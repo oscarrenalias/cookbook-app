@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-7566b06f",
+  "title": "Shared documentation update for Meal Plans tab",
+  "agent_type": "documentation",
+  "description": "Update project documentation to reflect the new Meal Plans tab behaviour, its deliberate v1 limitations, and any status changes associated with landing the spec.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "User-facing or team-facing docs describe the meal-plan browser, blank-plan creation, swipe deletion, and the stubbed shopping-list CTA.",
+    "Documentation clearly preserves out-of-scope boundaries such as no in-view add-to-plan editing or calendar/date binding.",
+    "Any roadmap or spec-status references are updated consistently with the implemented state."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "docs/roadmap.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "docs/roadmap.md",
+    "docs/architecture.md",
+    "specs/drafts/meal-plans-tab.md"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:47.277383+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
