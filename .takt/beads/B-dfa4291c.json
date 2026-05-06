@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
-  "dependencies": [],
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029"
+  ],
   "acceptance_criteria": [
     "`MealPlanFiles.discover(in:)`, `readText`, `writeText`, and `plansURL(in:)` log the same boundary information pattern required for shopping lists.",
     "`AddToMealPlanService.addToBlock`, `addNewBlock`, and `createNewPlan` log entry context including recipe URL, plan URL, servings, and scale factor where applicable.",
