@@ -6,7 +6,17 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
-  "dependencies": [],
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029",
+    "B-b5f26d06",
+    "B-a4b59a86",
+    "B-d23ebd9d",
+    "B-dfa4291c",
+    "B-046b1222",
+    "B-34b71d1c",
+    "B-4510b6f8"
+  ],
   "acceptance_criteria": [
     "Review confirms the work stays within `CookbookApp` and does not introduce OS logging dependencies into `CookbookCore`.",
     "Review confirms the specified choke points are covered and logging statements use appropriate categories and privacy handling.",
