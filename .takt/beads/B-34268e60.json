@@ -3,7 +3,7 @@
   "title": "Add CookbookCore meal-plan parser and mutation coverage",
   "agent_type": "developer",
   "description": "Expand CookbookCore tests to cover free-text parsing, empty-line dropping, serialisation fixed points, and `removeItem(at:)` semantics.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
   "dependencies": [
@@ -28,37 +28,44 @@
     "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All acceptance criteria met. Five new @Test methods added to the existing MealPlanParser suite: freeTextLineBecomesTextItem, blankLinesAreDroppedFromSectionItems, textItemRoundTripsThroughSerialise, removeItemDeletesItemAtPosition, removeItemPreservesEmptySectionAfterLastItemRemoved, removeItemIsNoOpForOutOfBoundsIndex. The real-fixture fixed point was already covered by the pre-existing fixtureRoundTripsThroughSerialise test.",
+    "remaining": "Test execution must be performed by the tester agent. No source model or parser changes were needed \u2014 the MealPlan model and MealPlanParser were already fully implemented by dependency beads B-35b69af1 and B-f5403aed.",
+    "risks": "None. Tests are additive-only; no production code was modified. The SourceKit 'No such module Testing' warning is a known false positive for test targets and does not affect compilation.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to run swift test on CookbookCore and confirm all 12 tests (7 existing + 5 new) pass.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift"
+    ],
+    "conflict_risks": "No production code changed. Test file is the sole output. No conflict risk for downstream agents working in other files.",
+    "design_decisions": "Used the existing Swift Testing (@Test / #expect / Issue.record) convention already established in the suite rather than XCTest. The removeItemIsNoOpForOutOfBoundsIndex test exercises all three guard clauses (block, section, position) in a single test to keep the suite compact.",
+    "test_coverage_notes": "Covers all four acceptance criteria. The fixture fixed-point criterion was already satisfied by the pre-existing fixtureRoundTripsThroughSerialise test; textItemRoundTripsThroughSerialise adds specific coverage for .text items in the cycle.",
+    "known_limitations": "No inline-string fixture for the 'real fixture fixed point' was added because fixtureRoundTripsThroughSerialise already exercises the Fixtures/meal-plan.menu file loaded via Bundle.module."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No production code changed. Test file is the sole output. No conflict risk for downstream agents working in other files.",
   "branch_name": "feature/b-920f3e84",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
-  "lease": {
-    "owner": "developer:B-34268e60",
-    "expires_at": "2026-05-06T10:19:15.433524+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +107,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-34268e60/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T09:52:14.495503+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Added 5 new tests to MealPlanParserTests.swift covering all four acceptance criteria: free-text parsing into `.text` with section-name preservation, blank-line dropping, `.text` serialise/reparse round-trip, and `removeItem(at:)` with deletion, empty-section preservation, and out-of-bounds no-op semantics. Package builds cleanly.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +187,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Added 5 new tests to MealPlanParserTests.swift covering all four acceptance criteria: free-text parsing into `.text` with section-name preservation, blank-line dropping, `.text` serialise/reparse round-trip, and `removeItem(at:)` with deletion, empty-section preservation, and out-of-bounds no-op semantics. Package builds cleanly.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.3682934,
+      "duration_ms": 173302,
+      "duration_api_ms": 164008,
+      "num_turns": 9,
+      "input_tokens": 9,
+      "output_tokens": 8701,
+      "cache_creation_tokens": 26197,
+      "cache_read_tokens": 197837,
+      "stop_reason": "end_turn",
+      "session_id": "e05e3a09-4e01-42a0-90a6-c9c13ba805da",
+      "permission_denials": [],
+      "prompt_chars": 5694,
+      "prompt_lines": 136,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.3682934,
+        "duration_ms": 173302,
+        "duration_api_ms": 164008,
+        "num_turns": 9,
+        "input_tokens": 9,
+        "output_tokens": 8701,
+        "cache_creation_tokens": 26197,
+        "cache_read_tokens": 197837,
+        "stop_reason": "end_turn",
+        "session_id": "e05e3a09-4e01-42a0-90a6-c9c13ba805da",
+        "permission_denials": [],
+        "prompt_chars": 5694,
+        "prompt_lines": 136,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "6e69bb83cba9b719aa64e000064358bfe271ad32"
   },
   "labels": [],
   "recovery_for": null,
