@@ -7,7 +7,7 @@ struct ShoppingListDetailView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(AisleCatalog.self) private var catalog
-    @State private var list = ShoppingList("")
+    @State private var document = ShoppingListDocument()
     @State private var isLoaded = false
     @State private var showAddSheet = false
     @State private var showDeleteConfirmation = false
@@ -18,7 +18,7 @@ struct ShoppingListDetailView: View {
 
     private var addSheetDocBinding: Binding<ShoppingListDocument> {
         Binding(
-            get: { ShoppingListDocument(markdown: list.text) },
+            get: { document },
             set: { _ in }
         )
     }
@@ -27,22 +27,30 @@ struct ShoppingListDetailView: View {
         "shoppingList.header.expanded.\(url.lastPathComponent)"
     }
 
-    private var groups: [(name: String?, items: [ShoppingListItem])] {
-        ShoppingListAisleGrouper.group(list).filter { !$0.items.isEmpty }
+    private struct IndexedEntry {
+        let index: ItemIndex
+        let entry: ShoppingListEntry
     }
 
-    private var filteredGroups: [(name: String?, items: [ShoppingListItem])] {
-        guard !searchText.isEmpty else { return groups }
-        return groups.compactMap { group in
-            let matching = group.items.filter {
-                $0.text.localizedCaseInsensitiveContains(searchText)
+    private var filteredGroups: [(name: String, items: [IndexedEntry])] {
+        document.aisles.compactMap { aisle in
+            let indexed = aisle.items.enumerated().map { pos, entry in
+                IndexedEntry(index: ItemIndex(aisle: aisle.name, position: pos), entry: entry)
             }
-            return matching.isEmpty ? nil : (name: group.name, items: matching)
+            let matching = searchText.isEmpty ? indexed : indexed.filter {
+                $0.entry.text.localizedCaseInsensitiveContains(searchText)
+            }
+            return matching.isEmpty ? nil : (name: aisle.name, items: matching)
         }
     }
 
-    private var checkedCount: Int { list.items.filter(\.checked).count }
-    private var totalCount: Int { list.items.count }
+    private var checkedCount: Int {
+        document.aisles.flatMap(\.items).filter(\.checked).count
+    }
+
+    private var totalCount: Int {
+        document.aisles.flatMap(\.items).count
+    }
 
     var body: some View {
         Group {
@@ -83,7 +91,7 @@ struct ShoppingListDetailView: View {
         }
         .sheet(isPresented: $showAddSheet) {
             AddItemSheet(document: addSheetDocBinding, catalog: catalog) { updated in
-                list = ShoppingList(updated.renderMarkdown())
+                document = updated
                 save()
             }
         }
@@ -101,7 +109,7 @@ struct ShoppingListDetailView: View {
         }
         .task {
             if let text = ShoppingListFiles.readText(from: url) {
-                list = ShoppingList(text)
+                document = ShoppingListDocument(markdown: text)
             }
             isLoaded = true
         }
@@ -110,7 +118,7 @@ struct ShoppingListDetailView: View {
     @ViewBuilder
     private var listContent: some View {
         List {
-            if let headerContent = ShoppingListHeaderExtractor.extract(from: list.text) {
+            if let headerContent = ShoppingListHeaderExtractor.extract(from: document.renderMarkdown()) {
                 ShoppingListHeaderView(content: headerContent, storageKey: headerStorageKey)
             }
 
@@ -122,23 +130,23 @@ struct ShoppingListDetailView: View {
             .listRowBackground(Color.clear)
 
             ForEach(filteredGroups, id: \.name) { group in
-                let sectionKey = group.name?.localizedCapitalized ?? "Other"
+                let sectionKey = group.name
                 let isCollapsed = collapsedSections.contains(sectionKey)
                 Section {
                     if !isCollapsed {
-                        ForEach(group.items, id: \.lineIndex) { item in
+                        ForEach(group.items, id: \.index.position) { item in
                             ShoppingListItemRow(
-                                item: item,
-                                onToggle: { toggleItem(item) },
-                                onDelete: { deleteItem(item) },
-                                onUpdate: { updateItem(item, newText: $0) }
+                                entry: item.entry,
+                                onToggle: { toggleItem(at: item.index) },
+                                onDelete: { deleteItem(at: item.index) },
+                                onUpdate: { updateItem(at: item.index, newText: $0) }
                             )
                         }
                     }
                 } header: {
                     AisleSectionHeader(
                         name: sectionKey,
-                        symbolName: AisleIconMap.symbol(for: group.name),
+                        symbolName: AisleIconMap.symbol(for: sectionKey),
                         count: group.items.count,
                         isCollapsed: isCollapsed
                     ) {
@@ -155,23 +163,23 @@ struct ShoppingListDetailView: View {
         }
     }
 
-    private func toggleItem(_ item: ShoppingListItem) {
-        list.toggle(itemAt: item.lineIndex)
+    private func toggleItem(at index: ItemIndex) {
+        document.toggle(at: index)
         save()
     }
 
-    private func deleteItem(_ item: ShoppingListItem) {
-        list.removeItem(atLine: item.lineIndex)
+    private func deleteItem(at index: ItemIndex) {
+        document.removeItem(at: index)
         save()
     }
 
-    private func updateItem(_ item: ShoppingListItem, newText: String) {
-        list.updateItem(atLine: item.lineIndex, newText: newText)
+    private func updateItem(at index: ItemIndex, newText: String) {
+        document.updateItem(at: index, newText: newText)
         save()
     }
 
     private func save() {
-        try? ShoppingListFiles.writeText(list.text, to: url)
+        try? ShoppingListFiles.writeText(document.renderMarkdown(), to: url)
     }
 
     private func deleteList() {
