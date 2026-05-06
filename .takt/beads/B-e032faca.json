@@ -1,0 +1,237 @@
+{
+  "bead_id": "B-e032faca",
+  "title": "Meal plan recipe path helper",
+  "agent_type": "developer",
+  "description": "Add a focused helper for deriving the `./<relative-without-extension>` recipe reference path from a recipe file URL and configured recipes folder.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-3383c60d",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "A helper exists in the meal-plan app layer to convert recipe file URLs into `./<relative>` paths without the `.cook` extension.",
+    "The helper handles nested recipe folders and root-level recipes.",
+    "The helper API is small enough to be reused by the add-to-meal-plan service without duplicating path math."
+  ],
+  "linked_docs": [
+    "spec-2ca2e4f2",
+    "spec-855cd963"
+  ],
+  "feature_root_id": "B-3383c60d",
+  "execution_branch_name": "feature/b-3383c60d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/MealPlans/*.swift"
+  ],
+  "touched_files": [
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "MealPlanRecipePath enum implemented with `path(for:relativeTo:)`, `recipeURL(for:in:)`, and `displayName(for:)`. All three acceptance criteria satisfied: URL\u2192path conversion, nested and root-level recipe support, small reusable API.",
+    "remaining": "Downstream beads should wire callers in MealPlanDetailView and the add-to-meal-plan service to use these helpers instead of duplicating the path-cleanup logic inline.",
+    "risks": "No runtime risks. The `.path` property on security-scoped bookmark URLs returns the standard filesystem path; prefix matching is stable. The `.cook` extension strip is case-insensitive via `.lowercased().hasSuffix`.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Tester agent should add unit tests for all three helpers: URL\u2192path for nested and root-level recipes, nil return when URL is outside the folder, path\u2192URL round-trip, and display-name extraction.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/MealPlans/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+    ],
+    "conflict_risks": "None. New file only; no existing files were modified.",
+    "design_decisions": "Used an `enum` with no cases as a namespace (cannot be instantiated, same pattern as other helpers in the codebase). Kept `.path` rather than `.standardizedFileURL.path` to avoid symlink resolution surprises with security-scoped bookmark URLs. Extension stripping done with lowercased string suffix check to avoid URL(fileURLWithPath:) CWD-resolution side-effects on relative paths.",
+    "test_coverage_notes": "No tests written (tester bead responsibility). Key cases to cover: nested path, root-level path, URL outside folder (nil return), path with no `./` prefix in `recipeURL(for:in:)`, display name with nested path.",
+    "known_limitations": "The helper does not access the filesystem \u2014 it does pure string/URL path math. Callers must bracket security-scoped resource access themselves when they subsequently use the returned URLs for I/O."
+  },
+  "block_reason": "",
+  "conflict_risks": "None. New file only; no existing files were modified.",
+  "branch_name": "feature/b-3383c60d",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T11:05:11.632192+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:06:39.188296+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:06:39.188319+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:06:44.064108+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-e032faca/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-e032faca/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:10:04.976056+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created `CookbookApp/MealPlans/MealPlanRecipePath.swift` \u2014 an enum namespace with three static helpers for translating between absolute recipe `URL`s and the `./relative-without-extension` strings used in `.menu` files. Covers URL\u2192path conversion, path\u2192URL resolution, and display-name extraction. Syntax-checked clean with `swiftc -typecheck`.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-e032faca",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-e032faca/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-e032faca/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T11:06:44.064090+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-e032faca",
+      "feature_root_id": "B-3383c60d",
+      "title": "Meal plan recipe path helper",
+      "agent_type": "developer",
+      "description": "Add a focused helper for deriving the `./<relative-without-extension>` recipe reference path from a recipe file URL and configured recipes folder.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "A helper exists in the meal-plan app layer to convert recipe file URLs into `./<relative>` paths without the `.cook` extension.",
+        "The helper handles nested recipe folders and root-level recipes.",
+        "The helper API is small enough to be reused by the add-to-meal-plan service without duplicating path math."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-2ca2e4f2",
+        "spec-855cd963"
+      ],
+      "execution_branch_name": "feature/b-3383c60d",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+      "expected_files": [
+        "CookbookApp/MealPlans/MealPlanRecipePath.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/MealPlans/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created `CookbookApp/MealPlans/MealPlanRecipePath.swift` \u2014 an enum namespace with three static helpers for translating between absolute recipe `URL`s and the `./relative-without-extension` strings used in `.menu` files. Covers URL\u2192path conversion, path\u2192URL resolution, and display-name extraction. Syntax-checked clean with `swiftc -typecheck`.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.58778925,
+      "duration_ms": 200022,
+      "duration_api_ms": 189417,
+      "num_turns": 20,
+      "input_tokens": 19,
+      "output_tokens": 9114,
+      "cache_creation_tokens": 35229,
+      "cache_read_tokens": 573529,
+      "stop_reason": "end_turn",
+      "session_id": "5774f081-d3eb-4f68-8ed6-9a1ac5319b84",
+      "permission_denials": [],
+      "prompt_chars": 5595,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.58778925,
+        "duration_ms": 200022,
+        "duration_api_ms": 189417,
+        "num_turns": 20,
+        "input_tokens": 19,
+        "output_tokens": 9114,
+        "cache_creation_tokens": 35229,
+        "cache_read_tokens": 573529,
+        "stop_reason": "end_turn",
+        "session_id": "5774f081-d3eb-4f68-8ed6-9a1ac5319b84",
+        "permission_denials": [],
+        "prompt_chars": 5595,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "68058dabd6de20a84c25df4a613fa7385c7fd03d"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

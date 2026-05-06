@@ -1,0 +1,244 @@
+{
+  "bead_id": "B-c3bd52e2",
+  "title": "Render collapsible shopping list header area",
+  "agent_type": "developer",
+  "description": "Add the reusable header view and integrate it into the shopping-list detail screen above progress and aisle sections with scene-scoped collapse persistence.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-27e1396e",
+  "dependencies": [
+    "B-7b891bbe"
+  ],
+  "acceptance_criteria": [
+    "A new header view renders extracted markdown content with the specified line handling, disclosure label, and typography.",
+    "`ShoppingListDetailView` shows the header area only when extraction returns content and places it above the progress header.",
+    "Collapse state uses the per-file `@SceneStorage` key from the spec and defaults to expanded."
+  ],
+  "linked_docs": [
+    "spec-4e3e388a"
+  ],
+  "feature_root_id": "B-27e1396e",
+  "execution_branch_name": "feature/b-27e1396e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj/project.pbxproj",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "New ShoppingListHeaderView renders HeaderContent with per-file @SceneStorage collapse persistence (defaulting to expanded), a disclosure toggle labeled with firstHeading ?? \"Notes\", and line-by-line markdown rendering that skips the first ## heading. ShoppingListDetailView now calls ShoppingListHeaderExtractor.extract(from: list.text) and shows the header section conditionally above the progress row. Added ShoppingListHeaderView.swift to the Xcode project (PBXBuildFile, PBXFileReference, group, and Sources build phase). Type-check of ShoppingListHeaderView + ShoppingListHeaderExtractor passed cleanly.",
+    "remaining": "",
+    "risks": "The ShoppingListDetailView calls ShoppingListHeaderExtractor.extract on every view update; this is a pure parsing call on a short string and should be negligible, but could be memoized if performance becomes a concern.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Hand off to tester agent for unit/UI test coverage of ShoppingListHeaderView collapse behaviour and ShoppingListDetailView header integration.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "CookbookApp.xcodeproj/project.pbxproj",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift"
+    ],
+    "conflict_risks": "No known conflicts; only ShoppingListDetailView.swift and the new ShoppingListHeaderView.swift were touched.",
+    "design_decisions": "Used @SceneStorage with dynamic init (_isExpanded = SceneStorage(wrappedValue: true, storageKey)) to support per-file persistence without static key literals. Storage key format: \"shoppingList.header.expanded.\\(url.lastPathComponent)\". Disclosure label falls back to \"Notes\" when firstHeading is nil. The first ## heading line is excluded from body rendering since it is already shown as the disclosure label.",
+    "test_coverage_notes": "Tester should verify: (1) collapse/expand toggle persists across navigation; (2) header section absent when extraction returns nil; (3) firstHeading nil falls back to \"Notes\" label; (4) second ## heading in body renders with semibold subheadline styling.",
+    "known_limitations": "SwiftUI Text(AttributedString(markdown:)) supports inline formatting only \u2014 block-level markdown (headings, lists) is not rendered with special styling unless handled by lineView logic."
+  },
+  "block_reason": "",
+  "conflict_risks": "No known conflicts; only ShoppingListDetailView.swift and the new ShoppingListHeaderView.swift were touched.",
+  "branch_name": "feature/b-27e1396e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T20:30:43.698871+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T21:07:27.135575+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T21:07:27.135602+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T21:07:29.117108+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T21:13:56.144399+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created ShoppingListHeaderView.swift and updated ShoppingListDetailView.swift to render a collapsible header area above the progress section when shopping list markdown contains header content.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c3bd52e2",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c3bd52e2/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-c3bd52e2/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T21:07:29.117089+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-c3bd52e2",
+      "feature_root_id": "B-27e1396e",
+      "title": "Render collapsible shopping list header area",
+      "agent_type": "developer",
+      "description": "Add the reusable header view and integrate it into the shopping-list detail screen above progress and aisle sections with scene-scoped collapse persistence.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "A new header view renders extracted markdown content with the specified line handling, disclosure label, and typography.",
+        "`ShoppingListDetailView` shows the header area only when extraction returns content and places it above the progress header.",
+        "Collapse state uses the per-file `@SceneStorage` key from the spec and defaults to expanded."
+      ],
+      "dependencies": [
+        "B-7b891bbe"
+      ],
+      "linked_docs": [
+        "spec-4e3e388a"
+      ],
+      "execution_branch_name": "feature/b-27e1396e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-27e1396e",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+        "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created ShoppingListHeaderView.swift and updated ShoppingListDetailView.swift to render a collapsible header area above the progress section when shopping list markdown contains header content.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 1.0562638000000002,
+      "duration_ms": 386322,
+      "duration_api_ms": 366033,
+      "num_turns": 37,
+      "input_tokens": 1697,
+      "output_tokens": 22800,
+      "cache_creation_tokens": 54520,
+      "cache_read_tokens": 1457793,
+      "stop_reason": "end_turn",
+      "session_id": "d4121754-1a0b-486f-a2b5-29c49d08a2b3",
+      "permission_denials": [],
+      "prompt_chars": 5690,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 1.0562638000000002,
+        "duration_ms": 386322,
+        "duration_api_ms": 366033,
+        "num_turns": 37,
+        "input_tokens": 1697,
+        "output_tokens": 22800,
+        "cache_creation_tokens": 54520,
+        "cache_read_tokens": 1457793,
+        "stop_reason": "end_turn",
+        "session_id": "d4121754-1a0b-486f-a2b5-29c49d08a2b3",
+        "permission_denials": [],
+        "prompt_chars": 5690,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "ec40bbf20fb2e032a81fa6528839e04e64778eda"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,241 @@
+{
+  "bead_id": "B-efeedcc5",
+  "title": "Add-to-meal-plan service: new plan creation",
+  "agent_type": "developer",
+  "description": "Extend the service with the create-new-plan flow, including name sanitisation, duplicate-file handling, initial block seeding, recipe insertion, quantity calculation, and serialise/write behavior.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-3383c60d",
+  "dependencies": [
+    "B-e032faca"
+  ],
+  "acceptance_criteria": [
+    "The service can create a new `.menu` file under the plans folder with a sanitised plan name and caller-provided first section name.",
+    "Duplicate plan filenames are detected before write and surfaced as a recoverable error path.",
+    "Recipe quantity uses servings \u00d7 scale when servings metadata is available and omits quantity when it is not."
+  ],
+  "linked_docs": [
+    "spec-2ca2e4f2",
+    "spec-855cd963"
+  ],
+  "feature_root_id": "B-3383c60d",
+  "execution_branch_name": "feature/b-3383c60d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "expected_files": [
+    "CookbookApp/MealPlans/AddToMealPlanService.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/MealPlans/*.swift"
+  ],
+  "touched_files": [
+    "CookbookApp/MealPlans/AddToMealPlanService.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/AddToMealPlanService.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "1. Added `.duplicatePlan` error case to `MutationError`. 2. Added `createNewPlan(recipeURL:recipesFolder:folderURL:planName:firstSectionName:servings:scaleFactor:)` that: sanitises name (trim + replace `/` with `-`), resolves plans folder via `MealPlanFiles.plansURL`, checks `FileManager.fileExists` before write and throws `.duplicatePlan` if collision, computes `Quantity(value: .number(Double(s) * scaleFactor), unit: \"servings\")` when `servings != nil` else `nil`, builds a `MealPlan` with one `MealPlanBlock` / one default `MealPlanSection` containing the recipe item, serialises via `MealPlanParser.serialise`, writes via `String.write(to:atomically:encoding:)` within the `folderURL` security scope bracket.",
+    "remaining": "UI wiring: `AddToMealPlanSheet` (the sheet view presenting plans + blocks + create-new flow) and `RecipeBottomBar` / `RecipeDetailSheet` wiring are not yet implemented \u2014 they are out of scope for this service-only bead and belong to the UI bead in the same feature root.",
+    "risks": "The security-scoped resource bracket is placed on `folderURL` (not the new file URL), matching the pattern in `MealPlansView.handleCreate()`. If the caller omits a valid security-scoped `folderURL` the write will silently fail with a permission error wrapped in `.writeFailed`. The SourceKit 'No such module CookbookCore' diagnostic is a false positive from the worktree context; the import was pre-existing.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/MealPlans/AddToMealPlanService.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "A UI bead should implement `AddToMealPlanSheet` and wire `RecipeBottomBar` / `RecipeDetailSheet` to call `createNewPlan` (passing `recipe.metadata.servings?.first` and the current scale factor) as well as the existing `addToBlock` / `addNewBlock` methods.",
+    "next_agent": "developer",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/MealPlans/AddToMealPlanService.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/MealPlans/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/MealPlans/AddToMealPlanService.swift"
+    ],
+    "conflict_risks": "None. Only `AddToMealPlanService.swift` was modified; the new method is purely additive. No sibling bead touches this file.",
+    "design_decisions": "Security scope is bracketed on `folderURL` (not the new file URL) because the new file doesn't exist yet and has no security-scoped bookmark \u2014 mirrors the identical pattern in `MealPlansView.handleCreate()`. Quantity is computed inside the service (not pre-computed by caller) to keep the quantity rule close to the write logic and match the spec's intent.",
+    "test_coverage_notes": "Tests for `createNewPlan` (duplicate detection, quantity rendering at 2\u00d7 scale, quantity omission when servings is nil, path encoding) should be added in `CookbookAppTests/AddToMealPlanServiceTests.swift` by the tester bead.",
+    "known_limitations": "The `servings` parameter takes `Int?` (first element from `Metadata.servings: [Int]?`); multi-value servings arrays (e.g. `servings: 2, 4`) use only the first value \u2014 consistent with the spec's intent of using a single base count."
+  },
+  "block_reason": "",
+  "conflict_risks": "None. Only `AddToMealPlanService.swift` was modified; the new method is purely additive. No sibling bead touches this file.",
+  "branch_name": "feature/b-3383c60d",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T11:05:12.093690+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:17:30.088975+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:17:30.088991+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:17:35.250585+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-efeedcc5/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-efeedcc5/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:22:26.678357+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Added `createNewPlan` method and `duplicatePlan` error case to `AddToMealPlanService`. The method sanitises the plan name, detects duplicates before write, computes recipe quantity as servings \u00d7 scaleFactor when servings metadata is available, builds a typed `MealPlan` in memory, serialises it, and writes to `folderURL/plans/<sanitised>.menu` with the correct security-scoped resource bracket on `folderURL`.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-efeedcc5",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-efeedcc5/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-efeedcc5/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T11:17:35.250569+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-efeedcc5",
+      "feature_root_id": "B-3383c60d",
+      "title": "Add-to-meal-plan service: new plan creation",
+      "agent_type": "developer",
+      "description": "Extend the service with the create-new-plan flow, including name sanitisation, duplicate-file handling, initial block seeding, recipe insertion, quantity calculation, and serialise/write behavior.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "The service can create a new `.menu` file under the plans folder with a sanitised plan name and caller-provided first section name.",
+        "Duplicate plan filenames are detected before write and surfaced as a recoverable error path.",
+        "Recipe quantity uses servings \u00d7 scale when servings metadata is available and omits quantity when it is not."
+      ],
+      "dependencies": [
+        "B-e032faca"
+      ],
+      "linked_docs": [
+        "spec-2ca2e4f2",
+        "spec-855cd963"
+      ],
+      "execution_branch_name": "feature/b-3383c60d",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+      "expected_files": [
+        "CookbookApp/MealPlans/AddToMealPlanService.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/MealPlans/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Added `createNewPlan` method and `duplicatePlan` error case to `AddToMealPlanService`. The method sanitises the plan name, detects duplicates before write, computes recipe quantity as servings \u00d7 scaleFactor when servings metadata is available, builds a typed `MealPlan` in memory, serialises it, and writes to `folderURL/plans/<sanitised>.menu` with the correct security-scoped resource bracket on `folderURL`.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.9029012500000001,
+      "duration_ms": 290874,
+      "duration_api_ms": 274014,
+      "num_turns": 29,
+      "input_tokens": 8254,
+      "output_tokens": 16067,
+      "cache_creation_tokens": 66023,
+      "cache_read_tokens": 927737,
+      "stop_reason": "end_turn",
+      "session_id": "c7a95810-a727-4b47-b391-94b72ba76080",
+      "permission_denials": [],
+      "prompt_chars": 5721,
+      "prompt_lines": 134,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.9029012500000001,
+        "duration_ms": 290874,
+        "duration_api_ms": 274014,
+        "num_turns": 29,
+        "input_tokens": 8254,
+        "output_tokens": 16067,
+        "cache_creation_tokens": 66023,
+        "cache_read_tokens": 927737,
+        "stop_reason": "end_turn",
+        "session_id": "c7a95810-a727-4b47-b391-94b72ba76080",
+        "permission_denials": [],
+        "prompt_chars": 5721,
+        "prompt_lines": 134,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "0aad377da50b9311da1a80f543239e64d7cbffad"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
