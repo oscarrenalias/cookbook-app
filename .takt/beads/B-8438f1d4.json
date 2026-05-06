@@ -246,6 +246,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/MealPlans/AddToMealPlanService.swift",
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -472,6 +473,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/MealPlans/AddToMealPlanService.swift",
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -692,6 +694,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     "CookbookApp/MealPlans/AddToMealPlanService.swift",
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanRecipePath.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -717,7 +720,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.\nNo conflict risk with sibling beads. `AddToMealPlanService.swift` is a new file not touched by any other in-progress bead. The upstream `MealPlanRecipePath.swift` (B-e032faca) and mutation APIs (B-c6573e45) are already committed on the feature branch.\nNone. Only `AddToMealPlanService.swift` was modified; the new method is purely additive. No sibling bead touches this file.",
+  "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.\nNo conflict risk with sibling beads. `AddToMealPlanService.swift` is a new file not touched by any other in-progress bead. The upstream `MealPlanRecipePath.swift` (B-e032faca) and mutation APIs (B-c6573e45) are already committed on the feature branch.\nNone. Only `AddToMealPlanService.swift` was modified; the new method is purely additive. No sibling bead touches this file.\nNo file-scope conflicts expected. Downstream beads modifying `RecipeBottomBar.swift` and `RecipeDetailSheet.swift` are additive changes to files not touched here.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
