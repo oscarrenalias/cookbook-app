@@ -1,5 +1,6 @@
 import SwiftUI
 import CookbookCore
+import os
 
 struct AddToShoppingListSheet: View {
     let recipe: Recipe
@@ -63,6 +64,7 @@ struct AddToShoppingListSheet: View {
             }
         }
         .onAppear {
+            Loggers.shoppingLists.debug("[AddToShoppingListSheet] onAppear: recipe=\(recipeName, privacy: .public)")
             loadLists()
         }
         .onChange(of: catalog.isLoaded) { _, _ in
@@ -93,9 +95,11 @@ struct AddToShoppingListSheet: View {
     private func loadLists() {
         guard catalog.isLoaded else { return }
         lists = ShoppingListFiles.discover(in: folderURL)
+        Loggers.shoppingLists.debug("[AddToShoppingListSheet] loadLists: count=\(lists.count)")
     }
 
     private func appendToExisting(url: URL) {
+        Loggers.shoppingLists.debug("[AddToShoppingListSheet] appendToExisting: entry file=\(url.lastPathComponent, privacy: .public)")
         do {
             let count = try AddToShoppingListService.append(
                 recipe: recipe,
@@ -105,12 +109,15 @@ struct AddToShoppingListSheet: View {
                 aisleConfig: catalog.config
             )
             let name = ShoppingListFiles.displayName(for: url)
+            Loggers.shoppingLists.debug("[AddToShoppingListSheet] appendToExisting: success itemCount=\(count) list=\(name, privacy: .public)")
             dismiss()
             onSuccess(count, name)
         } catch AddToShoppingListService.AppendError.readFailed {
+            Loggers.shoppingLists.warning("[AddToShoppingListSheet] appendToExisting: readFailed file=\(url.lastPathComponent, privacy: .public)")
             errorMessage = "Could not read the shopping list. Please try again."
             showError = true
         } catch {
+            Loggers.shoppingLists.warning("[AddToShoppingListSheet] appendToExisting: error=\(error.localizedDescription, privacy: .public)")
             errorMessage = "Could not save changes to the shopping list. Please try again."
             showError = true
         }
@@ -121,6 +128,7 @@ struct AddToShoppingListSheet: View {
             .trimmingCharacters(in: .whitespaces)
             .replacingOccurrences(of: "/", with: "-")
         guard !sanitised.isEmpty else { return }
+        Loggers.shoppingLists.debug("[AddToShoppingListSheet] handleCreate: entry name=\(sanitised, privacy: .public)")
         do {
             let (_, count) = try AddToShoppingListService.create(
                 recipe: recipe,
@@ -130,14 +138,17 @@ struct AddToShoppingListSheet: View {
                 in: folderURL,
                 aisleConfig: catalog.config
             )
+            Loggers.shoppingLists.debug("[AddToShoppingListSheet] handleCreate: success itemCount=\(count) name=\(sanitised, privacy: .public)")
             newListName = ""
             duplicateNameError = false
             dismiss()
             onSuccess(count, sanitised)
         } catch AddToShoppingListService.AppendError.listAlreadyExists {
+            Loggers.shoppingLists.warning("[AddToShoppingListSheet] handleCreate: listAlreadyExists name=\(sanitised, privacy: .public)")
             duplicateNameError = true
             showNewListAlert = true
         } catch {
+            Loggers.shoppingLists.warning("[AddToShoppingListSheet] handleCreate: error=\(error.localizedDescription, privacy: .public)")
             newListName = ""
             duplicateNameError = false
             errorMessage = "Could not create the shopping list. Please try again."

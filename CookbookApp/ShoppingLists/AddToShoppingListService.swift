@@ -1,5 +1,6 @@
 import CookbookCore
 import Foundation
+import os
 
 enum AddToShoppingListService {
 
@@ -19,7 +20,9 @@ enum AddToShoppingListService {
         to url: URL,
         aisleConfig: AisleConfig?
     ) throws -> Int {
+        Loggers.shoppingLists.debug("[AddToShoppingListService] append: entry recipe=\(recipeName, privacy: .public) file=\(url.lastPathComponent, privacy: .public)")
         guard let existingText = ShoppingListFiles.readText(from: url) else {
+            Loggers.shoppingLists.warning("[AddToShoppingListService] append: readFailed file=\(url.lastPathComponent, privacy: .public)")
             throw AppendError.readFailed
         }
         var doc = ShoppingListDocument(markdown: existingText)
@@ -33,8 +36,10 @@ enum AddToShoppingListService {
         do {
             try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url)
         } catch {
+            Loggers.shoppingLists.warning("[AddToShoppingListService] append: writeFailed file=\(url.lastPathComponent, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw AppendError.writeFailed(error)
         }
+        Loggers.shoppingLists.debug("[AddToShoppingListService] append: exit itemCount=\(itemCount) file=\(url.lastPathComponent, privacy: .public)")
         return itemCount
     }
 
@@ -51,9 +56,11 @@ enum AddToShoppingListService {
         in folderURL: URL,
         aisleConfig: AisleConfig?
     ) throws -> (URL, Int) {
+        Loggers.shoppingLists.debug("[AddToShoppingListService] create: entry name=\(name, privacy: .public) recipe=\(recipeName, privacy: .public)")
         let subfolder = ShoppingListFiles.shoppingListsURL(in: folderURL)
         let url = subfolder.appendingPathComponent("\(name).md")
         if ShoppingListFiles.readText(from: url) != nil {
+            Loggers.shoppingLists.warning("[AddToShoppingListService] create: listAlreadyExists name=\(name, privacy: .public)")
             throw AppendError.listAlreadyExists
         }
         var doc = ShoppingListDocument(title: name)
@@ -67,8 +74,10 @@ enum AddToShoppingListService {
         do {
             try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url)
         } catch {
+            Loggers.shoppingLists.warning("[AddToShoppingListService] create: writeFailed name=\(name, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw AppendError.writeFailed(error)
         }
+        Loggers.shoppingLists.debug("[AddToShoppingListService] create: exit itemCount=\(itemCount) file=\(url.lastPathComponent, privacy: .public)")
         return (url, itemCount)
     }
 }

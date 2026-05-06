@@ -1,5 +1,6 @@
 import SwiftUI
 import CookbookCore
+import os
 
 struct AddItemSheet: View {
     @Binding var document: ShoppingListDocument
@@ -48,13 +49,17 @@ struct AddItemSheet: View {
                 }
             }
         }
+        .onAppear {
+            Loggers.shoppingLists.debug("[AddItemSheet] onAppear: list=\(document.title, privacy: .public)")
+        }
     }
 
     private func handleAdd() {
         let trimmed = itemText.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
-        var updated = document
         let aisleName = selectedAisle ?? "Other"
+        Loggers.shoppingLists.debug("[AddItemSheet] handleAdd: item=\(trimmed, privacy: .public) aisle=\(aisleName, privacy: .public)")
+        var updated = document
         updated.addItem(trimmed, toAisle: aisleName)
         onSave(updated)
         dismiss()
