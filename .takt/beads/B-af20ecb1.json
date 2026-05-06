@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-c3834e6f",
-  "dependencies": [],
+  "dependencies": [
+    "B-93ab5111",
+    "B-0ee6b4bf",
+    "B-722d9070",
+    "B-192fb2c6",
+    "B-9f781e0d"
+  ],
   "acceptance_criteria": [
     "Edit-item tests cover text-only change, aisle change, and unchanged-value behavior.",
     "Shopping-list rename tests cover happy path, duplicate-name rejection, and write-success/delete-failure behavior.",
