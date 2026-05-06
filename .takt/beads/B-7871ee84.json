@@ -3,7 +3,7 @@
   "title": "Migrate shopping-list file write flows to ShoppingListDocument",
   "agent_type": "developer",
   "description": "Update shopping-list creation and append flows to load markdown into `ShoppingListDocument`, apply typed mutations, and persist `renderMarkdown()` output. This covers list creation from recipes and manual add-item flow.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-265bdf43",
   "dependencies": [
@@ -29,37 +29,56 @@
   "expected_globs": [
     "CookbookApp/ShoppingLists/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookAppTests/ShoppingListViewTests.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+    "CookbookAppTests/ShoppingListViewTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "1. AddItemSheet.swift: changed binding from ShoppingList to ShoppingListDocument, callback from (ShoppingList)->Void to (ShoppingListDocument)->Void, handleAdd() now calls addItem(_:toAisle:), removed stale aisle-grouper comment, updated preview. 2. ShoppingListDetailView.swift: added addSheetDocBinding computed property (Binding<ShoppingListDocument> over list.text), updated .sheet call to pass that binding and convert result back via ShoppingList(updated.renderMarkdown()). 3. CookbookAppTests/ShoppingListViewTests.swift: updated addItemSheetInstantiatesWithCatalogAndList test to use ShoppingListDocument. Build verified clean.",
+    "remaining": "Nothing remaining for this bead. ShoppingListDetailView still uses ShoppingList as its primary state for toggle/delete/search; migrating that is out of scope for this bead.",
+    "risks": "ShoppingListDetailView converts between ShoppingList and ShoppingListDocument on each add-sheet open and save. This is a parse-render round-trip; semantic equivalence is guaranteed by ShoppingListDocument's fixed-point property but byte-identical preservation is not \u2014 any user freeform notes preserved in ShoppingList.text will survive via the notes:[Block] mechanism if they were correctly parsed. Low risk in practice.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookAppTests/ShoppingListViewTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent for ShoppingListDetailView add-item flow and AddItemSheet unit tests.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+      "CookbookApp/ShoppingLists/AddItemSheet.swift",
+      "CookbookApp/ShoppingLists/ShoppingListFiles.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/ShoppingLists/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift",
+      "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+      "CookbookAppTests/ShoppingListViewTests.swift"
+    ],
+    "conflict_risks": "ShoppingListDetailView.swift was modified (added addSheetDocBinding, updated .sheet call). Any sibling bead also touching ShoppingListDetailView should merge carefully.",
+    "design_decisions": "ShoppingListDetailView retains ShoppingList as primary state for toggle/delete/search (line-index-based mutations). A computed Binding<ShoppingListDocument> bridges to AddItemSheet on open, converting back via ShoppingList(updated.renderMarkdown()) on save. This limits the blast radius of the migration to the add-item flow only, matching the bead scope.",
+    "test_coverage_notes": "Existing ShoppingListViewTests.swift instantiation test updated to use ShoppingListDocument. Tester should add tests covering: addItem writes correct aisle, Other is treated as a normal aisle, round-trip through ShoppingListDetailView bridge.",
+    "known_limitations": "ShoppingListDetailView.swift still uses ShoppingList for all view operations except add-item. Full migration of that view is a separate bead."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "ShoppingListDetailView.swift was modified (added addSheetDocBinding, updated .sheet call). Any sibling bead also touching ShoppingListDetailView should merge carefully.",
   "branch_name": "feature/b-265bdf43",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
-  "lease": {
-    "owner": "developer:B-7871ee84",
-    "expires_at": "2026-05-06T08:11:26.674522+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -101,6 +120,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-7871ee84/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T07:48:08.537964+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Migrated AddItemSheet from ShoppingList to ShoppingListDocument. The service layer (AddToShoppingListService) was already migrated by prior bead B-357ef996. AddItemSheet now binds to ShoppingListDocument and calls addItem(_:toAisle:) \u2014 including Other as a normal aisle. ShoppingListDetailView bridges via a computed Binding<ShoppingListDocument> backed by list.text, converting back after save. Test instantiation test updated to use ShoppingListDocument. Build succeeds.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -175,7 +201,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Migrated AddItemSheet from ShoppingList to ShoppingListDocument. The service layer (AddToShoppingListService) was already migrated by prior bead B-357ef996. AddItemSheet now binds to ShoppingListDocument and calls addItem(_:toAisle:) \u2014 including Other as a normal aisle. ShoppingListDetailView bridges via a computed Binding<ShoppingListDocument> backed by list.text, converting back after save. Test instantiation test updated to use ShoppingListDocument. Build succeeds.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.7879902499999998,
+      "duration_ms": 396958,
+      "duration_api_ms": 302054,
+      "num_turns": 26,
+      "input_tokens": 27,
+      "output_tokens": 14343,
+      "cache_creation_tokens": 40367,
+      "cache_read_tokens": 997891,
+      "stop_reason": "end_turn",
+      "session_id": "c5becf0a-0c82-4264-9dfc-522b0d74792e",
+      "permission_denials": [],
+      "prompt_chars": 5922,
+      "prompt_lines": 136,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.7879902499999998,
+        "duration_ms": 396958,
+        "duration_api_ms": 302054,
+        "num_turns": 26,
+        "input_tokens": 27,
+        "output_tokens": 14343,
+        "cache_creation_tokens": 40367,
+        "cache_read_tokens": 997891,
+        "stop_reason": "end_turn",
+        "session_id": "c5becf0a-0c82-4264-9dfc-522b0d74792e",
+        "permission_denials": [],
+        "prompt_chars": 5922,
+        "prompt_lines": 136,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "bca9123cfff2ad62d5d6dea627d6bbe833c95c03"
   },
   "labels": [],
   "recovery_for": null,
