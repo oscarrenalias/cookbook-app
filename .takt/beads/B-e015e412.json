@@ -3,7 +3,7 @@
   "title": "Delegate RecipeScale to Recipe.scaled(by:)",
   "agent_type": "developer",
   "description": "Refactor the existing app-layer RecipeScale wrapper so its recipe-scaling path delegates to the new CookbookCore helper without changing existing discrete-scale behavior.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
   "dependencies": [
@@ -24,37 +24,44 @@
     "CookbookApp/Recipes/RecipeScale.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeScale.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeScale.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Replaced the 14-line ingredient-mapping body of `RecipeScale.scaled(_ recipe:)` with a single `recipe.scaled(by: factor)` delegation call. Removed the `scaled(_ quantity: Quantity) -> Quantity` helper that was only ever called by that body.",
+    "remaining": "None \u2014 all acceptance criteria met.",
+    "risks": "None. The delegation preserves identical behaviour: `Recipe.scaled(by:)` applies the same factor to numeric quantities only, leaves text quantities and missing quantities unchanged, and reconstructs the Recipe with the same metadata/sections/cookware/timers.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeScale.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Route to tester agent for verification of scaling behaviour across the four RecipeScale enum cases.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeScale.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeScale.swift"
+    ],
+    "conflict_risks": "None. Only `RecipeScale.swift` was modified. No sibling beads touch this file.",
+    "design_decisions": "Removed `scaled(_ quantity: Quantity)` entirely rather than leaving it as dead code. It was private and only called by the old `scaled(_ recipe:)` body, so removal is safe and keeps the file clean.",
+    "test_coverage_notes": "Tester should verify all four scale factors (0.5\u00d7, 1\u00d7, 2\u00d7, 3\u00d7) produce correct ingredient quantities, that text-valued quantities pass through unchanged, and that nil quantities are preserved. Callers in `AddToShoppingListService` and `IngredientsView` should be smoke-tested.",
+    "known_limitations": "The SourceKit `No such module 'CookbookCore'` diagnostic is pre-existing in the worktree environment (the import was there before this bead) and does not indicate a real build failure."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None. Only `RecipeScale.swift` was modified. No sibling beads touch this file.",
   "branch_name": "feature/b-a599b55b",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
-  "lease": {
-    "owner": "developer:B-e015e412",
-    "expires_at": "2026-05-06T14:49:54.155098+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -96,6 +103,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-e015e412/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-06T14:22:16.872567+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Refactored `RecipeScale.scaled(_ recipe:)` to delegate to the new `Recipe.scaled(by: factor)` CookbookCore helper. Removed the now-dead `scaled(_ quantity:)` private helper. All public-facing methods and signatures are unchanged.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -165,7 +179,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Refactored `RecipeScale.scaled(_ recipe:)` to delegate to the new `Recipe.scaled(by: factor)` CookbookCore helper. Removed the now-dead `scaled(_ quantity:)` private helper. All public-facing methods and signatures are unchanged.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.2762831,
+      "duration_ms": 137162,
+      "duration_api_ms": 130353,
+      "num_turns": 11,
+      "input_tokens": 12,
+      "output_tokens": 5971,
+      "cache_creation_tokens": 18369,
+      "cache_read_tokens": 243704,
+      "stop_reason": "end_turn",
+      "session_id": "5bff911d-00b5-4884-aa47-25c30cf310fd",
+      "permission_denials": [],
+      "prompt_chars": 5532,
+      "prompt_lines": 131,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.2762831,
+        "duration_ms": 137162,
+        "duration_api_ms": 130353,
+        "num_turns": 11,
+        "input_tokens": 12,
+        "output_tokens": 5971,
+        "cache_creation_tokens": 18369,
+        "cache_read_tokens": 243704,
+        "stop_reason": "end_turn",
+        "session_id": "5bff911d-00b5-4884-aa47-25c30cf310fd",
+        "permission_denials": [],
+        "prompt_chars": 5532,
+        "prompt_lines": 131,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "5bb4c80c2f53ece127018495729c294cc0cda17f"
   },
   "labels": [],
   "recovery_for": null,
