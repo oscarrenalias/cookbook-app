@@ -1,0 +1,90 @@
+{
+  "bead_id": "B-913394d2",
+  "title": "Shared test pass for structured shopping-list rewrite",
+  "agent_type": "tester",
+  "description": "Update and run the test suite for the structured shopping-list model, migration behavior, aggregation integration, and app-level shopping-list flows.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-265bdf43",
+  "dependencies": [
+    "B-36a590ee",
+    "B-bd0c0266",
+    "B-0ed77b55",
+    "B-5e7b1885",
+    "B-357ef996",
+    "B-7871ee84",
+    "B-f7f69190",
+    "B-227649ee",
+    "B-692930d9"
+  ],
+  "acceptance_criteria": [
+    "CookbookCore tests cover parser fixtures, canonical rendering fixed-point behavior, migration compatibility, and all typed mutations.",
+    "App tests are updated to assert against structured document state where appropriate, with final write assertions still validating rendered markdown when needed.",
+    "`xcodebuild test` or the project-equivalent test gate is executed and any failures attributable to the rewrite are resolved or reported."
+  ],
+  "linked_docs": [
+    "spec-855cd963",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md"
+  ],
+  "feature_root_id": "B-265bdf43",
+  "execution_branch_name": "feature/b-265bdf43",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-265bdf43",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMealsTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMutationTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
+    "CookbookAppTests/AddToShoppingListServiceTests.swift",
+    "CookbookAppTests/ShoppingListAisleGrouperTests.swift",
+    "CookbookAppTests/ShoppingListHeaderExtractorTests.swift",
+    "CookbookAppTests/ShoppingListLineFormatterTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift",
+    "CookbookAppTests/ShoppingListViewTests.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+    "CookbookAppTests/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T07:17:36.687682+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

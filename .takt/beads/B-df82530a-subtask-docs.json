@@ -1,0 +1,227 @@
+{
+  "bead_id": "B-df82530a-subtask-docs",
+  "title": "Document Fix RecipesFolderStore.swift: withSecurityScope unavailable on iOS",
+  "agent_type": "documentation",
+  "description": "Update docs for B-df82530a-subtask",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-df82530a-subtask",
+  "dependencies": [
+    "B-df82530a-subtask"
+  ],
+  "acceptance_criteria": [],
+  "linked_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "feature_root_id": "B-80f696d9",
+  "execution_branch_name": "feature/b-80f696d9",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesFolderStore.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [
+    "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+  ],
+  "handoff_summary": {
+    "completed": "The spec file (specs/drafts/0003-recipes-folder-access-and-list-view.md) already reflects the fix: the bookmark-resolution acceptance criterion uses options:[] with an inline macOS-only caveat, and a developer-notes callout explains why .withSecurityScope must not be used on iOS. RecipesFolderStore.swift implements this correctly.",
+    "remaining": "Nothing remaining for this bead.",
+    "risks": "None \u2014 documentation is consistent with the implementation.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [
+      "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+    ],
+    "next_action": "No further action required for this bead.",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesFolderStore.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "None \u2014 only RecipesFolderStore.swift modified, no sibling beads touching this file.",
+    "design_decisions": "Sibling bead B-8197dbad-subtask-docs landed the documentation changes (commit e934d38) while this bead was deferred. No duplicate work needed.",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "None \u2014 only RecipesFolderStore.swift modified, no sibling beads touching this file.",
+  "branch_name": "feature/b-80f696d9",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-04T20:34:24.341870+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:34:25.435722+00:00",
+      "event": "deferred",
+      "agent_type": "documentation",
+      "summary": "file-scope conflict with in-progress B-1590dbd4-subtask",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:42:04.366822+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:42:04.366845+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-04T20:42:06.077892+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "documentation",
+      "summary": "Applied guardrails from .takt/agent-runs/B-df82530a-subtask-docs/repo/templates/agents/documentation.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-df82530a-subtask-docs/repo/templates/agents/documentation.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-04T20:42:56.570492+00:00",
+      "event": "completed",
+      "agent_type": "documentation",
+      "summary": "Documentation for the iOS .withSecurityScope fix was already applied by sibling bead B-8197dbad-subtask-docs; spec 0003 is up to date.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-df82530a-subtask-docs",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-df82530a-subtask-docs/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "documentation",
+      "template_path": ".takt/agent-runs/B-df82530a-subtask-docs/repo/templates/agents/documentation.md",
+      "template_text": "# Documentation Guardrails\n\nPrimary responsibility: Update documentation and examples that explain the assigned behavior without changing runtime feature behavior.\n\nAllowed actions:\n- Edit docs, examples, and explanatory text tied to the assigned bead.\n- Focus only on files listed in the bead's touched_files and changed_files fields. Do not read or modify unrelated documentation.\n- Align documentation with existing code and validated behavior.\n- Identify when implementation or tests must land first and block with a handoff.\n\nDisallowed actions:\n- Change runtime behavior, production code paths, or feature logic.\n- Invent undocumented behavior that is not present in the codebase.\n- Approve code quality or test completeness as a substitute for review.\n- Do not run the test suite. Testing is the tester agent's responsibility.\n\nEfficiency constraints:\n- Do not read the full codebase for context. Focus on the changed files and their immediate surroundings.\n- Keep documentation updates concise and proportional to the change.\n\nExpected outputs:\n- Return JSON with `outcome` set to `completed` (documentation beads always complete; use `verdict` for pass/fail) and `summary` as a one-line description of what was documented.\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when documentation is complete with no gaps.\n- Use `verdict=needs_changes`, set `findings_count` to the number of unresolved documentation gaps, set `requires_followup=true`, and include `block_reason` when implementation must land first or documentation cannot be completed.\n- Keep `completed`, `remaining`, and `risks` as concise narrative context only; they do not override the structured verdict fields.\n- Accurate updated docs and clear next-agent recommendations when code changes are required first.",
+      "captured_at": "2026-05-04T20:42:06.077873+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-df82530a-subtask-docs",
+      "feature_root_id": "B-80f696d9",
+      "title": "Document Fix RecipesFolderStore.swift: withSecurityScope unavailable on iOS",
+      "agent_type": "documentation",
+      "description": "Update docs for B-df82530a-subtask",
+      "status": "in_progress",
+      "acceptance_criteria": [],
+      "dependencies": [
+        "B-df82530a-subtask"
+      ],
+      "linked_docs": [
+        "specs/drafts/0003-recipes-folder-access-and-list-view.md"
+      ],
+      "execution_branch_name": "feature/b-80f696d9",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-80f696d9",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipesFolderStore.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [
+        "CookbookApp/Recipes/RecipesFolderStore.swift"
+      ],
+      "conflict_risks": "None \u2014 only RecipesFolderStore.swift modified, no sibling beads touching this file.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Documentation for the iOS .withSecurityScope fix was already applied by sibling bead B-8197dbad-subtask-docs; spec 0003 is up to date.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.15108080000000002,
+      "duration_ms": 50040,
+      "duration_api_ms": 45128,
+      "num_turns": 7,
+      "input_tokens": 8,
+      "output_tokens": 2442,
+      "cache_creation_tokens": 18128,
+      "cache_read_tokens": 147206,
+      "stop_reason": "end_turn",
+      "session_id": "80702672-8dd1-436f-bb61-52c58733e21e",
+      "permission_denials": [],
+      "prompt_chars": 6337,
+      "prompt_lines": 144,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.15108080000000002,
+        "duration_ms": 50040,
+        "duration_api_ms": 45128,
+        "num_turns": 7,
+        "input_tokens": 8,
+        "output_tokens": 2442,
+        "cache_creation_tokens": 18128,
+        "cache_read_tokens": 147206,
+        "stop_reason": "end_turn",
+        "session_id": "80702672-8dd1-436f-bb61-52c58733e21e",
+        "permission_denials": [],
+        "prompt_chars": 6337,
+        "prompt_lines": 144,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
