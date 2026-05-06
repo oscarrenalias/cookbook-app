@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-148e9ad9",
-  "dependencies": [],
+  "dependencies": [
+    "B-01753ea5",
+    "B-6571e029"
+  ],
   "acceptance_criteria": [
     "`AisleCatalog.load(from:)` logs entry and one of the required exit branches: loaded, config not found, or parse failed with defaults.",
     "Recipe discovery scanning logs entry with the source folder and exit with section and recipe counts.",
