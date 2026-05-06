@@ -456,7 +456,9 @@
     "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMealsTests.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMutationTests.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "docs/architecture.md",
+    "docs/examples/shopping-list.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -667,7 +669,9 @@
     "Packages/CookbookCore/Tests/CookbookCoreTests/AggregationTests.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMealsTests.swift",
     "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListMutationTests.swift",
-    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+    "docs/architecture.md",
+    "docs/examples/shopping-list.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
