@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-b947299f",
+  "title": "Wire create-list alert flow in MealPlanDetailView",
+  "agent_type": "developer",
+  "description": "Replace the stubbed shopping-list CTA behavior with the real create-list prompt state, name sanitisation, duplicate-name retry behavior, and service invocation from the meal-plan detail screen.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-a599b55b",
+  "dependencies": [
+    "B-96ff40f2"
+  ],
+  "acceptance_criteria": [
+    "`MealPlanDetailView` removes the stub alert state and no longer presents the coming-soon message.",
+    "Tapping the CTA opens a `New shopping list` alert with the meal plan name prefilled and create disabled for empty trimmed input.",
+    "The view sanitises the name by trimming and replacing `/` with `-` before calling the service.",
+    "Duplicate-name failures re-present the create alert with inline error state preserved, and the button disabled rule for empty plans remains unchanged."
+  ],
+  "linked_docs": [
+    "spec-0800a442"
+  ],
+  "feature_root_id": "B-a599b55b",
+  "execution_branch_name": "feature/b-a599b55b",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T14:18:06.167640+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
