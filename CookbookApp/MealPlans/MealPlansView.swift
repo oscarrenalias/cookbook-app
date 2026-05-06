@@ -31,8 +31,9 @@ struct MealPlansView: View {
             .navigationTitle("Meal Plans")
             .searchable(text: $searchText, prompt: "Search meal plans")
             .navigationDestination(item: $selectedURL) { url in
-                Text(MealPlanFiles.displayName(for: url))
-                    .navigationTitle(MealPlanFiles.displayName(for: url))
+                MealPlanDetailView(url: url, folderURL: folderURL) {
+                    entries = entries?.filter { $0.url != url }
+                }
             }
             .mealPlanCreateAlert(
                 isPresented: $showingCreateAlert,
