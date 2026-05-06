@@ -3,7 +3,7 @@
   "title": "Shared documentation for meal-plan shopping list flow",
   "agent_type": "documentation",
   "description": "Document the new meal-plan to shopping-list flow, the generic scaling primitive, and any developer-facing notes needed to understand duplicate-name handling, provenance formatting, and sheet-based post-create navigation.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
   "dependencies": [
@@ -748,9 +748,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None. Only Recipe.swift was modified; no overlap with sibling beads expected.\nNone. Only `RecipeScale.swift` was modified. No sibling beads touch this file.\nNone \u2014 new file only, no modifications to shared files.\nNone \u2014 only CreateShoppingListFromMealPlanService.swift touched; no shared model types modified.\nNone \u2014 only MealPlanDetailView.swift was modified; no shared types or sibling bead file-scope overlap.\nNo file-scope conflicts expected; this bead only touches MealPlanDetailView.swift.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-a599b55b",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-a599b55b",
+  "lease": {
+    "owner": "documentation:B-c5e225e0",
+    "expires_at": "2026-05-06T15:21:26.450921+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -759,9 +762,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T14:51:26.656346+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T14:51:26.656392+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c5e225e0",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c5e225e0/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
