@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
-  "dependencies": [],
+  "dependencies": [
+    "B-c6573e45",
+    "B-e032faca"
+  ],
   "acceptance_criteria": [
     "`AddToMealPlanService` can add the current recipe to an existing block's first section using the typed mutation APIs.",
     "`AddToMealPlanService` can add a new block to an existing plan and immediately place the recipe into section 0 of that block.",
