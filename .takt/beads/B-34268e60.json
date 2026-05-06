@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-920f3e84",
-  "dependencies": [],
+  "dependencies": [
+    "B-35b69af1",
+    "B-f5403aed"
+  ],
   "acceptance_criteria": [
     "Tests cover parsing free-text lines into `.text` while preserving section names.",
     "Tests cover dropping blank lines from section items.",
