@@ -102,8 +102,8 @@ struct AddToMealPlanSheet: View {
             }
         }
         .alert("Error", isPresented: $showError) {
-            Button("Try again", role: .cancel) { }
-            Button("Cancel") { dismiss() }
+            Button("Try again") { }
+            Button("Cancel", role: .cancel) { dismiss() }
         } message: {
             Text(errorMessage ?? "An unexpected error occurred.")
         }
@@ -142,7 +142,10 @@ struct AddToMealPlanSheet: View {
 
     private func handleCreatePlan() {
         let trimmedName = newPlanName.trimmingCharacters(in: .whitespaces)
-        guard !trimmedName.isEmpty else { return }
+        guard !trimmedName.isEmpty else {
+            showCreatePlanAlert = true
+            return
+        }
         let firstSection = newPlanFirstSection.trimmingCharacters(in: .whitespaces)
         let servings = recipe?.metadata.servings?.first
         do {
@@ -176,7 +179,10 @@ struct AddToMealPlanSheet: View {
     private func handleAddSection() {
         guard let target = addSectionTarget else { return }
         let sectionName = newSectionName.trimmingCharacters(in: .whitespaces)
-        guard !sectionName.isEmpty else { return }
+        guard !sectionName.isEmpty else {
+            showAddSectionAlert = true
+            return
+        }
         do {
             try AddToMealPlanService.addNewBlock(
                 recipeURL: recipeFile.url,
