@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct ShoppingListHeaderView: View {
-    let content: HeaderContent
+    let label: String
+    let lines: [String]
     @SceneStorage private var isExpanded: Bool
 
-    init(content: HeaderContent, storageKey: String) {
-        self.content = content
+    init(label: String, lines: [String], storageKey: String) {
+        self.label = label
+        self.lines = lines
         _isExpanded = SceneStorage(wrappedValue: true, storageKey)
     }
 
@@ -13,7 +15,7 @@ struct ShoppingListHeaderView: View {
         Section {
             if isExpanded {
                 VStack(alignment: .leading, spacing: 4) {
-                    ForEach(Array(bodyLines.enumerated()), id: \.offset) { _, line in
+                    ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
                         lineView(for: line)
                     }
                 }
@@ -24,7 +26,7 @@ struct ShoppingListHeaderView: View {
                 withAnimation { isExpanded.toggle() }
             } label: {
                 HStack(spacing: 6) {
-                    Text(disclosureLabel)
+                    Text(label)
                     Spacer()
                     Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                         .font(.caption)
@@ -37,37 +39,12 @@ struct ShoppingListHeaderView: View {
 
     @ViewBuilder
     private func lineView(for line: String) -> some View {
-        if line.hasPrefix("## ") {
-            Text(String(line.dropFirst(3)))
-                .font(.subheadline)
-                .fontWeight(.semibold)
-        } else if let attributed = try? AttributedString(markdown: line) {
+        if let attributed = try? AttributedString(markdown: line) {
             Text(attributed)
                 .font(.subheadline)
         } else {
             Text(line)
                 .font(.subheadline)
         }
-    }
-
-    private var disclosureLabel: String {
-        content.firstHeading ?? "Notes"
-    }
-
-    private var bodyLines: [String] {
-        var didSkip = false
-        return content.markdown
-            .components(separatedBy: "\n")
-            .filter { line in
-                let trimmed = line.trimmingCharacters(in: .whitespaces)
-                if trimmed.isEmpty { return false }
-                if !didSkip,
-                   let heading = content.firstHeading,
-                   trimmed == "## \(heading)" {
-                    didSkip = true
-                    return false
-                }
-                return true
-            }
     }
 }

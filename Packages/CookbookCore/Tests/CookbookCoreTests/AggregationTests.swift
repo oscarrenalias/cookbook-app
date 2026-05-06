@@ -25,7 +25,7 @@ struct AggregationTests {
     // MARK: – Empty input
 
     @Test func emptyRecipesProducesEmptyList() {
-        let result = ShoppingList.aggregate(recipes: [])
+        let result = AggregatedShoppingList.aggregate(recipes: [])
         #expect(result.aisles.isEmpty)
     }
 
@@ -33,7 +33,7 @@ struct AggregationTests {
 
     @Test func nilAisleConfigAllItemsGoToOtherBucket() {
         let recipes = [recipe([ing("salt"), ing("pepper")])]
-        let result = ShoppingList.aggregate(recipes: recipes, aisleConfig: nil)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: nil)
 
         #expect(result.aisles.count == 1)
         #expect(result.aisles[0].name == nil)
@@ -43,7 +43,7 @@ struct AggregationTests {
     @Test func emptyAisleConfigAllItemsGoToOtherBucket() {
         let config = AisleConfig(sections: [])
         let recipes = [recipe([ing("salt")])]
-        let result = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
 
         #expect(result.aisles.count == 1)
         #expect(result.aisles[0].name == nil)
@@ -55,7 +55,7 @@ struct AggregationTests {
             AisleSection(name: "produce", items: [AisleItem(canonical: "carrot")])
         ])
         let recipes = [recipe([ing("carrot")])]
-        let result = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
 
         #expect(result.aisles.count == 1)
         #expect(result.aisles[0].name == "produce")
@@ -67,7 +67,7 @@ struct AggregationTests {
     @Test func sameUnitNumericQuantitiesAreSummed() {
         let recipes = [recipe([ing("flour", qty: numQty(200, unit: "g")),
                                ing("flour", qty: numQty(100, unit: "g"))])]
-        let result = ShoppingList.aggregate(recipes: recipes)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes)
 
         let qtys = result.aisles[0].items[0].quantities
         #expect(qtys.count == 1)
@@ -79,7 +79,7 @@ struct AggregationTests {
     @Test func differentUnitQuantitiesArePreservedSeparately() {
         let recipes = [recipe([ing("salt", qty: numQty(100, unit: "g")),
                                ing("salt", qty: numQty(1, unit: "tsp"))])]
-        let result = ShoppingList.aggregate(recipes: recipes)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes)
 
         let qtys = result.aisles[0].items[0].quantities
         #expect(qtys.count == 2)
@@ -94,7 +94,7 @@ struct AggregationTests {
         // unit and summed; the stored unit must be "g" (lowercased).
         let recipes = [recipe([ing("flour", qty: numQty(100, unit: "G")),
                                ing("flour", qty: numQty(50, unit: "g"))])]
-        let result = ShoppingList.aggregate(recipes: recipes)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes)
 
         let qtys = result.aisles[0].items[0].quantities
         #expect(qtys.count == 1)
@@ -106,7 +106,7 @@ struct AggregationTests {
     @Test func textQuantitiesAreAppendedAsSeparateEntries() {
         let recipes = [recipe([ing("herbs", qty: textQty("a handful")),
                                ing("herbs", qty: textQty("a pinch"))])]
-        let result = ShoppingList.aggregate(recipes: recipes)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes)
 
         let qtys = result.aisles[0].items[0].quantities
         #expect(qtys.count == 2)
@@ -118,7 +118,7 @@ struct AggregationTests {
         // text quantity must never merge with a numeric quantity
         let recipes = [recipe([ing("olive oil", qty: textQty("a splash")),
                                ing("olive oil", qty: numQty(10, unit: "ml"))])]
-        let result = ShoppingList.aggregate(recipes: recipes)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes)
 
         let qtys = result.aisles[0].items[0].quantities
         #expect(qtys.count == 2)
@@ -130,7 +130,7 @@ struct AggregationTests {
 
     @Test func quantityLessIngredientHasEmptyQuantitiesList() {
         let recipes = [recipe([ing("salt")])]
-        let result = ShoppingList.aggregate(recipes: recipes)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes)
 
         #expect(result.aisles[0].items[0].quantities.isEmpty)
     }
@@ -139,7 +139,7 @@ struct AggregationTests {
         // @salt{} in recipe A, @salt{1%tsp} in recipe B → one item, quantities: [1 tsp]
         let recipeA = recipe([ing("salt")])
         let recipeB = recipe([ing("salt", qty: numQty(1, unit: "tsp"))])
-        let result = ShoppingList.aggregate(recipes: [recipeA, recipeB])
+        let result = AggregatedShoppingList.aggregate(recipes: [recipeA, recipeB])
 
         let items = result.aisles[0].items
         #expect(items.count == 1)
@@ -154,7 +154,7 @@ struct AggregationTests {
             AisleSection(name: "produce", items: [AisleItem(canonical: "carrot")])
         ])
         let recipes = [recipe([ing("carrot"), ing("saffron")])]
-        let result = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
 
         #expect(result.aisles.count == 2)
         #expect(result.aisles[0].name == "produce")
@@ -172,7 +172,7 @@ struct AggregationTests {
         ])
         // Ingredients deliberately supplied in reverse section order
         let recipes = [recipe([ing("chicken"), ing("milk"), ing("carrot")])]
-        let result = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
 
         #expect(result.aisles.count == 3)
         #expect(result.aisles[0].name == "produce")
@@ -193,7 +193,7 @@ struct AggregationTests {
         // recipe1 introduces garlic then onion; recipe2 introduces carrot and re-uses garlic
         let recipe1 = recipe([ing("garlic"), ing("onion")])
         let recipe2 = recipe([ing("carrot"), ing("garlic")])
-        let result = ShoppingList.aggregate(recipes: [recipe1, recipe2], aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: [recipe1, recipe2], aisleConfig: config)
 
         #expect(result.aisles[0].items.map(\.name) == ["garlic", "onion", "carrot"])
     }
@@ -207,7 +207,7 @@ struct AggregationTests {
             ])
         ])
         let recipes = [recipe([ing("potatoes")])]
-        let result = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
 
         #expect(result.aisles[0].items[0].name == "potato")
     }
@@ -221,7 +221,7 @@ struct AggregationTests {
         // One recipe uses the alias, the next uses the canonical — should produce one entry.
         let r1 = recipe([ing("potatoes", qty: numQty(3))])
         let r2 = recipe([ing("potato", qty: numQty(2))])
-        let result = ShoppingList.aggregate(recipes: [r1, r2], aisleConfig: config)
+        let result = AggregatedShoppingList.aggregate(recipes: [r1, r2], aisleConfig: config)
 
         let items = result.aisles[0].items
         #expect(items.count == 1)
@@ -238,9 +238,88 @@ struct AggregationTests {
         ])
         let recipes = [recipe([ing("carrot", qty: numQty(2)), ing("milk", qty: numQty(1, unit: "l"))])]
 
-        let result1 = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
-        let result2 = ShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result1 = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+        let result2 = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
 
         #expect(result1 == result2)
+    }
+
+    // MARK: – AggregatedItem.entryText
+
+    @Test func entryTextWithNoQuantitiesIsNameOnly() {
+        let item = AggregatedItem(name: "salt", quantities: [])
+        #expect(item.entryText == "salt")
+    }
+
+    @Test func entryTextWithSingleNumericQuantity() {
+        let item = AggregatedItem(name: "flour", quantities: [numQty(200, unit: "g")])
+        #expect(item.entryText == "*200 g* flour")
+    }
+
+    @Test func entryTextWithSingleUnitlessQuantity() {
+        let item = AggregatedItem(name: "eggs", quantities: [numQty(3)])
+        #expect(item.entryText == "*3* eggs")
+    }
+
+    @Test func entryTextWithSingleTextQuantity() {
+        let item = AggregatedItem(name: "herbs", quantities: [textQty("a handful")])
+        #expect(item.entryText == "*a handful* herbs")
+    }
+
+    @Test func entryTextWithMultipleQuantitiesJoinedByComma() {
+        let item = AggregatedItem(name: "garlic", quantities: [numQty(2, unit: "tsp"), numQty(17, unit: "piece")])
+        #expect(item.entryText == "*2 tsp, 17 piece* garlic")
+    }
+
+    @Test func entryTextWithMixedQuantityTypes() {
+        let item = AggregatedItem(name: "olive oil", quantities: [textQty("a splash"), numQty(10, unit: "ml")])
+        #expect(item.entryText == "*a splash, 10 ml* olive oil")
+    }
+
+    // MARK: – AggregatedShoppingList.apply(to:)
+
+    @Test func applyToDocumentAppendsNamedAisleItems() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "carrot")])
+        ])
+        let recipes = [recipe([ing("carrot", qty: numQty(3))])]
+        let aggregated = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+
+        var doc = ShoppingListDocument(title: "My List")
+        aggregated.apply(to: &doc)
+
+        #expect(doc.aisles.count == 1)
+        #expect(doc.aisles[0].name == "produce")
+        #expect(doc.aisles[0].items[0].text == "*3* carrot")
+    }
+
+    @Test func applyToDocumentMapsNilBucketToOtherAisle() {
+        let recipes = [recipe([ing("saffron")])]
+        let aggregated = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: nil)
+
+        var doc = ShoppingListDocument(title: "My List")
+        aggregated.apply(to: &doc)
+
+        #expect(doc.aisles.count == 1)
+        #expect(doc.aisles[0].name == "Other")
+        #expect(doc.aisles[0].items[0].text == "saffron")
+    }
+
+    @Test func applyToDocumentRoundTripProducesValidMarkdown() {
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "apple")])
+        ])
+        let recipes = [recipe([ing("apple", qty: numQty(2)), ing("saffron")])]
+        let aggregated = AggregatedShoppingList.aggregate(recipes: recipes, aisleConfig: config)
+
+        var doc = ShoppingListDocument(title: "Grocery Run")
+        aggregated.apply(to: &doc)
+
+        let md = doc.renderMarkdown()
+        let reparsed = ShoppingListDocument(markdown: md)
+
+        #expect(reparsed.title == "Grocery Run")
+        #expect(reparsed.aisles.map(\.name).contains("produce"))
+        #expect(reparsed.aisles.map(\.name).contains("Other"))
     }
 }

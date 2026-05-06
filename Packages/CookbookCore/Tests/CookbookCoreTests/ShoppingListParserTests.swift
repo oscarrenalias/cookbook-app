@@ -2,8 +2,9 @@ import Foundation
 import Testing
 @testable import CookbookCore
 
-@Suite("ShoppingList")
+@Suite("ShoppingListDocument Parser")
 struct ShoppingListParserTests {
+
     private func fixture(_ name: String) throws -> String {
         guard let url = Bundle.module.url(
             forResource: name,
@@ -13,127 +14,165 @@ struct ShoppingListParserTests {
             struct FixtureNotFound: Error { let name: String }
             throw FixtureNotFound(name: name)
         }
-
         return try String(contentsOf: url, encoding: .utf8)
     }
 
-    @Test func emptyDocumentHasNoItems() {
-        #expect(ShoppingList("").items.isEmpty)
+    // MARK: - Empty / minimal inputs
+
+    @Test func emptyStringProducesEmptyDocument() {
+        let doc = ShoppingListDocument(markdown: "")
+        #expect(doc.title == nil)
+        #expect(doc.meals.isEmpty)
+        #expect(doc.notes.isEmpty)
+        #expect(doc.aisles.isEmpty)
     }
 
-    @Test func fixtureProducesExpectedUncheckedItems() throws {
-        let list = ShoppingList(try fixture("shopping-list"))
-
-        #expect(list.items.count == 63)
-        #expect(list.items.allSatisfy { !$0.checked })
-        #expect(list.items.contains { $0.text == "*300 g* broccoli" })
-        #expect(list.items.contains { $0.text == "fruits (mixed selection for the week)" })
-        #expect(list.items.contains { $0.text == "*1 bottle* canola oil (for frying)" })
+    @Test func titleOnlyParsesTitle() {
+        let doc = ShoppingListDocument(markdown: "# My List\n")
+        #expect(doc.title == "My List")
+        #expect(doc.meals.isEmpty)
+        #expect(doc.notes.isEmpty)
+        #expect(doc.aisles.isEmpty)
     }
 
-    @Test func checkedStateDetectionUsesChecklistMarker() {
-        let list = ShoppingList("""
-        - [ ] foo
-        - [x] bar
-        """)
+    // MARK: - Aisle item checked-state parsing
 
-        #expect(list.items == [
-            ShoppingListItem(lineIndex: 0, checked: false, text: "foo"),
-            ShoppingListItem(lineIndex: 1, checked: true, text: "bar"),
-        ])
+    @Test func aisleItemUncheckedStateParsed() {
+        let doc = ShoppingListDocument(markdown: "## produce\n- [ ] apple\n")
+        #expect(doc.aisles[0].items[0].text == "apple")
+        #expect(doc.aisles[0].items[0].checked == false)
     }
 
-    @Test func toggleFlipsOnlyChecklistBracket() {
-        var list = ShoppingList("""
-        ## produce
-        - [ ] *300 g* broccoli
-        """)
-
-        list.toggle(itemAt: 1)
-
-        #expect(list.text == """
-        ## produce
-        - [x] *300 g* broccoli
-        """)
+    @Test func aisleItemCheckedStateParsed() {
+        let doc = ShoppingListDocument(markdown: "## produce\n- [x] banana\n")
+        #expect(doc.aisles[0].items[0].text == "banana")
+        #expect(doc.aisles[0].items[0].checked == true)
     }
 
-    @Test func toggleIsNoOpForNonItemLine() {
-        let original = """
-        ## produce
-        - [ ] *300 g* broccoli
-        """
-        var list = ShoppingList(original)
-
-        list.toggle(itemAt: 0)
-
-        #expect(list.text == original)
+    @Test func aisleItemUppercaseXAlsoMarksChecked() {
+        let doc = ShoppingListDocument(markdown: "## produce\n- [X] carrot\n")
+        #expect(doc.aisles[0].items[0].checked == true)
     }
 
-    @Test func appendItemHandlesEmptyAndMissingTrailingNewline() {
-        var empty = ShoppingList("")
-        empty.appendItem("flour")
-        #expect(empty.text == "- [ ] flour\n")
+    // MARK: - Non-checklist content in aisles
 
-        var headed = ShoppingList("## pantry")
-        headed.appendItem("flour")
-        #expect(headed.text == "## pantry\n- [ ] flour\n")
+    @Test func nonChecklistBulletsInsideAisleAreDropped() {
+        let md = "## produce\n- [ ] apple\n- not a checklist line\n- [x] carrot\n"
+        let doc = ShoppingListDocument(markdown: md)
+        #expect(doc.aisles[0].items.count == 2)
+        #expect(doc.aisles[0].items.map(\.text) == ["apple", "carrot"])
     }
 
-    @Test func removeItemDeletesOnlyTargetedLine() {
-        var list = ShoppingList("""
-        ## produce
-        - [ ] broccoli
+    // MARK: - ## Other aisle
 
-        - [ ] carrot
-        Paragraph
-        """)
-
-        list.removeItem(atLine: 1)
-
-        #expect(list.text == """
-        ## produce
-
-        - [ ] carrot
-        Paragraph
-        """)
+    @Test func lowercaseOtherAislePreservesName() {
+        let doc = ShoppingListDocument(markdown: "## other\n- [ ] misc item\n")
+        #expect(doc.aisles.count == 1)
+        #expect(doc.aisles[0].name == "other")
     }
 
-    @Test func removeItemIsNoOpForNonItemLine() {
-        let original = """
-        ## produce
-        - [ ] broccoli
-        """
-        var list = ShoppingList(original)
-
-        list.removeItem(atLine: 0)
-
-        #expect(list.text == original)
+    @Test func capitalisedOtherAislePreservesName() {
+        let doc = ShoppingListDocument(markdown: "## Other\n- [ ] misc item\n")
+        #expect(doc.aisles.count == 1)
+        #expect(doc.aisles[0].name == "Other")
     }
 
-    @Test func arbitraryContentRemainsByteIdenticalAsideFromToggledLine() {
-        let original = """
-        ## Meals
-        - **Saturday dinner** — Pasta
+    // MARK: - Notes block (pre-aisle content)
 
-        ## produce
-        - [ ] *300 g* broccoli
+    @Test func preAisleContentPreservedAsNoteBlock() {
+        let md = "# My List\n\n<!-- created: 2026-05-01 -->\n\n## produce\n- [ ] apple\n"
+        let doc = ShoppingListDocument(markdown: md)
+        #expect(!doc.notes.isEmpty)
+        let allLines = doc.notes.flatMap(\.lines)
+        #expect(allLines.contains("<!-- created: 2026-05-01 -->"))
+    }
 
-        ### Notes
-        Bring reusable bags.
-        """
-        var list = ShoppingList(original)
+    @Test func leadingAndTrailingBlankLinesStrippedFromNoteBlock() {
+        let md = "# My List\n\n\nnote line\n\n\n## produce\n- [ ] apple\n"
+        let doc = ShoppingListDocument(markdown: md)
+        #expect(doc.notes.count == 1)
+        #expect(doc.notes[0].lines.first?.trimmingCharacters(in: .whitespaces).isEmpty == false)
+        #expect(doc.notes[0].lines.last?.trimmingCharacters(in: .whitespaces).isEmpty == false)
+    }
 
-        list.toggle(itemAt: 4)
+    // MARK: - Meals section
 
-        #expect(list.text == """
-        ## Meals
-        - **Saturday dinner** — Pasta
+    @Test func mealsPlainBulletsAreParsed() {
+        let md = "## Meals\n- **Saturday dinner** — Pasta\n- **Sunday lunch** — Salad\n"
+        let doc = ShoppingListDocument(markdown: md)
+        #expect(doc.meals.count == 2)
+        #expect(doc.meals[0] == "**Saturday dinner** — Pasta")
+        #expect(doc.meals[1] == "**Sunday lunch** — Salad")
+    }
 
-        ## produce
-        - [x] *300 g* broccoli
+    @Test func checklistLinesInsideMealsAreIgnored() {
+        let md = "## Meals\n- **Saturday dinner** — Pasta\n- [ ] this should be ignored\n"
+        let doc = ShoppingListDocument(markdown: md)
+        #expect(doc.meals.count == 1)
+        #expect(doc.meals[0] == "**Saturday dinner** — Pasta")
+    }
 
-        ### Notes
-        Bring reusable bags.
-        """)
+    // MARK: - Full fixture round-trip
+
+    @Test func fullFixtureParsesExpectedStructure() throws {
+        let md = try fixture("shopping-list")
+        let doc = ShoppingListDocument(markdown: md)
+        #expect(doc.title == "Shopping list: shopping list 03.05.2026")
+        #expect(doc.meals.count == 12)
+        #expect(doc.aisles.count == 10)
+        #expect(doc.aisles.map(\.name).contains("produce"))
+        #expect(doc.aisles.map(\.name).contains("other"))
+    }
+
+    // MARK: - Fixed-point (renderMarkdown is idempotent after parse)
+
+    @Test func emptyDocumentRenderIsFixedPoint() {
+        let doc = ShoppingListDocument()
+        let r1 = doc.renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
+    }
+
+    @Test func titleOnlyRenderIsFixedPoint() {
+        let doc = ShoppingListDocument(title: "My List")
+        let r1 = doc.renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
+    }
+
+    @Test func fullDocumentRenderIsFixedPoint() {
+        let md = "# My List\n\n## Meals\n- **Saturday** — Pasta\n\n## produce\n- [ ] apple\n- [x] banana\n\n## Other\n- [ ] misc\n"
+        let r1 = ShoppingListDocument(markdown: md).renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
+    }
+
+    @Test func documentWithHtmlCommentNotesRenderIsFixedPoint() {
+        let md = "# My List\n\n<!-- created: 2026-05-01 -->\n\n## produce\n- [ ] apple\n"
+        let r1 = ShoppingListDocument(markdown: md).renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
+    }
+
+    @Test func capitalisedOtherAisleRenderIsFixedPoint() {
+        let md = "## Other\n- [ ] misc item\n"
+        let r1 = ShoppingListDocument(markdown: md).renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
+    }
+
+    @Test func aisleWithNoItemsRenderIsFixedPoint() {
+        var doc = ShoppingListDocument(title: "List")
+        doc.aisles = [ShoppingListAisle(name: "empty-aisle")]
+        let r1 = doc.renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
+    }
+
+    @Test func fullFixtureRenderIsFixedPoint() throws {
+        let md = try fixture("shopping-list")
+        let r1 = ShoppingListDocument(markdown: md).renderMarkdown()
+        let r2 = ShoppingListDocument(markdown: r1).renderMarkdown()
+        #expect(r1 == r2)
     }
 }

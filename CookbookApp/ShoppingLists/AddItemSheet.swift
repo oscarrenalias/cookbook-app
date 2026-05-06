@@ -2,9 +2,9 @@ import SwiftUI
 import CookbookCore
 
 struct AddItemSheet: View {
-    @Binding var list: ShoppingList
+    @Binding var document: ShoppingListDocument
     let catalog: AisleCatalog
-    let onSave: (ShoppingList) -> Void
+    let onSave: (ShoppingListDocument) -> Void
 
     @Environment(\.dismiss) private var dismiss
 
@@ -53,24 +53,20 @@ struct AddItemSheet: View {
     private func handleAdd() {
         let trimmed = itemText.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
-        var updated = list
-        // "Other" picker selection writes under an explicit `## Other` heading
-        // so the aisle grouper doesn't visually attach the item to the previous
-        // aisle. Case-insensitive match in the CookbookCore mutation collapses
-        // this with any `[other]` section the user has in aisle.conf.
+        var updated = document
         let aisleName = selectedAisle ?? "Other"
-        updated.appendItem(trimmed, toAisle: aisleName)
+        updated.addItem(trimmed, toAisle: aisleName)
         onSave(updated)
         dismiss()
     }
 }
 
 #Preview {
-    @Previewable @State var list = ShoppingList("# Weekend BBQ\n")
+    @Previewable @State var document = ShoppingListDocument(title: "Weekend BBQ")
     let catalog = AisleCatalog()
 
     Color.clear
         .sheet(isPresented: .constant(true)) {
-            AddItemSheet(list: $list, catalog: catalog) { _ in }
+            AddItemSheet(document: $document, catalog: catalog) { _ in }
         }
 }

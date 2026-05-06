@@ -482,43 +482,96 @@ via `@Environment(AisleCatalog.self)`.
 fallback. The `AddToShoppingListSheet` defers list discovery until `isLoaded`
 is `true`, displaying a spinner in the interim.
 
+### ShoppingListDocument
+
+`ShoppingListDocument` (`Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift`)
+is the structured in-memory representation of a shopping list. All mutations operate on
+typed Swift data; markdown is generated from the structure on save and parsed back into
+structure on load. It replaces the former text-backed `ShoppingList` helper model.
+
+**Canonical markdown format.** The canonical example is `docs/examples/shopping-list.md`.
+The format produced by `renderMarkdown()` is:
+
+```
+# <title>
+
+<notes block (optional free-text)>
+
+## Meals
+- <recipe provenance bullet>
+
+## <aisle name>
+- [ ] *<qty>* <ingredient>
+- [x] *<qty>* <checked ingredient>
+```
+
+Render order: title → notes blocks → `## Meals` (omitted when empty) → aisle sections.
+Sections are separated by a single blank line. The file always ends with a trailing newline.
+
+**Parsing rules** (`ShoppingListDocument(markdown:)`):
+
+| Markdown element | Maps to |
+|-----------------|---------|
+| First `# ` heading (before any `## `) | `title: String?` |
+| `## Meals` section | Prose bullets (`- text`) → `meals: [String]`; checklist lines in this section are ignored |
+| Any other `## <name>` section | One `ShoppingListAisle(name:)` with `ShoppingListEntry` items parsed from GFM checklist lines |
+| Content before the first `## ` heading (excluding the H1) | `notes: [Block]` — preserved verbatim |
+
+Parsing is **tolerant**: unrecognised content (non-checklist lines inside aisle sections,
+free-text before the first heading) is collected into `notes` rather than discarded, so
+user-authored content survives a load/save cycle.
+
+**Round-trip contract.** The round-trip is **semantic, not byte-identical**: loading a file
+and immediately saving it re-emits the canonical form. After one render pass,
+`ShoppingListDocument(markdown: doc.renderMarkdown()).renderMarkdown()` is a fixed point.
+
+**Mutation API:**
+
+| Method | Effect |
+|--------|--------|
+| `addItem(_:toAisle:checked:)` | Appends an entry to the named aisle; creates the aisle if absent (case-insensitive lookup) |
+| `toggle(at:)` | Flips the `checked` flag of an entry at an `ItemIndex` |
+| `updateItem(at:newText:)` | Replaces entry text, leaving checked state unchanged |
+| `removeItem(at:)` | Removes entry; prunes the aisle automatically when it becomes empty |
+| `deleteAisle(_:)` | Removes a named aisle and all its items |
+| `addMealsEntry(_:)` | Appends a markdown string to `meals`; no-op if already present (case-sensitive) |
+
+**`ItemIndex`** is a positional reference (`aisle: String`, `position: Int`) valid within a
+session. It is not persisted to markdown. `aisle` matches `ShoppingListAisle.name` exactly
+(case-sensitive); `position` is zero-based within the aisle's items array.
+
+**Integration with `AggregatedShoppingList`.** `AggregatedShoppingList.apply(to:)` writes all
+aggregated aisles and items into a `ShoppingListDocument` via `addItem(_:toAisle:)`. Item display
+text is formatted by `AggregatedItem.entryText`:
+
+- No quantities → bare ingredient name (`chicken`)
+- Single quantity → `*<qty>* name` (e.g., `*500 g* chicken`)
+- Multiple quantities → `*<qty1>, <qty2>* name` (e.g., `*2 tsp, 3 cloves* garlic`)
+
+Numbers are formatted without trailing zeros (`1.5` not `1.50`; `2` not `2.0`).
+
 ### AddToShoppingListService
 
 `AddToShoppingListService` (`CookbookApp/ShoppingLists/AddToShoppingListService.swift`)
-is a caseless enum (namespace only) with two public entry points.
+is a caseless enum (namespace only) with two public entry points. Both use
+`ShoppingListDocument` as the write model: read raw markdown → parse into
+`ShoppingListDocument` → mutate → write `doc.renderMarkdown()` back to disk.
 
 **Scale interaction.** The caller passes a `RecipeScale` alongside the `Recipe`.
 `AddToShoppingListService` calls `scale.scaled(recipe)` before aggregation, so
 all ingredient quantities reflect the user's chosen multiplier (½×, 1×, 2×,
 3×). `.text` quantities — e.g. "a pinch" — are passed through unchanged.
 
-**Aisle config interaction.** An optional `AisleConfig` is forwarded directly
-to `ShoppingList.aggregate(recipes:aisleConfig:)`. When non-nil, the aggregator
+**Aisle config interaction.** An optional `AisleConfig` is forwarded to
+`AggregatedShoppingList.aggregate(recipes:aisleConfig:)`. When non-nil, the aggregator
 maps each ingredient to a named aisle section; when nil, all items fall into a
-single unnamed aisle bucket and are written flat.
+trailing `nil`-named "Other" bucket and are written under an explicit `## Other` heading.
 
-**Flat vs aisle-structured append.** When appending to an _existing_ list,
-`isAisleBacked(_:)` determines which write path to use:
-
-- Returns `true` when any `## ` heading section contains at least one GFM
-  checklist line (`- [ ]` / `- [x]`). Items are written under their aisle
-  headings via `ShoppingList.appendItem(_:toAisle:)`.
-- Returns `false` for flat lists (no aisle headings) or lists whose only `## `
-  headings are prose sections (e.g. `## Meals`). Items are appended at the
-  bottom via `ShoppingList.appendItem(_:)`.
-
-When _creating_ a new list, `isAisleBacked` is not called: new lists always
-receive aisle-structured output (`aisleMode: true`), because `aisle.conf` is
-available and there is no pre-existing structure to honour.
-
-**`## Meals` provenance bullet.** Before writing items, both `append` and
-`create` call `ShoppingList.appendMealsBullet("**\(recipeName)**")`. This
-inserts a plain bullet `- **RecipeName**` under a `## Meals` section, which is
-created after the H1 line if not already present. The call is idempotent: a
-second append of the same recipe name to the same list produces no duplicate
-bullet. The `## Meals` section uses plain bullets (not checklist items), so
-`isAisleBacked` never treats it as an aisle — it is always part of the header
-area (see below).
+**Write flow** (both `append` and `create`):
+1. Build a `ShoppingListDocument` (parsed from existing file, or freshly initialised with the list title).
+2. Call `doc.addMealsEntry("**\(recipeName)**")` to record provenance — idempotent; a second append of the same recipe name produces no duplicate entry.
+3. Call `aggregated.apply(to: &doc)` to write all aggregated items into their aisle sections.
+4. Write `doc.renderMarkdown()` to disk.
 
 **Error surface.** `AppendError` has three cases:
 
@@ -528,69 +581,31 @@ area (see below).
 | `writeFailed(Error)` | The write to disk failed; wraps the underlying file error |
 | `listAlreadyExists` | `create` was called with a name whose `.md` file already exists |
 
-### ShoppingListHeaderExtractor
-
-`ShoppingListHeaderExtractor` (`CookbookApp/ShoppingLists/ShoppingListHeaderExtractor.swift`)
-parses the free-text region of a shopping list that precedes the checklist
-aisles.
-
-`extract(from:)` returns a `HeaderContent?`:
-
-- Skips the H1 title line.
-- Accumulates lines until it encounters either a raw checklist line (`- [ ]` /
-  `- [x]`) or a `## ` heading whose section contains at least one checklist
-  line. That boundary line is _not_ included in the header.
-- Prose-only `## ` sections (e.g. `## Meals`, `## Notes`) are included in the
-  header because their sections contain no checklist items.
-- Returns `nil` when the extracted content is empty after trimming.
-
-`HeaderContent` carries:
-
-| Field | Content |
-|-------|---------|
-| `markdown` | Raw markdown of the header area, whitespace-trimmed |
-| `firstHeading` | Text of the first `## ` heading found, or `nil` |
-
-The canonical example (`docs/examples/shopping-list.md`) shows a `## Meals`
-section with recipe bullets followed by aisle sections with checklist items;
-the extractor captures only the `## Meals` block as the header.
-
 ### ShoppingListHeaderView
 
 `ShoppingListHeaderView` (`CookbookApp/ShoppingLists/ShoppingListHeaderView.swift`)
-renders a `HeaderContent` as a collapsible `Section` at the top of the
-shopping-list detail screen.
+renders a collapsible `Section` at the top of the shopping-list detail screen.
+`ShoppingListDetailView` calls it twice when data is present — once for `document.notes`
+(label: `"Notes"`) and once for `document.meals` (label: `"Meals"`).
+
+**Interface:**
+
+```swift
+ShoppingListHeaderView(label: String, lines: [String], storageKey: String)
+```
+
+`lines` is a pre-formatted array of strings. For notes, the caller passes the
+`Block.lines` content directly. For meals, the caller formats each entry as `"- \(meal)"`.
 
 **Rendering rules:**
 
-- The section header button shows `content.firstHeading ?? "Notes"` as the
-  disclosure label and a chevron icon (`chevron.down` / `chevron.right`).
-- Body lines are rendered one at a time:
-  - `## ` headings → `.subheadline` semibold `Text` (the heading prefix is
-    stripped; this handles any secondary headings inside the header area).
-  - All other lines → `Text(AttributedString(markdown:))` so inline bold/italic
-    from the markdown source renders correctly.
-- The `firstHeading` line itself is suppressed from the body to avoid
-  duplication with the disclosure label.
-- Blank lines are filtered out.
-- Expanded/collapsed state is persisted per list file via `@SceneStorage`,
-  keyed by `"shoppingList.header.expanded.<filename>"`.
+- The section header button shows `label` as the disclosure label with a chevron icon.
+- Each line is rendered via `Text(AttributedString(markdown:))` so inline bold/italic renders correctly. Falls back to plain `Text` if the markdown parse fails.
+- Expanded/collapsed state is persisted per list file and section via `@SceneStorage`,
+  keyed by the caller-supplied `storageKey`.
 
 **Read-only contract.** The header view is display-only; there is no text
 editor or tap-to-edit gesture. Users who want to edit the `## Meals` section
 or other free-text notes must do so in a plain-text editor outside the app.
 This is intentional: the header area is considered structured provenance
 metadata, not a user-editable field.
-
-### ShoppingListLineFormatter
-
-`ShoppingListLineFormatter` (`CookbookApp/ShoppingLists/ShoppingListLineFormatter.swift`)
-converts an `AggregatedItem` into a display string for insertion into the
-shopping list:
-
-- No quantities → bare ingredient name (`chicken`)
-- Single quantity → `*<qty>* name` (e.g., `*500 g* chicken`)
-- Multiple quantities → `*<qty1>, <qty2>* name` (e.g., `*2 tsp, 3 cloves* garlic`)
-
-Numbers are formatted without trailing zeros (`1.5` not `1.50`; `2` not `2.0`).
-The asterisk wrapping renders as italic in Markdown-aware renderers.

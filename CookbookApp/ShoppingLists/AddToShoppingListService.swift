@@ -22,16 +22,16 @@ enum AddToShoppingListService {
         guard let existingText = ShoppingListFiles.readText(from: url) else {
             throw AppendError.readFailed
         }
-        var list = ShoppingList(existingText)
-        let aggregated = ShoppingList.aggregate(
+        var doc = ShoppingListDocument(markdown: existingText)
+        let aggregated = AggregatedShoppingList.aggregate(
             recipes: [scale.scaled(recipe)],
             aisleConfig: aisleConfig
         )
         let itemCount = aggregated.aisles.reduce(0) { $0 + $1.items.count }
-        list.appendMealsBullet("**\(recipeName)**")
-        writeItems(from: aggregated, to: &list)
+        doc.addMealsEntry("**\(recipeName)**")
+        aggregated.apply(to: &doc)
         do {
-            try ShoppingListFiles.writeText(list.text, to: url)
+            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url)
         } catch {
             throw AppendError.writeFailed(error)
         }
@@ -56,35 +56,19 @@ enum AddToShoppingListService {
         if ShoppingListFiles.readText(from: url) != nil {
             throw AppendError.listAlreadyExists
         }
-        var list = ShoppingList("# \(name)\n")
-        let aggregated = ShoppingList.aggregate(
+        var doc = ShoppingListDocument(title: name)
+        let aggregated = AggregatedShoppingList.aggregate(
             recipes: [scale.scaled(recipe)],
             aisleConfig: aisleConfig
         )
         let itemCount = aggregated.aisles.reduce(0) { $0 + $1.items.count }
-        list.appendMealsBullet("**\(recipeName)**")
-        writeItems(from: aggregated, to: &list)
+        doc.addMealsEntry("**\(recipeName)**")
+        aggregated.apply(to: &doc)
         do {
-            try ShoppingListFiles.writeText(list.text, to: url)
+            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url)
         } catch {
             throw AppendError.writeFailed(error)
         }
         return (url, itemCount)
-    }
-
-    private static func writeItems(
-        from aggregated: AggregatedShoppingList,
-        to list: inout ShoppingList
-    ) {
-        for aisle in aggregated.aisles {
-            // The aggregator's nil bucket means "no aisle.conf match" — render
-            // under an explicit `## Other` heading so items don't visually
-            // attach to whichever aisle ends up last in the file.
-            let aisleName = aisle.name ?? "Other"
-            for item in aisle.items {
-                let line = ShoppingListLineFormatter.format(item)
-                list.appendItem(line, toAisle: aisleName)
-            }
-        }
     }
 }

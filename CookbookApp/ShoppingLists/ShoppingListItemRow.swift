@@ -2,7 +2,7 @@ import SwiftUI
 import CookbookCore
 
 struct ShoppingListItemRow: View {
-    let item: ShoppingListItem
+    let entry: ShoppingListEntry
     var onToggle: () -> Void
     var onDelete: () -> Void
     var onUpdate: (String) -> Void
@@ -15,12 +15,12 @@ struct ShoppingListItemRow: View {
             Button {
                 onToggle()
             } label: {
-                Image(systemName: item.checked ? "checkmark.circle.fill" : "circle")
+                Image(systemName: entry.checked ? "checkmark.circle.fill" : "circle")
                     .font(.title3)
-                    .foregroundStyle(item.checked ? Color.accentColor : Color.secondary)
+                    .foregroundStyle(entry.checked ? Color.accentColor : Color.secondary)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(item.checked ? "Mark as incomplete" : "Mark as complete")
+            .accessibilityLabel(entry.checked ? "Mark as incomplete" : "Mark as complete")
 
             itemText
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -39,7 +39,7 @@ struct ShoppingListItemRow: View {
             .accessibilityLabel("Delete item")
 
             Button {
-                editText = item.text
+                editText = entry.text
                 showEditAlert = true
             } label: {
                 Label("Edit", systemImage: "pencil")
@@ -61,15 +61,15 @@ struct ShoppingListItemRow: View {
 
     @ViewBuilder
     private var itemText: some View {
-        let attributed = try? AttributedString(markdown: item.text)
+        let attributed = try? AttributedString(markdown: entry.text)
         if let attributed {
             Text(attributed)
-                .strikethrough(item.checked)
-                .foregroundStyle(item.checked ? Color.secondary : Color.primary)
+                .strikethrough(entry.checked)
+                .foregroundStyle(entry.checked ? Color.secondary : Color.primary)
         } else {
-            Text(item.text)
-                .strikethrough(item.checked)
-                .foregroundStyle(item.checked ? Color.secondary : Color.primary)
+            Text(entry.text)
+                .strikethrough(entry.checked)
+                .foregroundStyle(entry.checked ? Color.secondary : Color.primary)
         }
     }
 }
@@ -77,19 +77,19 @@ struct ShoppingListItemRow: View {
 #Preview {
     List {
         ShoppingListItemRow(
-            item: ShoppingListItem(lineIndex: 0, checked: false, text: "*300 g* broccoli"),
+            entry: ShoppingListEntry(text: "*300 g* broccoli", checked: false),
             onToggle: {},
             onDelete: {},
             onUpdate: { _ in }
         )
         ShoppingListItemRow(
-            item: ShoppingListItem(lineIndex: 1, checked: true, text: "*1 piece* courgette"),
+            entry: ShoppingListEntry(text: "*1 piece* courgette", checked: true),
             onToggle: {},
             onDelete: {},
             onUpdate: { _ in }
         )
         ShoppingListItemRow(
-            item: ShoppingListItem(lineIndex: 2, checked: false, text: "plain butter"),
+            entry: ShoppingListEntry(text: "plain butter", checked: false),
             onToggle: {},
             onDelete: {},
             onUpdate: { _ in }
