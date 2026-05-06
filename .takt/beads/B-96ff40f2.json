@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-a599b55b",
-  "dependencies": [],
+  "dependencies": [
+    "B-398593a7"
+  ],
   "acceptance_criteria": [
     "Generated document title uses the user-selected list name.",
     "`## Meals` bullets are emitted in plan order as `**<block heading>** \u2014 <recipe display name>` for recipe occurrences only.",
