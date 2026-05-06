@@ -44,6 +44,14 @@ struct ShoppingListDetailView: View {
         }
     }
 
+    private var notesLines: [String] {
+        document.notes.flatMap(\.lines).filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+    }
+
+    private var mealsLines: [String] {
+        document.meals.map { "- \($0)" }
+    }
+
     private var checkedCount: Int {
         document.aisles.flatMap(\.items).filter(\.checked).count
     }
@@ -118,8 +126,19 @@ struct ShoppingListDetailView: View {
     @ViewBuilder
     private var listContent: some View {
         List {
-            if let headerContent = ShoppingListHeaderExtractor.extract(from: document.renderMarkdown()) {
-                ShoppingListHeaderView(content: headerContent, storageKey: headerStorageKey)
+            if !notesLines.isEmpty {
+                ShoppingListHeaderView(
+                    label: "Notes",
+                    lines: notesLines,
+                    storageKey: "\(headerStorageKey).notes"
+                )
+            }
+            if !document.meals.isEmpty {
+                ShoppingListHeaderView(
+                    label: "Meals",
+                    lines: mealsLines,
+                    storageKey: "\(headerStorageKey).meals"
+                )
             }
 
             Section {

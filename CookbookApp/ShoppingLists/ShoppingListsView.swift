@@ -173,9 +173,9 @@ private func loadEntries(from folderURL: URL) -> [ShoppingListEntry] {
         var itemCount = 0
         var doneCount = 0
         if let text = try? String(contentsOf: url, encoding: .utf8) {
-            let list = ShoppingList(text)
-            itemCount = list.items.count
-            doneCount = list.items.filter(\.checked).count
+            let allItems = ShoppingListDocument(markdown: text).aisles.flatMap(\.items)
+            itemCount = allItems.count
+            doneCount = allItems.filter(\.checked).count
         }
         return ShoppingListEntry(
             url: url,
