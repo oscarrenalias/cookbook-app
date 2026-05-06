@@ -3,7 +3,7 @@
   "title": "Shared review: final integration review",
   "agent_type": "review",
   "description": "Review the full implementation for spec compliance, regression risk, test completeness, and cross-layer consistency before merge.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-3383c60d",
   "dependencies": [
@@ -748,9 +748,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 changes are isolated to the MealPlan extension block with no overlap with sibling beads.\nNone. New file only; no existing files were modified.\nNo conflict risk with sibling beads. `AddToMealPlanService.swift` is a new file not touched by any other in-progress bead. The upstream `MealPlanRecipePath.swift` (B-e032faca) and mutation APIs (B-c6573e45) are already committed on the feature branch.\nNone. Only `AddToMealPlanService.swift` was modified; the new method is purely additive. No sibling bead touches this file.\nNo file-scope conflicts expected. Downstream beads modifying `RecipeBottomBar.swift` and `RecipeDetailSheet.swift` are additive changes to files not touched here.\nNone \u2014 both files are leaf UI files not touched by sibling beads.\nNo conflicts expected \u2014 only AddToMealPlanSheet.swift was modified and no sibling beads share this file.",
-  "branch_name": "",
+  "branch_name": "feature/b-3383c60d",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-d79a683a",
+    "expires_at": "2026-05-06T12:16:08.708002+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -759,9 +762,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T11:46:08.858192+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T11:46:08.858207+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-d79a683a",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-d79a683a/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
