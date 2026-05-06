@@ -1,0 +1,255 @@
+{
+  "bead_id": "B-77482551-corrective",
+  "title": "Corrective fix for B-77482551: Shared Format Tests And Fixtures",
+  "agent_type": "developer",
+  "description": "Blocked reason: Production code crash in ShoppingList.swift:rangeInText(for:) lines 85\u201390: content.index(lowerBound, offsetBy:) uses contentRange.lowerBound (an index in text) as a base index in content (a fresh String copy). Swift String indices are not interchangeable across distinct String instances. This crashes with \\\"String index is out of bounds\\\" whenever toggle() targets a line beyond the first few characters of a multi-line document.\n\nRemaining work: Fix production code defect in ShoppingList.swift:rangeInText(for:) lines 85\u201390: replace content.index(lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound) and content.index($0, offsetBy: length, ...) with calls that advance text indices from contentRange.lowerBound (requires passing text as a parameter or changing content from String to Substring). Once fixed, re-run swift test --filter ShoppingListParserTests.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-77482551",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Implement the minimum fix required to unblock B-77482551.",
+    "Update tests/docs as needed for the corrective change.",
+    "Leave a handoff summary that states how the parent bead can be retried."
+  ],
+  "linked_docs": [
+    "spec-ee1d75fa",
+    "https://cooklang.org/docs/use-cases/meal-planning/",
+    "https://cooklang.org/docs/cli/aisle-file/",
+    "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+  ],
+  "feature_root_id": "B-419f1418",
+  "execution_branch_name": "feature/b-419f1418",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/*.swift"
+  ],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "Fixed rangeInText(for:in:) in ShoppingList.swift: added text parameter, replaced content.index with text.index for result range arithmetic. Updated the toggle(itemAt:) call site. Build verified clean.",
+    "remaining": "Tester agent should run swift test --filter ShoppingListParserTests to confirm the fix passes arbitraryContentRemainsByteIdenticalAsideFromToggledLine and the full suite. Parent bead B-77482551 can be retried once tester confirms green.",
+    "risks": "Low. Change is confined to a private extension method and its single call site in ShoppingList.swift. No other files were modified.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": true,
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Tester agent runs swift test --filter ShoppingListParserTests to verify the crash is gone and all existing tests pass. After green, parent bead B-77482551 can be retried.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/*.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingList.swift"
+    ],
+    "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension. No other bead files overlap.",
+    "design_decisions": "Chose to add a `text: String` parameter to rangeInText(for:in:) rather than changing content to Substring, to minimise the diff and avoid touching all static helper call sites. The parameter name `text` shadows the outer struct property at the call site naturally.",
+    "test_coverage_notes": "ShoppingListParserTests.swift already contains arbitraryContentRemainsByteIdenticalAsideFromToggledLine which toggles line 4 in a multi-line document \u2014 exactly the crash path. No new tests needed; tester should confirm this test now passes.",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension. No other bead files overlap.",
+  "branch_name": "feature/b-419f1418",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T11:27:05.731282+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:27:07.085635+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:27:07.085665+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T11:27:10.700601+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-77482551-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-77482551-corrective/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T11:29:21.253450+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Fixed production crash in ShoppingList.swift:rangeInText(for:). The method was using contentRange.lowerBound (a text-String index) as the base for content.index(...) where content is a distinct String copy \u2014 Swift String indices are not interchangeable across instances. Added `in text: String` parameter and changed index arithmetic to use text.index(...) throughout, keeping all indices in the same String. Build passes.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "auto_corrective_for": "B-77482551",
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551-corrective",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-77482551-corrective/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-77482551-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T11:27:10.700584+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-77482551-corrective",
+      "feature_root_id": "B-419f1418",
+      "title": "Corrective fix for B-77482551: Shared Format Tests And Fixtures",
+      "agent_type": "developer",
+      "description": "Blocked reason: Production code crash in ShoppingList.swift:rangeInText(for:) lines 85\u201390: content.index(lowerBound, offsetBy:) uses contentRange.lowerBound (an index in text) as a base index in content (a fresh String copy). Swift String indices are not interchangeable across distinct String instances. This crashes with \\\"String index is out of bounds\\\" whenever toggle() targets a line beyond the first few characters of a multi-line document.\n\nRemaining work: Fix production code defect in ShoppingList.swift:rangeInText(for:) lines 85\u201390: replace content.index(lowerBound, offsetBy: offset, limitedBy: contentRange.upperBound) and content.index($0, offsetBy: length, ...) with calls that advance text indices from contentRange.lowerBound (requires passing text as a parameter or changing content from String to Substring). Once fixed, re-run swift test --filter ShoppingListParserTests.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-77482551.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-ee1d75fa",
+        "https://cooklang.org/docs/use-cases/meal-planning/",
+        "https://cooklang.org/docs/cli/aisle-file/",
+        "https://raw.githubusercontent.com/oscarrenalias/cookbook/refs/heads/main/shopping-lists/shopping%20list%2003.05.2026.md"
+      ],
+      "execution_branch_name": "feature/b-419f1418",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-419f1418",
+      "expected_files": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md"
+      ],
+      "expected_globs": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/*"
+      ],
+      "touched_files": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/AisleConfigParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/aisle.conf",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/meal-plan.menu",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+      ],
+      "conflict_risks": "Low \u2014 fix is confined to ShoppingList.swift private extension methods. No other bead files overlap with this path.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Fixed production crash in ShoppingList.swift:rangeInText(for:). The method was using contentRange.lowerBound (a text-String index) as the base for content.index(...) where content is a distinct String copy \u2014 Swift String indices are not interchangeable across instances. Added `in text: String` parameter and changed index arithmetic to use text.index(...) throughout, keeping all indices in the same String. Build passes.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.30434045,
+      "duration_ms": 128889,
+      "duration_api_ms": 121506,
+      "num_turns": 13,
+      "input_tokens": 14,
+      "output_tokens": 7843,
+      "cache_creation_tokens": 23825,
+      "cache_read_tokens": 314599,
+      "stop_reason": "end_turn",
+      "session_id": "3b21772a-7c82-42d6-9d1c-434084bc8a8e",
+      "permission_denials": [],
+      "prompt_chars": 8110,
+      "prompt_lines": 154,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.30434045,
+        "duration_ms": 128889,
+        "duration_api_ms": 121506,
+        "num_turns": 13,
+        "input_tokens": 14,
+        "output_tokens": 7843,
+        "cache_creation_tokens": 23825,
+        "cache_read_tokens": 314599,
+        "stop_reason": "end_turn",
+        "session_id": "3b21772a-7c82-42d6-9d1c-434084bc8a8e",
+        "permission_denials": [],
+        "prompt_chars": 8110,
+        "prompt_lines": 154,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "f998e4ee31e249f8d5debfa0546719f631139777"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-c6573e45",
+  "title": "CookbookCore: add meal-plan mutation APIs",
+  "agent_type": "developer",
+  "description": "Extend MealPlan with typed append helpers for adding an item to a target block/section and appending a new block seeded with a default section.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-3383c60d",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`MealPlan` exposes `addItem(_:toBlock:section:)` with defensive no-op handling for out-of-bounds indices.",
+    "`MealPlan` exposes `addBlock(named:) -> Int` that appends a block with the requested heading and exactly one empty default section.",
+    "The new APIs preserve existing model invariants and are suitable for the app-side load \u2192 mutate \u2192 serialise flow."
+  ],
+  "linked_docs": [
+    "spec-2ca2e4f2",
+    "spec-d7a891ba"
+  ],
+  "feature_root_id": "B-3383c60d",
+  "execution_branch_name": "feature/b-3383c60d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "expected_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T11:05:11.437826+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

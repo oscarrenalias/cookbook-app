@@ -1,0 +1,74 @@
+{
+  "bead_id": "B-61b784c9",
+  "title": "Add-to-meal-plan service: existing plan mutations",
+  "agent_type": "developer",
+  "description": "Create the service methods that load an existing meal plan, build the recipe reference, append into an existing block or append a new block and add into its first section, then serialise and write back once per action.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-3383c60d",
+  "dependencies": [
+    "B-c6573e45",
+    "B-e032faca"
+  ],
+  "acceptance_criteria": [
+    "`AddToMealPlanService` can add the current recipe to an existing block's first section using the typed mutation APIs.",
+    "`AddToMealPlanService` can add a new block to an existing plan and immediately place the recipe into section 0 of that block.",
+    "The service follows the standard read \u2192 parse \u2192 mutate \u2192 serialise \u2192 write discipline and does not edit text directly in the view layer."
+  ],
+  "linked_docs": [
+    "spec-2ca2e4f2",
+    "spec-d7a891ba",
+    "spec-855cd963"
+  ],
+  "feature_root_id": "B-3383c60d",
+  "execution_branch_name": "feature/b-3383c60d",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-3383c60d",
+  "expected_files": [
+    "CookbookApp/MealPlans/AddToMealPlanService.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/MealPlans/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T11:05:11.881497+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,237 @@
+{
+  "bead_id": "B-43085da0",
+  "title": "Add RecipeStatStrip view",
+  "agent_type": "developer",
+  "description": "Create RecipeStatStrip.swift. Renders a horizontal row of up to five stat items (servings, difficulty, prep time, cook time, meal type). Each stat has an SF Symbol icon, a value string, and a label. A stat is hidden \u2014 not shown as blank \u2014 when its metadata key is absent or unparsable. Servings accepts the current Scale binding and displays the scaled integer using RecipeScale.apply(toServings:). Accepts both key spellings per spec (e.g. 'prep time' / 'prep_time'). Stat extraction logic is factored into an internal struct or function reachable by unit tests.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-1dd57ece",
+  "dependencies": [
+    "B-e93417db"
+  ],
+  "acceptance_criteria": [
+    "All five stats render when all metadata keys are present with correct SF Symbols: person.fill, dial.medium, clock, flame, fork.knife.",
+    "Each stat is individually hidden when its metadata key is absent.",
+    "Servings value updates when Scale binding changes.",
+    "Both key spellings accepted for prep time, cook time, and meal type.",
+    "Stat extraction logic is accessible at internal access level for testing."
+  ],
+  "linked_docs": [
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-1dd57ece",
+  "execution_branch_name": "feature/b-1dd57ece",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeStatStrip.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipeStatStrip.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipeStatStrip.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "RecipeStatStrip.swift created at CookbookApp/Recipes/RecipeStatStrip.swift. All five stat types implemented with correct SF Symbols (person.fill, dial.medium, clock, flame, fork.knife). Dual key spelling support for prep time/prep_time, cook time/cook_time, meal type/meal_type. RecipeStatExtractor and RecipeStatItem are internal structs accessible to unit tests. Scale binding wires servings through RecipeScale.apply(toServings:). Build verified clean.",
+    "remaining": "Unit tests for RecipeStatExtractor (tester agent responsibility). Visual layout verification requires manual inspection on device/simulator.",
+    "risks": "dial.medium SF Symbol availability: confirmed in SF Symbols catalogue but verify on iOS 17 deployment target at runtime. ScrollView wrapping the HStack means stats won't be evenly distributed across the full width on wide screens \u2014 if the design requires equal spacing, layout should be revisited.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "CookbookApp/Recipes/RecipeStatStrip.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Tester agent should write unit tests for RecipeStatExtractor covering: all-stats-present, individual missing keys, both key spellings, servings scaling.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeStatStrip.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipeStatStrip.swift"
+    ],
+    "conflict_risks": "No file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.",
+    "design_decisions": "Used ScrollView(.horizontal) wrapping the HStack to handle overflow gracefully when all five stats are present on narrow screens. RecipeStatExtractor is a plain struct (not a class or enum) so it can be instantiated in tests without SwiftUI context. Metadata[\"servings\"] raw string is passed directly to RecipeScale.apply(toServings:) rather than using Metadata.servings ([Int]?) to preserve the single-value display contract the strip requires.",
+    "test_coverage_notes": "RecipeStatExtractor.extract() is internal and directly testable. Key test cases: all five metadata keys present returns five items; each key absent individually returns four items; dual spelling for prep_time/cook_time/meal_type; scale factor changes produce correctly scaled servings string; unparsable servings string is passed through as-is by RecipeScale.apply(toServings:).",
+    "known_limitations": "Visual layout not verified \u2014 agent cannot render UI. dial.medium symbol availability on iOS 17 should be confirmed at runtime. Accessibility: combined label reads value then label, which may feel reversed for VoiceOver users; spec does not prescribe ordering."
+  },
+  "block_reason": "",
+  "conflict_risks": "No file overlap with sibling beads. RecipeStatStrip.swift is a new file within existing Recipes group scope.",
+  "branch_name": "feature/b-1dd57ece",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T05:59:42.390091+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:11:26.681241+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T06:11:26.681268+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T06:11:26.947936+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-43085da0/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-43085da0/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T06:14:17.140619+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created RecipeStatStrip.swift implementing a horizontal stat strip for recipe metadata. The view renders up to five stat items (servings, difficulty, prep time, cook time, meal type) as icon+value+label cells in a horizontally scrollable row. Stats are omitted when their metadata key is absent. Servings is scaled via the RecipeScale binding. Both key spellings are supported for prep time, cook time, and meal type. Stat extraction is factored into the internal RecipeStatExtractor struct, accessible for unit tests. Build succeeded with no errors.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-43085da0",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-43085da0/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-43085da0/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T06:11:26.947922+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-43085da0",
+      "feature_root_id": "B-1dd57ece",
+      "title": "Add RecipeStatStrip view",
+      "agent_type": "developer",
+      "description": "Create RecipeStatStrip.swift. Renders a horizontal row of up to five stat items (servings, difficulty, prep time, cook time, meal type). Each stat has an SF Symbol icon, a value string, and a label. A stat is hidden \u2014 not shown as blank \u2014 when its metadata key is absent or unparsable. Servings accepts the current Scale binding and displays the scaled integer using RecipeScale.apply(toServings:). Accepts both key spellings per spec (e.g. 'prep time' / 'prep_time'). Stat extraction logic is factored into an internal struct or function reachable by unit tests.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "All five stats render when all metadata keys are present with correct SF Symbols: person.fill, dial.medium, clock, flame, fork.knife.",
+        "Each stat is individually hidden when its metadata key is absent.",
+        "Servings value updates when Scale binding changes.",
+        "Both key spellings accepted for prep time, cook time, and meal type.",
+        "Stat extraction logic is accessible at internal access level for testing."
+      ],
+      "dependencies": [
+        "B-e93417db"
+      ],
+      "linked_docs": [
+        "docs/ui-guidelines.md"
+      ],
+      "execution_branch_name": "feature/b-1dd57ece",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-1dd57ece",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeStatStrip.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created RecipeStatStrip.swift implementing a horizontal stat strip for recipe metadata. The view renders up to five stat items (servings, difficulty, prep time, cook time, meal type) as icon+value+label cells in a horizontally scrollable row. Stats are omitted when their metadata key is absent. Servings is scaled via the RecipeScale binding. Both key spellings are supported for prep time, cook time, and meal type. Stat extraction is factored into the internal RecipeStatExtractor struct, accessible for unit tests. Build succeeded with no errors.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.31860145,
+      "duration_ms": 169420,
+      "duration_api_ms": 96739,
+      "num_turns": 18,
+      "input_tokens": 15,
+      "output_tokens": 6519,
+      "cache_creation_tokens": 30353,
+      "cache_read_tokens": 349359,
+      "stop_reason": "end_turn",
+      "session_id": "26211a2c-f308-45f1-9061-c027981786de",
+      "permission_denials": [],
+      "prompt_chars": 6062,
+      "prompt_lines": 133,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.31860145,
+        "duration_ms": 169420,
+        "duration_api_ms": 96739,
+        "num_turns": 18,
+        "input_tokens": 15,
+        "output_tokens": 6519,
+        "cache_creation_tokens": 30353,
+        "cache_read_tokens": 349359,
+        "stop_reason": "end_turn",
+        "session_id": "26211a2c-f308-45f1-9061-c027981786de",
+        "permission_denials": [],
+        "prompt_chars": 6062,
+        "prompt_lines": 133,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "f6fc65e5129a8050e8badb45d535113766a8cead"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
