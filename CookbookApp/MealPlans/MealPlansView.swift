@@ -34,21 +34,12 @@ struct MealPlansView: View {
                 Text(MealPlanFiles.displayName(for: url))
                     .navigationTitle(MealPlanFiles.displayName(for: url))
             }
-            .alert("New meal plan", isPresented: $showingCreateAlert) {
-                TextField("Name (e.g., 'Busy Week')", text: $newPlanName)
-                Button("Create") {
-                    handleCreate()
-                }
-                .disabled(newPlanName.trimmingCharacters(in: .whitespaces).isEmpty)
-                Button("Cancel", role: .cancel) {
-                    newPlanName = ""
-                    duplicateNameError = false
-                }
-            } message: {
-                if duplicateNameError {
-                    Text("A plan with that name already exists.")
-                }
-            }
+            .mealPlanCreateAlert(
+                isPresented: $showingCreateAlert,
+                name: $newPlanName,
+                duplicateNameError: $duplicateNameError,
+                onCreate: handleCreate
+            )
             .task {
                 let loaded = await Task.detached(priority: .userInitiated) {
                     loadEntries(from: folderURL)
