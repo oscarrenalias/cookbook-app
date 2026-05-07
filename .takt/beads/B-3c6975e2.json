@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
-  "dependencies": [],
+  "dependencies": [
+    "B-55f40a3e",
+    "B-52b928b7",
+    "B-f14416eb",
+    "B-09ce3e88",
+    "B-a606fa82"
+  ],
   "acceptance_criteria": [
     "`docs/architecture.md` includes a Recipes-section note describing cook mode as a separate full-screen workflow.",
     "The documentation calls out recipe-detail launch, session-local state, and the focused step-by-step nature of the flow.",
