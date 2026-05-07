@@ -56,7 +56,7 @@
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
   "lease": {
     "owner": "developer:B-9a1d87f4",
-    "expires_at": "2026-05-07T13:25:16.128750+00:00"
+    "expires_at": "2026-05-07T19:14:44.022879+00:00"
   },
   "retries": 0,
   "execution_history": [
@@ -99,6 +99,30 @@
       "details": {
         "template_path": ".takt/agent-runs/B-9a1d87f4/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T18:44:44.334447+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T18:44:44.334468+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
   "metadata": {
