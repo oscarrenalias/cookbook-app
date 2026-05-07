@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-236cb00a"
+  ],
   "acceptance_criteria": [
     "A dedicated filter-state type exists with fields for tags, cook time, prep time, difficulty, and course.",
     "The type exposes an active-filter count used by the toolbar badge.",
