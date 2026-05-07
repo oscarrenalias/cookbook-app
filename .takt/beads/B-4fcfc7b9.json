@@ -3,7 +3,7 @@
   "title": "Review cook mode feature integration",
   "agent_type": "review",
   "description": "Perform a final integration review across CookbookCore, recipe-detail entry, cook-mode UI flow, tests, and documentation, with attention to regressions, dependency ordering, and any unresolved product decisions called out by the spec.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [
@@ -979,7 +979,10 @@
   "conflict_risks": "None identified. Fix is additive (one modifier on a private struct). No file overlap with other in-flight beads.",
   "branch_name": "feature/b-437fc5c4",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-4fcfc7b9",
+    "expires_at": "2026-05-07T11:56:55.129335+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -1040,6 +1043,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-4fcfc7b9-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T11:26:55.989581+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T11:26:55.989608+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
