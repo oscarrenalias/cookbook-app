@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
-  "dependencies": [],
+  "dependencies": [
+    "B-bc982aa4",
+    "B-e3a5b9a6",
+    "B-7ee66ecd",
+    "B-03a6a47e",
+    "B-36e9e02d"
+  ],
   "acceptance_criteria": [
     "`CookbookAppTests/RecipeCatalogTests.swift` covers empty-folder load, grouped valid recipes across subfolders, malformed recipe omission, and reload picking up file adds/removals.",
     "Superseded tests tied to `RecipeDiscovery` or `RecipeFile` are updated or removed in favor of catalog-backed assertions.",
