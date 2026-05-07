@@ -1,0 +1,82 @@
+{
+  "bead_id": "B-437fc5c4",
+  "title": "Cook mode \u2014 shared execution root",
+  "agent_type": "planner",
+  "description": "Shared feature container for the cook-mode workflow. This bead is non-runnable and exists to coordinate the ordered implementation, shared test coverage, documentation updates, and final review for spec-d27daa73.",
+  "status": "done",
+  "bead_type": "feature",
+  "parent_id": "B-62f662f8",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All implementation beads together deliver the cook-mode flow described in spec-d27daa73.",
+    "Exactly one shared tester bead, one shared documentation bead, and one shared review bead execute after the implementation beads they depend on.",
+    "The final feature tree preserves small, ordered implementation beads with explicit file scope and dependency flow."
+  ],
+  "linked_docs": [
+    "spec-d27daa73",
+    "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-437fc5c4",
+  "execution_branch_name": "feature/b-437fc5c4",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/CookModeView.swift",
+    "CookbookApp/Recipes/CookModeIngredientList.swift",
+    "CookbookApp/Recipes/CookModeStepView.swift",
+    "CookbookAppTests/CookModeViewTests.swift",
+    "CookbookAppTests/RecipeBottomBarTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/StepTests.swift",
+    "docs/architecture.md"
+  ],
+  "expected_globs": [
+    "CookbookApp/Recipes/CookMode*.swift",
+    "CookbookAppTests/*CookMode*.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T10:45:27.764630+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
