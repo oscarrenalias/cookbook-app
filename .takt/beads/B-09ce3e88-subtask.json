@@ -1,0 +1,75 @@
+{
+  "bead_id": "B-09ce3e88-subtask",
+  "title": "Implement cook mode step-by-step navigator",
+  "agent_type": "developer",
+  "description": "Replace the CookPhase.steps placeholder in CookModeView with a real step-by-step navigator: one step per screen, forward/back navigation, per-step ingredient sidebar, and a finish affordance that dismisses cook mode.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-09ce3e88",
+  "dependencies": [
+    "B-09ce3e88"
+  ],
+  "acceptance_criteria": [
+    "Navigating to .steps from gather phase shows step 1 of the recipe.",
+    "User can advance forward through steps and go back, with progress indicated.",
+    "Per-step ingredient list (read-only) is shown alongside each step text.",
+    "Finishing the last step returns to the recipe detail sheet (dismisses fullScreenCover)."
+  ],
+  "linked_docs": [
+    "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-437fc5c4",
+  "execution_branch_name": "feature/b-437fc5c4",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+  "expected_files": [
+    "CookbookApp/Recipes/CookModeView.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/Recipes/CookMode*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T10:58:18.368233+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "discovered_by": "B-09ce3e88"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
