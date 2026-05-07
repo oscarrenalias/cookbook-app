@@ -3,7 +3,7 @@
   "title": "Parse explicit Notes heading into document notes",
   "agent_type": "developer",
   "description": "Change shopping list markdown parsing to recognize the first `## Notes` block verbatim, capture its content into `document.notes`, and stop preserving arbitrary unmodelled header free text.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -29,37 +29,46 @@
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "- Added `.notes` and `.ignored` cases to the `CurrentSection` enum. - `## Notes` heading (case-insensitive) routes to `.notes` on first encounter; subsequent `## Notes` blocks route to `.ignored` and are discarded. - Notes lines accumulated in `notesLines`; on flush, joined with `\\n` then exactly one trailing newline stripped. - Pre-heading free text (`.pre` section) is now discarded \u2014 no longer flows into `notes`. - `renderMarkdown()` wraps non-empty notes in `## Notes\\n<content>`. - Build passes cleanly (`swift build` \u2014 Build complete).",
+    "remaining": "Test coverage for the new parsing behaviour (no-notes file, single Notes block, multiple Notes blocks, blank-line preservation, round-trip) should be added by the tester agent.",
+    "risks": "Any existing tests that relied on pre-heading free text flowing into `notes` will now fail \u2014 that behaviour was intentionally removed per acceptance criteria #5. Tests should be updated to use explicit `## Notes` blocks.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should add/update unit tests covering: no-Notes file yields empty notes, single Notes block captured verbatim with internal blank lines, second Notes block ignored, one trailing newline trimmed, round-trip fixed-point, pre-heading free text no longer in notes.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocumentParser.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
+    "conflict_risks": "Existing tests exercising the old behaviour (free text before `##` headings landing in `notes`) will break and must be updated. No file-scope conflicts with other running beads.",
+    "design_decisions": "The expected_files bead spec named `ShoppingListDocumentParser.swift` (a separate file that doesn't exist). The parsing logic lives inside `ShoppingListDocument.swift` as an `init(markdown:)` extension \u2014 consistent with existing codebase convention. Edits were made there rather than creating a new empty file.",
+    "test_coverage_notes": "No tests added \u2014 test execution is the tester agent's responsibility.",
+    "known_limitations": "The `notesLines` reset inside `flush()` is redundant once `notesFound` is set (we never re-enter `.notes`), but is kept for clarity and defensive correctness."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "Existing tests exercising the old behaviour (free text before `##` headings landing in `notes`) will break and must be updated. No file-scope conflicts with other running beads.",
   "branch_name": "feature/b-e5f14e6e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
-  "lease": {
-    "owner": "developer:B-6a89b6da",
-    "expires_at": "2026-05-07T13:09:04.232981+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -101,6 +110,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-6a89b6da/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T12:41:18.743998+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Updated ShoppingListDocument.swift to parse explicit `## Notes` blocks into `document.notes` and stop preserving arbitrary pre-heading free text. Render now wraps notes in a `## Notes` heading for round-trip fidelity.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -175,7 +191,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Updated ShoppingListDocument.swift to parse explicit `## Notes` blocks into `document.notes` and stop preserving arbitrary pre-heading free text. Render now wraps notes in a `## Notes` heading for round-trip fidelity.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.29785835,
+      "duration_ms": 125611,
+      "duration_api_ms": 112335,
+      "num_turns": 11,
+      "input_tokens": 11,
+      "output_tokens": 8102,
+      "cache_creation_tokens": 25935,
+      "cache_read_tokens": 256397,
+      "stop_reason": "end_turn",
+      "session_id": "18be84d0-12d5-42eb-a4c0-0e03f1a71d7e",
+      "permission_denials": [],
+      "prompt_chars": 5945,
+      "prompt_lines": 136,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.29785835,
+        "duration_ms": 125611,
+        "duration_api_ms": 112335,
+        "num_turns": 11,
+        "input_tokens": 11,
+        "output_tokens": 8102,
+        "cache_creation_tokens": 25935,
+        "cache_read_tokens": 256397,
+        "stop_reason": "end_turn",
+        "session_id": "18be84d0-12d5-42eb-a4c0-0e03f1a71d7e",
+        "permission_denials": [],
+        "prompt_chars": 5945,
+        "prompt_lines": 136,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "015c8438430f80ac3e73639c1052d8449320ac7b"
   },
   "labels": [],
   "recovery_for": null,
