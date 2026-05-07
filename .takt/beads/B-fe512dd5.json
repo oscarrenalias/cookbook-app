@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-236cb00a",
+    "B-563ad48b",
+    "B-3f8cf2c7",
+    "B-2b2d043a",
+    "B-343f5971",
+    "B-a1b9bdd5",
+    "B-0764e2b6"
+  ],
   "acceptance_criteria": [
     "Review confirms free-text and structured-filter semantics match the spec, including OR-within-tags and exclusion of untimed recipes when time filters are active.",
     "Review confirms shared tests and docs cover the shipped behavior and that no implementation bead bypassed the dependency on the recipe-catalog data layer.",
