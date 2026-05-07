@@ -164,4 +164,129 @@ struct MetadataTests {
     @Test func emptyMetadataIsEqual() {
         #expect(Metadata() == Metadata())
     }
+
+    // MARK: - minutes(forKey:)
+
+    @Test func minutesNilForMissingKey() {
+        let m = Metadata([("title", "Pasta")])
+        #expect(m.minutes(forKey: "cook time") == nil)
+    }
+
+    @Test func minutesNilForEmptyValue() {
+        let m = Metadata([("cook time", "")])
+        #expect(m.minutes(forKey: "cook time") == nil)
+    }
+
+    @Test func minutesPlainInteger() {
+        let m = Metadata([("cook time", "30")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesSuffixM() {
+        let m = Metadata([("cook time", "30m")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesSuffixMin() {
+        let m = Metadata([("cook time", "30min")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesSuffixMins() {
+        let m = Metadata([("cook time", "30mins")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesSuffixMinute() {
+        let m = Metadata([("cook time", "30minute")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesSuffixMinutes() {
+        let m = Metadata([("cook time", "30minutes")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesSuffixH() {
+        let m = Metadata([("cook time", "2h")])
+        #expect(m.minutes(forKey: "cook time") == 120)
+    }
+
+    @Test func minutesSuffixHr() {
+        let m = Metadata([("cook time", "2hr")])
+        #expect(m.minutes(forKey: "cook time") == 120)
+    }
+
+    @Test func minutesSuffixHrs() {
+        let m = Metadata([("cook time", "2hrs")])
+        #expect(m.minutes(forKey: "cook time") == 120)
+    }
+
+    @Test func minutesSuffixHour() {
+        let m = Metadata([("cook time", "2hour")])
+        #expect(m.minutes(forKey: "cook time") == 120)
+    }
+
+    @Test func minutesSuffixHours() {
+        let m = Metadata([("cook time", "2hours")])
+        #expect(m.minutes(forKey: "cook time") == 120)
+    }
+
+    @Test func minutesCombinationHoursAndMinutes() {
+        let m = Metadata([("cook time", "1h 30m")])
+        #expect(m.minutes(forKey: "cook time") == 90)
+    }
+
+    @Test func minutesCombinationSpelledOut() {
+        let m = Metadata([("cook time", "1 hour 30 minutes")])
+        #expect(m.minutes(forKey: "cook time") == 90)
+    }
+
+    @Test func minutesColonNotation() {
+        let m = Metadata([("cook time", "1:30")])
+        #expect(m.minutes(forKey: "cook time") == 90)
+    }
+
+    @Test func minutesMixedCase() {
+        let m = Metadata([("cook time", "30MINUTES")])
+        #expect(m.minutes(forKey: "cook time") == 30)
+    }
+
+    @Test func minutesUnrecognizedFormatReturnsNil() {
+        let m = Metadata([("cook time", "a while")])
+        #expect(m.minutes(forKey: "cook time") == nil)
+    }
+
+    // MARK: - normalizedTags
+
+    @Test func normalizedTagsEmptyWhenKeyAbsent() {
+        let m = Metadata([("title", "Pasta")])
+        #expect(m.normalizedTags == [])
+    }
+
+    @Test func normalizedTagsSingleTagLowercased() {
+        let m = Metadata([("tags", "Vegan")])
+        #expect(m.normalizedTags == ["vegan"])
+    }
+
+    @Test func normalizedTagsMultiWordTag() {
+        let m = Metadata([("tags", "Quick Dinner")])
+        #expect(m.normalizedTags == ["quick dinner"])
+    }
+
+    @Test func normalizedTagsPreservesRawTagsCase() {
+        let m = Metadata([("tags", "Vegan, VEGAN")])
+        #expect(m.tags == ["Vegan", "VEGAN"])
+        #expect(m.normalizedTags == ["vegan", "vegan"])
+    }
+
+    @Test func normalizedTagsMultipleTagsAllLowercased() {
+        let m = Metadata([("tags", "Vegan, Quick, Italian")])
+        #expect(m.normalizedTags == ["vegan", "quick", "italian"])
+    }
+
+    @Test func normalizedTagsCollapsesInteriorWhitespace() {
+        let m = Metadata([("tags", "slow  cooker")])
+        #expect(m.normalizedTags == ["slow cooker"])
+    }
 }
