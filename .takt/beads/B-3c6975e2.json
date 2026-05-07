@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-3c6975e2",
+  "title": "Document cook mode architecture",
+  "agent_type": "documentation",
+  "description": "Update architecture documentation to describe cook mode as a dedicated full-screen workflow launched from recipe detail, including its separation from the browse-oriented detail sheet and its locked-scale/session-scoped behavior.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-437fc5c4",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`docs/architecture.md` includes a Recipes-section note describing cook mode as a separate full-screen workflow.",
+    "The documentation calls out recipe-detail launch, session-local state, and the focused step-by-step nature of the flow.",
+    "Documentation aligns with the implemented scope and does not claim out-of-scope timer or persistence behavior."
+  ],
+  "linked_docs": [
+    "spec-d27daa73",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-437fc5c4",
+  "execution_branch_name": "feature/b-437fc5c4",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+  "expected_files": [
+    "docs/architecture.md"
+  ],
+  "expected_globs": [
+    "docs/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T10:45:28.888353+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
