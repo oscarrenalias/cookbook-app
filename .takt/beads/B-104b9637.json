@@ -289,6 +289,8 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/AppRoot.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipesListView.swift",
+    "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookAppTests/RecipeCatalogTests.swift",
     "CookbookAppTests/RecipeDiscoveryTests.swift",
     "CookbookAppTests/RecipeFileTests.swift",
@@ -561,7 +563,9 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/AppRoot.swift",
-    "CookbookApp/Recipes/RecipeCatalog.swift"
+    "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipesListView.swift",
+    "CookbookApp/Tabs/RecipesTab.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -825,7 +829,9 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/AppRoot.swift",
-    "CookbookApp/Recipes/RecipeCatalog.swift"
+    "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipesListView.swift",
+    "CookbookApp/Tabs/RecipesTab.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -849,7 +855,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.\nNone \u2014 changes are confined to AppRoot.swift and are additive only.",
+  "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.\nNone \u2014 changes are confined to AppRoot.swift and are additive only.\nRecipesTab.swift was outside the declared expected_globs but required updating for the call site. No other sibling beads are known to touch these files.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
