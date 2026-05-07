@@ -3,7 +3,7 @@
   "title": "Wire broadened search and filter state into RecipesListView",
   "agent_type": "developer",
   "description": "Update the recipes list to use the expanded free-text predicate, combine it with active filters, persist filter state per scene, present the filter sheet from the toolbar, and show the filtered empty state with a clear-filters affordance.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
   "dependencies": [
@@ -29,37 +29,50 @@
     "CookbookApp/Recipes/RecipesActiveFilters.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipesActiveFilters.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipesActiveFilters.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "All three acceptance criteria implemented: broadened free-text search, @SceneStorage filter state with toolbar badge, and distinct filter-driven empty state with clear-filters affordance that preserves query.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "SourceKit reports false-positive \"Cannot find X in scope\" errors for CookbookCore types \u2014 these are worktree resolver artifacts, not compiler errors; all referenced types existed and compiled before this bead. RecipesTab adds a .navigationBarTrailing gear toolbar item at the parent level; the filter button added from RecipesListView will appear to the gear's left in the trailing group, which is standard iOS toolbar behaviour but should be visually verified.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/RecipesActiveFilters.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to verify acceptance criteria against the live UI.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesListView.swift",
+      "CookbookApp/Recipes/RecipesFilterSheet.swift",
+      "CookbookApp/Recipes/RecipesActiveFilters.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/Recipes/RecipesActiveFilters.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
+    "conflict_risks": "RecipesFilterSheet.swift was not modified; no conflict risk there. RecipesActiveFilters.swift gained Codable \u2014 a purely additive protocol conformance, no conflict risk. RecipesListView.swift was fully rewritten; any downstream bead that also touches this file should rebase.",
+    "design_decisions": "Filter state serialised as JSON Data via Codable rather than a custom string encoding, because RecipesActiveFilters contains Set<String> and optional primitives that map cleanly to JSON with zero custom logic. The clear-filters empty state is implemented inline in RecipesListView rather than extending EmptyStateView, to avoid expanding scope of a shared component for a single caller. Badge overlaid via ZStack+offset rather than SwiftUI .badge() (tab-bar only) or a custom ViewModifier, keeping it self-contained in the toolbar button builder.",
+    "test_coverage_notes": "filteredSections predicate logic (all four search axes, filter+query AND composition, empty-section pruning) and the Codable round-trip on RecipesActiveFilters are the primary candidates for unit tests. UI-only behaviours (badge rendering, sheet presentation, @SceneStorage restoration across scene transitions) require manual or UI-test verification.",
+    "known_limitations": "The filter button badge uses a fixed red background; it does not adapt to custom tint colours. The badge is positioned via offset(x:8, y:-8) which is tuned for the standard SF Symbol size \u2014 dynamic type changes to the toolbar font could shift it slightly."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "RecipesFilterSheet.swift was not modified; no conflict risk there. RecipesActiveFilters.swift gained Codable \u2014 a purely additive protocol conformance, no conflict risk. RecipesListView.swift was fully rewritten; any downstream bead that also touches this file should rebase.",
   "branch_name": "feature/b-fddc62d1",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
-  "lease": {
-    "owner": "developer:B-343f5971",
-    "expires_at": "2026-05-07T08:13:29.855272+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -101,6 +114,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-343f5971/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T07:48:04.448441+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Wired broadened search and filter state into RecipesListView. Added Codable to RecipesActiveFilters for @SceneStorage persistence. Rewrote RecipesListView with: (1) broadened free-text predicate covering displayName, metadata.title, normalizedTags, and ingredient names; (2) combined filter+query application in filteredSections; (3) @SceneStorage-backed JSON filter state; (4) toolbar filter button with filled/unfilled icon variant and badge count overlay; (5) filter sheet presentation; (6) empty-state branching that distinguishes filter-driven zero results (shows filterEmptyState with \"Clear Filters\" button that preserves query) from query-only zero results (EmptyStateView).",
+      "details": {}
     }
   ],
   "metadata": {
@@ -175,7 +195,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Wired broadened search and filter state into RecipesListView. Added Codable to RecipesActiveFilters for @SceneStorage persistence. Rewrote RecipesListView with: (1) broadened free-text predicate covering displayName, metadata.title, normalizedTags, and ingredient names; (2) combined filter+query application in filteredSections; (3) @SceneStorage-backed JSON filter state; (4) toolbar filter button with filled/unfilled icon variant and badge count overlay; (5) filter sheet presentation; (6) empty-state branching that distinguishes filter-driven zero results (shows filterEmptyState with \"Clear Filters\" button that preserves query) from query-only zero results (EmptyStateView).",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.7813703499999999,
+      "duration_ms": 269161,
+      "duration_api_ms": 262450,
+      "num_turns": 22,
+      "input_tokens": 20,
+      "output_tokens": 17791,
+      "cache_creation_tokens": 56255,
+      "cache_read_tokens": 757086,
+      "stop_reason": "end_turn",
+      "session_id": "67938b99-3b7b-4580-a116-92d3239de568",
+      "permission_denials": [],
+      "prompt_chars": 6054,
+      "prompt_lines": 137,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.7813703499999999,
+        "duration_ms": 269161,
+        "duration_api_ms": 262450,
+        "num_turns": 22,
+        "input_tokens": 20,
+        "output_tokens": 17791,
+        "cache_creation_tokens": 56255,
+        "cache_read_tokens": 757086,
+        "stop_reason": "end_turn",
+        "session_id": "67938b99-3b7b-4580-a116-92d3239de568",
+        "permission_denials": [],
+        "prompt_chars": 6054,
+        "prompt_lines": 137,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "fa40fe89d4d00eeaa1465ca62b6915208d4069c8"
   },
   "labels": [],
   "recovery_for": null,
