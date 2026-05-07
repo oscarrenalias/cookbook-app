@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-fe512dd5",
+  "title": "Review advanced recipe search and filtering integration",
+  "agent_type": "review",
+  "description": "Perform a final review across implementation, tests, and docs with emphasis on semantic correctness, dependency ordering, UI-state behavior, and regressions in Recipes list behavior.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fddc62d1",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Review confirms free-text and structured-filter semantics match the spec, including OR-within-tags and exclusion of untimed recipes when time filters are active.",
+    "Review confirms shared tests and docs cover the shipped behavior and that no implementation bead bypassed the dependency on the recipe-catalog data layer.",
+    "Any residual risks or follow-ups are documented, especially around parser format gaps, YAML value inconsistency, and large tag corpora."
+  ],
+  "linked_docs": [
+    "specs/drafts/advanced-recipe-search-and-filtering.md",
+    "docs/architecture.md",
+    "specs/planned/recipe-catalog-data-layer.md"
+  ],
+  "feature_root_id": "B-fddc62d1",
+  "execution_branch_name": "feature/b-fddc62d1",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T07:25:44.885127+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
