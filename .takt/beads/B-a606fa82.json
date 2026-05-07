@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
-  "dependencies": [],
+  "dependencies": [
+    "B-55f40a3e",
+    "B-f14416eb",
+    "B-09ce3e88"
+  ],
   "acceptance_criteria": [
     "Cook mode flattens `.step` content across recipe sections in declaration order and skips free-text content.",
     "Each step page shows the correct section-based title fallback, step progress, rendered step text, and step-specific ingredients derived from `ingredientIndices()`.",
