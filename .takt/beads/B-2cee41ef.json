@@ -3,7 +3,7 @@
   "title": "Render Notes block between title and meals",
   "agent_type": "developer",
   "description": "Update markdown rendering so non-empty notes emit a canonical `## Notes` block between the title and `## Meals`, while empty or whitespace-only notes omit the block entirely.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -28,37 +28,46 @@
   "expected_globs": [
     "Packages/CookbookCore/Sources/CookbookCore/*Renderer*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Rendering order Title \u2192 Notes \u2192 Meals \u2192 Aisles already correct. Added trailing-newline normalization so notes content is trimmed before insertion into the `## Notes` block, preventing spurious blank lines when the stored notes string carries trailing whitespace. Whitespace-only notes are already skipped by the same trim-and-empty-check. No preserved-free-text block type is referenced anywhere in the renderer.",
+    "remaining": "None \u2014 all acceptance criteria met.",
+    "risks": "None identified. Change is a one-line tightening of how notes content is passed to the part builder; semantics for typical notes (no trailing whitespace) are identical to before.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent to exercise round-trip rendering with notes containing trailing whitespace/newlines.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocumentRenderer.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Sources/CookbookCore/*Renderer*.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift"
+    ],
+    "conflict_risks": "None. Only file touched is `ShoppingListDocument.swift`; the change is additive/non-breaking for callers of `renderMarkdown()`.",
+    "design_decisions": "Rendering code remains in `ShoppingListDocument.swift` (MARK: - Rendering extension) rather than the planned `ShoppingListDocumentRenderer.swift`. Extracting to a new file would be pure refactoring beyond this bead's scope; the planner's expected_files were aspirational. The single `normalizedNotes` variable serves both the whitespace-only guard and the trailing-whitespace normalization, eliminating the prior redundancy where `trimmingCharacters` was called for the check but raw `notes` was used for rendering.",
+    "test_coverage_notes": "Tester should verify: (1) notes with trailing newlines do not produce extra blank lines in output, (2) whitespace-only notes produce no `## Notes` block, (3) round-trip `ShoppingListDocument(markdown: doc.renderMarkdown()).renderMarkdown() == doc.renderMarkdown()` holds for all section combinations.",
+    "known_limitations": "The planner expected a separate `ShoppingListDocumentRenderer.swift` file which was not created; rendering remains inline in `ShoppingListDocument.swift`. This is a scope deviation that downstream agents should be aware of."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None. Only file touched is `ShoppingListDocument.swift`; the change is additive/non-breaking for callers of `renderMarkdown()`.",
   "branch_name": "feature/b-e5f14e6e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
-  "lease": {
-    "owner": "developer:B-2cee41ef",
-    "expires_at": "2026-05-07T13:11:19.990318+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +109,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-2cee41ef/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T12:45:17.589931+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Updated `renderMarkdown()` in `ShoppingListDocument.swift` to normalize notes with `trimmingCharacters(in: .whitespacesAndNewlines)` before rendering, consolidating the whitespace-only guard and trailing-newline normalization into a single `normalizedNotes` variable. All four acceptance criteria are satisfied; build is clean.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +189,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Updated `renderMarkdown()` in `ShoppingListDocument.swift` to normalize notes with `trimmingCharacters(in: .whitespacesAndNewlines)` before rendering, consolidating the whitespace-only guard and trailing-newline normalization into a single `normalizedNotes` variable. All four acceptance criteria are satisfied; build is clean.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.45314190000000004,
+      "duration_ms": 227752,
+      "duration_api_ms": 218656,
+      "num_turns": 10,
+      "input_tokens": 11,
+      "output_tokens": 10628,
+      "cache_creation_tokens": 26390,
+      "cache_read_tokens": 244987,
+      "stop_reason": "end_turn",
+      "session_id": "ad76dffc-5c7c-4690-a453-1db18cb997e6",
+      "permission_denials": [],
+      "prompt_chars": 5803,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.45314190000000004,
+        "duration_ms": 227752,
+        "duration_api_ms": 218656,
+        "num_turns": 10,
+        "input_tokens": 11,
+        "output_tokens": 10628,
+        "cache_creation_tokens": 26390,
+        "cache_read_tokens": 244987,
+        "stop_reason": "end_turn",
+        "session_id": "ad76dffc-5c7c-4690-a453-1db18cb997e6",
+        "permission_denials": [],
+        "prompt_chars": 5803,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "f8a7dc5a6eed177a00eb75769cd7e4d1e8bcbb28"
   },
   "labels": [],
   "recovery_for": null,
