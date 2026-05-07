@@ -50,8 +50,7 @@ struct RecipeDetailSheet: View {
                     recipe: recipe.recipe,
                     scale: currentScale,
                     onAddToMealPlan: { showAddToMealPlanSheet = true },
-                    onAddToShoppingList: { showAddSheet = true },
-                    onCookNow: { showCookMode = true }
+                    onAddToShoppingList: { showAddSheet = true }
                 )
             }
 
@@ -120,7 +119,7 @@ struct RecipeDetailSheet: View {
         case .cookware:
             CookwareView(cookware: parsed.cookware)
         case .steps:
-            StepsView(recipe: parsed)
+            StepsView(recipe: parsed, onCookNow: { showCookMode = true })
         }
     }
 }

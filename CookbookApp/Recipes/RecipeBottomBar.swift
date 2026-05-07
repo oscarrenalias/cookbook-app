@@ -8,18 +8,10 @@ struct RecipeBottomBar: View {
     let scale: RecipeScale
     let onAddToMealPlan: () -> Void
     let onAddToShoppingList: () -> Void
-    let onCookNow: () -> Void
 
     private var hasIngredients: Bool {
         guard let recipe else { return false }
         return !recipe.ingredients.isEmpty
-    }
-
-    private var hasSteps: Bool {
-        guard let recipe else { return false }
-        return recipe.sections.contains { section in
-            section.content.contains { if case .step = $0 { return true }; return false }
-        }
     }
 
     var body: some View {
@@ -42,16 +34,6 @@ struct RecipeBottomBar: View {
             .accessibilityHint(hasIngredients ? "" : "Recipe has no ingredients")
             .disabled(!hasIngredients)
             .frame(maxWidth: .infinity)
-
-            Button {
-                onCookNow()
-            } label: {
-                Label("Cook now", systemImage: "play.fill")
-            }
-            .accessibilityLabel("Cook now")
-            .accessibilityHint(hasSteps ? "" : "Recipe has no steps")
-            .disabled(!hasSteps)
-            .frame(maxWidth: .infinity)
         }
         .padding()
     }
@@ -60,5 +42,5 @@ struct RecipeBottomBar: View {
 // MARK: - Preview
 
 #Preview {
-    RecipeBottomBar(recipe: nil, scale: .one, onAddToMealPlan: {}, onAddToShoppingList: {}, onCookNow: {})
+    RecipeBottomBar(recipe: nil, scale: .one, onAddToMealPlan: {}, onAddToShoppingList: {})
 }

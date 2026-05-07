@@ -60,6 +60,19 @@ private struct GatherIngredientsPhase: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Gather your ingredients")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Text("Tick each ingredient as you gather it. You can start cooking at any time.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
+            .padding(.top, 16)
+            .padding(.bottom, 8)
+
             ScrollView {
                 CookModeIngredientList(
                     ingredients: recipe.ingredients,
@@ -67,7 +80,7 @@ private struct GatherIngredientsPhase: View {
                     mode: .checklist
                 )
                 .padding(.horizontal)
-                .padding(.vertical, 16)
+                .padding(.bottom, 16)
             }
             Divider()
             Button(action: onStart) {

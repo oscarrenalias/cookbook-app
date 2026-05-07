@@ -13,9 +13,7 @@ struct RecipeBottomBarTests {
             recipe: nil,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {},
-            onCookNow: {}
-        )
+            onAddToShoppingList: {}        )
     }
 
     @Test func bottomBarInstantiatesWithRecipeWithIngredients() {
@@ -26,9 +24,7 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {},
-            onCookNow: {}
-        )
+            onAddToShoppingList: {}        )
     }
 
     @Test func bottomBarInstantiatesWithRecipeWithNoIngredients() {
@@ -37,9 +33,7 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {},
-            onCookNow: {}
-        )
+            onAddToShoppingList: {}        )
     }
 
     @Test func bottomBarInstantiatesWithAllScaleValues() {
@@ -48,8 +42,7 @@ struct RecipeBottomBarTests {
                 recipe: nil,
                 scale: scale,
                 onAddToMealPlan: {},
-                onAddToShoppingList: {},
-                onCookNow: {}
+                onAddToShoppingList: {}
             )
         }
     }
@@ -98,9 +91,7 @@ struct RecipeBottomBarTests {
             recipe: Recipe(),
             scale: .one,
             onAddToMealPlan: { called = true },
-            onAddToShoppingList: {},
-            onCookNow: {}
-        )
+            onAddToShoppingList: {}        )
         bar.onAddToMealPlan()
         #expect(called)
     }
@@ -114,66 +105,11 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: { called = true },
-            onCookNow: {}
-        )
+            onAddToShoppingList: { called = true }        )
         bar.onAddToShoppingList()
         #expect(called)
     }
 
-    // MARK: - Cook Now gating (hasSteps)
-
-    @Test func cookNowIsDisabledWhenRecipeIsNil() {
-        let recipe: Recipe? = nil
-        let hasSteps = recipe.map { r in
-            r.sections.contains { $0.content.contains { if case .step = $0 { return true }; return false } }
-        } ?? false
-        #expect(hasSteps == false)
-    }
-
-    @Test func cookNowIsDisabledWhenRecipeHasNoSteps() {
-        let recipe = Recipe(sections: [
-            CookbookCore.Section(content: [.text("Serve at room temperature.")])
-        ])
-        let hasSteps = recipe.sections.contains { section in
-            section.content.contains { if case .step = $0 { return true }; return false }
-        }
-        #expect(hasSteps == false)
-    }
-
-    @Test func cookNowIsEnabledWhenRecipeHasAtLeastOneStep() {
-        let recipe = Recipe(sections: [
-            CookbookCore.Section(content: [
-                .step(Step(items: [.text("Boil water.")]))
-            ])
-        ])
-        let hasSteps = recipe.sections.contains { section in
-            section.content.contains { if case .step = $0 { return true }; return false }
-        }
-        #expect(hasSteps == true)
-    }
-
-    @Test func cookNowIsDisabledWhenRecipeIsEmpty() {
-        let recipe = Recipe()
-        let hasSteps = recipe.sections.contains { section in
-            section.content.contains { if case .step = $0 { return true }; return false }
-        }
-        #expect(hasSteps == false)
-    }
-
-    @Test func cookNowCallbackIsStoredAndInvocable() {
-        var called = false
-        let recipe = Recipe(sections: [
-            CookbookCore.Section(content: [.step(Step(items: [.text("Boil water.")]))])
-        ])
-        let bar = RecipeBottomBar(
-            recipe: recipe,
-            scale: .one,
-            onAddToMealPlan: {},
-            onAddToShoppingList: {},
-            onCookNow: { called = true }
-        )
-        bar.onCookNow()
-        #expect(called)
-    }
+    // Cook Now is no longer hosted by RecipeBottomBar — the affordance moved
+    // to the Steps tab section header. See StepsView.onCookNow.
 }

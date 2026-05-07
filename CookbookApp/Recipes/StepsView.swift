@@ -5,6 +5,7 @@ import CookbookCore
 
 struct StepsView: View {
     let recipe: Recipe
+    var onCookNow: () -> Void = {}
 
     private var hasAnyStep: Bool {
         recipe.sections.contains { section in
@@ -52,6 +53,13 @@ struct StepsView: View {
                     HStack {
                         Text("Steps")
                         Spacer()
+                        Button(action: onCookNow) {
+                            Label("Cook now", systemImage: "play.fill")
+                                .font(.subheadline.weight(.semibold))
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.small)
+                        .accessibilityLabel("Cook now")
                     }
                     .frame(minHeight: 32)
                 }
