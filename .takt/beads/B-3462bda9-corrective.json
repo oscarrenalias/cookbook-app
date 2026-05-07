@@ -414,6 +414,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T18:56:47.697099+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-3462bda9-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-3462bda9-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -431,7 +440,80 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-3462bda9-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-3462bda9-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T18:56:47.697082+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-3462bda9-corrective",
+      "feature_root_id": "B-e5f14e6e",
+      "title": "Corrective fix for B-3462bda9: Shared feature review",
+      "agent_type": "developer",
+      "description": "Blocked reason: Finding 1 (Medium \u2014 blocker): In ShoppingListDetailView.swift:83, the guard `totalCount == 0` unconditionally shows EmptyStateView regardless of whether the document has notes. When a list has non-empty notes and zero items, both edit entry points disappear: the toolbar \"Edit notes\" item is only shown when `document.notes.isEmpty` (line 112), and the notes header section lives inside `listContent` which is never rendered. The user has no UI path to view or edit their notes until they add an item back. Fix: change the condition from `totalCount == 0` to `totalCount == 0 && notesLines.isEmpty` (or more broadly `document.notes.isEmpty && document.meals.isEmpty && totalCount == 0`).\n\nRemaining work: One bug requires a fix in ShoppingListDetailView.swift before the feature can merge.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-3462bda9.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-14771ea4",
+        "spec-855cd963"
+      ],
+      "execution_branch_name": "feature/b-e5f14e6e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/EditNotesSheet.swift",
+        "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+        "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+        "CookbookAppTests/EditNotesFlowTests.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/ShoppingLists/*.swift",
+        "CookbookAppTests/*.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/*.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
+      ],
+      "touched_files": [
+        "CookbookApp/ShoppingLists/EditNotesSheet.swift",
+        "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+        "CookbookApp/ShoppingLists/ShoppingListHeaderView.swift",
+        "CookbookAppTests/EditNotesFlowTests.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/ShoppingListDocument.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListParserTests.swift",
+        "docs/architecture.md",
+        "docs/examples/shopping-list.md"
+      ],
+      "conflict_risks": "Fix touches ShoppingListDetailView.swift:83 \u2014 the same file used in prior beads. Low conflict risk since the branch is the sole active worktree for this feature root, but xcodegen must be re-run after merge per CLAUDE.md.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
