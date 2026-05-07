@@ -3,7 +3,7 @@
   "title": "Document advanced recipe search and filter behavior",
   "agent_type": "documentation",
   "description": "Update architecture documentation to describe the broadened Recipes search predicate, catalog-derived filter inputs, per-scene filter state, and filtered empty-state behavior.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
   "dependencies": [
@@ -881,9 +881,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.\nRecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).\nRecipesFilterSheet.swift was not modified; no conflict risk there. RecipesActiveFilters.swift gained Codable \u2014 a purely additive protocol conformance, no conflict risk. RecipesListView.swift was fully rewritten; any downstream bead that also touches this file should rebase.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-fddc62d1",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+  "lease": {
+    "owner": "documentation:B-0764e2b6",
+    "expires_at": "2026-05-07T08:24:36.299153+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -892,9 +895,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T07:54:37.686441+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T07:54:37.686487+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-0764e2b6",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-0764e2b6/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
