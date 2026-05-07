@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
-  "dependencies": [],
+  "dependencies": [
+    "B-bc982aa4",
+    "B-e3a5b9a6",
+    "B-7ee66ecd",
+    "B-03a6a47e",
+    "B-36e9e02d",
+    "B-104b9637",
+    "B-cf6062ef"
+  ],
   "acceptance_criteria": [
     "Review confirms the final code satisfies all in-scope acceptance criteria from the spec and does not introduce out-of-scope behavior.",
     "Review checks for threading and state-management risks, especially background parsing, main-actor publication, and reload semantics that preserve prior results.",
