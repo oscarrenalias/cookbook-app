@@ -3,7 +3,7 @@
   "title": "Add RecipesActiveFilters model and matching rules",
   "agent_type": "developer",
   "description": "Introduce a focused filter-state value type for selected tags, optional prep/cook limits, optional difficulty, and optional course. Include active-filter counting plus recipe-matching behavior that encodes the spec's OR-within-tags and AND-across-axes semantics.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
   "dependencies": [
@@ -24,37 +24,44 @@
     "CookbookApp/Recipes/RecipesActiveFilters.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipesActiveFilters.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipesActiveFilters.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Introduced `RecipesActiveFilters` struct (`Equatable`, `Sendable`) with five filter axes: `selectedTags: Set<String>`, `maxCookTimeMinutes: Int?`, `maxPrepTimeMinutes: Int?`, `difficulty: String?`, `course: String?`. Exposes `activeFilterCount` (one per non-empty axis) and `isEmpty` computed properties. `matches(_ recipe: Recipe) -> Bool` encodes OR-within-tags (via `Set.isDisjoint`), cook/prep time exclusion when filter is active but metadata key is absent or over the max, and case-insensitive equality for difficulty/course (falling back to both key variants `\"cook time\"`/`\"cook_time\"`, `\"prep time\"`/`\"prep_time\"`, `\"meal type\"`/`\"meal_type\"`). Added `static let inactive` convenience. Build: `** BUILD SUCCEEDED **`.",
+    "remaining": "Downstream beads must wire this type into RecipesListView (@SceneStorage state, filter sheet bindings, toolbar badge) and RecipesFilterSheet, and add unit tests (RecipesActiveFiltersTests.swift).",
+    "risks": "None material. `RecipesActiveFilters` is a pure value type with no I/O. Downstream view beads may conflict if they also touch RecipesListView simultaneously; coordinate on that file's scope.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/Recipes/RecipesActiveFilters.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Wire RecipesActiveFilters into RecipesListView (@SceneStorage state), present RecipesFilterSheet from toolbar, apply matches predicate to filtered entries, and show badge with activeFilterCount.",
+    "next_agent": "developer",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesActiveFilters.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/Recipes/RecipesActiveFilters.swift"
+    ],
+    "conflict_risks": "Downstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.",
+    "design_decisions": "Used `Set.isDisjoint(with:)` for tag OR semantics \u2014 cleaner than `contains(where:)`. Added `isEmpty` convenience alongside `activeFilterCount` for filter-sheet Clear button guard. Included `static let inactive` for a clean default-state expression site. Both key variants tried for time fields (`\"cook time\"`/`\"cook_time\"`, etc.) matching the existing RecipeStatStrip fallback pattern.",
+    "test_coverage_notes": "Unit tests for RecipesActiveFilters.matches(_:) are out of scope for this bead; the tester bead should cover tag OR semantics, time max boundary cases (nil metadata excluded, boundary value included/excluded), AND composition across axes, and empty-filter pass-through.",
+    "known_limitations": "Course matching looks up `\"meal type\"` and `\"meal_type\"` but does not normalise case of the stored value \u2014 values are compared case-insensitively via localizedCaseInsensitiveCompare, which is correct per spec. Difficulty is treated the same way."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "Downstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.",
   "branch_name": "feature/b-fddc62d1",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
-  "lease": {
-    "owner": "developer:B-3f8cf2c7",
-    "expires_at": "2026-05-07T08:02:01.860345+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -96,6 +103,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-3f8cf2c7/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T07:36:28.948606+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created `CookbookApp/Recipes/RecipesActiveFilters.swift` with the filter-state value type, active-filter count, and recipe-matching predicate. Build confirmed passing.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -165,7 +179,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created `CookbookApp/Recipes/RecipesActiveFilters.swift` with the filter-state value type, active-filter count, and recipe-matching predicate. Build confirmed passing.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.5446117,
+      "duration_ms": 262003,
+      "duration_api_ms": 184142,
+      "num_turns": 20,
+      "input_tokens": 3951,
+      "output_tokens": 7424,
+      "cache_creation_tokens": 29381,
+      "cache_read_tokens": 522253,
+      "stop_reason": "end_turn",
+      "session_id": "ee38818f-bf49-44f0-a01f-57c3c681d46f",
+      "permission_denials": [],
+      "prompt_chars": 5762,
+      "prompt_lines": 131,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.5446117,
+        "duration_ms": 262003,
+        "duration_api_ms": 184142,
+        "num_turns": 20,
+        "input_tokens": 3951,
+        "output_tokens": 7424,
+        "cache_creation_tokens": 29381,
+        "cache_read_tokens": 522253,
+        "stop_reason": "end_turn",
+        "session_id": "ee38818f-bf49-44f0-a01f-57c3c681d46f",
+        "permission_denials": [],
+        "prompt_chars": 5762,
+        "prompt_lines": 131,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "33bd043ab56c350d7cc875021f692caa05247865"
   },
   "labels": [],
   "recovery_for": null,
