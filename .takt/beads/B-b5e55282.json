@@ -91,6 +91,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T12:45:24.952341+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-b5e55282/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-b5e55282/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -107,7 +116,64 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-b5e55282/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-b5e55282/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T12:45:24.952328+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-b5e55282",
+      "feature_root_id": "B-e5f14e6e",
+      "title": "Add core notes parser and renderer coverage",
+      "agent_type": "developer",
+      "description": "Extend CookbookCore tests for notes parsing, rendering normalization, duplicate heading handling, and parse-render-parse fixed-point behavior.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Tests cover verbatim parsing of a `## Notes` block, empty Notes, duplicate Notes headings, and missing Notes.",
+        "Tests cover multi-paragraph notes and markdown markup surviving verbatim.",
+        "Tests cover renderer omission for empty notes and canonical insertion for non-empty notes.",
+        "At least one round-trip fixed-point test verifies mixed-markdown notes survive parse-render-parse unchanged."
+      ],
+      "dependencies": [
+        "B-6a89b6da",
+        "B-2cee41ef"
+      ],
+      "linked_docs": [
+        "spec-14771ea4"
+      ],
+      "execution_branch_name": "feature/b-e5f14e6e",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+      "expected_files": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+      ],
+      "expected_globs": [
+        "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
