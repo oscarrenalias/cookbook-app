@@ -6,7 +6,7 @@ dependencies:
 - spec-fa73e084
 priority: medium
 complexity: medium
-status: planned
+status: done
 tags:
 - ui
 - swiftui
