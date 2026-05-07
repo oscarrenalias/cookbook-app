@@ -92,6 +92,86 @@ in-memory state preserved across tab switches.
 **Unlocks:** real recipe files render correctly (YAML frontmatter,
 `=`-delimited sections); the recipe-detail UI is polished for regular use.
 
+### Recipe catalog data layer ✅
+
+`spec-fa73e084`. **Depended on:** 0003, 0005.
+
+Replaces the file-only `RecipeDiscovery.scan` + `RecipeFile` pattern
+with an `@Observable` `RecipeCatalog` that fully parses every `.cook`
+file under the configured folder on load and caches the parsed
+`Recipe` values in memory. The catalog is injected into the
+SwiftUI environment alongside `AisleCatalog`. `RecipesListView`
+gains `.refreshable` (pull-to-refresh) wired to the catalog's
+reload; `RecipeDetailSheet` no longer re-parses on open since the
+parsed `Recipe` is already in the entry. Parse failures log via
+`Loggers.recipes` and are dropped from the in-memory collection.
+
+Pure plumbing — no UI behaviour changes user-visible beyond the new
+pull-to-refresh affordance and the detail sheet no longer flashing
+a loading state on open.
+
+**Unlocks:** advanced search / filtering can query parsed metadata
+across the entire folder cheaply, without disk I/O per recipe.
+
+### Advanced recipe search and filtering ✅
+
+`spec-efbe045f`. **Depended on:** *Recipe catalog data layer*.
+
+Extends recipe search beyond filename matching:
+
+- Free-text query now matches `displayName`, `metadata.title`,
+  normalised tags, and ingredient names (case-insensitive substring,
+  OR within fields).
+- Filter sheet behind a toolbar funnel button (with active-filter
+  count badge): Tags multi-select, Cook time max, Prep time max,
+  Difficulty, Course, Cuisine, Protein. Filters compose AND across
+  axes; OR within multi-select tags.
+- CookbookCore additions: `Metadata.minutes(forKey:)` (parses
+  `"20 minutes"` / `"3h 30m"` / `"0:30"` etc.) and
+  `Metadata.normalizedTags`.
+- Catalog gains `tagCorpus`, `difficultyValues`, `courseValues`,
+  `cuisineValues`, `proteinValues` derived views.
+- Filter state is per-scene (`@SceneStorage`); not persisted across
+  app launches.
+
+**Unlocks:** users can answer real questions of the recipe corpus —
+"what can I cook in under 30 min?", "everything tagged kid-friendly",
+"vegetarian Spanish dinners".
+
+### Cook mode — guided step-by-step recipe workflow ✅
+
+`spec-d27daa73`. **Depends on:** 0004 (recipe detail).
+
+A focused full-screen "Cook now" workflow launched from the recipe
+detail's Steps tab. Two phases:
+
+1. **Gather ingredients**: a checklist of every ingredient (scaled),
+   with a heading "Gather your ingredients" and a primary
+   *Start cooking* CTA at the bottom.
+2. **Step pages**: paged `TabView(.page(indexDisplayMode: .never))`
+   showing one step at a time with that step's ingredients listed
+   above the rendered step text. Native horizontal swipe gestures
+   plus prev/next buttons drive the same `currentStepIndex` binding.
+   View title takes the section name when the step belongs to a
+   named section. After the last step, a "You're done!" Done page
+   dismisses cook mode.
+
+Presented via `.fullScreenCover` (no tab bar, no nav chrome). Scale
+locks at session entry and shows in the per-step ingredient header
+when ≠ 1×. `UIApplication.isIdleTimerDisabled` is set while cook
+mode is on screen so the phone stays awake during cooking. Free-text
+content lines between steps are skipped. CookbookCore gains
+`Step.ingredientIndices()` for per-step ingredient resolution.
+
+The Cook now affordance lives trailing-aligned in the Steps section
+header, mirroring the Ingredients header's scale picker pattern.
+Bottom action bar stays compact with just *Add to meal plan* /
+*Add to shopping list*.
+
+**Unlocks:** the app is now usable hands-on during cooking — focused
+UI, dismiss-by-accident impossible, per-step ingredient context, and
+a phone that doesn't sleep mid-recipe.
+
 ---
 
 ## CookbookCore data formats
@@ -419,25 +499,23 @@ Meal Plans tabs surfaced during real-use testing of 0007 / 0008:
   filename. Meal-plan files carry no embedded title, so no analogous
   mutation is needed there.
 
-### Tech debt 📝 *(in flight)*
+### Tech debt ✅
 
 `spec-1957fe45`. Developer / maintainer-experience improvements
 that don't change user-visible behaviour.
 
-Currently planned + actively running: replace ad-hoc `print()`
-debugging with `os.Logger`. Adds a `Loggers.swift` namespace under
-`CookbookApp/Common/` with per-feature categories (shoppingLists,
-mealPlans, aisleCatalog, recipes, common) and inserts `.debug`
-entry/exit logs at the choke points (file IO, document load/save,
-service orchestration, AisleCatalog config resolution, recipe
-discovery). Privacy specifiers honoured (paths public, content
-private). Apple's `os.Logger` drops `.debug` from Release builds at
-compile time, so production cost is zero.
+Replaces ad-hoc `print()` debugging with `os.Logger`. Adds a
+`Loggers.swift` namespace under `CookbookApp/Common/` with
+per-feature categories (shoppingLists, mealPlans, aisleCatalog,
+recipes, common) and inserts `.debug` entry/exit logs at the choke
+points (file IO, document load/save, service orchestration,
+AisleCatalog config resolution, recipe discovery). Privacy
+specifiers honoured (paths public, content private). Apple's
+`os.Logger` drops `.debug` from Release builds at compile time, so
+production cost is zero.
 
-Run is currently progressing on the `feature/b-148e9ad9` worktree
-in interleaved fashion (takt's claim-based scheduler serialises
-beads when their `expected_files` overlap, even across feature
-roots and worktrees — see *Notes on this roadmap* below).
+The OS Logger subsystem was later renamed `com.cookbookapp` →
+`net.renalias` alongside the bundle-identifier rebrand.
 
 ---
 
@@ -509,6 +587,14 @@ roots and worktrees — see *Notes on this roadmap* below).
   covering five small UI / file-rename items: edit-item aisle
   reassignment, shopping-list rename, AddItemSheet auto-focus +
   last-used aisle, and meal-plan rename.
+- **Recipe domain is now fully featured.** Recipe catalog data
+  layer (`spec-fa73e084`) replaced the file-only discovery shape
+  with an in-memory `@Observable` catalog. Advanced search +
+  filtering (`spec-efbe045f`) made all parsed metadata reachable
+  from the list view. Cook mode (`spec-d27daa73`) added the
+  full-screen guided workflow. Together these turn recipes from a
+  passive browse experience into an active "what should I cook,
+  let's go cook it" loop.
 - **takt scheduler claim-conflict serialisation is global, not
   per-worktree.** Even when two feature runs are dispatched against
   separate worktree directories on separate branches, takt's
