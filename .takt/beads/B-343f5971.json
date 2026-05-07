@@ -6,7 +6,11 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-563ad48b",
+    "B-3f8cf2c7",
+    "B-2b2d043a"
+  ],
   "acceptance_criteria": [
     "Free-text matching checks `displayName`, `metadata.title`, normalized tags, and ingredient names with case-insensitive substring semantics.",
     "`RecipesListView` stores filter state in `@SceneStorage`, shows the filter toolbar button with filled/unfilled symbol variants, and displays the active-filter badge count when nonzero.",
