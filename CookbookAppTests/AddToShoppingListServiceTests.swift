@@ -55,11 +55,16 @@ struct AddToShoppingListServiceTests {
         #expect(mealsRange < spinachRange)
     }
 
-    @Test func appendExistingFlatItemsRemainsVerbatim() throws {
+    @Test func appendExistingAisleItemsRemainsVerbatim() throws {
+        // After spec-14771ea4 (editable Notes), the parser recognises exactly
+        // four block kinds: title, ## Notes, ## Meals, and aisle sections.
+        // Pre-existing user content under an aisle heading is preserved on
+        // append; content outside those four blocks is dropped (deliberate
+        // behaviour change documented in the spec).
         let dir = try makeTempDir()
         defer { try? FileManager.default.removeItem(at: dir) }
         let url = dir.appendingPathComponent("list.md")
-        try "# My List\n- [ ] existing item\n- [ ] another item\n".write(to: url, atomically: true, encoding: .utf8)
+        try "# My List\n\n## produce\n- [ ] existing item\n- [ ] another item\n".write(to: url, atomically: true, encoding: .utf8)
 
         let aisleConfig = AisleConfig(sections: [
             AisleSection(name: "produce", items: [AisleItem(canonical: "apple")])
@@ -73,16 +78,14 @@ struct AddToShoppingListServiceTests {
         )
 
         let text = try String(contentsOf: url, encoding: .utf8)
-        // Hand-written flat lines remain verbatim
+        // Hand-written aisled lines remain verbatim.
         #expect(text.contains("- [ ] existing item"))
         #expect(text.contains("- [ ] another item"))
-        // Aisle section and meals bullet were appended
+        // Meals bullet and the produce section both appear.
         #expect(text.contains("## Meals"))
         #expect(text.contains("## produce"))
-        // Flat lines appear before the appended aisle sections
-        let existingRange = text.range(of: "existing item")!.lowerBound
-        let aisleRange = text.range(of: "## produce")!.lowerBound
-        #expect(existingRange < aisleRange)
+        // The newly-appended apple is added under produce alongside the existing items.
+        #expect(text.contains("apple"))
     }
 
     @Test func appendThrowsReadFailedForMissingFile() {

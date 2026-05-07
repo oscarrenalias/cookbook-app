@@ -3,11 +3,13 @@ import SwiftUI
 struct ShoppingListHeaderView: View {
     let label: String
     let lines: [String]
+    var onEdit: (() -> Void)? = nil
     @SceneStorage private var isExpanded: Bool
 
-    init(label: String, lines: [String], storageKey: String) {
+    init(label: String, lines: [String], storageKey: String, onEdit: (() -> Void)? = nil) {
         self.label = label
         self.lines = lines
+        self.onEdit = onEdit
         _isExpanded = SceneStorage(wrappedValue: true, storageKey)
     }
 
@@ -22,18 +24,29 @@ struct ShoppingListHeaderView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         } header: {
-            Button {
-                withAnimation { isExpanded.toggle() }
-            } label: {
-                HStack(spacing: 6) {
-                    Text(label)
-                    Spacer()
-                    Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+            HStack(spacing: 6) {
+                Button {
+                    withAnimation { isExpanded.toggle() }
+                } label: {
+                    HStack(spacing: 6) {
+                        Text(label)
+                        Spacer()
+                        Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .buttonStyle(.plain)
+
+                if let onEdit {
+                    Button(action: onEdit) {
+                        Image(systemName: "square.and.pencil")
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Edit notes")
                 }
             }
-            .buttonStyle(.plain)
         }
     }
 

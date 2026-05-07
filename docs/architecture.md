@@ -696,7 +696,8 @@ The format produced by `renderMarkdown()` is:
 ```
 # <title>
 
-<notes block (optional free-text)>
+## Notes
+<free-text notes>
 
 ## Meals
 - <recipe provenance bullet>
@@ -706,21 +707,34 @@ The format produced by `renderMarkdown()` is:
 - [x] *<qty>* <checked ingredient>
 ```
 
-Render order: title → notes blocks → `## Meals` (omitted when empty) → aisle sections.
+Render order: title → `## Notes` (omitted when empty or whitespace-only) → `## Meals` (omitted when empty) → aisle sections.
 Sections are separated by a single blank line. The file always ends with a trailing newline.
+
+**`notes: String` model and `## Notes` contract.** Notes are stored as a plain `String` on
+`ShoppingListDocument.notes`. The parser captures the body of the first `## Notes` heading
+verbatim into this field. `renderMarkdown()` emits the `## Notes` block only when `notes`
+is non-empty after whitespace trimming; an empty or whitespace-only notes value produces no
+Notes block in the output.
+
+**Intentional behavior change.** Any free text that appears outside a recognised section
+heading — e.g. content written between the H1 title and the first `## ` heading — is
+**discarded** on the next save. Only content authored under a `## Notes` heading is preserved.
+This is a deliberate trade: the document model is strictly structured, and the round-trip
+is semantic rather than byte-identical. Users must place notes under `## Notes` to survive
+a load/save cycle.
 
 **Parsing rules** (`ShoppingListDocument(markdown:)`):
 
 | Markdown element | Maps to |
 |-----------------|---------|
 | First `# ` heading (before any `## `) | `title: String?` |
+| `## Notes` section (first occurrence only) | `notes: String` — body lines joined verbatim; duplicates ignored |
 | `## Meals` section | Prose bullets (`- text`) → `meals: [String]`; checklist lines in this section are ignored |
 | Any other `## <name>` section | One `ShoppingListAisle(name:)` with `ShoppingListEntry` items parsed from GFM checklist lines |
-| Content before the first `## ` heading (excluding the H1) | `notes: [Block]` — preserved verbatim |
+| Content outside any recognised section (pre-heading text, duplicate `## Notes`) | Discarded — not preserved across a load/save cycle |
 
-Parsing is **tolerant**: unrecognised content (non-checklist lines inside aisle sections,
-free-text before the first heading) is collected into `notes` rather than discarded, so
-user-authored content survives a load/save cycle.
+Parsing is **strict by section**: non-checklist lines inside aisle sections are dropped
+on re-render. Free text outside a recognised heading is silently discarded.
 
 **Round-trip contract.** The round-trip is **semantic, not byte-identical**: loading a file
 and immediately saving it re-emits the canonical form. After one render pass,
@@ -786,30 +800,52 @@ trailing `nil`-named "Other" bucket and are written under an explicit `## Other`
 
 `ShoppingListHeaderView` (`CookbookApp/ShoppingLists/ShoppingListHeaderView.swift`)
 renders a collapsible `Section` at the top of the shopping-list detail screen.
-`ShoppingListDetailView` calls it twice when data is present — once for `document.notes`
-(label: `"Notes"`) and once for `document.meals` (label: `"Meals"`).
+`ShoppingListDetailView` calls it for `document.notes` (label: `"Notes"`, with
+`onEdit` wired to `EditNotesSheet`) and for `document.meals` (label: `"Meals"`,
+no `onEdit`). The Notes header is only rendered when `document.notes` contains at
+least one non-whitespace line.
 
 **Interface:**
 
 ```swift
-ShoppingListHeaderView(label: String, lines: [String], storageKey: String)
+ShoppingListHeaderView(label: String, lines: [String], storageKey: String, onEdit: (() -> Void)? = nil)
 ```
 
-`lines` is a pre-formatted array of strings. For notes, the caller passes the
-`Block.lines` content directly. For meals, the caller formats each entry as `"- \(meal)"`.
+`lines` is a pre-formatted array of strings. For notes, `ShoppingListDetailView`
+splits `document.notes` by `"\n"` and filters out blank lines. For meals, each
+entry is formatted as `"- \(meal)"`.
 
 **Rendering rules:**
 
-- The section header button shows `label` as the disclosure label with a chevron icon.
+- The section header shows `label` as the disclosure label with a collapse/expand chevron.
+- When `onEdit` is non-nil, a `square.and.pencil` icon button is placed in the header row and calls the closure when tapped.
 - Each line is rendered via `Text(AttributedString(markdown:))` so inline bold/italic renders correctly. Falls back to plain `Text` if the markdown parse fails.
 - Expanded/collapsed state is persisted per list file and section via `@SceneStorage`,
   keyed by the caller-supplied `storageKey`.
 
-**Read-only contract.** The header view is display-only; there is no text
-editor or tap-to-edit gesture. Users who want to edit the `## Meals` section
-or other free-text notes must do so in a plain-text editor outside the app.
-This is intentional: the header area is considered structured provenance
-metadata, not a user-editable field.
+**Notes edit entry points.** Notes can be edited from two places in `ShoppingListDetailView`:
+
+1. **When notes is empty** — the ellipsis toolbar menu (`…`) shows an "Edit notes" menu item.
+2. **When notes is non-empty** — the Notes `ShoppingListHeaderView` header row shows a pencil icon button.
+
+Both entry points present `EditNotesSheet` as a `.sheet`. The `## Meals` section and aisle
+sections remain read-only; there is no editor for those.
+
+### EditNotesSheet
+
+`EditNotesSheet` (`CookbookApp/ShoppingLists/EditNotesSheet.swift`) is a modal sheet that
+lets the user edit the plain-text notes for a shopping list.
+
+**Interface:**
+
+```swift
+EditNotesSheet(initialNotes: String, listName: String, onSave: (String) -> Void)
+```
+
+The sheet presents a `TextEditor` pre-filled with `initialNotes`, focused on appear.
+"Save" calls `onSave(notesText)` with the current editor content and dismisses. "Cancel"
+discards changes. The caller is responsible for writing the returned string to
+`document.notes` and calling `save()`.
 
 ## Meal Plans tab
 

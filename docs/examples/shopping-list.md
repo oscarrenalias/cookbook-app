@@ -3,9 +3,11 @@
 <!--
   Canonical shopping-list example for ShoppingListDocument.  Structure:
     H1 title        → ShoppingListDocument.title
+    ## Notes        ← plain free-text block; stored in ShoppingListDocument.notes (String)
     ## Meals        ← prose bullets only; stored in ShoppingListDocument.meals
     ## <aisle name> ← GFM checklist items; one ShoppingListAisle per heading
-  Notes: unrecognised pre-heading content lands in ShoppingListDocument.notes and survives round-trip.
+  Notes: ONLY content under a `## Notes` heading is preserved as notes.
+  Free text outside any recognised section heading is discarded on the next save.
   Round-trip is semantic (not byte-identical): renderMarkdown() re-emits canonical form.
 -->
 

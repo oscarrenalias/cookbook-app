@@ -10,13 +10,13 @@ private let logger = Logger(subsystem: "com.cookbookapp", category: "shoppingLis
 public struct ShoppingListDocument: Sendable, Equatable {
     public var title: String?
     public var meals: [String]
-    public var notes: [Block]
+    public var notes: String
     public var aisles: [ShoppingListAisle]
 
     public init(
         title: String? = nil,
         meals: [String] = [],
-        notes: [Block] = [],
+        notes: String = "",
         aisles: [ShoppingListAisle] = []
     ) {
         self.title = title
@@ -48,16 +48,6 @@ public struct ShoppingListEntry: Sendable, Equatable {
     }
 }
 
-/// Free content that the parser could not classify — preserved verbatim so user-authored
-/// notes survive a load/save round-trip.
-public struct Block: Sendable, Equatable {
-    public var lines: [String]
-
-    public init(lines: [String] = []) {
-        self.lines = lines
-    }
-}
-
 /// Positional reference to an item within a `ShoppingListDocument`.
 ///
 /// Valid within a session; not persisted to markdown. `aisle` matches
@@ -77,29 +67,31 @@ public struct ItemIndex: Sendable, Equatable {
 extension ShoppingListDocument {
     /// Parses a vanilla-markdown shopping list into a structured document.
     ///
-    /// Tolerant: unrecognised content lands in `notes` and survives round-trip.
-    /// Round-trip is semantic, not byte-identical — canonical re-rendering on save.
+    /// Notes are captured from a `## Notes` block. Unmodelled free text outside
+    /// recognised sections is discarded. Round-trip is semantic, not byte-identical.
     public init(markdown: String) {
         var title: String? = nil
         var meals: [String] = []
-        var notes: [Block] = []
+        var notes: String = ""
         var aisles: [ShoppingListAisle] = []
 
         let lines = markdown.components(separatedBy: "\n")
 
-        enum CurrentSection { case pre, meals, aisle(String) }
+        enum CurrentSection { case pre, notes, meals, aisle(String), ignored }
         var section: CurrentSection = .pre
-        var preLines: [String] = []
+        var notesLines: [String] = []
         var currentItems: [ShoppingListEntry] = []
         var titleFound = false
+        var notesFound = false
 
         func flush() {
             switch section {
-            case .pre:
-                var buf = preLines
-                while buf.first?.trimmingCharacters(in: .whitespaces).isEmpty == true { buf.removeFirst() }
-                while buf.last?.trimmingCharacters(in: .whitespaces).isEmpty == true { buf.removeLast() }
-                if !buf.isEmpty { notes.append(Block(lines: buf)) }
+            case .pre, .ignored:
+                break
+            case .notes:
+                let joined = notesLines.joined(separator: "\n")
+                notes = joined.hasSuffix("\n") ? String(joined.dropLast()) : joined
+                notesLines = []
             case .meals:
                 break
             case .aisle(let name):
@@ -123,14 +115,26 @@ extension ShoppingListDocument {
             if trimmed.hasPrefix("## ") {
                 let name = String(trimmed.dropFirst(3))
                 flush()
-                preLines = []
-                section = name.lowercased() == "meals" ? .meals : .aisle(name)
+                if name.lowercased() == "meals" {
+                    section = .meals
+                } else if name.lowercased() == "notes" {
+                    if !notesFound {
+                        notesFound = true
+                        section = .notes
+                    } else {
+                        section = .ignored
+                    }
+                } else {
+                    section = .aisle(name)
+                }
                 continue
             }
 
             switch section {
-            case .pre:
-                preLines.append(line)
+            case .pre, .ignored:
+                break
+            case .notes:
+                notesLines.append(line)
             case .meals:
                 // Non-checklist bullets are meals entries; checklist lines and blanks are ignored
                 if trimmed.hasPrefix("- "), !ShoppingListDocument.isChecklistLine(trimmed) {
@@ -172,11 +176,9 @@ extension ShoppingListDocument {
             parts.append("# \(t)")
         }
 
-        for block in notes {
-            let content = block.lines.joined(separator: "\n")
-            if !content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                parts.append(content)
-            }
+        let normalizedNotes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !normalizedNotes.isEmpty {
+            parts.append("## Notes\n\(normalizedNotes)")
         }
 
         if !meals.isEmpty {

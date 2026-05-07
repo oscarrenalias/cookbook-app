@@ -20,6 +20,7 @@ struct ShoppingListDetailView: View {
     @State private var renameDuplicateError = false
     @State private var showRenameError = false
     @State private var renameErrorMessage = ""
+    @State private var showEditNotesSheet = false
 
     private struct EditingItem: Identifiable {
         var id: String { "\(index.aisle)-\(index.position)" }
@@ -60,7 +61,7 @@ struct ShoppingListDetailView: View {
     }
 
     private var notesLines: [String] {
-        document.notes.flatMap(\.lines).filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+        document.notes.components(separatedBy: "\n").filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
     }
 
     private var mealsLines: [String] {
@@ -79,7 +80,7 @@ struct ShoppingListDetailView: View {
         Group {
             if !isLoaded {
                 Color.clear
-            } else if totalCount == 0 {
+            } else if totalCount == 0 && notesLines.isEmpty && document.meals.isEmpty {
                 EmptyStateView(
                     systemImage: "cart",
                     title: "Empty list",
@@ -108,6 +109,13 @@ struct ShoppingListDetailView: View {
                     } label: {
                         Label("Rename…", systemImage: "pencil")
                     }
+                    if document.notes.isEmpty {
+                        Button {
+                            showEditNotesSheet = true
+                        } label: {
+                            Label("Edit notes", systemImage: "square.and.pencil")
+                        }
+                    }
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
                     } label: {
@@ -132,6 +140,15 @@ struct ShoppingListDetailView: View {
                 catalog: catalog
             ) { newText, newAisle in
                 saveEditedItem(item: item, newText: newText, newAisle: newAisle)
+            }
+        }
+        .sheet(isPresented: $showEditNotesSheet) {
+            EditNotesSheet(
+                initialNotes: document.notes,
+                listName: listName
+            ) { updatedNotes in
+                document.notes = updatedNotes
+                save()
             }
         }
         .confirmationDialog(
@@ -180,7 +197,8 @@ struct ShoppingListDetailView: View {
                 ShoppingListHeaderView(
                     label: "Notes",
                     lines: notesLines,
-                    storageKey: "\(headerStorageKey).notes"
+                    storageKey: "\(headerStorageKey).notes",
+                    onEdit: { showEditNotesSheet = true }
                 )
             }
             if !document.meals.isEmpty {
