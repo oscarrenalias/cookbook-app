@@ -334,6 +334,7 @@
     "CookbookAppTests/**/*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/*Parser*.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/*Renderer*.swift",
     "Packages/CookbookCore/Tests/**/*.swift"
   ],
   "touched_files": [
@@ -962,7 +963,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 `ShoppingListDocument.swift` and `ShoppingListDetailView.swift` are within this bead's declared scope. Test file update is low-risk; it only touches tests for the mutated type.\nExisting tests exercising the old behaviour (free text before `##` headings landing in `notes`) will break and must be updated. No file-scope conflicts with other running beads.",
+  "conflict_risks": "None \u2014 `ShoppingListDocument.swift` and `ShoppingListDetailView.swift` are within this bead's declared scope. Test file update is low-risk; it only touches tests for the mutated type.\nExisting tests exercising the old behaviour (free text before `##` headings landing in `notes`) will break and must be updated. No file-scope conflicts with other running beads.\nNone. Only file touched is `ShoppingListDocument.swift`; the change is additive/non-breaking for callers of `renderMarkdown()`.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
