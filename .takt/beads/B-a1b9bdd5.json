@@ -3,7 +3,7 @@
   "title": "Add shared automated coverage for metadata, filter logic, and list view structure",
   "agent_type": "tester",
   "description": "Add and update automated tests covering the new CookbookCore helpers, filter predicate semantics, and Recipes list view structure for the filter button, badge, and sheet presentation.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
   "dependencies": [
@@ -882,9 +882,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.\nRecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).\nRecipesFilterSheet.swift was not modified; no conflict risk there. RecipesActiveFilters.swift gained Codable \u2014 a purely additive protocol conformance, no conflict risk. RecipesListView.swift was fully rewritten; any downstream bead that also touches this file should rebase.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-fddc62d1",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+  "lease": {
+    "owner": "tester:B-a1b9bdd5",
+    "expires_at": "2026-05-07T08:18:05.902670+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -893,9 +896,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T07:48:06.416450+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T07:48:06.416472+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-a1b9bdd5",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-a1b9bdd5/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
