@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-3f8cf2c7",
+  "title": "Add RecipesActiveFilters model and matching rules",
+  "agent_type": "developer",
+  "description": "Introduce a focused filter-state value type for selected tags, optional prep/cook limits, optional difficulty, and optional course. Include active-filter counting plus recipe-matching behavior that encodes the spec's OR-within-tags and AND-across-axes semantics.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fddc62d1",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "A dedicated filter-state type exists with fields for tags, cook time, prep time, difficulty, and course.",
+    "The type exposes an active-filter count used by the toolbar badge.",
+    "Recipe matching excludes recipes missing `cook time` or `prep time` when the corresponding max filter is active and compares difficulty/course case-insensitively."
+  ],
+  "linked_docs": [
+    "specs/drafts/advanced-recipe-search-and-filtering.md"
+  ],
+  "feature_root_id": "B-fddc62d1",
+  "execution_branch_name": "feature/b-fddc62d1",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesActiveFilters.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T07:25:43.912250+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
