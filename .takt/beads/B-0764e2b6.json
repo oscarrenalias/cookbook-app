@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-236cb00a",
+    "B-563ad48b",
+    "B-3f8cf2c7",
+    "B-2b2d043a",
+    "B-343f5971"
+  ],
   "acceptance_criteria": [
     "`docs/architecture.md` explains that Recipes search now matches display name, title, normalized tags, and ingredient names.",
     "The documentation notes that filter options come from catalog-derived metadata values and that filter state is per scene via `@SceneStorage`, not persisted across launches.",
