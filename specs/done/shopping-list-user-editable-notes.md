@@ -5,7 +5,7 @@ description: "Per-shopping-list user-editable Notes field, stored in markdown as
 dependencies: null
 priority: medium
 complexity: low
-status: draft
+status: done
 tags:
 - ui
 - swiftui
@@ -14,7 +14,7 @@ tags:
 scope:
   in: "Add a per-list user-editable Notes field to ShoppingListDocument (replaces the structured-rewrite's notes: [Block] preservation field with notes: String). Parser recognises ## Notes block verbatim; renderer emits ## Notes between title and ## Meals when non-empty, omits when empty. New EditNotesSheet (NavigationStack + TextEditor + Cancel/Save) reachable from a pencil affordance on the leading Notes section header, or from the detail view's ⋯ menu when notes are empty. Tests cover parser, renderer, round-trip fixed-point, and view-structure. Depends on the structured rewrite landing first."
   out: "Per-aisle or per-item notes (separate spec). Live markdown preview in the editor. Undo/history beyond TextEditor's built-in. Auto-save / draft persistence while editor is open. Migration of pre-this-spec preserved free text into ## Notes (deferred). Importing notes from external apps via share sheet."
-feature_root_id: null
+feature_root_id: B-e5f14e6e
 ---
 # Shopping list user-editable notes
 

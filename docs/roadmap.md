@@ -310,9 +310,9 @@ the document model).
 instead of text. First downstream beneficiary: the user-editable
 Notes spec below.
 
-### Shopping list user-editable notes 📝
+### Shopping list user-editable notes ✅
 
-`spec-14771ea4`. **Depends on:** *Structured-model rewrite*.
+`spec-14771ea4`. **Depended on:** *Structured-model rewrite*.
 
 Per-list `## Notes` block, user-editable in-app via a pencil
 affordance on the leading Notes section (or via the detail-view ⋯
@@ -320,6 +320,12 @@ menu when notes are empty). Replaces the structured rewrite's
 `notes: [Block]` preservation field with a `notes: String`. The
 parser now recognises exactly four block kinds (title, Notes,
 Meals, aisles); unmodelled free text is dropped on save.
+
+A new `EditNotesSheet` (NavigationStack + TextEditor + Cancel/Save)
+hosts editing. The detail view's empty-state guard widened from
+"no items" to "no items AND no notes AND no meals" so the editing
+affordances stay reachable when a list carries notes but zero
+items (caught by review and resolved by a corrective bead).
 
 **Unlocks:** quick in-app annotation of shopping lists (store
 reminders, party context, anything that doesn't belong as a
