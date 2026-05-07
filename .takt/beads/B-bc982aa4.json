@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-bc982aa4",
+  "title": "Create RecipeCatalog core model and loader",
+  "agent_type": "developer",
+  "description": "Add the new observable `RecipeCatalog` and its entry/grouping model in `CookbookApp/Recipes/RecipeCatalog.swift`. Implement recursive `.cook` enumeration, eager parsing, thumbnail lookup reuse, parse-failure logging through `Loggers.recipes`, off-main-thread load execution, and main-actor state publication while preserving previous results during reload.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-6c96a024",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`RecipeCatalog` is an `@Observable` type with enough public surface to expose loaded state, loading state, grouped recipes, reload entry points, and access to parsed recipes already in memory.",
+    "Catalog loading walks the configured recipes folder recursively with the same effective recipe scope as the current discovery flow and parses every discovered `.cook` file.",
+    "Malformed recipes are omitted from catalog results and log an error through `Loggers.recipes` with public file path and private error text.",
+    "Reload does not clear existing results before replacement, and state updates occur on the main actor after background work completes."
+  ],
+  "linked_docs": [
+    "spec-fa73e084",
+    "CookbookApp/Recipes/RecipeDiscovery.swift",
+    "CookbookApp/Recipes/RecipeFile.swift"
+  ],
+  "feature_root_id": "B-6c96a024",
+  "execution_branch_name": "feature/b-6c96a024",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeCatalog.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/Recipes/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T06:34:11.243434+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
