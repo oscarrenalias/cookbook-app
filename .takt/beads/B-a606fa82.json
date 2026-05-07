@@ -95,6 +95,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T10:58:27.633830+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-a606fa82/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-a606fa82/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -111,7 +120,68 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-a606fa82/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-a606fa82/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T10:58:27.633814+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-a606fa82",
+      "feature_root_id": "B-437fc5c4",
+      "title": "Implement step pages and completion flow",
+      "agent_type": "developer",
+      "description": "Add step flattening, section-title mapping, per-step ingredient display, paged navigation, swipe-driven `TabView` integration, and the trailing done page for cook mode.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Cook mode flattens `.step` content across recipe sections in declaration order and skips free-text content.",
+        "Each step page shows the correct section-based title fallback, step progress, rendered step text, and step-specific ingredients derived from `ingredientIndices()`.",
+        "A paged `TabView` drives step navigation with Previous/Next buttons sharing the same selected index.",
+        "The page sequence ends with a completion screen that dismisses the full-screen flow via `Done`."
+      ],
+      "dependencies": [
+        "B-55f40a3e",
+        "B-f14416eb",
+        "B-09ce3e88"
+      ],
+      "linked_docs": [
+        "spec-d27daa73",
+        "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md"
+      ],
+      "execution_branch_name": "feature/b-437fc5c4",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+      "expected_files": [
+        "CookbookApp/Recipes/CookModeView.swift",
+        "CookbookApp/Recipes/CookModeStepView.swift",
+        "CookbookApp/Recipes/CookModeIngredientList.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/Recipes/CookMode*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
