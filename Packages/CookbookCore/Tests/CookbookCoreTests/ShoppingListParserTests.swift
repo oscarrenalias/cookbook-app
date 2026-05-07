@@ -77,23 +77,21 @@ struct ShoppingListParserTests {
         #expect(doc.aisles[0].name == "Other")
     }
 
-    // MARK: - Notes block (pre-aisle content)
+    // MARK: - Notes block (only explicit ## Notes sections captured)
 
-    @Test func preAisleContentPreservedAsNoteBlock() {
+    @Test func freeTextBeforeFirstAisleIsDiscarded() {
+        // Pre-aisle free text (including HTML comments) is intentionally dropped;
+        // only an explicit ## Notes block is preserved.
         let md = "# My List\n\n<!-- created: 2026-05-01 -->\n\n## produce\n- [ ] apple\n"
         let doc = ShoppingListDocument(markdown: md)
-        #expect(!doc.notes.isEmpty)
-        let allLines = doc.notes.components(separatedBy: "\n")
-        #expect(allLines.contains("<!-- created: 2026-05-01 -->"))
+        #expect(doc.notes.isEmpty)
     }
 
-    @Test func leadingAndTrailingBlankLinesStrippedFromNoteBlock() {
+    @Test func freeTextWithBlankLinesBeforeAisleIsDiscarded() {
+        // Pre-aisle free text without a ## Notes heading is intentionally dropped on parse.
         let md = "# My List\n\n\nnote line\n\n\n## produce\n- [ ] apple\n"
         let doc = ShoppingListDocument(markdown: md)
-        #expect(!doc.notes.isEmpty)
-        let lines = doc.notes.components(separatedBy: "\n")
-        #expect(lines.first?.trimmingCharacters(in: .whitespaces).isEmpty == false)
-        #expect(lines.last?.trimmingCharacters(in: .whitespaces).isEmpty == false)
+        #expect(doc.notes.isEmpty)
     }
 
     // MARK: - Meals section
