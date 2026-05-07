@@ -3,7 +3,7 @@
   "title": "Implement cook mode session shell and gather phase",
   "agent_type": "developer",
   "description": "Create `CookModeView` with session-scoped state, internal scale locking via `Recipe.scaled(by:)`, idle-timer lifecycle handling, dismiss affordance, and the initial gather-ingredients screen that resets on each entry.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [
@@ -31,37 +31,47 @@
   "expected_globs": [
     "CookbookApp/Recipes/CookMode*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/CookModeView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/CookModeView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Replaced the CookModeView stub with a full implementation: private CookPhase enum (.gatherIngredients / .steps), @State phase and scaledRecipe (locked at session entry via recipe.scaled(by: scale.factor)), idle-timer management via onAppear/onDisappear, NavigationStack with Close toolbar button, and GatherIngredientsPhase (private struct) showing CookModeIngredientList in checklist mode with an unconditional \"Start cooking\" CTA. CookModeIngredientList.swift required no changes \u2014 already complete from prior bead.",
+    "remaining": "The .steps CookPhase case is a ContentUnavailableView placeholder. A follow-up bead must implement the full step-by-step navigator view.",
+    "risks": "Idle-timer restoration relies on onDisappear; app-backgrounding mid-session may still let the screen dim in unusual edge cases. The .steps placeholder must be replaced before the feature ships \u2014 leaving it too long risks it being forgotten.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/Recipes/CookModeView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify idle-timer enable/disable, gather checklist resets on each new fullScreenCover presentation, and that Start cooking advances phase regardless of check state. Then the step-navigator bead should implement CookPhase.steps.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/CookModeView.swift",
+      "CookbookApp/Recipes/CookModeIngredientList.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/CookMode*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/CookModeView.swift"
+    ],
+    "conflict_risks": "None \u2014 CookModeView.swift and CookModeIngredientList.swift are exclusive to this feature branch. RecipeDetailSheet.swift is unchanged and continues to pass recipe + scale to CookModeView correctly.",
+    "design_decisions": "Scale locked at session entry via recipe.scaled(by: scale.factor) stored in @State scaledRecipe; CookModeIngredientList receives scale: .one to avoid double-scaling pre-scaled quantities. GatherIngredientsPhase is a private struct within CookModeView.swift rather than a separate file to keep the file count minimal at this stage. metadata.title used for navigation title (not metadata.name which does not exist on Metadata). ContentUnavailableView used for .steps placeholder \u2014 communicates intent clearly without being a real implementation.",
+    "test_coverage_notes": "No tests written (developer bead). Tester bead should cover: (1) idle timer state transitions, (2) checklist resets across separate fullScreenCover presentations, (3) Start cooking advances to .steps regardless of checked count.",
+    "known_limitations": "UIApplication.shared.isIdleTimerDisabled is not restored to its prior value \u2014 it is unconditionally set to false on dismiss. For this personal-use app this is acceptable, but would need refinement in a multi-consumer setting."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 CookModeView.swift and CookModeIngredientList.swift are exclusive to this feature branch. RecipeDetailSheet.swift is unchanged and continues to pass recipe + scale to CookModeView correctly.",
   "branch_name": "feature/b-437fc5c4",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
-  "lease": {
-    "owner": "developer:B-09ce3e88",
-    "expires_at": "2026-05-07T11:23:33.837025+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -103,6 +113,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-09ce3e88/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T10:58:18.098854+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Implemented CookModeView with session-scoped state, scale locking, idle-timer lifecycle, dismiss affordance, and the gather-ingredients phase. Build is clean.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -179,7 +196,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Implemented CookModeView with session-scoped state, scale locking, idle-timer lifecycle, dismiss affordance, and the gather-ingredients phase. Build is clean.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.54278275,
+      "duration_ms": 276357,
+      "duration_api_ms": 261166,
+      "num_turns": 16,
+      "input_tokens": 14,
+      "output_tokens": 13229,
+      "cache_creation_tokens": 33356,
+      "cache_read_tokens": 393479,
+      "stop_reason": "end_turn",
+      "session_id": "40074790-b041-414a-aa57-16dac02ad9c8",
+      "permission_denials": [],
+      "prompt_chars": 5980,
+      "prompt_lines": 139,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.54278275,
+        "duration_ms": 276357,
+        "duration_api_ms": 261166,
+        "num_turns": 16,
+        "input_tokens": 14,
+        "output_tokens": 13229,
+        "cache_creation_tokens": 33356,
+        "cache_read_tokens": 393479,
+        "stop_reason": "end_turn",
+        "session_id": "40074790-b041-414a-aa57-16dac02ad9c8",
+        "permission_denials": [],
+        "prompt_chars": 5980,
+        "prompt_lines": 139,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "a45bcbbb235ee63dcb278d8ce3e466f78421d4d3"
   },
   "labels": [],
   "recovery_for": null,
