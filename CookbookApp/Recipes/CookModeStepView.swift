@@ -182,6 +182,7 @@ private struct CookModeDonePage: View {
                 .padding(.horizontal)
                 .padding(.bottom)
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
