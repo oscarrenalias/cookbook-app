@@ -7,13 +7,13 @@
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [
-    "B-55f40a3e",
-    "B-52b928b7",
-    "B-f14416eb",
     "B-09ce3e88",
+    "B-3c6975e2",
+    "B-52b928b7",
+    "B-55f40a3e",
     "B-a606fa82",
     "B-e74db0f6",
-    "B-3c6975e2"
+    "B-f14416eb"
   ],
   "acceptance_criteria": [
     "Review confirms implementation matches the spec's in-scope behavior and flags any deviations such as disabled-versus-hidden button treatment or counter styling choices.",
