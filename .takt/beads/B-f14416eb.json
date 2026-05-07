@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-f14416eb",
+  "title": "Create reusable cook mode ingredient list component",
+  "agent_type": "developer",
+  "description": "Introduce a focused ingredient-list view for cook mode that can render scaled ingredient rows in checklist mode for the gather phase and read-only mode for per-step ingredient display.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-437fc5c4",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "A reusable cook-mode ingredient list view exists under `CookbookApp/Recipes`.",
+    "The component supports a checklist presentation suitable for the gather phase.",
+    "The component also supports a read-only presentation suitable for per-step ingredient summaries."
+  ],
+  "linked_docs": [
+    "spec-d27daa73",
+    "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md"
+  ],
+  "feature_root_id": "B-437fc5c4",
+  "execution_branch_name": "feature/b-437fc5c4",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+  "expected_files": [
+    "CookbookApp/Recipes/CookModeIngredientList.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/Recipes/CookMode*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T10:45:28.244675+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

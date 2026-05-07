@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-52b928b7",
+  "title": "Add cook mode launch controls in recipe detail",
+  "agent_type": "developer",
+  "description": "Add the `Cook now` action to the recipe detail bottom bar and wire full-screen presentation state from `RecipeDetailSheet`, including the no-steps gating rule and passing the locked scale into cook mode.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-437fc5c4",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`RecipeBottomBar` exposes a `Cook now` action alongside the existing bottom-bar actions.",
+    "The action is disabled or otherwise suppressed when the parsed recipe has no `.step` content across sections.",
+    "`RecipeDetailSheet` presents cook mode via `.fullScreenCover` and passes the parsed recipe plus current scale into the new flow."
+  ],
+  "linked_docs": [
+    "spec-d27daa73",
+    "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md"
+  ],
+  "feature_root_id": "B-437fc5c4",
+  "execution_branch_name": "feature/b-437fc5c4",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T10:45:28.071008+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
