@@ -366,7 +366,7 @@
     "test_coverage_notes": "",
     "known_limitations": ""
   },
-  "block_reason": "",
+  "block_reason": "file-scope conflict with in-progress B-09ce3e88-subtask",
   "conflict_risks": "None identified. Fix is additive (one modifier on a private struct). No file overlap with other in-flight beads.",
   "branch_name": "",
   "worktree_path": "",
@@ -378,6 +378,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T11:17:26.419531+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-09ce3e88-subtask",
       "details": {}
     }
   ],
