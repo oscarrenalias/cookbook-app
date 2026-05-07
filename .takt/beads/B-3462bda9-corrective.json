@@ -3,7 +3,7 @@
   "title": "Corrective fix for B-3462bda9: Shared feature review",
   "agent_type": "developer",
   "description": "Blocked reason: Finding 1 (Medium \u2014 blocker): In ShoppingListDetailView.swift:83, the guard `totalCount == 0` unconditionally shows EmptyStateView regardless of whether the document has notes. When a list has non-empty notes and zero items, both edit entry points disappear: the toolbar \"Edit notes\" item is only shown when `document.notes.isEmpty` (line 112), and the notes header section lives inside `listContent` which is never rendered. The user has no UI path to view or edit their notes until they add an item back. Fix: change the condition from `totalCount == 0` to `totalCount == 0 && notesLines.isEmpty` (or more broadly `document.notes.isEmpty && document.meals.isEmpty && totalCount == 0`).\n\nRemaining work: One bug requires a fix in ShoppingListDetailView.swift before the feature can merge.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-3462bda9",
   "dependencies": [],
@@ -376,9 +376,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Fix touches ShoppingListDetailView.swift:83 \u2014 the same file used in prior beads. Low conflict risk since the branch is the sole active worktree for this feature root, but xcodegen must be re-run after merge per CLAUDE.md.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-e5f14e6e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+  "lease": {
+    "owner": "developer:B-3462bda9-corrective",
+    "expires_at": "2026-05-07T19:26:39.125271+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -387,10 +390,48 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T18:56:39.325045+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T18:56:39.325069+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
   "metadata": {
-    "auto_corrective_for": "B-3462bda9"
+    "auto_corrective_for": "B-3462bda9",
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-3462bda9-corrective",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-3462bda9-corrective/home",
+    "runner_backend": "claude"
   },
   "labels": [],
   "recovery_for": null,
