@@ -287,7 +287,13 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/AppRoot.swift",
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Tabs/RecipesTab.swift",
     "docs/architecture.md"
@@ -295,6 +301,8 @@
   "expected_globs": [
     "CookbookApp/*.swift",
     "CookbookApp/Recipes/*.swift",
+    "CookbookAppTests/*MealPlan*Tests.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift",
     "docs/*.md"
   ],
   "touched_files": [
@@ -559,7 +567,13 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/AppRoot.swift",
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Tabs/RecipesTab.swift"
   ],
@@ -825,7 +839,13 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/AppRoot.swift",
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookApp/Tabs/RecipesTab.swift"
   ],
@@ -851,7 +871,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.\nNone \u2014 changes are confined to AppRoot.swift and are additive only.\nRecipesTab.swift was outside the declared expected_globs but required updating for the call site. No other sibling beads are known to touch these files.",
+  "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.\nNone \u2014 changes are confined to AppRoot.swift and are additive only.\nRecipesTab.swift was outside the declared expected_globs but required updating for the call site. No other sibling beads are known to touch these files.\nRecipeCatalog.swift touched to fix nonisolated issue \u2014 sibling beads modifying that file should rebase cleanly since the change is additive (keyword-only). MealPlanDetailView.swift now reads from RecipeCatalog environment; any bead that restructures MealPlanDetailView should be aware of the new @Environment(RecipeCatalog.self) dependency.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
