@@ -90,6 +90,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T10:46:44.485733+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-52b928b7/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-52b928b7/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -106,7 +115,63 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-52b928b7/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-52b928b7/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T10:46:44.485706+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-52b928b7",
+      "feature_root_id": "B-437fc5c4",
+      "title": "Add cook mode launch controls in recipe detail",
+      "agent_type": "developer",
+      "description": "Add the `Cook now` action to the recipe detail bottom bar and wire full-screen presentation state from `RecipeDetailSheet`, including the no-steps gating rule and passing the locked scale into cook mode.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`RecipeBottomBar` exposes a `Cook now` action alongside the existing bottom-bar actions.",
+        "The action is disabled or otherwise suppressed when the parsed recipe has no `.step` content across sections.",
+        "`RecipeDetailSheet` presents cook mode via `.fullScreenCover` and passes the parsed recipe plus current scale into the new flow."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-d27daa73",
+        "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md"
+      ],
+      "execution_branch_name": "feature/b-437fc5c4",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
