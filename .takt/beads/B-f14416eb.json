@@ -3,7 +3,7 @@
   "title": "Create reusable cook mode ingredient list component",
   "agent_type": "developer",
   "description": "Introduce a focused ingredient-list view for cook mode that can render scaled ingredient rows in checklist mode for the gather phase and read-only mode for per-step ingredient display.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [],
@@ -25,37 +25,46 @@
   "expected_globs": [
     "CookbookApp/Recipes/CookMode*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/CookModeIngredientList.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/CookModeIngredientList.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Implemented CookModeIngredientList with CookModeIngredientListMode enum (.checklist / .readOnly). Checklist mode renders toggle buttons with strikethrough for checked items, matching IngredientsView's gather pattern. Read-only mode renders a compact non-interactive list. Both modes apply RecipeScale quantity formatting. File registered in the Xcode project via xcodegen; build verified clean.",
+    "remaining": "No remaining work in this bead. Downstream beads consuming this component (e.g., cook mode gather phase or step-detail views) will import it from the same Recipes module.",
+    "risks": "None identified. The component is additive and doesn't modify any existing files.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/CookModeIngredientList.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Pass to tester agent to verify acceptance criteria via UI preview or build validation.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/CookModeIngredientList.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/CookMode*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/CookModeIngredientList.swift"
+    ],
+    "conflict_risks": "No file overlap with other in-flight beads. CookModeIngredientList.swift is a new file.",
+    "design_decisions": "Mode is a plain enum (no associated values) making equality comparison straightforward in ViewBuilder switch. Checked state is internal @State so callers don't manage it; this matches IngredientsView's pattern. Row padding follows the existing IngredientsView/CookwareView visual rhythm (8pt vertical for checklist, 4pt for compact read-only). Dividers omitted intentionally \u2014 the component is designed to be embedded in List rows or custom containers where the parent controls separators.",
+    "test_coverage_notes": "Three #Preview macros cover checklist mode, read-only mode, and empty state. Unit tests not in scope for this bead.",
+    "known_limitations": "Checked state resets when the view is recreated (e.g., navigation pop/push). If persistence of gather state across phase transitions is needed, a future bead should lift @State into a ViewModel or pass a binding."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No file overlap with other in-flight beads. CookModeIngredientList.swift is a new file.",
   "branch_name": "feature/b-437fc5c4",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
-  "lease": {
-    "owner": "developer:B-f14416eb",
-    "expires_at": "2026-05-07T11:20:12.891583+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -97,6 +106,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-f14416eb/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T10:53:32.779945+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created CookModeIngredientList.swift \u2014 a reusable SwiftUI component supporting both checklist (gather phase) and read-only (per-step) presentation modes for cook mode ingredient display.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -167,7 +183,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created CookModeIngredientList.swift \u2014 a reusable SwiftUI component supporting both checklist (gather phase) and read-only (per-step) presentation modes for cook mode ingredient display.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.36389445,
+      "duration_ms": 190205,
+      "duration_api_ms": 164551,
+      "num_turns": 12,
+      "input_tokens": 11,
+      "output_tokens": 7261,
+      "cache_creation_tokens": 22886,
+      "cache_read_tokens": 252740,
+      "stop_reason": "end_turn",
+      "session_id": "17ebd72f-c11e-4106-98c3-9477011ef05b",
+      "permission_denials": [],
+      "prompt_chars": 5671,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.36389445,
+        "duration_ms": 190205,
+        "duration_api_ms": 164551,
+        "num_turns": 12,
+        "input_tokens": 11,
+        "output_tokens": 7261,
+        "cache_creation_tokens": 22886,
+        "cache_read_tokens": 252740,
+        "stop_reason": "end_turn",
+        "session_id": "17ebd72f-c11e-4106-98c3-9477011ef05b",
+        "permission_denials": [],
+        "prompt_chars": 5671,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "c0b56ade6dd1f2df3f72ad3376a937a69b5e4a58"
   },
   "labels": [],
   "recovery_for": null,
