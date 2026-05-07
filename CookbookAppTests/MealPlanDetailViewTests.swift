@@ -30,25 +30,27 @@ struct MealPlanDetailViewTests {
 
     @Test func mealPlanRecipeRowInstantiates() {
         let folder = URL(fileURLWithPath: NSTemporaryDirectory())
-        let recipeFile = RecipeFile(
+        let recipeEntry = RecipeEntry(
             url: folder.appendingPathComponent("Pasta Bolognese.cook"),
-            thumbnailURL: nil
+            thumbnailURL: nil,
+            recipe: Recipe()
         )
         let recipe = MealPlanRecipe(path: "./Pasta/Bolognese")
-        _ = MealPlanRecipeRow(recipe: recipe, recipeFile: recipeFile, onTap: {}, onDelete: {})
+        _ = MealPlanRecipeRow(recipe: recipe, recipeEntry: recipeEntry, onTap: {}, onDelete: {})
     }
 
     @Test func mealPlanRecipeRowInstantiatesWithQuantity() {
         let folder = URL(fileURLWithPath: NSTemporaryDirectory())
-        let recipeFile = RecipeFile(
+        let recipeEntry = RecipeEntry(
             url: folder.appendingPathComponent("Soup.cook"),
-            thumbnailURL: nil
+            thumbnailURL: nil,
+            recipe: Recipe()
         )
         let recipe = MealPlanRecipe(
             path: "./Soup/Minestrone",
             quantity: Quantity(value: .number(4), unit: "servings")
         )
-        _ = MealPlanRecipeRow(recipe: recipe, recipeFile: recipeFile, onTap: {}, onDelete: {})
+        _ = MealPlanRecipeRow(recipe: recipe, recipeEntry: recipeEntry, onTap: {}, onDelete: {})
     }
 
     @Test func mealPlanTextRowInstantiatesWithPlainText() {

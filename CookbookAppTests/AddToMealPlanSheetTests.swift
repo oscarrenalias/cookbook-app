@@ -12,8 +12,8 @@ struct AddToMealPlanSheetTests {
         return dir
     }
 
-    private func makeRecipeFile(name: String = "Pasta") -> RecipeFile {
-        RecipeFile(url: URL(fileURLWithPath: "/tmp/\(name).cook"), thumbnailURL: nil)
+    private func makeRecipeEntry(name: String = "Pasta") -> RecipeEntry {
+        RecipeEntry(url: URL(fileURLWithPath: "/tmp/\(name).cook"), thumbnailURL: nil, recipe: Recipe())
     }
 
     // MARK: - View instantiation
@@ -22,7 +22,7 @@ struct AddToMealPlanSheetTests {
         let folderURL = URL(fileURLWithPath: NSTemporaryDirectory())
         _ = AddToMealPlanSheet(
             recipe: nil,
-            recipeFile: makeRecipeFile(),
+            recipeEntry: makeRecipeEntry(),
             scale: .one,
             folderURL: folderURL,
             onSuccess: { _ in }
@@ -36,7 +36,7 @@ struct AddToMealPlanSheetTests {
         )
         _ = AddToMealPlanSheet(
             recipe: recipe,
-            recipeFile: makeRecipeFile(),
+            recipeEntry: makeRecipeEntry(),
             scale: .one,
             folderURL: folderURL,
             onSuccess: { _ in }
@@ -47,7 +47,7 @@ struct AddToMealPlanSheetTests {
         let folderURL = URL(fileURLWithPath: NSTemporaryDirectory())
         _ = AddToMealPlanSheet(
             recipe: nil,
-            recipeFile: makeRecipeFile(),
+            recipeEntry: makeRecipeEntry(),
             scale: .two,
             folderURL: folderURL,
             onSuccess: { _ in }
