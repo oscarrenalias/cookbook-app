@@ -3,7 +3,7 @@
   "title": "Resolve merge conflicts for Feature Root: Shopping list user-editable notes",
   "agent_type": "developer",
   "description": "Test gate failed for feature/b-e5f14e6e.\n\nCommand: xcodebuild test -project CookbookApp.xcodeproj -scheme CookbookApp -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' -quiet\n\nOutput:\n2026-05-07 22:08:02.229 xcodebuild[38832:77668721] [MT] IDETestOperationsObserverDebug: 115.767 elapsed -- Testing started completed.\n2026-05-07 22:08:02.229 xcodebuild[38832:77668721] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start\n2026-05-07 22:08:02.229 xcodebuild[38832:77668721] [MT] IDETestOperationsObserverDebug: 115.767 sec, +115.767 sec -- end\n** TEST FAILED **\n\nTesting started",
-  "status": "ready",
+  "status": "done",
   "bead_type": "merge-conflict",
   "parent_id": "B-e5f14e6e",
   "dependencies": [],
@@ -49,6 +49,13 @@
       "event": "created",
       "agent_type": "scheduler",
       "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T19:14:26.185060+00:00",
+      "event": "updated",
+      "agent_type": "developer",
+      "summary": "Bead updated via CLI",
       "details": {}
     }
   ],
