@@ -298,6 +298,7 @@
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "CookbookApp/Recipes/RecipesFilterSheet.swift",
+    "CookbookApp/Recipes/RecipesListView.swift",
     "CookbookAppTests/RecipesActiveFiltersTests.swift",
     "CookbookAppTests/RecipesListViewTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift",
@@ -578,6 +579,7 @@
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "CookbookApp/Recipes/RecipesFilterSheet.swift",
+    "CookbookApp/Recipes/RecipesListView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "changed_files": [
@@ -854,6 +856,7 @@
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "CookbookApp/Recipes/RecipesFilterSheet.swift",
+    "CookbookApp/Recipes/RecipesListView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "updated_docs": [],
@@ -878,7 +881,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.\nRecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).",
+  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.\nRecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).\nRecipesFilterSheet.swift was not modified; no conflict risk there. RecipesActiveFilters.swift gained Codable \u2014 a purely additive protocol conformance, no conflict risk. RecipesListView.swift was fully rewritten; any downstream bead that also touches this file should rebase.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
