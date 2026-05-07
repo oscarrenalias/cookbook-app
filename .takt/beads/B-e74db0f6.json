@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
-  "dependencies": [],
+  "dependencies": [
+    "B-55f40a3e",
+    "B-52b928b7",
+    "B-f14416eb",
+    "B-09ce3e88",
+    "B-a606fa82"
+  ],
   "acceptance_criteria": [
     "CookbookCore tests cover empty, single, repeated, and ordered multi-ingredient cases for `Step.ingredientIndices()`.",
     "App tests cover cook-mode entry state, gather-to-step transition, navigation boundary enablement, and done-page indexing.",
