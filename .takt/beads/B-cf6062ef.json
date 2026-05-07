@@ -286,10 +286,12 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/AppRoot.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "docs/architecture.md"
   ],
   "expected_globs": [
+    "CookbookApp/*.swift",
     "CookbookApp/Recipes/*.swift",
     "docs/*.md"
   ],
@@ -554,6 +556,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/AppRoot.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift"
   ],
   "changed_files": [
@@ -817,6 +820,7 @@
     ".takt/beads/B-fdcf9a45.json",
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/AppRoot.swift",
     "CookbookApp/Recipes/RecipeCatalog.swift"
   ],
   "updated_docs": [],
@@ -841,7 +845,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.",
+  "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.\nNone \u2014 changes are confined to AppRoot.swift and are additive only.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
