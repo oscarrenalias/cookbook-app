@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-e1cfe55a"
+  ],
   "acceptance_criteria": [
     "When the parser encounters a trimmed `## Notes` heading, it captures subsequent lines until the next `## ` heading or EOF.",
     "Captured notes preserve internal blank lines and markdown markup verbatim, trimming only one trailing newline from the collected block.",
