@@ -1,9 +1,9 @@
 import os
 
 enum Loggers {
-    static let common = Logger(subsystem: "com.cookbookapp", category: "common")
-    static let shoppingLists = Logger(subsystem: "com.cookbookapp", category: "shoppingLists")
-    static let mealPlans = Logger(subsystem: "com.cookbookapp", category: "mealPlans")
-    static let aisleCatalog = Logger(subsystem: "com.cookbookapp", category: "aisleCatalog")
-    static let recipes = Logger(subsystem: "com.cookbookapp", category: "recipes")
+    static let common = Logger(subsystem: "net.renalias", category: "common")
+    static let shoppingLists = Logger(subsystem: "net.renalias", category: "shoppingLists")
+    static let mealPlans = Logger(subsystem: "net.renalias", category: "mealPlans")
+    static let aisleCatalog = Logger(subsystem: "net.renalias", category: "aisleCatalog")
+    static let recipes = Logger(subsystem: "net.renalias", category: "recipes")
 }
