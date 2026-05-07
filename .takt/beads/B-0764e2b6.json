@@ -297,6 +297,7 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift",
     "docs/architecture.md"
   ],
@@ -573,6 +574,7 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "changed_files": [
@@ -847,6 +849,7 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "updated_docs": [],
@@ -871,7 +874,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.",
+  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
