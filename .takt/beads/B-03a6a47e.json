@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
-  "dependencies": [],
+  "dependencies": [
+    "B-bc982aa4",
+    "B-7ee66ecd"
+  ],
   "acceptance_criteria": [
     "The selected item presented from the recipes list carries or can resolve the parsed `Recipe` from the catalog without disk re-parsing on sheet open.",
     "`RecipeDetailSheet` no longer performs its own file read/parse task or shows the transient loading state for normal catalog-backed opens.",
