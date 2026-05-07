@@ -615,7 +615,11 @@
     "CookbookApp/Recipes/CookModeView.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
+    "CookbookAppTests/CookModeViewTests.swift",
+    "CookbookAppTests/RecipeBottomBarTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/StepTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -903,7 +907,11 @@
     "CookbookApp/Recipes/CookModeView.swift",
     "CookbookApp/Recipes/RecipeBottomBar.swift",
     "CookbookApp/Recipes/RecipeDetailSheet.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
+    "CookbookAppTests/CookModeViewTests.swift",
+    "CookbookAppTests/RecipeBottomBarTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/StepTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
