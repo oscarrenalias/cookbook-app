@@ -7,13 +7,13 @@
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
   "dependencies": [
+    "B-0764e2b6",
     "B-236cb00a",
-    "B-563ad48b",
-    "B-3f8cf2c7",
     "B-2b2d043a",
     "B-343f5971",
-    "B-a1b9bdd5",
-    "B-0764e2b6"
+    "B-3f8cf2c7",
+    "B-563ad48b",
+    "B-a1b9bdd5"
   ],
   "acceptance_criteria": [
     "Review confirms free-text and structured-filter semantics match the spec, including OR-within-tags and exclusion of untimed recipes when time filters are active.",
