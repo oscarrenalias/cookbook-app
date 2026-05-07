@@ -5,7 +5,7 @@ description: "Add structured os.Logger calls to CookbookApp. New Loggers.swift n
 dependencies: null
 priority: medium
 complexity: low
-status: planned
+status: done
 tags:
 - tech-debt
 - observability
