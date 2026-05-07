@@ -301,6 +301,7 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
+    "CookbookApp/Recipes/RecipesFilterSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "expected_globs": [],
@@ -577,6 +578,7 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
+    "CookbookApp/Recipes/RecipesFilterSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "changed_files": [
@@ -852,6 +854,7 @@
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
+    "CookbookApp/Recipes/RecipesFilterSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "updated_docs": [],
@@ -876,7 +879,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.",
+  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.\nDownstream beads touching RecipesListView.swift should coordinate to avoid merge conflicts on that single file.\nRecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
