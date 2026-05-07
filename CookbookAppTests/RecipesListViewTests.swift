@@ -24,12 +24,38 @@ struct RecipesListViewTests {
         RecipeEntry(url: URL(fileURLWithPath: "/tmp/\(name).cook"), thumbnailURL: nil, recipe: Recipe())
     }
 
-    private func applyFilter(query: String, to sections: [CatalogSection]) -> [CatalogSection] {
+    private func makeEntry(name: String, metadata: [(String, String)] = [], ingredients: [String] = []) -> RecipeEntry {
+        let recipe = Recipe(
+            metadata: Metadata(metadata),
+            ingredients: ingredients.map { Ingredient(name: $0) }
+        )
+        return RecipeEntry(url: URL(fileURLWithPath: "/tmp/\(name).cook"), thumbnailURL: nil, recipe: recipe)
+    }
+
+    // Models RecipesListView.entryMatchesQuery + RecipesActiveFilters.matches composition.
+    private func applyFilter(
+        query: String,
+        filters: RecipesActiveFilters = .inactive,
+        to sections: [CatalogSection]
+    ) -> [CatalogSection] {
         let base = sections.filter { !$0.entries.isEmpty }
-        guard !query.isEmpty else { return base }
+        let hasQuery = !query.isEmpty
+        let hasFilters = !filters.isEmpty
+        guard hasQuery || hasFilters else { return base }
         return base.compactMap { section in
-            let matching = section.entries.filter {
-                $0.displayName.localizedCaseInsensitiveContains(query)
+            let matching = section.entries.filter { entry in
+                let passesQuery: Bool
+                if hasQuery {
+                    let recipe = entry.recipe
+                    passesQuery =
+                        entry.displayName.localizedCaseInsensitiveContains(query) ||
+                        (recipe.metadata.title.map { $0.localizedCaseInsensitiveContains(query) } ?? false) ||
+                        recipe.metadata.normalizedTags.contains(where: { $0.localizedCaseInsensitiveContains(query) }) ||
+                        recipe.ingredients.contains(where: { $0.name.localizedCaseInsensitiveContains(query) })
+                } else {
+                    passesQuery = true
+                }
+                return passesQuery && (!hasFilters || filters.matches(entry.recipe))
             }
             return matching.isEmpty ? nil : CatalogSection(name: section.name, entries: matching)
         }
@@ -105,6 +131,70 @@ struct RecipesListViewTests {
         ]
         let result = applyFilter(query: "pasta", to: sections)
         #expect(result.count == 2)
+    }
+
+    // MARK: - Broadened search: title, tags, ingredients
+
+    @Test func queryMatchesRecipeMetadataTitle() {
+        let entry = makeEntry(name: "untitled", metadata: [("title", "Carbonara Classica")])
+        let sections = [CatalogSection(name: "Italian", entries: [entry])]
+        let result = applyFilter(query: "carbonara", to: sections)
+        #expect(result.count == 1)
+        #expect(result[0].entries[0].displayName == "untitled")
+    }
+
+    @Test func queryMatchesNormalizedTag() {
+        let entry = makeEntry(name: "dish", metadata: [("tags", "Comfort Food")])
+        let sections = [CatalogSection(name: "Mains", entries: [entry])]
+        let result = applyFilter(query: "comfort food", to: sections)
+        #expect(result.count == 1)
+    }
+
+    @Test func queryMatchesIngredientName() {
+        let entry = makeEntry(name: "dish", ingredients: ["chicken breast"])
+        let sections = [CatalogSection(name: "Mains", entries: [entry])]
+        let result = applyFilter(query: "chicken", to: sections)
+        #expect(result.count == 1)
+    }
+
+    @Test func queryDoesNotMatchUnrelatedEntry() {
+        let entry = makeEntry(name: "soup", metadata: [("title", "Tomato Bisque")], ingredients: ["tomato"])
+        let sections = [CatalogSection(name: "Soups", entries: [entry])]
+        let result = applyFilter(query: "chicken", to: sections)
+        #expect(result.isEmpty)
+    }
+
+    // MARK: - Filter + query AND composition
+
+    @Test func filterAndQueryBothMustPassForEntry() {
+        var f = RecipesActiveFilters()
+        f.selectedTags = ["vegan"]
+        let veganPasta = makeEntry(name: "Pasta", metadata: [("tags", "vegan")])
+        let veganSoup = makeEntry(name: "Soup", metadata: [("tags", "vegan")])
+        let sections = [CatalogSection(name: "Mains", entries: [veganPasta, veganSoup])]
+        let result = applyFilter(query: "pasta", filters: f, to: sections)
+        #expect(result.count == 1)
+        #expect(result[0].entries[0].displayName == "Pasta")
+    }
+
+    @Test func filterOnlyWithNoQueryReturnsMatchingEntries() {
+        var f = RecipesActiveFilters()
+        f.selectedTags = ["vegan"]
+        let veganEntry = makeEntry(name: "Salad", metadata: [("tags", "vegan")])
+        let meatEntry = makeEntry(name: "Steak")
+        let sections = [CatalogSection(name: "Mains", entries: [veganEntry, meatEntry])]
+        let result = applyFilter(query: "", filters: f, to: sections)
+        #expect(result.count == 1)
+        #expect(result[0].entries[0].displayName == "Salad")
+    }
+
+    @Test func sectionDroppedWhenFilterExcludesAllEntries() {
+        var f = RecipesActiveFilters()
+        f.difficulty = "Easy"
+        let entry = makeEntry(name: "Steak", metadata: [("difficulty", "Hard")])
+        let sections = [CatalogSection(name: "Mains", entries: [entry])]
+        let result = applyFilter(query: "", filters: f, to: sections)
+        #expect(result.isEmpty)
     }
 
     // MARK: - Catalog state: not-loaded vs loaded-but-empty

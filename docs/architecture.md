@@ -99,6 +99,9 @@ truth for all recipe data**. It is created by `AppRoot`, wired via
 | `load(from:)` | method | Sets the folder URL and triggers an initial scan |
 | `reload()` | method | Re-scans using the stored folder URL; used by pull-to-refresh |
 | `entry(for:)` | method | Lookup a `RecipeEntry` by URL across all sections |
+| `tagCorpus` | `[String]` | Normalized tags across all recipes, ordered by descending frequency then alphabetically |
+| `difficultyValues` | `[String]` | Unique `metadata["difficulty"]` values sorted alphabetically |
+| `courseValues` | `[String]` | Unique `metadata["meal type"]` / `metadata["meal_type"]` values sorted alphabetically |
 
 **`RecipeEntry`** is the per-recipe value type produced by the scan:
 
@@ -161,6 +164,67 @@ for reuse by future specs:
 and search-clear behaviour are implemented per spec 0003 but cannot be
 unit-tested. These require manual visual review by the user before
 shipping.
+
+### Advanced search and filter system
+
+#### Recipe search predicate
+
+`RecipesListView` matches a non-empty search query against four fields on each `RecipeEntry`:
+
+| Field | Source |
+|-------|--------|
+| Display name | `entry.displayName` (filename without `.cook`) |
+| Title | `recipe.metadata.title` |
+| Tags | `recipe.metadata.normalizedTags` (each tag checked individually) |
+| Ingredients | `recipe.ingredients[*].name` |
+
+All comparisons use `localizedCaseInsensitiveContains`. A recipe passes if any field matches (OR semantics across fields). Search and filter compose with AND: a recipe must satisfy both the search query and every active filter axis.
+
+#### Filter model: RecipesActiveFilters
+
+`RecipesActiveFilters` (`CookbookApp/Recipes/RecipesActiveFilters.swift`) is a `Codable, Equatable, Sendable` value type that carries the user's active filter state across five axes:
+
+| Axis | Type | Semantics |
+|------|------|-----------|
+| `selectedTags` | `Set<String>` | OR — recipe must share at least one normalized tag with the selection |
+| `maxCookTimeMinutes` | `Int?` | Inclusive upper bound on cook time; `nil` = no filter |
+| `maxPrepTimeMinutes` | `Int?` | Inclusive upper bound on prep time; `nil` = no filter |
+| `difficulty` | `String?` | Case-insensitive exact match on `metadata["difficulty"]` |
+| `course` | `String?` | Case-insensitive exact match on `metadata["meal type"]` / `metadata["meal_type"]` |
+
+All active axes compose with AND. `RecipesActiveFilters.inactive` is the zero-value (all axes `nil` or empty).
+
+**Under-time exclusion rule.** When `maxCookTimeMinutes` (or `maxPrepTimeMinutes`) is non-nil, recipes whose metadata contains no parseable time value for that key are **excluded**. Only recipes with an explicit time ≤ the limit pass. Time values are resolved via `Metadata.minutes(forKey:)`, which tries both the spaced form (`"cook time"`) and the underscored form (`"cook_time"`).
+
+#### Catalog-derived filter options
+
+Filter option lists are computed from `RecipeCatalog`'s derived properties (described in the public surface table above). These properties scan `catalog.sections` on each access and reflect whatever is currently loaded — they are not cached independently. `RecipesFilterSheet` reads them directly from the `catalog` reference it receives at init time, so filter options always match the current recipe set.
+
+#### Filter state storage
+
+Filter state in `RecipesListView` is stored as `@SceneStorage("recipes.activeFilters")` — a JSON-encoded `Data` blob. This means:
+
+- State is scoped to the current UIScene and participates in iOS scene state restoration.
+- Different scenes have independent filter state; there is no cross-scene or cross-launch global default.
+- Filter state is **not** stored in `UserDefaults` and is not a user-configurable preference.
+
+Collapsed-folder state uses the same mechanism: `@SceneStorage("recipes.collapsedFolders")`.
+
+#### RecipesFilterSheet
+
+`RecipesFilterSheet` (`CookbookApp/Recipes/RecipesFilterSheet.swift`) is the modal filter UI presented from the trailing toolbar button in `RecipesListView`. It is callback-based:
+
+```swift
+RecipesFilterSheet(catalog: RecipeCatalog, filters: RecipesActiveFilters, onApply: (RecipesActiveFilters) -> Void)
+```
+
+The sheet stages a local copy of the filters (`@State private var staged`). "Apply" calls `onApply(staged)` and dismisses. "Cancel" discards staged changes. "Clear All" (bottom bar, destructive) resets staged to `.inactive` without dismissing.
+
+Tag, difficulty, and course sections are hidden when the catalog contains no values for them.
+
+#### Filter empty-state affordance
+
+When active filters (with or without a search query) produce no matching recipes, `RecipesListView` renders a dedicated empty-state view distinct from the no-results search state. This view displays a "Clear Filters" button that resets filters to `.inactive` inline, without requiring the user to reopen the filter sheet.
 
 ## CookLang parser
 

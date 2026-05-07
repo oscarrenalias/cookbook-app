@@ -42,6 +42,41 @@ final class RecipeCatalog {
 
     private var folderURL: URL?
 
+    // MARK: - Derived filter value collections
+
+    private var allEntries: [RecipeEntry] {
+        sections.flatMap(\.entries)
+    }
+
+    /// Normalized tag corpus ordered by descending frequency, then alphabetically.
+    var tagCorpus: [String] {
+        var frequency: [String: Int] = [:]
+        for entry in allEntries {
+            for tag in entry.recipe.metadata.normalizedTags {
+                frequency[tag, default: 0] += 1
+            }
+        }
+        return frequency.keys.sorted { lhs, rhs in
+            let lf = frequency[lhs]!
+            let rf = frequency[rhs]!
+            return lf != rf ? lf > rf : lhs < rhs
+        }
+    }
+
+    /// Unique difficulty values sorted alphabetically.
+    var difficultyValues: [String] {
+        let raw = allEntries.compactMap { $0.recipe.metadata["difficulty"] }
+        return Array(Set(raw)).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+    }
+
+    /// Unique course/meal-type values sorted alphabetically.
+    var courseValues: [String] {
+        let raw = allEntries.compactMap {
+            $0.recipe.metadata["meal type"] ?? $0.recipe.metadata["meal_type"]
+        }
+        return Array(Set(raw)).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+    }
+
     func load(from folderURL: URL) {
         self.folderURL = folderURL
         performLoad(folderURL: folderURL)
