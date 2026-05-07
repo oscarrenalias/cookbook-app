@@ -3,7 +3,7 @@
   "title": "Migrate detail flow to parsed catalog entries",
   "agent_type": "developer",
   "description": "Update the recipe detail presentation path so selection and sheet rendering use a richer catalog-backed recipe entry with parsed `Recipe` content already available. Remove the detail view's parse-on-appear task and loading placeholder while keeping existing bottom-bar integrations working.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
   "dependencies": [
@@ -34,33 +34,77 @@
     "CookbookAppTests/*MealPlan*Tests.swift",
     "CookbookAppTests/AddToMealPlanSheetTests.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift",
+    "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanItemRow.swift",
+    "CookbookApp/Recipes/RecipeCatalog.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
+    "CookbookApp/Recipes/RecipesListView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All acceptance criteria met: (1) `RecipeEntry` carries the parsed `Recipe` \u2014 no disk re-parse on sheet open; (2) `RecipeDetailSheet` no longer has a `.task(id:)` load step or `ProgressView` loading state; (3) `RecipeDetailSheet`, `RecipeHeroHeader`, `RecipeRowView`, `RecipesListView`, `AddToMealPlanSheet`, `MealPlanItemRow`, and `MealPlanDetailView` all compile against `RecipeEntry` instead of `RecipeFile`. Bottom-bar integrations (`AddToMealPlanSheet`, `AddToShoppingListSheet`) continue working \u2014 the former now receives `recipeEntry: RecipeEntry` and uses `.url`, the latter receives `recipe: recipe.recipe`. `RecipeCatalog` static helpers marked `nonisolated` to fix pre-existing Swift 6 concurrency error blocking the build.",
+    "remaining": "No outstanding work for this bead.",
+    "risks": "MealPlanDetailView now captures `recipeCatalog.sections` before the detached load task \u2014 correct for the warm-catalog path but falls back to inline parsing for any recipe referenced in a meal plan that isn't in the catalog (e.g. stale path, catalog not yet loaded). The fallback produces a `RecipeEntry` with an empty `Recipe()`; in the rare case the catalog is empty at plan-open time the recipe detail sheet would show an empty recipe until the catalog reloads.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookApp/MealPlans/MealPlanItemRow.swift",
+      "CookbookApp/Recipes/RecipeCatalog.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipeHeroHeader.swift",
+      "CookbookApp/Recipes/RecipeRowView.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Hand off to tester agent for verification of catalog-backed detail open (no flash/loading state), bottom-bar add-to-meal-plan and add-to-shopping-list flows, and meal plan detail recipe tap path.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipeRowView.swift",
+      "CookbookApp/Recipes/RecipeHeroHeader.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/*.swift",
+      "CookbookAppTests/*MealPlan*Tests.swift",
+      "CookbookAppTests/AddToMealPlanSheetTests.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookApp/MealPlans/MealPlanItemRow.swift",
+      "CookbookApp/Recipes/RecipeCatalog.swift",
+      "CookbookApp/Recipes/RecipeDetailSheet.swift",
+      "CookbookApp/Recipes/RecipeHeroHeader.swift",
+      "CookbookApp/Recipes/RecipeRowView.swift",
+      "CookbookApp/Recipes/RecipesListView.swift"
+    ],
+    "conflict_risks": "RecipeCatalog.swift touched to fix nonisolated issue \u2014 sibling beads modifying that file should rebase cleanly since the change is additive (keyword-only). MealPlanDetailView.swift now reads from RecipeCatalog environment; any bead that restructures MealPlanDetailView should be aware of the new @Environment(RecipeCatalog.self) dependency.",
+    "design_decisions": "MealPlanDetailView was updated to use RecipeCatalog for lookup rather than keeping RecipeFile, because changing RecipeDetailSheet to RecipeEntry would otherwise require a separate init overload or protocol. The catalog-first lookup eliminates double-parsing for the common path; inline fallback (parse from disk) covers stale or not-yet-catalogued references without breaking the meal plan flow.",
+    "test_coverage_notes": "No test files were modified. Existing MealPlan and AddToMealPlanSheet tests should be checked for compilation against the renamed recipeEntry parameter. The expected_globs include those test files.",
+    "known_limitations": "RecipeFile type is kept (used by RecipeDiscovery dead code) but is no longer part of any live call path. It can be removed in a follow-up cleanup bead once RecipeDiscovery is also removed."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "RecipeCatalog.swift touched to fix nonisolated issue \u2014 sibling beads modifying that file should rebase cleanly since the change is additive (keyword-only). MealPlanDetailView.swift now reads from RecipeCatalog environment; any bead that restructures MealPlanDetailView should be aware of the new @Environment(RecipeCatalog.self) dependency.",
+  "branch_name": "feature/b-6c96a024",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -70,9 +114,173 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T06:45:57.275979+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T06:45:57.276000+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T06:46:01.329134+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-03a6a47e/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-03a6a47e/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-07T06:58:27.870488+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Migrated the recipe detail presentation path from `RecipeFile` to `RecipeEntry`. All catalog-backed call sites now pass the already-parsed `Recipe` directly; `RecipeDetailSheet` no longer loads or parses from disk on open. The pre-existing `RecipeCatalog` `nonisolated` Swift 6 concurrency error was also fixed in the same pass.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-03a6a47e",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-03a6a47e/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-03a6a47e/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T06:46:01.329114+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-03a6a47e",
+      "feature_root_id": "B-6c96a024",
+      "title": "Migrate detail flow to parsed catalog entries",
+      "agent_type": "developer",
+      "description": "Update the recipe detail presentation path so selection and sheet rendering use a richer catalog-backed recipe entry with parsed `Recipe` content already available. Remove the detail view's parse-on-appear task and loading placeholder while keeping existing bottom-bar integrations working.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "The selected item presented from the recipes list carries or can resolve the parsed `Recipe` from the catalog without disk re-parsing on sheet open.",
+        "`RecipeDetailSheet` no longer performs its own file read/parse task or shows the transient loading state for normal catalog-backed opens.",
+        "Any directly impacted recipe UI types and sheet call sites compile against the replacement entry type instead of `RecipeFile`."
+      ],
+      "dependencies": [
+        "B-bc982aa4",
+        "B-7ee66ecd"
+      ],
+      "linked_docs": [
+        "spec-fa73e084",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookApp/Recipes/RecipeRowView.swift",
+        "CookbookApp/Recipes/RecipeHeroHeader.swift"
+      ],
+      "execution_branch_name": "feature/b-6c96a024",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookApp/Recipes/RecipeRowView.swift",
+        "CookbookApp/Recipes/RecipeHeroHeader.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/Recipes/*.swift",
+        "CookbookAppTests/*MealPlan*Tests.swift",
+        "CookbookAppTests/AddToMealPlanSheetTests.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Migrated the recipe detail presentation path from `RecipeFile` to `RecipeEntry`. All catalog-backed call sites now pass the already-parsed `Recipe` directly; `RecipeDetailSheet` no longer loads or parses from disk on open. The pre-existing `RecipeCatalog` `nonisolated` Swift 6 concurrency error was also fixed in the same pass.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 2.5648248500000004,
+      "duration_ms": 745638,
+      "duration_api_ms": 668852,
+      "num_turns": 81,
+      "input_tokens": 77,
+      "output_tokens": 41389,
+      "cache_creation_tokens": 94114,
+      "cache_read_tokens": 5201310,
+      "stop_reason": "end_turn",
+      "session_id": "5d21a926-55ac-4491-a435-4dae53b5db71",
+      "permission_denials": [],
+      "prompt_chars": 6254,
+      "prompt_lines": 143,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 2.5648248500000004,
+        "duration_ms": 745638,
+        "duration_api_ms": 668852,
+        "num_turns": 81,
+        "input_tokens": 77,
+        "output_tokens": 41389,
+        "cache_creation_tokens": 94114,
+        "cache_read_tokens": 5201310,
+        "stop_reason": "end_turn",
+        "session_id": "5d21a926-55ac-4491-a435-4dae53b5db71",
+        "permission_denials": [],
+        "prompt_chars": 6254,
+        "prompt_lines": 143,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "ebcb048d2a5abde6e86bd3534457b3289bd1dfd7"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null

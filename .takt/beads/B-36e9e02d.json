@@ -3,7 +3,7 @@
   "title": "Remove obsolete discovery/file-only recipe surfaces",
   "agent_type": "developer",
   "description": "Delete or retire `RecipeDiscovery` and `RecipeFile`, replace remaining direct references with catalog-backed equivalents, and keep any non-required flows compiling against the new entry model without broad behavior changes.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
   "dependencies": [
@@ -31,33 +31,75 @@
     "CookbookApp/**/*.swift",
     "CookbookAppTests/**/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp.xcodeproj",
+    "CookbookApp/Recipes/RecipeDiscovery.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift",
+    "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipeEntryTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift"
+  ],
+  "changed_files": [
+    "CookbookApp.xcodeproj",
+    "CookbookApp/Recipes/RecipeDiscovery.swift",
+    "CookbookApp/Recipes/RecipeFile.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift",
+    "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipeEntryTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Production code: RecipeDiscovery.swift and RecipeFile.swift deleted. Test code: RecipeDiscoveryTests.swift and RecipeFileTests.swift deleted; AddToMealPlanSheetTests.swift and MealPlanDetailViewTests.swift updated to use RecipeEntry; RecipeEntryTests.swift created. xcodeproj regenerated. Build passes.",
+    "remaining": "No remaining work for this bead. Catalog-level scan behavior (equivalent to former RecipeDiscoveryTests) has no test coverage \u2014 a future spec could add async RecipeCatalog integration tests if desired.",
+    "risks": "RecipeDiscovery scan tests were deleted rather than ported: RecipeCatalog.scan() is private so direct testing isn't possible without API changes. The scanning logic is structurally identical to the deleted code but is not covered by unit tests. This is acceptable for now but leaves a coverage gap.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp.xcodeproj",
+      "CookbookApp/Recipes/RecipeDiscovery.swift",
+      "CookbookApp/Recipes/RecipeFile.swift",
+      "CookbookAppTests/AddToMealPlanSheetTests.swift",
+      "CookbookAppTests/MealPlanDetailViewTests.swift",
+      "CookbookAppTests/RecipeDiscoveryTests.swift",
+      "CookbookAppTests/RecipeEntryTests.swift",
+      "CookbookAppTests/RecipeFileTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Bead is complete. Tester agent can run the suite against the migrated test files.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/RecipeDiscovery.swift",
+      "CookbookApp/Recipes/RecipeFile.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/**/*.swift",
+      "CookbookAppTests/**/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp.xcodeproj",
+      "CookbookApp/Recipes/RecipeDiscovery.swift",
+      "CookbookApp/Recipes/RecipeFile.swift",
+      "CookbookAppTests/AddToMealPlanSheetTests.swift",
+      "CookbookAppTests/MealPlanDetailViewTests.swift",
+      "CookbookAppTests/RecipeDiscoveryTests.swift",
+      "CookbookAppTests/RecipeEntryTests.swift",
+      "CookbookAppTests/RecipeFileTests.swift"
+    ],
+    "conflict_risks": "None. All touched files were within this bead's declared scope. No sibling beads claim RecipeDiscovery.swift or RecipeFile.swift.",
+    "design_decisions": "RecipeDiscoveryTests were deleted rather than ported to RecipeCatalog because RecipeCatalog.scan() is private and the async load(from:) path would require substantial test infrastructure changes beyond this bead's scope. RecipeFileTests were replaced with RecipeEntryTests covering identical displayName behaviour on the new model.",
+    "test_coverage_notes": "RecipeEntry.displayName is now covered by RecipeEntryTests. AddToMealPlanSheet instantiation tests updated. MealPlanRecipeRow instantiation tests updated. RecipeCatalog scan/section ordering behaviour has no unit test coverage \u2014 gap noted for future bead.",
+    "known_limitations": "RecipeCatalog.scan() is private; no direct unit test for the scanning/sorting logic that replaced RecipeDiscovery.scan(). Behaviour is exercised at runtime via load(from:) but not in the test suite."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "None. All touched files were within this bead's declared scope. No sibling beads claim RecipeDiscovery.swift or RecipeFile.swift.",
+  "branch_name": "feature/b-6c96a024",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -67,9 +109,170 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T06:58:29.661587+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T06:58:29.661609+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T06:58:33.341510+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-36e9e02d/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-36e9e02d/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-07T07:04:03.900277+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Removed RecipeDiscovery and RecipeFile entirely. Deleted RecipeDiscovery.swift, RecipeFile.swift, RecipeDiscoveryTests.swift, and RecipeFileTests.swift. Fixed AddToMealPlanSheetTests and MealPlanDetailViewTests to use RecipeEntry instead of RecipeFile. Created RecipeEntryTests.swift porting displayName coverage to the new model. Regenerated xcodeproj via xcodegen; build passes clean (exit code 0).",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-36e9e02d",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-36e9e02d/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-36e9e02d/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T06:58:33.341489+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-36e9e02d",
+      "feature_root_id": "B-6c96a024",
+      "title": "Remove obsolete discovery/file-only recipe surfaces",
+      "agent_type": "developer",
+      "description": "Delete or retire `RecipeDiscovery` and `RecipeFile`, replace remaining direct references with catalog-backed equivalents, and keep any non-required flows compiling against the new entry model without broad behavior changes.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Production code no longer depends on `RecipeDiscovery.scan` for recipe list loading.",
+        "`RecipeFile` is removed or fully replaced by the richer catalog entry model across required production call sites.",
+        "Obsolete direct references in impacted production and test code are updated so the recipe data layer has a single authoritative catalog path."
+      ],
+      "dependencies": [
+        "B-bc982aa4",
+        "B-03a6a47e"
+      ],
+      "linked_docs": [
+        "spec-fa73e084",
+        "CookbookApp/Recipes/RecipeDiscovery.swift",
+        "CookbookApp/Recipes/RecipeFile.swift"
+      ],
+      "execution_branch_name": "feature/b-6c96a024",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipeDiscovery.swift",
+        "CookbookApp/Recipes/RecipeFile.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/**/*.swift",
+        "CookbookAppTests/**/*.swift"
+      ],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Removed RecipeDiscovery and RecipeFile entirely. Deleted RecipeDiscovery.swift, RecipeFile.swift, RecipeDiscoveryTests.swift, and RecipeFileTests.swift. Fixed AddToMealPlanSheetTests and MealPlanDetailViewTests to use RecipeEntry instead of RecipeFile. Created RecipeEntryTests.swift porting displayName coverage to the new model. Regenerated xcodeproj via xcodegen; build passes clean (exit code 0).",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.8630510000000001,
+      "duration_ms": 329654,
+      "duration_api_ms": 294361,
+      "num_turns": 28,
+      "input_tokens": 23,
+      "output_tokens": 15512,
+      "cache_creation_tokens": 48981,
+      "cache_read_tokens": 975679,
+      "stop_reason": "end_turn",
+      "session_id": "f8b1c2f1-48e0-458a-9cc3-a17da97e7d2f",
+      "permission_denials": [],
+      "prompt_chars": 5911,
+      "prompt_lines": 139,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.8630510000000001,
+        "duration_ms": 329654,
+        "duration_api_ms": 294361,
+        "num_turns": 28,
+        "input_tokens": 23,
+        "output_tokens": 15512,
+        "cache_creation_tokens": 48981,
+        "cache_read_tokens": 975679,
+        "stop_reason": "end_turn",
+        "session_id": "f8b1c2f1-48e0-458a-9cc3-a17da97e7d2f",
+        "permission_denials": [],
+        "prompt_chars": 5911,
+        "prompt_lines": 139,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "ddf1221e316dc6f77d713d479f6d1f9074947cf0"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
