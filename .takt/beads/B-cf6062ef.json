@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
-  "dependencies": [],
+  "dependencies": [
+    "B-bc982aa4",
+    "B-e3a5b9a6",
+    "B-7ee66ecd",
+    "B-03a6a47e",
+    "B-36e9e02d"
+  ],
   "acceptance_criteria": [
     "`docs/architecture.md` documents `RecipeCatalog` as the app-session source of truth for recipes.",
     "Documentation removes or rewrites outdated explanations centered on `RecipeDiscovery` and per-open parsing in `RecipeDetailSheet`.",
