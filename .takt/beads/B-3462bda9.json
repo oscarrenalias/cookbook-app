@@ -3,7 +3,7 @@
   "title": "Shared feature review",
   "agent_type": "review",
   "description": "Perform a final cross-cutting review of the completed notes feature for correctness, regression risk, test sufficiency, and alignment with the spec's locked decisions before merge.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -1022,7 +1022,10 @@
   "conflict_risks": "Fix touches ShoppingListDetailView.swift:83 \u2014 the same file used in prior beads. Low conflict risk since the branch is the sole active worktree for this feature root, but xcodegen must be re-run after merge per CLAUDE.md.",
   "branch_name": "feature/b-e5f14e6e",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-3462bda9",
+    "expires_at": "2026-05-07T19:28:39.360194+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -1083,6 +1086,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-3462bda9-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T18:58:39.521877+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T18:58:39.521896+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
