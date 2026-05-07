@@ -34,7 +34,7 @@ struct CatalogSection {
 @Observable
 @MainActor
 final class RecipeCatalog {
-    static let noFolderSectionName = "(no folder)"
+    nonisolated static let noFolderSectionName = "(no folder)"
 
     private(set) var sections: [CatalogSection] = []
     private(set) var isLoaded: Bool = false
@@ -73,7 +73,7 @@ final class RecipeCatalog {
         }
     }
 
-    private static func scan(folderURL: URL) -> [CatalogSection] {
+    private nonisolated static func scan(folderURL: URL) -> [CatalogSection] {
         Loggers.recipes.debug("[RecipeCatalog] scan: entry folder=\(folderURL.path, privacy: .public)")
 
         let didStartAccess = folderURL.startAccessingSecurityScopedResource()
@@ -136,7 +136,7 @@ final class RecipeCatalog {
         return result
     }
 
-    private static func cookEntries(in directoryURL: URL, resourceKeys: [URLResourceKey]) -> [RecipeEntry] {
+    private nonisolated static func cookEntries(in directoryURL: URL, resourceKeys: [URLResourceKey]) -> [RecipeEntry] {
         guard let contents = try? FileManager.default.contentsOfDirectory(
             at: directoryURL,
             includingPropertiesForKeys: resourceKeys,
@@ -157,7 +157,7 @@ final class RecipeCatalog {
         }
     }
 
-    private static func parseEntry(at url: URL) -> RecipeEntry? {
+    private nonisolated static func parseEntry(at url: URL) -> RecipeEntry? {
         let thumbnailURL = findThumbnail(for: url)
         do {
             let content = try String(contentsOf: url, encoding: .utf8)
@@ -171,7 +171,7 @@ final class RecipeCatalog {
         }
     }
 
-    private static func findThumbnail(for recipeURL: URL) -> URL? {
+    private nonisolated static func findThumbnail(for recipeURL: URL) -> URL? {
         let base = recipeURL.deletingPathExtension()
         for ext in ["jpg", "jpeg", "png", "heic"] {
             let candidate = base.appendingPathExtension(ext)

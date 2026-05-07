@@ -1,7 +1,8 @@
 import SwiftUI
+import CookbookCore
 
 struct RecipeHeroHeader: View {
-    let recipe: RecipeFile
+    let recipe: RecipeEntry
     let onDismiss: () -> Void
 
     private let heroHeight: CGFloat = 260
@@ -78,9 +79,10 @@ struct RecipeHeroHeader: View {
 #Preview {
     VStack(spacing: 0) {
         RecipeHeroHeader(
-            recipe: RecipeFile(
+            recipe: RecipeEntry(
                 url: URL(fileURLWithPath: "/tmp/Creamy Garlic Chicken Pasta.cook"),
-                thumbnailURL: nil
+                thumbnailURL: nil,
+                recipe: Recipe()
             ),
             onDismiss: {}
         )

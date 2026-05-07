@@ -12,7 +12,7 @@ private enum RecipeTab: String, CaseIterable {
 // MARK: - View
 
 struct RecipeDetailSheet: View {
-    let recipe: RecipeFile
+    let recipe: RecipeEntry
 
     @Environment(\.dismiss) private var dismiss
     @Environment(RecipesFolderStore.self) private var store
@@ -20,7 +20,6 @@ struct RecipeDetailSheet: View {
 
     @State private var currentScale: RecipeScale = .one
     @State private var selectedTab: RecipeTab = .ingredients
-    @State private var parsedRecipe: Recipe?
     @State private var showAddSheet = false
     @State private var showAddToMealPlanSheet = false
     @State private var successMessage: String? = nil
@@ -30,30 +29,24 @@ struct RecipeDetailSheet: View {
             VStack(spacing: 0) {
                 RecipeHeroHeader(recipe: recipe, onDismiss: { dismiss() })
 
-                if let parsedRecipe {
-                    RecipeStatStrip(metadata: parsedRecipe.metadata, scale: $currentScale)
-                    RecipeTagChips(metadata: parsedRecipe.metadata)
+                RecipeStatStrip(metadata: recipe.recipe.metadata, scale: $currentScale)
+                RecipeTagChips(metadata: recipe.recipe.metadata)
 
-                    Picker("Tab", selection: $selectedTab) {
-                        ForEach(RecipeTab.allCases, id: \.self) { tab in
-                            Text(tab.rawValue).tag(tab)
-                        }
+                Picker("Tab", selection: $selectedTab) {
+                    ForEach(RecipeTab.allCases, id: \.self) { tab in
+                        Text(tab.rawValue).tag(tab)
                     }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-
-                    tabContent(for: parsedRecipe)
-                        .frame(maxHeight: .infinity)
-                } else {
-                    Spacer()
-                    ProgressView()
-                    Spacer()
                 }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+
+                tabContent(for: recipe.recipe)
+                    .frame(maxHeight: .infinity)
 
                 Divider()
                 RecipeBottomBar(
-                    recipe: parsedRecipe,
+                    recipe: recipe.recipe,
                     scale: currentScale,
                     onAddToMealPlan: { showAddToMealPlanSheet = true },
                     onAddToShoppingList: { showAddSheet = true }
@@ -76,13 +69,10 @@ struct RecipeDetailSheet: View {
         }
         .animation(.easeInOut(duration: 0.3), value: successMessage != nil)
         .presentationDetents([.large])
-        .task(id: recipe.url) {
-            await loadRecipe()
-        }
         .sheet(isPresented: $showAddSheet) {
             if let folderURL = store.folderURL {
                 AddToShoppingListSheet(
-                    recipe: parsedRecipe ?? Recipe(),
+                    recipe: recipe.recipe,
                     scale: currentScale,
                     folderURL: folderURL,
                     catalog: catalog,
@@ -101,8 +91,8 @@ struct RecipeDetailSheet: View {
         .sheet(isPresented: $showAddToMealPlanSheet) {
             if let folderURL = store.folderURL {
                 AddToMealPlanSheet(
-                    recipe: parsedRecipe,
-                    recipeFile: recipe,
+                    recipe: recipe.recipe,
+                    recipeEntry: recipe,
                     scale: currentScale,
                     folderURL: folderURL,
                     onSuccess: { planName in
@@ -128,26 +118,16 @@ struct RecipeDetailSheet: View {
             StepsView(recipe: parsed)
         }
     }
-
-    private func loadRecipe() async {
-        let url = recipe.url
-        let loaded = await Task.detached(priority: .userInitiated) {
-            guard let content = try? String(contentsOf: url, encoding: .utf8) else {
-                return Recipe()
-            }
-            return (try? CooklangParser.canonical.parse(content)) ?? Recipe()
-        }.value
-        parsedRecipe = loaded
-    }
 }
 
 // MARK: - Preview
 
 #Preview {
     RecipeDetailSheet(
-        recipe: RecipeFile(
+        recipe: RecipeEntry(
             url: URL(fileURLWithPath: "/tmp/Creamy Garlic Chicken Pasta.cook"),
-            thumbnailURL: nil
+            thumbnailURL: nil,
+            recipe: Recipe()
         )
     )
 }

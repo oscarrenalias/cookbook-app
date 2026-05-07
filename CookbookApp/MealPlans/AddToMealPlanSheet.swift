@@ -3,7 +3,7 @@ import CookbookCore
 
 struct AddToMealPlanSheet: View {
     let recipe: Recipe?
-    let recipeFile: RecipeFile
+    let recipeEntry: RecipeEntry
     let scale: RecipeScale
     let folderURL: URL
     let onSuccess: (String) -> Void
@@ -126,7 +126,7 @@ struct AddToMealPlanSheet: View {
     private func addToBlock(planURL: URL, blockIndex: Int) {
         do {
             try AddToMealPlanService.addToBlock(
-                recipeURL: recipeFile.url,
+                recipeURL: recipeEntry.url,
                 recipesFolder: folderURL,
                 to: planURL,
                 blockIndex: blockIndex,
@@ -152,7 +152,7 @@ struct AddToMealPlanSheet: View {
         let servings = recipe?.metadata.servings?.first
         do {
             try AddToMealPlanService.createNewPlan(
-                recipeURL: recipeFile.url,
+                recipeURL: recipeEntry.url,
                 recipesFolder: folderURL,
                 folderURL: folderURL,
                 planName: trimmedName,
@@ -187,7 +187,7 @@ struct AddToMealPlanSheet: View {
         }
         do {
             try AddToMealPlanService.addNewBlock(
-                recipeURL: recipeFile.url,
+                recipeURL: recipeEntry.url,
                 recipesFolder: folderURL,
                 to: target.url,
                 blockHeading: sectionName,
@@ -221,9 +221,10 @@ private struct PlanEntry: Identifiable {
         .sheet(isPresented: .constant(true)) {
             AddToMealPlanSheet(
                 recipe: nil,
-                recipeFile: RecipeFile(
+                recipeEntry: RecipeEntry(
                     url: URL(fileURLWithPath: "/tmp/Roasted Salmon.cook"),
-                    thumbnailURL: nil
+                    thumbnailURL: nil,
+                    recipe: Recipe()
                 ),
                 scale: .one,
                 folderURL: URL(fileURLWithPath: NSTemporaryDirectory()),

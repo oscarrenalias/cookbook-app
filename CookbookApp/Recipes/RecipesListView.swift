@@ -4,7 +4,7 @@ struct RecipesListView: View {
     @Environment(RecipeCatalog.self) private var catalog
 
     @State private var query = ""
-    @State private var selectedRecipe: RecipeFile?
+    @State private var selectedRecipe: RecipeEntry?
     // Persists collapsed-folder names across tab swaps within the scene.
     // Folders not in the set are expanded (the default for unknown names).
     @SceneStorage("recipes.collapsedFolders") private var collapsedFoldersJoined: String = ""
@@ -71,9 +71,9 @@ struct RecipesListView: View {
                     Section(isExpanded: sectionBinding(for: section.name)) {
                         ForEach(section.entries) { entry in
                             Button {
-                                selectedRecipe = RecipeFile(url: entry.url, thumbnailURL: entry.thumbnailURL)
+                                selectedRecipe = entry
                             } label: {
-                                RecipeRowView(recipe: RecipeFile(url: entry.url, thumbnailURL: entry.thumbnailURL))
+                                RecipeRowView(recipe: entry)
                             }
                             .buttonStyle(.plain)
                         }
