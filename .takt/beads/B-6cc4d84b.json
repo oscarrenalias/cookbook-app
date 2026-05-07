@@ -578,6 +578,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/AppRoot.swift",
     "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
@@ -592,9 +593,12 @@
     "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookAppTests/AddToMealPlanSheetTests.swift",
     "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "CookbookAppTests/RecipeCatalogTests.swift",
     "CookbookAppTests/RecipeDiscoveryTests.swift",
     "CookbookAppTests/RecipeEntryTests.swift",
-    "CookbookAppTests/RecipeFileTests.swift"
+    "CookbookAppTests/RecipeFileTests.swift",
+    "CookbookAppTests/RecipesListViewTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -858,6 +862,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp.xcodeproj",
+    "CookbookApp.xcodeproj/project.pbxproj",
     "CookbookApp/AppRoot.swift",
     "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
@@ -872,9 +877,12 @@
     "CookbookApp/Tabs/RecipesTab.swift",
     "CookbookAppTests/AddToMealPlanSheetTests.swift",
     "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "CookbookAppTests/RecipeCatalogTests.swift",
     "CookbookAppTests/RecipeDiscoveryTests.swift",
     "CookbookAppTests/RecipeEntryTests.swift",
-    "CookbookAppTests/RecipeFileTests.swift"
+    "CookbookAppTests/RecipeFileTests.swift",
+    "CookbookAppTests/RecipesListViewTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
