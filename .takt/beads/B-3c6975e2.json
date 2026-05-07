@@ -306,10 +306,15 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/CookModeView.swift",
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
     "docs/architecture.md"
   ],
   "expected_globs": [
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/*.swift",
     "docs/*.md"
   ],
@@ -594,6 +599,9 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/CookModeView.swift",
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
   ],
   "changed_files": [
@@ -877,6 +885,9 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/CookModeView.swift",
+    "CookbookApp/Recipes/RecipeBottomBar.swift",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift"
   ],
   "updated_docs": [],
@@ -901,7 +912,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 single additive extension in Recipe.swift, no overlap with other in-flight beads touching this file.",
+  "conflict_risks": "None \u2014 single additive extension in Recipe.swift, no overlap with other in-flight beads touching this file.\nCookModeView.swift is also in B-09ce3e88's expected_files. When B-09ce3e88 runs it will overwrite the stub \u2014 no structural conflict, but if the init signature diverges from (recipe: Recipe, scale: RecipeScale) then RecipeDetailSheet will need a patch.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
