@@ -36,11 +36,7 @@ struct CookModeView: View {
                         onStart: { phase = .steps }
                     )
                 case .steps:
-                    // Placeholder — full step navigator delivered by follow-up bead.
-                    ContentUnavailableView(
-                        "Steps coming soon",
-                        systemImage: "fork.knife"
-                    )
+                    StepsPhase(recipe: scaledRecipe, scale: scale)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
