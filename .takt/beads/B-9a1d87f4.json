@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-76055403"
+  ],
   "acceptance_criteria": [
     "Tests verify that non-empty notes show the Notes section with an edit pencil.",
     "Tests verify that empty notes hide the Notes section and expose an `Edit notes` toolbar action.",
