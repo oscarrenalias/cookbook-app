@@ -576,6 +576,81 @@ by automated tests. **A human must review these before shipping:**
   Sauce", "Pasta"). Steps tab shows each section name as a header with step
   numbers restarting at 1 in each section.
 
+## Cook mode
+
+Cook mode is a dedicated full-screen workflow launched from the recipe-detail sheet. It replaces the browse-oriented detail sheet with a focused, distraction-free cooking experience for the duration of one session.
+
+### Entry point
+
+`RecipeBottomBar` exposes an `onCookNow: () -> Void` callback alongside the existing `onAddToMealPlan` and `onAddToShoppingList` callbacks. The "Cook now" button (`Label("Cook now", systemImage: "play.fill")`) is disabled when the recipe has no steps (i.e. `recipe.sections` contains no `.step` content items).
+
+`RecipeDetailSheet` owns `@State private var showCookMode = false` and presents `CookModeView` as a `.fullScreenCover` when the callback fires:
+
+```swift
+.fullScreenCover(isPresented: $showCookMode) {
+    CookModeView(recipe: recipe.recipe, scale: currentScale)
+}
+```
+
+The full-screen cover replaces the detail sheet visually; the detail sheet is still alive behind it.
+
+### CookModeView — session shell
+
+`CookModeView` (`CookbookApp/Recipes/CookModeView.swift`) receives the `Recipe` and `RecipeScale` selected in the detail sheet. On `init`, it produces a scaled copy:
+
+```swift
+_scaledRecipe = State(initialValue: recipe.scaled(by: scale.factor))
+```
+
+The scale is **locked for the session**: `scaledRecipe` is computed once at entry and never updated while cook mode is active. Changing the scale in the detail sheet before entering cook mode is captured; changing it afterward has no effect on the running session.
+
+`CookModeView` wraps its content in a `NavigationStack` and disables the device idle timer:
+
+- `.onAppear` → `UIApplication.shared.isIdleTimerDisabled = true`
+- `.onDisappear` → `UIApplication.shared.isIdleTimerDisabled = false`
+
+This prevents the screen from dimming while the recipe is on screen.
+
+### Two-phase flow
+
+Cook mode uses an internal `CookPhase` enum with two cases:
+
+| Phase | View | Purpose |
+|-------|------|---------|
+| `.gatherIngredients` | `GatherIngredientsPhase` | Checkable ingredient list before cooking begins |
+| `.steps` | `StepsPhase` | One-step-at-a-time paginated view |
+
+Phase state (`@State private var phase`) is session-local and is not persisted across launches or between cook-mode presentations.
+
+#### Gather phase
+
+`GatherIngredientsPhase` renders `CookModeIngredientList` in checklist mode above a prominent "Start cooking" CTA button. Ingredients are already scaled (quantities come from `scaledRecipe`). Tapping "Start cooking" advances `phase` to `.steps`.
+
+#### Steps phase
+
+`StepsPhase` (`CookbookApp/Recipes/CookModeStepView.swift`) flattens all steps across all recipe sections into a linear `[FlatStep]` sequence. Steps are presented as swipeable pages in a `TabView(.page(indexDisplayMode: .never))`. A fixed bottom bar shows "Previous" / "Next" buttons and a "Step X of Y" counter; the bottom bar is hidden on the completion page.
+
+Each step page shows:
+
+- The section title (when present) in `.subheadline.semibold` uppercase, as context for where in the recipe the step falls.
+- The step text, resolved via `RecipeStepCombiner.combine(step:recipe:)`.
+- A read-only list of only the ingredients referenced in that step, with an optional scale label ("2× scale") when scale ≠ 1×.
+
+After the last step, `TabView` advances to `CookModeDonePage`: a checkmark icon, "You're done!" heading, and a "Done" button that dismisses the full-screen cover.
+
+### Session-local state
+
+All cook mode state (`phase`, `currentPage`) is held in SwiftUI `@State` scoped to the `.fullScreenCover` presentation. Dismissing cook mode — via the "Close" toolbar button or the "Done" button on the completion page — discards all state. There is no checkpoint, resume, or cross-launch persistence.
+
+### Out of scope in v1
+
+The following are not implemented and must not be assumed by downstream specs without a new spec:
+
+- Built-in countdown or step timers. Timer step items render as formatted text via `RecipeStepCombiner`, but no timer UI or countdown logic exists.
+- Per-step checkboxes or progress persistence across launches.
+- Voice guidance or narration.
+- Changing the recipe scale from inside cook mode.
+
 ## Recipe → shopping list flow
 
 ### AisleCatalog
