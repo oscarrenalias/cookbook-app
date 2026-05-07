@@ -581,7 +581,11 @@
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "CookbookApp/Recipes/RecipesFilterSheet.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
+    "CookbookAppTests/RecipesActiveFiltersTests.swift",
+    "CookbookAppTests/RecipesListViewTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -858,7 +862,11 @@
     "CookbookApp/Recipes/RecipesActiveFilters.swift",
     "CookbookApp/Recipes/RecipesFilterSheet.swift",
     "CookbookApp/Recipes/RecipesListView.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
+    "CookbookAppTests/RecipesActiveFiltersTests.swift",
+    "CookbookAppTests/RecipesListViewTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
