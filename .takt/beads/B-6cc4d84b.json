@@ -7,13 +7,13 @@
   "bead_type": "task",
   "parent_id": "B-6c96a024",
   "dependencies": [
-    "B-bc982aa4",
-    "B-e3a5b9a6",
-    "B-7ee66ecd",
     "B-03a6a47e",
-    "B-36e9e02d",
     "B-104b9637",
-    "B-cf6062ef"
+    "B-36e9e02d",
+    "B-7ee66ecd",
+    "B-bc982aa4",
+    "B-cf6062ef",
+    "B-e3a5b9a6"
   ],
   "acceptance_criteria": [
     "Review confirms the final code satisfies all in-scope acceptance criteria from the spec and does not introduce out-of-scope behavior.",
