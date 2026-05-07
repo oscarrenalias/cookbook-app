@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-e1cfe55a"
+  ],
   "acceptance_criteria": [
     "A new `EditNotesSheet` view exists and presents a `NavigationStack` titled `Notes`.",
     "The sheet uses a `TextEditor` bound to local state seeded from the current notes value.",
