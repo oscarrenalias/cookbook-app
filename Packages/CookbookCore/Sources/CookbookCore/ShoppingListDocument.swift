@@ -176,8 +176,9 @@ extension ShoppingListDocument {
             parts.append("# \(t)")
         }
 
-        if !notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            parts.append("## Notes\n\(notes)")
+        let normalizedNotes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !normalizedNotes.isEmpty {
+            parts.append("## Notes\n\(normalizedNotes)")
         }
 
         if !meals.isEmpty {
