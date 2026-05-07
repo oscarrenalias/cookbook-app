@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-6a89b6da",
+    "B-2cee41ef"
+  ],
   "acceptance_criteria": [
     "Tests cover verbatim parsing of a `## Notes` block, empty Notes, duplicate Notes headings, and missing Notes.",
     "Tests cover multi-paragraph notes and markdown markup surviving verbatim.",
