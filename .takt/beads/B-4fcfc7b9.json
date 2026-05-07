@@ -3,7 +3,7 @@
   "title": "Review cook mode feature integration",
   "agent_type": "review",
   "description": "Perform a final integration review across CookbookCore, recipe-detail entry, cook-mode UI flow, tests, and documentation, with attention to regressions, dependency ordering, and any unresolved product decisions called out by the spec.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [
@@ -695,7 +695,7 @@
     "test_coverage_notes": "StepTests covers ingredientIndices() deduplication and ordering. CookModeViewTests covers view instantiation, StepsPhase instantiation, done-page indexing, navigation boundary conditions, and free-text skipping. RecipeBottomBarTests covers hasSteps/hasIngredients gating, disabled conditions, and callback invocability. All tests verify underlying logic conditions rather than SwiftUI render state \u2014 consistent with the stated testing pattern for @State-private views.",
     "known_limitations": "No automated test for CookModeDonePage toolbar visibility (SwiftUI render state is not testable via @testable import). The corrective fix should be verified by manual review. Spec file specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md is absent from the worktree \u2014 should be moved to specs/done/ once the corrective is merged."
   },
-  "block_reason": "CookModeDonePage (CookModeStepView.swift:157) does not suppress the parent NavigationStack toolbar's Close button. The design decision states explicitly: CookModeDonePage hides the nav bar controls and presents its own Done button. Fix: add .toolbar(.hidden, for: .navigationBar) to CookModeDonePage.body or as a view modifier on the struct's view return. Both buttons currently dismiss the cover identically, so there is no functional regression, but the deviation from the documented design decision must be resolved before sign-off.",
+  "block_reason": "",
   "conflict_risks": "None identified. Fix is additive (one modifier on a private struct). No file overlap with other in-flight beads.",
   "branch_name": "feature/b-437fc5c4",
   "worktree_path": "",
@@ -753,6 +753,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-4fcfc7b9-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T11:20:50.525135+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-4fcfc7b9-corrective completed",
       "details": {}
     }
   ],
@@ -1464,7 +1471,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-4fcfc7b9-corrective"
+    "auto_corrective_bead_id": "B-4fcfc7b9-corrective",
+    "last_corrective_retry_source": "B-4fcfc7b9-corrective",
+    "last_corrective_retry_commit": "e7bc58184a51355269f1dc3d164cb498e3dd4b2a"
   },
   "labels": [],
   "recovery_for": null,
