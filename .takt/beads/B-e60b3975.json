@@ -1,0 +1,72 @@
+{
+  "bead_id": "B-e60b3975",
+  "title": "Create EditNotesSheet",
+  "agent_type": "developer",
+  "description": "Add a dedicated SwiftUI sheet view for editing shopping-list notes using a `NavigationStack`, `TextEditor`, and Cancel/Save toolbar actions over a local editable state copy.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-e5f14e6e",
+  "dependencies": [
+    "B-e1cfe55a"
+  ],
+  "acceptance_criteria": [
+    "A new `EditNotesSheet` view exists and presents a `NavigationStack` titled `Notes`.",
+    "The sheet uses a `TextEditor` bound to local state seeded from the current notes value.",
+    "Toolbar actions include `Cancel` to dismiss without persisting and `Save` to commit the edited notes through injected state/callbacks.",
+    "The editor uses `.font(.body)`, hides the default scroll background, applies subtle form-consistent styling, and exposes an accessibility label for editing notes for the current list."
+  ],
+  "linked_docs": [
+    "spec-14771ea4"
+  ],
+  "feature_root_id": "B-e5f14e6e",
+  "execution_branch_name": "feature/b-e5f14e6e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/EditNotesSheet.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/ShoppingLists/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T12:35:26.425217+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

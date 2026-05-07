@@ -1,0 +1,62 @@
+{
+  "bead_id": "B-5fcaee21",
+  "title": "Shopping list structured model rewrite",
+  "agent_type": "planner",
+  "description": "Replace the text-backed shopping list implementation with a structured `ShoppingListDocument` model, migrate mutations and aggregation to typed APIs, update SwiftUI consumers to render structured sections directly, and remove regex-based markdown editing helpers. The execution root below breaks the rewrite into small dependent implementation beads, then converges on one shared test pass, one shared documentation pass, and one shared review pass.",
+  "status": "done",
+  "bead_type": "epic",
+  "parent_id": null,
+  "dependencies": [],
+  "acceptance_criteria": [],
+  "linked_docs": [
+    "spec-855cd963",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/Fixtures/shopping-list.md"
+  ],
+  "feature_root_id": null,
+  "execution_branch_name": "",
+  "execution_worktree_path": "",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T07:17:31.623028+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

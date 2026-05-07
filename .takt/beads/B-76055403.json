@@ -1,0 +1,74 @@
+{
+  "bead_id": "B-76055403",
+  "title": "Wire notes editing entry points in detail view",
+  "agent_type": "developer",
+  "description": "Integrate notes editing into `ShoppingListDetailView` by showing an edit pencil on the existing Notes section when notes are present and adding a toolbar overflow action to create the first note when notes are empty.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-e5f14e6e",
+  "dependencies": [
+    "B-e60b3975",
+    "B-2cee41ef"
+  ],
+  "acceptance_criteria": [
+    "When `document.notes` is non-empty, the detail view renders the Notes section and includes a tappable `square.and.pencil` affordance in the section header.",
+    "Tapping the header pencil presents `EditNotesSheet`.",
+    "When `document.notes` is empty, the leading Notes section is omitted.",
+    "The detail view's toolbar overflow menu includes an `Edit notes` action that presents the same sheet when notes are empty.",
+    "Saving from the sheet writes the edited notes back to the document and triggers the existing document write path."
+  ],
+  "linked_docs": [
+    "spec-14771ea4"
+  ],
+  "feature_root_id": "B-e5f14e6e",
+  "execution_branch_name": "feature/b-e5f14e6e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/ShoppingLists/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T12:35:26.701162+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

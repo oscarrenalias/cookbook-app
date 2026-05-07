@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-b5e55282",
+  "title": "Add core notes parser and renderer coverage",
+  "agent_type": "developer",
+  "description": "Extend CookbookCore tests for notes parsing, rendering normalization, duplicate heading handling, and parse-render-parse fixed-point behavior.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-e5f14e6e",
+  "dependencies": [
+    "B-6a89b6da",
+    "B-2cee41ef"
+  ],
+  "acceptance_criteria": [
+    "Tests cover verbatim parsing of a `## Notes` block, empty Notes, duplicate Notes headings, and missing Notes.",
+    "Tests cover multi-paragraph notes and markdown markup surviving verbatim.",
+    "Tests cover renderer omission for empty notes and canonical insertion for non-empty notes.",
+    "At least one round-trip fixed-point test verifies mixed-markdown notes survive parse-render-parse unchanged."
+  ],
+  "linked_docs": [
+    "spec-14771ea4"
+  ],
+  "feature_root_id": "B-e5f14e6e",
+  "execution_branch_name": "feature/b-e5f14e6e",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+  "expected_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T12:35:26.197504+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

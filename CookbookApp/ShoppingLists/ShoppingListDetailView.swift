@@ -60,7 +60,7 @@ struct ShoppingListDetailView: View {
     }
 
     private var notesLines: [String] {
-        document.notes.flatMap(\.lines).filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+        document.notes.components(separatedBy: "\n").filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
     }
 
     private var mealsLines: [String] {

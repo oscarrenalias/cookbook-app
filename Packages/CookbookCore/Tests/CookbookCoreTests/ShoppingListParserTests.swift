@@ -83,16 +83,17 @@ struct ShoppingListParserTests {
         let md = "# My List\n\n<!-- created: 2026-05-01 -->\n\n## produce\n- [ ] apple\n"
         let doc = ShoppingListDocument(markdown: md)
         #expect(!doc.notes.isEmpty)
-        let allLines = doc.notes.flatMap(\.lines)
+        let allLines = doc.notes.components(separatedBy: "\n")
         #expect(allLines.contains("<!-- created: 2026-05-01 -->"))
     }
 
     @Test func leadingAndTrailingBlankLinesStrippedFromNoteBlock() {
         let md = "# My List\n\n\nnote line\n\n\n## produce\n- [ ] apple\n"
         let doc = ShoppingListDocument(markdown: md)
-        #expect(doc.notes.count == 1)
-        #expect(doc.notes[0].lines.first?.trimmingCharacters(in: .whitespaces).isEmpty == false)
-        #expect(doc.notes[0].lines.last?.trimmingCharacters(in: .whitespaces).isEmpty == false)
+        #expect(!doc.notes.isEmpty)
+        let lines = doc.notes.components(separatedBy: "\n")
+        #expect(lines.first?.trimmingCharacters(in: .whitespaces).isEmpty == false)
+        #expect(lines.last?.trimmingCharacters(in: .whitespaces).isEmpty == false)
     }
 
     // MARK: - Meals section
