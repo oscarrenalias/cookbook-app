@@ -3,7 +3,7 @@
   "title": "Implement step pages and completion flow",
   "agent_type": "developer",
   "description": "Add step flattening, section-title mapping, per-step ingredient display, paged navigation, swipe-driven `TabView` integration, and the trailing done page for cook mode.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [
@@ -32,37 +32,52 @@
   "expected_globs": [
     "CookbookApp/Recipes/CookMode*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/Recipes/CookModeStepView.swift",
+    "CookbookApp/Recipes/CookModeView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/CookModeStepView.swift",
+    "CookbookApp/Recipes/CookModeView.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All four acceptance criteria met: (1) flattenSteps() collects only .step content in declaration order across all sections, skipping .text; (2) each step page shows section-based title fallback, step progress (N of M in bottom nav), RecipeStepCombiner step text, and step ingredients from ingredientIndices(); (3) TabView with .page style shares $currentPage with Previous/Next buttons; (4) done page at index steps.count dismisses the fullScreenCover via @Environment(\\.dismiss).",
+    "remaining": "Nothing for this bead. Follow-up beads (tester, documentation, review) are auto-created by the scheduler.",
+    "risks": "The SourceKit \"No such module CookbookCore\" diagnostic is cosmetic \u2014 it fires because xcodegen must be run before SourceKit resolves the SPM package. The xcodebuild build verified the code compiles correctly.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/Recipes/CookModeStepView.swift",
+      "CookbookApp/Recipes/CookModeView.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Scheduler auto-creates tester and review child beads.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/Recipes/CookModeView.swift",
+      "CookbookApp/Recipes/CookModeStepView.swift",
+      "CookbookApp/Recipes/CookModeIngredientList.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/Recipes/CookMode*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/Recipes/CookModeStepView.swift",
+      "CookbookApp/Recipes/CookModeView.swift"
+    ],
+    "conflict_risks": "CookModeIngredientList.swift was not modified; downstream agents should treat it as stable. CookModeView.swift had a one-line change (removed placeholder, inserted StepsPhase call) \u2014 low conflict risk.",
+    "design_decisions": "Section title shown as prominent label inside the step page content (not as the nav bar title) to avoid requiring a binding back to CookModeView. Navigation bar title stays as recipe title throughout the steps phase. Step counter shown only in the bottom nav bar (N / M) to avoid duplication with the in-page section label. CookModeDonePage hides the nav bar controls and presents its own Done button. scaledRecipe is passed to StepsPhase with scale:.one for CookModeIngredientList rendering to avoid double-scaling; the original RecipeScale is passed separately only for the header label.",
+    "test_coverage_notes": "Tests for: gather\u2192steps phase transition; Previous/Next enable state at boundaries (page 0 and done page); step count; done page dismissal. These should be in CookModeViewTests.swift \u2014 created by the tester bead.",
+    "known_limitations": "Free-text (.text) content between steps is silently skipped per spec \u2014 no UI affordance. Timer items in step text are rendered as plain text (name + quantity) via RecipeStepCombiner, not as interactive timers (deferred to future spec). Swipe past the done page is blocked by TabView \u2014 the done page is the last tab, so there's nothing to swipe to."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "CookModeIngredientList.swift was not modified; downstream agents should treat it as stable. CookModeView.swift had a one-line change (removed placeholder, inserted StepsPhase call) \u2014 low conflict risk.",
   "branch_name": "feature/b-437fc5c4",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
-  "lease": {
-    "owner": "developer:B-a606fa82",
-    "expires_at": "2026-05-07T11:28:19.714079+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -104,6 +119,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-a606fa82/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T11:03:56.670689+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Implemented step pages and completion flow for cook mode. Created CookModeStepView.swift with StepsPhase (paged TabView navigator), CookModeStepPage (per-step view with section title, step text via RecipeStepCombiner, and step-specific ingredients), and CookModeDonePage (completion screen with dismiss). Updated CookModeView.swift to replace the placeholder with StepsPhase. Build compiles clean.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -181,7 +203,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Implemented step pages and completion flow for cook mode. Created CookModeStepView.swift with StepsPhase (paged TabView navigator), CookModeStepPage (per-step view with section title, step text via RecipeStepCombiner, and step-specific ingredients), and CookModeDonePage (completion screen with dismiss). Updated CookModeView.swift to replace the placeholder with StepsPhase. Build compiles clean.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.8334880499999998,
+      "duration_ms": 328353,
+      "duration_api_ms": 313871,
+      "num_turns": 32,
+      "input_tokens": 26,
+      "output_tokens": 20581,
+      "cache_creation_tokens": 50114,
+      "cache_read_tokens": 994861,
+      "stop_reason": "end_turn",
+      "session_id": "dee30902-d755-4939-bfa2-80b698d5fc28",
+      "permission_denials": [],
+      "prompt_chars": 6018,
+      "prompt_lines": 139,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.8334880499999998,
+        "duration_ms": 328353,
+        "duration_api_ms": 313871,
+        "num_turns": 32,
+        "input_tokens": 26,
+        "output_tokens": 20581,
+        "cache_creation_tokens": 50114,
+        "cache_read_tokens": 994861,
+        "stop_reason": "end_turn",
+        "session_id": "dee30902-d755-4939-bfa2-80b698d5fc28",
+        "permission_denials": [],
+        "prompt_chars": 6018,
+        "prompt_lines": 139,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "df688ba765a61e88e49b4a6146d0a5780ec36e26"
   },
   "labels": [],
   "recovery_for": null,
