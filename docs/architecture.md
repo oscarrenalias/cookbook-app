@@ -628,7 +628,7 @@ Phase state (`@State private var phase`) is session-local and is not persisted a
 
 #### Steps phase
 
-`StepsPhase` (`CookbookApp/Recipes/CookModeStepView.swift`) flattens all steps across all recipe sections into a linear `[FlatStep]` sequence. Steps are presented as swipeable pages in a `TabView(.page(indexDisplayMode: .never))`. A fixed bottom bar shows "Previous" / "Next" buttons and a "Step X of Y" counter; the bottom bar is hidden on the completion page.
+`StepsPhase` (`CookbookApp/Recipes/CookModeStepView.swift`) flattens all steps across all recipe sections into a linear `[FlatStep]` sequence. Steps are presented as swipeable pages in a `TabView(.page(indexDisplayMode: .never))`. A fixed bottom bar shows "Previous" / "Next" buttons and a pagination counter in the form *X / Y* (e.g. `1 / 4`); the bottom bar is hidden on the completion page.
 
 Each step page shows:
 
@@ -636,7 +636,18 @@ Each step page shows:
 - The step text, resolved via `RecipeStepCombiner.combine(step:recipe:)`.
 - A read-only list of only the ingredients referenced in that step, with an optional scale label ("2× scale") when scale ≠ 1×.
 
-After the last step, `TabView` advances to `CookModeDonePage`: a checkmark icon, "You're done!" heading, and a "Done" button that dismisses the full-screen cover.
+After the last step, `TabView` advances to `CookModeDonePage`: a `checkmark.seal.fill` icon, "You're done!" heading, "Enjoy your meal." subtitle, and a "Done" button that dismisses the full-screen cover. The navigation bar is hidden on this page.
+
+### CookModeIngredientList
+
+`CookModeIngredientList` (`CookbookApp/Recipes/CookModeIngredientList.swift`) is a reusable ingredient-display component used in both cook-mode phases. It accepts a `CookModeIngredientListMode` to switch between two rendering modes:
+
+| Mode | Usage | Behaviour |
+|------|-------|-----------|
+| `.checklist` | Gather phase | Tappable rows; tapping toggles a strikethrough and a filled circle icon. Checked state is session-local `@State`. |
+| `.readOnly` | Per-step ingredient list in steps phase | Non-interactive display; no checkboxes. |
+
+Both modes display `ingredient.name.sentenceCased` and the formatted scaled quantity (trailing, secondary color). An empty ingredient list renders "No ingredients" placeholder text. The gather phase passes `scale: .one` because quantities are already pre-scaled in `scaledRecipe` before being passed to the component.
 
 ### Session-local state
 
