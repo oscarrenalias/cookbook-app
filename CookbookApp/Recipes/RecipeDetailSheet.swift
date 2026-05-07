@@ -22,6 +22,7 @@ struct RecipeDetailSheet: View {
     @State private var selectedTab: RecipeTab = .ingredients
     @State private var showAddSheet = false
     @State private var showAddToMealPlanSheet = false
+    @State private var showCookMode = false
     @State private var successMessage: String? = nil
 
     var body: some View {
@@ -49,7 +50,8 @@ struct RecipeDetailSheet: View {
                     recipe: recipe.recipe,
                     scale: currentScale,
                     onAddToMealPlan: { showAddToMealPlanSheet = true },
-                    onAddToShoppingList: { showAddSheet = true }
+                    onAddToShoppingList: { showAddSheet = true },
+                    onCookNow: { showCookMode = true }
                 )
             }
 
@@ -104,6 +106,9 @@ struct RecipeDetailSheet: View {
                     }
                 )
             }
+        }
+        .fullScreenCover(isPresented: $showCookMode) {
+            CookModeView(recipe: recipe.recipe, scale: currentScale)
         }
     }
 
