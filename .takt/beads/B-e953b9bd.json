@@ -6,7 +6,15 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-e1cfe55a",
+    "B-6a89b6da",
+    "B-2cee41ef",
+    "B-b5e55282",
+    "B-e60b3975",
+    "B-76055403",
+    "B-9a1d87f4"
+  ],
   "acceptance_criteria": [
     "All notes-related unit and view tests added by this feature are executed.",
     "Any existing impacted suites for shopping-list document parsing/rendering and detail view behavior are run and evaluated.",
