@@ -1,6 +1,6 @@
 import CookbookCore
 
-struct RecipesActiveFilters: Equatable, Sendable {
+struct RecipesActiveFilters: Equatable, Sendable, Codable {
     var selectedTags: Set<String> = []
     var maxCookTimeMinutes: Int? = nil
     var maxPrepTimeMinutes: Int? = nil
