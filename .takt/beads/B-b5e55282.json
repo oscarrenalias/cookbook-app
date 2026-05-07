@@ -3,7 +3,7 @@
   "title": "Add core notes parser and renderer coverage",
   "agent_type": "developer",
   "description": "Extend CookbookCore tests for notes parsing, rendering normalization, duplicate heading handling, and parse-render-parse fixed-point behavior.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -28,37 +28,46 @@
   "expected_globs": [
     "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+  ],
+  "changed_files": [
+    "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Created Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift with 12 tests in a @Suite(\"ShoppingListDocument Notes\") struct. Tests verified to compile via `swift build --target CookbookCoreTests`.",
+    "remaining": "Test execution is the tester agent's responsibility.",
+    "risks": "Two existing tests in ShoppingListParserTests.swift (lines 82\u201397: preAisleContentPreservedAsNoteBlock and leadingAndTrailingBlankLinesStrippedFromNoteBlock) test pre-aisle content being stored in notes, but the current parser discards pre-aisle content and only captures from an explicit ## Notes heading. These tests are likely broken and will fail at test-run time. This is pre-existing from earlier bead work and outside this bead's scope.",
+    "verdict": "approved",
     "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "requires_followup": true,
+    "changed_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Run the CookbookCore test suite to verify all new tests pass and surface the two pre-existing broken tests in ShoppingListParserTests.swift.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+    ],
+    "expected_globs": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift"
+    ],
+    "touched_files": [
+      "Packages/CookbookCore/Tests/CookbookCoreTests/ShoppingListDocumentTests.swift"
+    ],
+    "conflict_risks": "ShoppingListParserTests.swift lines 82\u201397 contain pre-existing tests that contradict the current parser behavior (pre-aisle content is discarded, not stored as notes). A tester or review agent should flag these for correction separately.",
+    "design_decisions": "Created a new dedicated file ShoppingListDocumentTests.swift rather than extending ShoppingListParserTests.swift, as the bead's expected_files pointed to this new filename and the new tests cover combined parse+render+round-trip semantics rather than just parsing.",
+    "test_coverage_notes": "12 tests added: 6 parsing, 3 rendering, 3 fixed-point round-trip. All acceptance criteria met. mixedMarkdownNotesRoundTripIsFixedPoint covers bold, list items, and italic in a single notes block.",
+    "known_limitations": "Tests for the tester to flag: preAisleContentPreservedAsNoteBlock and leadingAndTrailingBlankLinesStrippedFromNoteBlock in ShoppingListParserTests.swift are inconsistent with the current implementation and are expected to fail."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "ShoppingListParserTests.swift lines 82\u201397 contain pre-existing tests that contradict the current parser behavior (pre-aisle content is discarded, not stored as notes). A tester or review agent should flag these for correction separately.",
   "branch_name": "feature/b-e5f14e6e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
-  "lease": {
-    "owner": "developer:B-b5e55282",
-    "expires_at": "2026-05-07T13:15:18.775929+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -100,6 +109,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-b5e55282/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T12:50:09.572663+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created ShoppingListDocumentTests.swift with 12 tests covering all acceptance criteria: verbatim ## Notes block parsing, empty/missing Notes, duplicate headings (first wins), multi-paragraph and markdown-markup survival, renderer omission for empty notes, canonical insertion for non-empty notes, and three round-trip fixed-point tests including one with mixed markdown. All 18 test-target files compile cleanly.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -173,7 +189,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created ShoppingListDocumentTests.swift with 12 tests covering all acceptance criteria: verbatim ## Notes block parsing, empty/missing Notes, duplicate headings (first wins), multi-paragraph and markdown-markup survival, renderer omission for empty notes, canonical insertion for non-empty notes, and three round-trip fixed-point tests including one with mixed markdown. All 18 test-target files compile cleanly.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.53378735,
+      "duration_ms": 284027,
+      "duration_api_ms": 267159,
+      "num_turns": 9,
+      "input_tokens": 10,
+      "output_tokens": 16350,
+      "cache_creation_tokens": 34636,
+      "cache_read_tokens": 268425,
+      "stop_reason": "end_turn",
+      "session_id": "753da40f-debc-4b0a-874d-f3ba48fa09e6",
+      "permission_denials": [],
+      "prompt_chars": 5769,
+      "prompt_lines": 135,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.53378735,
+        "duration_ms": 284027,
+        "duration_api_ms": 267159,
+        "num_turns": 9,
+        "input_tokens": 10,
+        "output_tokens": 16350,
+        "cache_creation_tokens": 34636,
+        "cache_read_tokens": 268425,
+        "stop_reason": "end_turn",
+        "session_id": "753da40f-debc-4b0a-874d-f3ba48fa09e6",
+        "permission_denials": [],
+        "prompt_chars": 5769,
+        "prompt_lines": 135,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "a3e7cd728c51219bb00994608a8921d03f423d3d"
   },
   "labels": [],
   "recovery_for": null,
