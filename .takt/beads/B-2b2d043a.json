@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-563ad48b",
+    "B-3f8cf2c7"
+  ],
   "acceptance_criteria": [
     "A new `RecipesFilterSheet` presents the five required sections in a `NavigationStack` + `Form` structure.",
     "Tag choices render from catalog tag corpus with multi-select chip styling and are usable even with a large corpus via vertical scrolling in the section.",
