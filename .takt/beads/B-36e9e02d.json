@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
-  "dependencies": [],
+  "dependencies": [
+    "B-bc982aa4",
+    "B-03a6a47e"
+  ],
   "acceptance_criteria": [
     "Production code no longer depends on `RecipeDiscovery.scan` for recipe list loading.",
     "`RecipeFile` is removed or fully replaced by the richer catalog entry model across required production call sites.",
