@@ -66,6 +66,11 @@ struct RecipesListView: View {
     var body: some View {
         listContent
             .searchable(text: $query, prompt: "Search recipes")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    filterButton
+                }
+            }
             .sheet(item: $selectedRecipe) { recipe in
                 RecipeDetailSheet(recipe: recipe)
             }
@@ -75,11 +80,6 @@ struct RecipesListView: View {
                     filters: activeFilters,
                     onApply: saveFilters
                 )
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    filterButton
-                }
             }
             .refreshable {
                 catalog.reload()
@@ -95,17 +95,17 @@ struct RecipesListView: View {
         Button {
             showFilterSheet = true
         } label: {
-            ZStack(alignment: .topTrailing) {
+            HStack(spacing: 4) {
                 Image(systemName: count > 0
                     ? "line.3.horizontal.decrease.circle.fill"
                     : "line.3.horizontal.decrease.circle")
                 if count > 0 {
                     Text("\(count)")
-                        .font(.system(size: 8, weight: .bold))
+                        .font(.caption2.weight(.bold))
                         .foregroundStyle(.white)
-                        .frame(minWidth: 14, minHeight: 14)
-                        .background(Color.red, in: Circle())
-                        .offset(x: 8, y: -8)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 1)
+                        .background(Color.red, in: Capsule())
                 }
             }
         }

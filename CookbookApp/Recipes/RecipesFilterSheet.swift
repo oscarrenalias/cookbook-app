@@ -18,11 +18,13 @@ struct RecipesFilterSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                tagsSection
+                difficultySection
                 cookTimeSection
                 prepTimeSection
-                difficultySection
                 courseSection
+                cuisineSection
+                proteinSection
+                tagsSection
             }
             .navigationTitle("Filter Recipes")
             .navigationBarTitleDisplayMode(.inline)
@@ -102,7 +104,7 @@ struct RecipesFilterSheet: View {
         if !catalog.difficultyValues.isEmpty {
             Section("Difficulty") {
                 ForEach(catalog.difficultyValues, id: \.self) { value in
-                    selectionRow(label: value, isSelected: staged.difficulty == value) {
+                    selectionRow(label: value.localizedCapitalized, isSelected: staged.difficulty == value) {
                         staged.difficulty = staged.difficulty == value ? nil : value
                     }
                 }
@@ -115,8 +117,34 @@ struct RecipesFilterSheet: View {
         if !catalog.courseValues.isEmpty {
             Section("Course") {
                 ForEach(catalog.courseValues, id: \.self) { value in
-                    selectionRow(label: value, isSelected: staged.course == value) {
+                    selectionRow(label: value.localizedCapitalized, isSelected: staged.course == value) {
                         staged.course = staged.course == value ? nil : value
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var cuisineSection: some View {
+        if !catalog.cuisineValues.isEmpty {
+            Section("Cuisine") {
+                ForEach(catalog.cuisineValues, id: \.self) { value in
+                    selectionRow(label: value.localizedCapitalized, isSelected: staged.cuisine == value) {
+                        staged.cuisine = staged.cuisine == value ? nil : value
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var proteinSection: some View {
+        if !catalog.proteinValues.isEmpty {
+            Section("Protein") {
+                ForEach(catalog.proteinValues, id: \.self) { value in
+                    selectionRow(label: value.localizedCapitalized, isSelected: staged.protein == value) {
+                        staged.protein = staged.protein == value ? nil : value
                     }
                 }
             }

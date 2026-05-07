@@ -69,11 +69,26 @@ final class RecipeCatalog {
         return Array(Set(raw)).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
     }
 
-    /// Unique course/meal-type values sorted alphabetically.
+    /// Unique course / meal-type values sorted alphabetically. Reads
+    /// `course` (canonical) with `meal type` / `meal_type` fallbacks.
     var courseValues: [String] {
         let raw = allEntries.compactMap {
-            $0.recipe.metadata["meal type"] ?? $0.recipe.metadata["meal_type"]
+            $0.recipe.metadata["course"]
+                ?? $0.recipe.metadata["meal type"]
+                ?? $0.recipe.metadata["meal_type"]
         }
+        return Array(Set(raw)).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+    }
+
+    /// Unique cuisine values sorted alphabetically.
+    var cuisineValues: [String] {
+        let raw = allEntries.compactMap { $0.recipe.metadata["cuisine"] }
+        return Array(Set(raw)).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+    }
+
+    /// Unique protein values sorted alphabetically.
+    var proteinValues: [String] {
+        let raw = allEntries.compactMap { $0.recipe.metadata["protein"] }
         return Array(Set(raw)).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
     }
 

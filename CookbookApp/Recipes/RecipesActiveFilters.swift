@@ -6,6 +6,8 @@ struct RecipesActiveFilters: Equatable, Sendable, Codable {
     var maxPrepTimeMinutes: Int? = nil
     var difficulty: String? = nil
     var course: String? = nil
+    var cuisine: String? = nil
+    var protein: String? = nil
 
     /// Number of active filter axes; used by the toolbar badge.
     var activeFilterCount: Int {
@@ -15,6 +17,8 @@ struct RecipesActiveFilters: Equatable, Sendable, Codable {
         if maxPrepTimeMinutes != nil { n += 1 }
         if difficulty != nil { n += 1 }
         if course != nil { n += 1 }
+        if cuisine != nil { n += 1 }
+        if protein != nil { n += 1 }
         return n
     }
 
@@ -46,8 +50,18 @@ struct RecipesActiveFilters: Equatable, Sendable, Codable {
         }
 
         if let required = course {
-            let value = md["meal type"] ?? md["meal_type"]
+            let value = md["course"] ?? md["meal type"] ?? md["meal_type"]
             guard let value,
+                  value.localizedCaseInsensitiveCompare(required) == .orderedSame else { return false }
+        }
+
+        if let required = cuisine {
+            guard let value = md["cuisine"],
+                  value.localizedCaseInsensitiveCompare(required) == .orderedSame else { return false }
+        }
+
+        if let required = protein {
+            guard let value = md["protein"],
                   value.localizedCaseInsensitiveCompare(required) == .orderedSame else { return false }
         }
 
