@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-236cb00a"
+  ],
   "acceptance_criteria": [
     "`RecipeCatalog` exposes `tagCorpus` as the union of normalized tags sorted by descending frequency then alphabetically.",
     "`RecipeCatalog` exposes unique alphabetical `difficultyValues` and `courseValues`.",
