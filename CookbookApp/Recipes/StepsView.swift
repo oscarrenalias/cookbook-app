@@ -15,6 +15,27 @@ struct StepsView: View {
         }
     }
 
+    private var allRows: [StepRowKind] {
+        var rows: [StepRowKind] = []
+        var stepNumber = 1
+        for section in recipe.sections {
+            if let name = section.name, !name.trimmingCharacters(in: .whitespaces).isEmpty {
+                rows.append(.sectionName(name))
+            }
+            for item in section.content {
+                switch item {
+                case .step(let step):
+                    let text = RecipeStepCombiner.combine(step: step, recipe: recipe)
+                    rows.append(.step(number: stepNumber, text: text))
+                    stepNumber += 1
+                case .text(let string):
+                    rows.append(.text(string))
+                }
+            }
+        }
+        return rows
+    }
+
     var body: some View {
         if !hasAnyStep {
             Text("No steps listed")
@@ -23,44 +44,17 @@ struct StepsView: View {
                 .padding()
         } else {
             List {
-                ForEach(Array(recipe.sections.enumerated()), id: \.offset) { _, section in
-                    RecipeSectionStepsView(section: section, recipe: recipe)
+                Section {
+                    ForEach(Array(allRows.enumerated()), id: \.offset) { _, row in
+                        StepContentRow(row: row)
+                    }
+                } header: {
+                    HStack {
+                        Text("Steps")
+                        Spacer()
+                    }
+                    .frame(minHeight: 32)
                 }
-            }
-        }
-    }
-}
-
-// MARK: - Section steps view
-
-private struct RecipeSectionStepsView: View {
-    let section: CookbookCore.Section
-    let recipe: Recipe
-
-    private var rows: [StepRowKind] {
-        var stepNumber = 1
-        var result: [StepRowKind] = []
-        for item in section.content {
-            switch item {
-            case .step(let step):
-                let text = RecipeStepCombiner.combine(step: step, recipe: recipe)
-                result.append(.step(number: stepNumber, text: text))
-                stepNumber += 1
-            case .text(let string):
-                result.append(.text(string))
-            }
-        }
-        return result
-    }
-
-    var body: some View {
-        Section {
-            ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
-                StepContentRow(row: row)
-            }
-        } header: {
-            if let name = section.name {
-                Text(name).font(.headline)
             }
         }
     }
@@ -69,6 +63,7 @@ private struct RecipeSectionStepsView: View {
 // MARK: - Row kind
 
 private enum StepRowKind {
+    case sectionName(String)
     case step(number: Int, text: String)
     case text(String)
 }
@@ -80,6 +75,9 @@ private struct StepContentRow: View {
 
     var body: some View {
         switch row {
+        case .sectionName(let name):
+            Text(name)
+                .font(.headline)
         case .step(let number, let text):
             HStack(alignment: .top) {
                 Text("\(number).")

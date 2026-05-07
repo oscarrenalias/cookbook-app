@@ -19,7 +19,11 @@ struct CookwareView: View {
                         CookwareRow(item: item)
                     }
                 } header: {
-                    Text("Cookware")
+                    HStack {
+                        Text("Cookware")
+                        Spacer()
+                    }
+                    .frame(minHeight: 32)
                 }
             }
         }

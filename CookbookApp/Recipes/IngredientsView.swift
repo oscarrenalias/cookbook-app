@@ -41,6 +41,7 @@ struct IngredientsView: View {
                         }
                         .pickerStyle(.menu)
                     }
+                    .frame(minHeight: 32)
                 }
             }
         }
