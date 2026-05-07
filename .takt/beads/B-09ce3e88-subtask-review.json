@@ -30,12 +30,16 @@
   "touched_files": [
     "CookbookApp/Recipes/CookModeIngredientList.swift",
     "CookbookApp/Recipes/CookModeStepView.swift",
-    "CookbookApp/Recipes/CookModeView.swift"
+    "CookbookApp/Recipes/CookModeView.swift",
+    "CookbookAppTests/CookModeViewTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     "CookbookApp/Recipes/CookModeIngredientList.swift",
     "CookbookApp/Recipes/CookModeStepView.swift",
-    "CookbookApp/Recipes/CookModeView.swift"
+    "CookbookApp/Recipes/CookModeView.swift",
+    "CookbookAppTests/CookModeViewTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
