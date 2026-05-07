@@ -1,0 +1,80 @@
+{
+  "bead_id": "B-104b9637",
+  "title": "Shared testing for RecipeCatalog migration",
+  "agent_type": "tester",
+  "description": "Validate the full feature after all implementation beads land. Add catalog-focused temp-folder tests, update old discovery/file tests, and verify list-view structure expectations for searchable behavior and refresh wiring.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-6c96a024",
+  "dependencies": [
+    "B-bc982aa4",
+    "B-e3a5b9a6",
+    "B-7ee66ecd",
+    "B-03a6a47e",
+    "B-36e9e02d"
+  ],
+  "acceptance_criteria": [
+    "`CookbookAppTests/RecipeCatalogTests.swift` covers empty-folder load, grouped valid recipes across subfolders, malformed recipe omission, and reload picking up file adds/removals.",
+    "Superseded tests tied to `RecipeDiscovery` or `RecipeFile` are updated or removed in favor of catalog-backed assertions.",
+    "View-level tests confirm `RecipesListView` remains searchable by display name and exposes `.refreshable` behavior."
+  ],
+  "linked_docs": [
+    "spec-fa73e084",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift"
+  ],
+  "feature_root_id": "B-6c96a024",
+  "execution_branch_name": "feature/b-6c96a024",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+  "expected_files": [
+    "CookbookAppTests/RecipeCatalogTests.swift",
+    "CookbookAppTests/RecipeDiscoveryTests.swift",
+    "CookbookAppTests/RecipeFileTests.swift",
+    "CookbookAppTests/RecipesListViewTests.swift"
+  ],
+  "expected_globs": [
+    "CookbookAppTests/**/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T06:34:12.351942+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

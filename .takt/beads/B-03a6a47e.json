@@ -1,0 +1,79 @@
+{
+  "bead_id": "B-03a6a47e",
+  "title": "Migrate detail flow to parsed catalog entries",
+  "agent_type": "developer",
+  "description": "Update the recipe detail presentation path so selection and sheet rendering use a richer catalog-backed recipe entry with parsed `Recipe` content already available. Remove the detail view's parse-on-appear task and loading placeholder while keeping existing bottom-bar integrations working.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-6c96a024",
+  "dependencies": [
+    "B-bc982aa4",
+    "B-7ee66ecd"
+  ],
+  "acceptance_criteria": [
+    "The selected item presented from the recipes list carries or can resolve the parsed `Recipe` from the catalog without disk re-parsing on sheet open.",
+    "`RecipeDetailSheet` no longer performs its own file read/parse task or shows the transient loading state for normal catalog-backed opens.",
+    "Any directly impacted recipe UI types and sheet call sites compile against the replacement entry type instead of `RecipeFile`."
+  ],
+  "linked_docs": [
+    "spec-fa73e084",
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift"
+  ],
+  "feature_root_id": "B-6c96a024",
+  "execution_branch_name": "feature/b-6c96a024",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipeDetailSheet.swift",
+    "CookbookApp/Recipes/RecipeRowView.swift",
+    "CookbookApp/Recipes/RecipeHeroHeader.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/Recipes/*.swift",
+    "CookbookAppTests/*MealPlan*Tests.swift",
+    "CookbookAppTests/AddToMealPlanSheetTests.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T06:34:11.890105+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

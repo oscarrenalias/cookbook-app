@@ -1,0 +1,78 @@
+{
+  "bead_id": "B-6cc4d84b",
+  "title": "Shared review of recipe catalog rollout",
+  "agent_type": "review",
+  "description": "Perform the final integration review across implementation, tests, and docs. Focus on behavior parity, threading correctness, API suitability for future search/filter work, and whether obsolete discovery paths were fully retired without regressions.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-6c96a024",
+  "dependencies": [
+    "B-bc982aa4",
+    "B-e3a5b9a6",
+    "B-7ee66ecd",
+    "B-03a6a47e",
+    "B-36e9e02d",
+    "B-104b9637",
+    "B-cf6062ef"
+  ],
+  "acceptance_criteria": [
+    "Review confirms the final code satisfies all in-scope acceptance criteria from the spec and does not introduce out-of-scope behavior.",
+    "Review checks for threading and state-management risks, especially background parsing, main-actor publication, and reload semantics that preserve prior results.",
+    "Review verifies tests and documentation align with the shipped implementation and flags any residual follow-up work separately from this spec."
+  ],
+  "linked_docs": [
+    "spec-fa73e084",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-6c96a024",
+  "execution_branch_name": "feature/b-6c96a024",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+  "expected_files": [],
+  "expected_globs": [
+    "CookbookApp/**/*.swift",
+    "CookbookAppTests/**/*.swift",
+    "docs/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T06:34:12.711328+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
