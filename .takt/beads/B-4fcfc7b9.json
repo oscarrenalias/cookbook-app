@@ -3,7 +3,7 @@
   "title": "Review cook mode feature integration",
   "agent_type": "review",
   "description": "Perform a final integration review across CookbookCore, recipe-detail entry, cook-mode UI flow, tests, and documentation, with attention to regressions, dependency ordering, and any unresolved product decisions called out by the spec.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
   "dependencies": [
@@ -936,9 +936,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 single additive extension in Recipe.swift, no overlap with other in-flight beads touching this file.\nCookModeView.swift is also in B-09ce3e88's expected_files. When B-09ce3e88 runs it will overwrite the stub \u2014 no structural conflict, but if the init signature diverges from (recipe: Recipe, scale: RecipeScale) then RecipeDetailSheet will need a patch.\nNo file overlap with other in-flight beads. CookModeIngredientList.swift is a new file.\nNone \u2014 CookModeView.swift and CookModeIngredientList.swift are exclusive to this feature branch. RecipeDetailSheet.swift is unchanged and continues to pass recipe + scale to CookModeView correctly.\nCookModeIngredientList.swift was not modified; downstream agents should treat it as stable. CookModeView.swift had a one-line change (removed placeholder, inserted StepsPhase call) \u2014 low conflict risk.",
-  "branch_name": "",
+  "branch_name": "feature/b-437fc5c4",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-4fcfc7b9",
+    "expires_at": "2026-05-07T11:43:36.203841+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -947,9 +950,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T11:13:36.491353+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T11:13:36.491377+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4fcfc7b9",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4fcfc7b9/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
