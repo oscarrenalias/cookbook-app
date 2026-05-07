@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-437fc5c4",
-  "dependencies": [],
+  "dependencies": [
+    "B-52b928b7",
+    "B-f14416eb"
+  ],
   "acceptance_criteria": [
     "`CookModeView` owns cook-session state for phase, gathered ingredients, and locked scale.",
     "The first rendered phase is the ingredient checklist with a close affordance and a `Start cooking` CTA.",
