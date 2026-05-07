@@ -3,7 +3,7 @@
   "title": "Shared review of recipe catalog rollout",
   "agent_type": "review",
   "description": "Perform the final integration review across implementation, tests, and docs. Focus on behavior parity, threading correctness, API suitability for future search/filter work, and whether obsolete discovery paths were fully retired without regressions.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-6c96a024",
   "dependencies": [
@@ -907,9 +907,12 @@
   },
   "block_reason": "",
   "conflict_risks": "RecipeDiscovery.swift and RecipeFile.swift are still present and referenced by existing views. Beads that update RecipesListView, RecipeDetailSheet, and AppRoot must coordinate to avoid a window where the catalog exists but views still use the old scan pattern.\nNone \u2014 changes are confined to AppRoot.swift and are additive only.\nRecipesTab.swift was outside the declared expected_globs but required updating for the call site. No other sibling beads are known to touch these files.\nRecipeCatalog.swift touched to fix nonisolated issue \u2014 sibling beads modifying that file should rebase cleanly since the change is additive (keyword-only). MealPlanDetailView.swift now reads from RecipeCatalog environment; any bead that restructures MealPlanDetailView should be aware of the new @Environment(RecipeCatalog.self) dependency.\nNone. All touched files were within this bead's declared scope. No sibling beads claim RecipeDiscovery.swift or RecipeFile.swift.",
-  "branch_name": "",
+  "branch_name": "feature/b-6c96a024",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-6cc4d84b",
+    "expires_at": "2026-05-07T07:50:41.192062+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -918,9 +921,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T07:20:41.343701+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T07:20:41.343720+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-6cc4d84b",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-6cc4d84b/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
