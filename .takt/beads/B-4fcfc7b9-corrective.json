@@ -413,6 +413,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T11:19:31.508413+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-4fcfc7b9-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-4fcfc7b9-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -430,7 +439,88 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-4fcfc7b9-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-4fcfc7b9-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T11:19:31.508396+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-4fcfc7b9-corrective",
+      "feature_root_id": "B-437fc5c4",
+      "title": "Corrective fix for B-4fcfc7b9: Review cook mode feature integration",
+      "agent_type": "developer",
+      "description": "Blocked reason: CookModeDonePage (CookModeStepView.swift:157) does not suppress the parent NavigationStack toolbar's Close button. The design decision states explicitly: CookModeDonePage hides the nav bar controls and presents its own Done button. Fix: add .toolbar(.hidden, for: .navigationBar) to CookModeDonePage.body or as a view modifier on the struct's view return. Both buttons currently dismiss the cover identically, so there is no functional regression, but the deviation from the documented design decision must be resolved before sign-off.\n\nRemaining work: One finding requires a corrective fix: CookModeDonePage must suppress the navigation bar (add .toolbar(.hidden, for: .navigationBar)) so that only the in-page Done button is visible on the completion page, matching the stated design decision. Administrative: spec file should be moved from drafts to done once the corrective is resolved.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-4fcfc7b9.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-d27daa73",
+        "specs/drafts/cook-mode-guided-step-by-step-recipe-workflow.md",
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-437fc5c4",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-437fc5c4",
+      "expected_files": [
+        "CookbookApp/Recipes/CookModeIngredientList.swift",
+        "CookbookApp/Recipes/CookModeStepView.swift",
+        "CookbookApp/Recipes/CookModeView.swift",
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookAppTests/CookModeViewTests.swift",
+        "CookbookAppTests/RecipeBottomBarTests.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/StepTests.swift",
+        "docs/architecture.md"
+      ],
+      "expected_globs": [
+        "CookbookApp/Recipes/CookMode*.swift",
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookAppTests/*CookMode*.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/*.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+        "docs/*.md"
+      ],
+      "touched_files": [
+        "CookbookApp/Recipes/CookModeIngredientList.swift",
+        "CookbookApp/Recipes/CookModeStepView.swift",
+        "CookbookApp/Recipes/CookModeView.swift",
+        "CookbookApp/Recipes/RecipeBottomBar.swift",
+        "CookbookApp/Recipes/RecipeDetailSheet.swift",
+        "CookbookAppTests/CookModeViewTests.swift",
+        "CookbookAppTests/RecipeBottomBarTests.swift",
+        "Packages/CookbookCore/Sources/CookbookCore/Recipe.swift",
+        "Packages/CookbookCore/Tests/CookbookCoreTests/StepTests.swift",
+        "docs/architecture.md"
+      ],
+      "conflict_risks": "None identified. Fix is additive (one modifier on a private struct). No file overlap with other in-flight beads.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
