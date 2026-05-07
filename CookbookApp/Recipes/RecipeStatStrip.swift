@@ -27,7 +27,7 @@ struct RecipeStatExtractor {
         if let value = metadata["difficulty"] {
             stats.append(RecipeStatItem(
                 icon: "dial.medium",
-                value: value,
+                value: value.localizedCapitalized,
                 label: "Difficulty"
             ))
         }
@@ -94,13 +94,13 @@ private struct StatCell: View {
             Image(systemName: item.icon)
                 .font(.body)
                 .foregroundStyle(.tint)
-            Text(item.value)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
             Text(item.label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+            Text(item.value)
+                .font(.subheadline)
+                .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
         }
         .fixedSize(horizontal: false, vertical: true)
