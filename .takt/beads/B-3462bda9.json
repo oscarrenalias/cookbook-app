@@ -3,7 +3,7 @@
   "title": "Shared feature review",
   "agent_type": "review",
   "description": "Perform a final cross-cutting review of the completed notes feature for correctness, regression risk, test sufficiency, and alignment with the spec's locked decisions before merge.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -721,7 +721,7 @@
     "test_coverage_notes": "Finding 2 (Low \u2014 non-blocking): EditNotesFlowTests.swift:58-60 \u2014 headerInstantiatesWithEditAffordanceWhenNotesNonEmpty claims to confirm the edit callback is live but manually sets editTapped = true without invoking the closure. The callback is never fired; the assertion is tautological. ShoppingListDocumentTests.swift and ShoppingListParserTests.swift are solid and cover parse, render, round-trip, and the intentional discard behavior. Overall test coverage is adequate for the scope minus this one misleading test.",
     "known_limitations": "The strict-discard parser behavior (pre-section free text silently dropped on save) is intentional, documented in architecture.md, and tested. The round-trip is semantic not byte-identical; this is the accepted contract. Notes are a single String joined by newlines; line-splitting is a display-layer concern handled by notesLines. These are by design."
   },
-  "block_reason": "Finding 1 (Medium \u2014 blocker): In ShoppingListDetailView.swift:83, the guard `totalCount == 0` unconditionally shows EmptyStateView regardless of whether the document has notes. When a list has non-empty notes and zero items, both edit entry points disappear: the toolbar \"Edit notes\" item is only shown when `document.notes.isEmpty` (line 112), and the notes header section lives inside `listContent` which is never rendered. The user has no UI path to view or edit their notes until they add an item back. Fix: change the condition from `totalCount == 0` to `totalCount == 0 && notesLines.isEmpty` (or more broadly `document.notes.isEmpty && document.meals.isEmpty && totalCount == 0`).",
+  "block_reason": "",
   "conflict_risks": "Fix touches ShoppingListDetailView.swift:83 \u2014 the same file used in prior beads. Low conflict risk since the branch is the sole active worktree for this feature root, but xcodegen must be re-run after merge per CLAUDE.md.",
   "branch_name": "feature/b-e5f14e6e",
   "worktree_path": "",
@@ -779,6 +779,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-3462bda9-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T18:58:12.624429+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-3462bda9-corrective completed",
       "details": {}
     }
   ],
@@ -1521,7 +1528,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-3462bda9-corrective"
+    "auto_corrective_bead_id": "B-3462bda9-corrective",
+    "last_corrective_retry_source": "B-3462bda9-corrective",
+    "last_corrective_retry_commit": "42edfb77671481fadf2a1cf73953b109d1fc6ff7"
   },
   "labels": [],
   "recovery_for": null,
