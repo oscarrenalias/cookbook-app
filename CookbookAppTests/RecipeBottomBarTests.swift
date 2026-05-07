@@ -13,7 +13,8 @@ struct RecipeBottomBarTests {
             recipe: nil,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {}
+            onAddToShoppingList: {},
+            onCookNow: {}
         )
     }
 
@@ -25,7 +26,8 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {}
+            onAddToShoppingList: {},
+            onCookNow: {}
         )
     }
 
@@ -35,7 +37,8 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {}
+            onAddToShoppingList: {},
+            onCookNow: {}
         )
     }
 
@@ -45,7 +48,8 @@ struct RecipeBottomBarTests {
                 recipe: nil,
                 scale: scale,
                 onAddToMealPlan: {},
-                onAddToShoppingList: {}
+                onAddToShoppingList: {},
+                onCookNow: {}
             )
         }
     }
@@ -94,7 +98,8 @@ struct RecipeBottomBarTests {
             recipe: Recipe(),
             scale: .one,
             onAddToMealPlan: { called = true },
-            onAddToShoppingList: {}
+            onAddToShoppingList: {},
+            onCookNow: {}
         )
         bar.onAddToMealPlan()
         #expect(called)
@@ -109,9 +114,66 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: { called = true }
+            onAddToShoppingList: { called = true },
+            onCookNow: {}
         )
         bar.onAddToShoppingList()
+        #expect(called)
+    }
+
+    // MARK: - Cook Now gating (hasSteps)
+
+    @Test func cookNowIsDisabledWhenRecipeIsNil() {
+        let recipe: Recipe? = nil
+        let hasSteps = recipe.map { r in
+            r.sections.contains { $0.content.contains { if case .step = $0 { return true }; return false } }
+        } ?? false
+        #expect(hasSteps == false)
+    }
+
+    @Test func cookNowIsDisabledWhenRecipeHasNoSteps() {
+        let recipe = Recipe(sections: [
+            CookbookCore.Section(content: [.text("Serve at room temperature.")])
+        ])
+        let hasSteps = recipe.sections.contains { section in
+            section.content.contains { if case .step = $0 { return true }; return false }
+        }
+        #expect(hasSteps == false)
+    }
+
+    @Test func cookNowIsEnabledWhenRecipeHasAtLeastOneStep() {
+        let recipe = Recipe(sections: [
+            CookbookCore.Section(content: [
+                .step(Step(items: [.text("Boil water.")]))
+            ])
+        ])
+        let hasSteps = recipe.sections.contains { section in
+            section.content.contains { if case .step = $0 { return true }; return false }
+        }
+        #expect(hasSteps == true)
+    }
+
+    @Test func cookNowIsDisabledWhenRecipeIsEmpty() {
+        let recipe = Recipe()
+        let hasSteps = recipe.sections.contains { section in
+            section.content.contains { if case .step = $0 { return true }; return false }
+        }
+        #expect(hasSteps == false)
+    }
+
+    @Test func cookNowCallbackIsStoredAndInvocable() {
+        var called = false
+        let recipe = Recipe(sections: [
+            CookbookCore.Section(content: [.step(Step(items: [.text("Boil water.")]))])
+        ])
+        let bar = RecipeBottomBar(
+            recipe: recipe,
+            scale: .one,
+            onAddToMealPlan: {},
+            onAddToShoppingList: {},
+            onCookNow: { called = true }
+        )
+        bar.onCookNow()
         #expect(called)
     }
 }
