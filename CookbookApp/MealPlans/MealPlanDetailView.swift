@@ -11,9 +11,10 @@ struct MealPlanDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     @Environment(AisleCatalog.self) private var aisleCatalog
+    @Environment(RecipeCatalog.self) private var recipeCatalog
 
     @State private var plan: MealPlan = MealPlan()
-    @State private var resolvedRecipes: [String: RecipeFile] = [:]
+    @State private var resolvedRecipes: [String: RecipeEntry] = [:]
     @State private var isLoaded = false
     @State private var showDeleteConfirmation = false
     @State private var showRenameAlert = false
@@ -25,7 +26,7 @@ struct MealPlanDetailView: View {
     @State private var createdListURL: URL? = nil
     @State private var showCreatedAlert = false
     @State private var showCreatedSheet = false
-    @State private var selectedRecipe: RecipeFile?
+    @State private var selectedRecipe: RecipeEntry?
     @State private var searchText = ""
 
     // All collapsed blocks across all plans encoded as "filename.heading" sorted and joined by newline.
@@ -79,11 +80,12 @@ struct MealPlanDetailView: View {
         return URL(fileURLWithPath: clean).deletingPathExtension().lastPathComponent
     }
 
-    private func fallbackRecipeFile(for path: String) -> RecipeFile {
+    private func fallbackRecipeEntry(for path: String) -> RecipeEntry {
         let clean = path.hasPrefix("./") ? String(path.dropFirst(2)) : path
-        return RecipeFile(
+        return RecipeEntry(
             url: folderURL.appendingPathComponent(clean).appendingPathExtension("cook"),
-            thumbnailURL: nil
+            thumbnailURL: nil,
+            recipe: Recipe()
         )
     }
 
@@ -269,13 +271,14 @@ struct MealPlanDetailView: View {
         Loggers.mealPlans.debug("[MealPlanDetailView] loadPlan: entry plan=\(url.lastPathComponent, privacy: .public)")
         let fileURL = url
         let folder = folderURL
+        let catalogEntries = recipeCatalog.sections.flatMap(\.entries)
         let result = await Task.detached(priority: .userInitiated) {
-            () -> (MealPlan, [String: RecipeFile]) in
+            () -> (MealPlan, [String: RecipeEntry]) in
             guard let text = MealPlanFiles.readText(from: fileURL) else {
                 return (MealPlan(), [:])
             }
             let parsed = MealPlanParser.parse(text)
-            var recipes: [String: RecipeFile] = [:]
+            var recipes: [String: RecipeEntry] = [:]
 
             let didStart = folder.startAccessingSecurityScopedResource()
             defer { if didStart { folder.stopAccessingSecurityScopedResource() } }
@@ -286,12 +289,18 @@ struct MealPlanDetailView: View {
                         if case .recipe(let r) = item, recipes[r.path] == nil {
                             let clean = r.path.hasPrefix("./") ? String(r.path.dropFirst(2)) : r.path
                             let recipeURL = folder.appendingPathComponent(clean).appendingPathExtension("cook")
-                            let base = recipeURL.deletingPathExtension()
-                            let thumbURL = ["jpg", "jpeg", "png", "heic"].compactMap { ext -> URL? in
-                                let c = base.appendingPathExtension(ext)
-                                return FileManager.default.fileExists(atPath: c.path) ? c : nil
-                            }.first
-                            recipes[r.path] = RecipeFile(url: recipeURL, thumbnailURL: thumbURL)
+                            if let catalogEntry = catalogEntries.first(where: { $0.url == recipeURL }) {
+                                recipes[r.path] = catalogEntry
+                            } else {
+                                let base = recipeURL.deletingPathExtension()
+                                let thumbURL = ["jpg", "jpeg", "png", "heic"].compactMap { ext -> URL? in
+                                    let c = base.appendingPathExtension(ext)
+                                    return FileManager.default.fileExists(atPath: c.path) ? c : nil
+                                }.first
+                                let content = try? String(contentsOf: recipeURL, encoding: .utf8)
+                                let recipe = (try? CooklangParser.canonical.parse(content ?? "")) ?? Recipe()
+                                recipes[r.path] = RecipeEntry(url: recipeURL, thumbnailURL: thumbURL, recipe: recipe)
+                            }
                         }
                     }
                 }
@@ -365,10 +374,10 @@ struct MealPlanDetailView: View {
     private func planItemRow(item: MealPlanItem, at index: MealPlanItemIndex) -> some View {
         switch item {
         case .recipe(let recipe):
-            let rf = resolvedRecipes[recipe.path] ?? fallbackRecipeFile(for: recipe.path)
+            let rf = resolvedRecipes[recipe.path] ?? fallbackRecipeEntry(for: recipe.path)
             MealPlanRecipeRow(
                 recipe: recipe,
-                recipeFile: rf,
+                recipeEntry: rf,
                 onTap: { selectedRecipe = rf },
                 onDelete: { deleteItem(at: index) }
             )

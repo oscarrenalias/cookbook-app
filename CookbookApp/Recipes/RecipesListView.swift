@@ -1,11 +1,10 @@
     import SwiftUI
 
 struct RecipesListView: View {
-    let folderURL: URL
+    @Environment(RecipeCatalog.self) private var catalog
 
-    @State private var sections: [FolderSection]? = nil
     @State private var query = ""
-    @State private var selectedRecipe: RecipeFile?
+    @State private var selectedRecipe: RecipeEntry?
     // Persists collapsed-folder names across tab swaps within the scene.
     // Folders not in the set are expanded (the default for unknown names).
     @SceneStorage("recipes.collapsedFolders") private var collapsedFoldersJoined: String = ""
@@ -25,14 +24,14 @@ struct RecipesListView: View {
         collapsedFoldersJoined = current.sorted().joined(separator: "\n")
     }
 
-    private var filteredSections: [FolderSection] {
-        let base = (sections ?? []).filter { !$0.recipes.isEmpty }
+    private var filteredSections: [CatalogSection] {
+        let base = catalog.sections.filter { !$0.entries.isEmpty }
         guard !query.isEmpty else { return base }
         return base.compactMap { section in
-            let matching = section.recipes.filter {
+            let matching = section.entries.filter {
                 $0.displayName.localizedCaseInsensitiveContains(query)
             }
-            return matching.isEmpty ? nil : FolderSection(name: section.name, recipes: matching)
+            return matching.isEmpty ? nil : CatalogSection(name: section.name, entries: matching)
         }
     }
 
@@ -42,23 +41,23 @@ struct RecipesListView: View {
             .sheet(item: $selectedRecipe) { recipe in
                 RecipeDetailSheet(recipe: recipe)
             }
-            .task {
-                let loaded = await Task.detached(priority: .userInitiated) {
-                    RecipeDiscovery.scan(folderURL: folderURL)
-                }.value
-                sections = loaded
+            .refreshable {
+                catalog.reload()
+                while catalog.isLoading {
+                    try? await Task.sleep(for: .milliseconds(100))
+                }
             }
     }
 
     @ViewBuilder
     private var listContent: some View {
-        if sections == nil {
+        if !catalog.isLoaded {
             Color.clear
-        } else if (sections ?? []).allSatisfy({ $0.recipes.isEmpty }) {
+        } else if catalog.sections.allSatisfy({ $0.entries.isEmpty }) {
             EmptyStateView(
                 systemImage: "tray",
                 title: "No recipes found",
-                subtitle: "Add .cook files to \(folderURL.lastPathComponent)."
+                subtitle: "Add .cook files to your recipes folder."
             )
         } else if !query.isEmpty && filteredSections.isEmpty {
             EmptyStateView(
@@ -70,11 +69,11 @@ struct RecipesListView: View {
             List {
                 ForEach(filteredSections, id: \.name) { section in
                     Section(isExpanded: sectionBinding(for: section.name)) {
-                        ForEach(section.recipes) { recipe in
+                        ForEach(section.entries) { entry in
                             Button {
-                                selectedRecipe = recipe
+                                selectedRecipe = entry
                             } label: {
-                                RecipeRowView(recipe: recipe)
+                                RecipeRowView(recipe: entry)
                             }
                             .buttonStyle(.plain)
                         }
@@ -112,8 +111,10 @@ struct RecipesListView: View {
 }
 
 #Preview {
+    let catalog = RecipeCatalog()
     NavigationStack {
-        RecipesListView(folderURL: URL(fileURLWithPath: NSTemporaryDirectory()))
+        RecipesListView()
             .navigationTitle("Recipes")
+            .environment(catalog)
     }
 }

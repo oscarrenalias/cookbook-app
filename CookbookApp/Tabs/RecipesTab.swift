@@ -6,7 +6,7 @@ struct RecipesTab: View {
 
     var body: some View {
         NavigationStack {
-            RecipesListView(folderURL: store.folderURL!)
+            RecipesListView()
                 .navigationTitle("Recipes")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {

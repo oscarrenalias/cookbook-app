@@ -78,10 +78,56 @@ of this type" — for example, the recipes list shows an empty-state
 message when the folder has zero `.cook` files, the meal-plans tab
 shows an empty-state when no meal-plan files exist, etc.
 
+### Observable store: RecipeCatalog
+
+`RecipeCatalog` (`CookbookApp/Recipes/RecipeCatalog.swift`) is an
+`@Observable @MainActor final class` that is the **app-session source of
+truth for all recipe data**. It is created by `AppRoot`, wired via
+`.environment(recipeCatalog)`, and consumed by `RecipesListView`,
+`RecipeDetailSheet`, and `MealPlanDetailView` via
+`@Environment(RecipeCatalog.self)`.
+
+**Lifecycle** — `AppRoot` drives the catalog through a `.task(id: store.folderURL)` modifier. Whenever `folderURL` becomes non-nil (on first launch or after a stale-bookmark recovery), `AppRoot` calls both `catalog.load(from:)` (aisle catalog) and `recipeCatalog.load(from:)` in parallel. Both catalogs are loaded once per app session; pull-to-refresh in `RecipesListView` triggers `catalog.reload()` for a rescan without leaving the tab.
+
+**Public surface:**
+
+| Member | Type | Purpose |
+|--------|------|---------|
+| `sections` | `[CatalogSection]` | Parsed recipe sections; empty until `isLoaded` |
+| `isLoaded` | `Bool` | `false` during initial load; `true` after first scan completes |
+| `isLoading` | `Bool` | `true` while a scan is in progress |
+| `load(from:)` | method | Sets the folder URL and triggers an initial scan |
+| `reload()` | method | Re-scans using the stored folder URL; used by pull-to-refresh |
+| `entry(for:)` | method | Lookup a `RecipeEntry` by URL across all sections |
+
+**`RecipeEntry`** is the per-recipe value type produced by the scan:
+
+```swift
+struct RecipeEntry: Identifiable {
+    let url: URL
+    let thumbnailURL: URL?   // sibling image if present
+    let recipe: Recipe       // fully parsed CookbookCore Recipe
+    var displayName: String  // filename without .cook extension
+}
+```
+
+**`CatalogSection`** groups entries under a folder name:
+
+```swift
+struct CatalogSection {
+    let name: String
+    let entries: [RecipeEntry]
+}
+```
+
+This pattern mirrors `AisleCatalog` — both are `@Observable` singletons injected at app startup and reloaded when the folder URL changes.
+
 ### Folder enumeration
 
-`RecipeDiscovery.scan(folderURL:)` (`CookbookApp/Recipes/RecipeDiscovery.swift`)
-performs a **top-level-only** scan of the configured folder:
+`RecipeCatalog` performs a **top-level-only** scan of the configured folder
+inside a detached `Task` with `.userInitiated` priority, wrapping all file
+access with `startAccessingSecurityScopedResource()` /
+`stopAccessingSecurityScopedResource()`:
 
 - `.cook` files (case-insensitive extension) directly in the configured
   folder → collected into a section named `(no folder)`.
@@ -89,6 +135,8 @@ performs a **top-level-only** scan of the configured folder:
   top level of that subdirectory is scanned (no further recursion).
 - Hidden files and dotfolders (names starting with `.`) are skipped at
   every level.
+- Each `.cook` file is parsed immediately during the scan using
+  `CooklangParser.canonical`; files that fail to parse are silently dropped.
 
 **Sort order:**
 
@@ -98,10 +146,6 @@ performs a **top-level-only** scan of the configured folder:
 3. Within each section, rows are sorted alphabetically by display name
    (case-insensitive).
 
-The scan runs off the main thread (detached `Task` in `RecipesListView`)
-and wraps the folder URL with `startAccessingSecurityScopedResource()` /
-`stopAccessingSecurityScopedResource()`.
-
 ### Reusable Recipes UI components
 
 The following components were introduced in spec 0003 and are available
@@ -110,7 +154,7 @@ for reuse by future specs:
 | Component | File | Purpose |
 |-----------|------|---------|
 | `RecipesListView` | `CookbookApp/Recipes/RecipesListView.swift` | Full list view: search field, collapsible `FolderSection` sections, tap-to-detail sheet wiring |
-| `RecipeRowView` | `CookbookApp/Recipes/RecipeRowView.swift` | Single recipe row: 56×56 thumbnail, display name, trailing chevron |
+| `RecipeRowView` | `CookbookApp/Recipes/RecipeRowView.swift` | Single recipe row: 56×56 thumbnail, display name, trailing chevron; accepts a `RecipeEntry` |
 | `RecipeThumbnailView` | `CookbookApp/Recipes/RecipeThumbnailView.swift` | Async thumbnail loader with `NSCache`-backed in-memory cache (200-image limit) and `fork.knife` SF Symbol fallback |
 
 **Visual verification note:** Thumbnail loading, section collapse animation,
@@ -301,7 +345,7 @@ and the single source of truth for the current serving scale.
 ### Component hierarchy
 
 ```
-RecipeDetailSheet                    ← owns @State currentScale, selectedTab, parsedRecipe
+RecipeDetailSheet                    ← owns @State currentScale, selectedTab
 ├── RecipeHeroHeader                 ← hero image (fixed 260 pt height) + gradient + dismiss button
 │   └── [async] RecipeImageLoader   ← sibling-image lookup (see below)
 ├── RecipeStatStrip(scale: $currentScale)   ← scrollable stat strip; binds to scale
@@ -314,10 +358,10 @@ RecipeDetailSheet                    ← owns @State currentScale, selectedTab, 
 └── RecipeBottomBar                  ← action bar (two action buttons; no scale picker)
 ```
 
-`RecipeDetailSheet` parses the `.cook` file off the main thread using a
-detached `Task` with `.userInitiated` priority, keyed on `recipe.url` via
-`.task(id:)`. While parsing, a `ProgressView()` replaces the tab content;
-`RecipeBottomBar` is always visible in both states.
+`RecipeDetailSheet` receives a `RecipeEntry` (not a raw file URL). The
+`Recipe` is pre-parsed by `RecipeCatalog` during the background scan, so
+there is no per-open parse step and no loading spinner in the detail sheet.
+`recipe.recipe` is available immediately on sheet presentation.
 
 ### Scale @State sharing
 
@@ -420,7 +464,7 @@ list flow* sections).
 
 The "Add to shopping list" button is disabled when the parsed recipe has no
 ingredients (`recipe.ingredients.isEmpty`). `RecipeDetailSheet` passes the
-current `parsedRecipe` and `currentScale` through to `AddToShoppingListSheet`,
+recipe from `entry.recipe` and `currentScale` through to `AddToShoppingListSheet`,
 so the sheet always reflects the scale the user has selected in the Ingredients
 tab. A transient success toast (`successMessage`) appears for 2.5 s after a
 successful append or create, reporting the item count and list name.
@@ -795,12 +839,13 @@ button (`.confirmationAction` placement) that dismisses it.
 `RecipeBottomBar` exposes `onAddToMealPlan: () -> Void`. `RecipeDetailSheet`
 owns `@State private var showAddToMealPlanSheet = false`, sets it to `true`
 in the callback, and presents `AddToMealPlanSheet` as a `.sheet`. The button
-is disabled while the recipe is loading (`parsedRecipe == nil`).
+is always enabled because the recipe is pre-parsed by `RecipeCatalog` before
+the sheet is opened.
 
-`AddToMealPlanSheet` receives the recipe (`Recipe?`), the recipe file
-(`RecipeFile`), the current scale (`RecipeScale`), and the configured folder
-URL. On success it calls `onSuccess(planName)` so `RecipeDetailSheet` can
-show a 2.5-second toast.
+`AddToMealPlanSheet` receives the `RecipeEntry`, the parsed `Recipe`,
+the current scale (`RecipeScale`), and the configured folder URL. On success
+it calls `onSuccess(planName)` so `RecipeDetailSheet` can show a 2.5-second
+toast.
 
 ### AddToMealPlanSheet — single-screen picker
 
@@ -892,7 +937,7 @@ all categories.
 | `shoppingLists` | `Loggers.shoppingLists` | `ShoppingListFiles`, `AddToShoppingListService`, `AddItemSheet`, `AddToShoppingListSheet` |
 | `mealPlans` | `Loggers.mealPlans` | `MealPlanFiles`, `AddToMealPlanService`, `CreateShoppingListFromMealPlanService`, `MealPlanDetailView` |
 | `aisleCatalog` | `Loggers.aisleCatalog` | `AisleCatalog` |
-| `recipes` | `Loggers.recipes` | `RecipeDiscovery` |
+| `recipes` | `Loggers.recipes` | `RecipeCatalog` |
 | `common` | `Loggers.common` | Reserved; unused in this instrumentation pass |
 
 ### File coverage by subsystem
@@ -925,7 +970,7 @@ all categories.
 
 | File | Log points |
 |------|------------|
-| `RecipeDiscovery` | Entry to `scan`; directory-read failure; exit with section and recipe counts |
+| `RecipeCatalog` | Entry to `scan`; directory-read failure; exit with section and recipe counts |
 
 **CookbookCore (framework layer)**
 

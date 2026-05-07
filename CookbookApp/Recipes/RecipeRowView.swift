@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RecipeRowView: View {
-    let recipe: RecipeFile
+    let recipe: RecipeEntry
 
     var body: some View {
         HStack {

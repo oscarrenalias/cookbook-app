@@ -5,18 +5,18 @@ import CookbookCore
 
 struct MealPlanRecipeRow: View {
     let recipe: MealPlanRecipe
-    let recipeFile: RecipeFile
+    let recipeEntry: RecipeEntry
     var onTap: () -> Void
     var onDelete: () -> Void
 
     var body: some View {
         Button(action: onTap) {
             HStack {
-                RecipeThumbnailView(thumbnailURL: recipeFile.thumbnailURL)
+                RecipeThumbnailView(thumbnailURL: recipeEntry.thumbnailURL)
                     .frame(width: 44, height: 44)
                     .clipShape(RoundedRectangle(cornerRadius: 6))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(recipeFile.displayName.sentenceCased)
+                    Text(recipeEntry.displayName.sentenceCased)
                         .font(.body)
                         .foregroundStyle(.primary)
                     if let qty = recipe.quantity {
@@ -111,12 +111,12 @@ struct MealPlanIngredientRow: View {
 
 #Preview {
     let folder = URL(fileURLWithPath: NSTemporaryDirectory())
-    let fakeRecipeFile = RecipeFile(url: folder.appendingPathComponent("Pasta Bolognese.cook"), thumbnailURL: nil)
+    let fakeRecipeEntry = RecipeEntry(url: folder.appendingPathComponent("Pasta Bolognese.cook"), thumbnailURL: nil, recipe: Recipe())
     let fakeRecipe = MealPlanRecipe(path: "./Pasta/Pasta Bolognese", quantity: Quantity(value: .number(4), unit: "servings"))
     let fakeIngredient = MealPlanIngredient(name: "yogurt", quantity: Quantity(value: .number(200), unit: "g"))
 
     return List {
-        MealPlanRecipeRow(recipe: fakeRecipe, recipeFile: fakeRecipeFile, onTap: {}, onDelete: {})
+        MealPlanRecipeRow(recipe: fakeRecipe, recipeEntry: fakeRecipeEntry, onTap: {}, onDelete: {})
         MealPlanTextRow(text: "Lunch:", onDelete: {})
         MealPlanTextRow(text: "batch-cook on Sunday", onDelete: {})
         MealPlanIngredientRow(ingredient: fakeIngredient, onDelete: {})
