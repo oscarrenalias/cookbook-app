@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-cf6062ef",
+  "title": "Shared documentation update for recipe catalog architecture",
+  "agent_type": "documentation",
+  "description": "Refresh architecture documentation to describe `RecipeCatalog` as the authoritative recipes data layer, its environment/lifecycle wiring, and the new relationship between list/detail consumers and in-memory parsed recipes.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-6c96a024",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`docs/architecture.md` documents `RecipeCatalog` as the app-session source of truth for recipes.",
+    "Documentation removes or rewrites outdated explanations centered on `RecipeDiscovery` and per-open parsing in `RecipeDetailSheet`.",
+    "The docs reflect pull-to-refresh reload behavior and the parallel between recipe and aisle catalogs."
+  ],
+  "linked_docs": [
+    "spec-fa73e084",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-6c96a024",
+  "execution_branch_name": "feature/b-6c96a024",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+  "expected_files": [
+    "docs/architecture.md"
+  ],
+  "expected_globs": [
+    "docs/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T06:34:12.526856+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
