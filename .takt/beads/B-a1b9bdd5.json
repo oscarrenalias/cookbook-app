@@ -295,6 +295,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/RecipeCatalog.swift",
     "CookbookAppTests/RecipesActiveFiltersTests.swift",
     "CookbookAppTests/RecipesListViewTests.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift",
@@ -572,6 +573,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/RecipeCatalog.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "changed_files": [
@@ -845,6 +847,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Recipes/RecipeCatalog.swift",
     "Packages/CookbookCore/Sources/CookbookCore/Metadata.swift"
   ],
   "updated_docs": [],
@@ -869,7 +872,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.",
+  "conflict_risks": "None \u2014 changes are additive (new methods only) in a file with no concurrent bead claims.\nNone \u2014 changes are additive (new computed properties only) with no modifications to existing API surface.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
