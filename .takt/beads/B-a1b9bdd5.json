@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fddc62d1",
-  "dependencies": [],
+  "dependencies": [
+    "B-236cb00a",
+    "B-563ad48b",
+    "B-3f8cf2c7",
+    "B-2b2d043a",
+    "B-343f5971"
+  ],
   "acceptance_criteria": [
     "`Packages/CookbookCore/Tests/CookbookCoreTests/MetadataTests.swift` covers recognized time formats, failure cases, normalized tags, and preservation of raw tags.",
     "`CookbookAppTests/RecipesActiveFiltersTests.swift` covers tag OR semantics, max-time boundary behavior, missing metadata exclusion, and AND composition across axes.",
