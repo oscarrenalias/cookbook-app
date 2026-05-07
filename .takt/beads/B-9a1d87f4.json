@@ -3,7 +3,7 @@
   "title": "Add app notes editing view tests",
   "agent_type": "developer",
   "description": "Add CookbookApp tests for notes section visibility, edit affordance placement, empty-state toolbar access, and save-path invocation from the notes editor flow.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -27,37 +27,46 @@
   "expected_globs": [
     "CookbookAppTests/*.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookAppTests/EditNotesFlowTests.swift"
+  ],
+  "changed_files": [
+    "CookbookAppTests/EditNotesFlowTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "All 17 tests written and compile cleanly: notes section visibility (4 tests), edit affordance placement (2 tests), toolbar action visibility (2 tests), EditNotesSheet instantiation (2 tests), save callback invocation (3 tests), document write path (4 tests).",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "Tests exercise the notesLines predicate inline rather than via the live view \u2014 if ShoppingListDetailView changes its filtering logic the tests will not automatically fail. Low risk given the logic is simple.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookAppTests/EditNotesFlowTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Run tester agent to execute the test suite and verify all 17 tests pass.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookAppTests/EditNotesFlowTests.swift"
+    ],
+    "expected_globs": [
+      "CookbookAppTests/*.swift"
+    ],
+    "touched_files": [
+      "CookbookAppTests/EditNotesFlowTests.swift"
+    ],
+    "conflict_risks": "No file overlap with sibling beads expected.",
+    "design_decisions": "Tests use Swift Testing framework (@Suite/@Test/#expect) consistent with all other CookbookAppTests. notesLines predicate is mirrored inline (not imported) since ShoppingListDetailView is a SwiftUI view without a dedicated testable model; this is the same pattern used in other view tests in the suite. Save-path tests validate the callback protocol and document mutation directly rather than through the full view stack \u2014 appropriate scope given the acceptance criteria exclude markdown rendering internals.",
+    "test_coverage_notes": "17 tests: 4 visibility, 2 edit affordance, 2 toolbar visibility, 2 sheet instantiation, 3 save callback, 4 document write path including round-trip.",
+    "known_limitations": "Tests do not exercise the live SwiftUI toolbar rendering path (no ViewInspector available in the project). Toolbar action visibility is validated via the boolean predicate (doc.notes.isEmpty) that guards it in ShoppingListDetailView."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "No file overlap with sibling beads expected.",
   "branch_name": "feature/b-e5f14e6e",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
-  "lease": {
-    "owner": "developer:B-9a1d87f4",
-    "expires_at": "2026-05-07T19:14:44.022879+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -132,6 +141,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-9a1d87f4/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-07T18:46:57.502791+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "CookbookAppTests/EditNotesFlowTests.swift contains 17 Swift Testing tests covering all four acceptance criteria. Build-for-testing completes without errors after xcodegen regeneration.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -204,7 +220,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "CookbookAppTests/EditNotesFlowTests.swift contains 17 Swift Testing tests covering all four acceptance criteria. Build-for-testing completes without errors after xcodegen regeneration.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.3686692000000001,
+      "duration_ms": 127743,
+      "duration_api_ms": 113945,
+      "num_turns": 12,
+      "input_tokens": 12,
+      "output_tokens": 3722,
+      "cache_creation_tokens": 33234,
+      "cache_read_tokens": 261192,
+      "stop_reason": "end_turn",
+      "session_id": "e36fe801-da10-4ca3-aed9-b66aaf997b67",
+      "permission_denials": [],
+      "prompt_chars": 6072,
+      "prompt_lines": 143,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.3686692000000001,
+        "duration_ms": 127743,
+        "duration_api_ms": 113945,
+        "num_turns": 12,
+        "input_tokens": 12,
+        "output_tokens": 3722,
+        "cache_creation_tokens": 33234,
+        "cache_read_tokens": 261192,
+        "stop_reason": "end_turn",
+        "session_id": "e36fe801-da10-4ca3-aed9-b66aaf997b67",
+        "permission_denials": [],
+        "prompt_chars": 6072,
+        "prompt_lines": 143,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "bf0cf8c3fabb035b5cfe53d941b12cdbae820c3f"
   },
   "labels": [],
   "recovery_for": null,
