@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-e3a5b9a6",
+  "title": "Wire RecipeCatalog into AppRoot lifecycle",
+  "agent_type": "developer",
+  "description": "Instantiate `RecipeCatalog` at the app root, inject it into the SwiftUI environment, and trigger catalog loads from the folder-selection lifecycle alongside the existing store and aisle catalog wiring.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-6c96a024",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`AppRoot` owns a single `RecipeCatalog` instance for the app session.",
+    "`RecipeCatalog` is injected with `.environment(...)` so descendant recipe views can read it from the environment.",
+    "Folder URL changes trigger catalog loading/reloading from the app root lifecycle."
+  ],
+  "linked_docs": [
+    "spec-fa73e084",
+    "CookbookApp/AppRoot.swift"
+  ],
+  "feature_root_id": "B-6c96a024",
+  "execution_branch_name": "feature/b-6c96a024",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-6c96a024",
+  "expected_files": [
+    "CookbookApp/AppRoot.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/*.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T06:34:11.559043+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
