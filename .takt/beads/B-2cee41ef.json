@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-e1cfe55a"
+  ],
   "acceptance_criteria": [
     "Rendered output order is Title -> Notes -> Meals -> Aisles.",
     "Non-empty notes render as `## Notes`, followed by the notes text verbatim, normalized to one trailing newline, then one blank line before the next block.",
