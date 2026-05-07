@@ -3,7 +3,7 @@
   "title": "Shared feature documentation",
   "agent_type": "documentation",
   "description": "Document the shipped notes behavior, including the explicit `## Notes` markdown contract, empty-notes UI entry point, and the intentional loss of previously unmodelled free text on save.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
   "dependencies": [
@@ -978,9 +978,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 `ShoppingListDocument.swift` and `ShoppingListDetailView.swift` are within this bead's declared scope. Test file update is low-risk; it only touches tests for the mutated type.\nExisting tests exercising the old behaviour (free text before `##` headings landing in `notes`) will break and must be updated. No file-scope conflicts with other running beads.\nNone. Only file touched is `ShoppingListDocument.swift`; the change is additive/non-breaking for callers of `renderMarkdown()`.\nShoppingListParserTests.swift lines 82\u201397 contain pre-existing tests that contradict the current parser behavior (pre-aisle content is discarded, not stored as notes). A tester or review agent should flag these for correction separately.\nThe downstream integration bead will modify `ShoppingListDetailView.swift`, which is a high-traffic file. Any other in-flight bead touching `ShoppingListDetailView.swift` should be serialised with the integration bead.\nShoppingListHeaderView.swift now has an extra optional parameter. Any sibling bead that also modifies ShoppingListHeaderView would conflict.\nNo file overlap with sibling beads expected.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-e5f14e6e",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-e5f14e6e",
+  "lease": {
+    "owner": "documentation:B-a12529df",
+    "expires_at": "2026-05-07T19:20:51.847250+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -989,9 +992,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T18:50:52.235892+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T18:50:52.235926+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-a12529df",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-a12529df/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
