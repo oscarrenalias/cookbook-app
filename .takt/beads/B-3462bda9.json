@@ -773,6 +773,13 @@
       "agent_type": "review",
       "summary": "Two findings: one medium bug (notes inaccessible when list has no items), one low-quality test. Recommending needs_changes for the bug fix before merge.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T18:56:38.288841+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-3462bda9-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -1513,7 +1520,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-3462bda9-corrective"
   },
   "labels": [],
   "recovery_for": null,
