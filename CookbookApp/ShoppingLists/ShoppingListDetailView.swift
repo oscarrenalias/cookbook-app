@@ -80,7 +80,7 @@ struct ShoppingListDetailView: View {
         Group {
             if !isLoaded {
                 Color.clear
-            } else if totalCount == 0 {
+            } else if totalCount == 0 && notesLines.isEmpty && document.meals.isEmpty {
                 EmptyStateView(
                     systemImage: "cart",
                     title: "Empty list",
