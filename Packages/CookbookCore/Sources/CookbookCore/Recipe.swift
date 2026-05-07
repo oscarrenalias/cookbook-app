@@ -13,6 +13,19 @@ public struct Step: Sendable, Equatable {
     }
 }
 
+public extension Step {
+    func ingredientIndices() -> [Int] {
+        var seen = Set<Int>()
+        var result = [Int]()
+        for item in items {
+            if case .ingredient(let index) = item, seen.insert(index).inserted {
+                result.append(index)
+            }
+        }
+        return result
+    }
+}
+
 public enum Content: Sendable, Equatable {
     case step(Step)
     case text(String)

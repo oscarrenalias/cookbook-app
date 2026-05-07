@@ -13,8 +13,7 @@ struct RecipeBottomBarTests {
             recipe: nil,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {}
-        )
+            onAddToShoppingList: {}        )
     }
 
     @Test func bottomBarInstantiatesWithRecipeWithIngredients() {
@@ -25,8 +24,7 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {}
-        )
+            onAddToShoppingList: {}        )
     }
 
     @Test func bottomBarInstantiatesWithRecipeWithNoIngredients() {
@@ -35,8 +33,7 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: {}
-        )
+            onAddToShoppingList: {}        )
     }
 
     @Test func bottomBarInstantiatesWithAllScaleValues() {
@@ -94,8 +91,7 @@ struct RecipeBottomBarTests {
             recipe: Recipe(),
             scale: .one,
             onAddToMealPlan: { called = true },
-            onAddToShoppingList: {}
-        )
+            onAddToShoppingList: {}        )
         bar.onAddToMealPlan()
         #expect(called)
     }
@@ -109,9 +105,11 @@ struct RecipeBottomBarTests {
             recipe: recipe,
             scale: .one,
             onAddToMealPlan: {},
-            onAddToShoppingList: { called = true }
-        )
+            onAddToShoppingList: { called = true }        )
         bar.onAddToShoppingList()
         #expect(called)
     }
+
+    // Cook Now is no longer hosted by RecipeBottomBar — the affordance moved
+    // to the Steps tab section header. See StepsView.onCookNow.
 }
