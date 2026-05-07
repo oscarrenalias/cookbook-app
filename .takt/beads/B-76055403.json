@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-e5f14e6e",
-  "dependencies": [],
+  "dependencies": [
+    "B-e60b3975",
+    "B-2cee41ef"
+  ],
   "acceptance_criteria": [
     "When `document.notes` is non-empty, the detail view renders the Notes section and includes a tappable `square.and.pencil` affordance in the section header.",
     "Tapping the header pencil presents `EditNotesSheet`.",
