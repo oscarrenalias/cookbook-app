@@ -921,7 +921,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 single additive extension in Recipe.swift, no overlap with other in-flight beads touching this file.\nCookModeView.swift is also in B-09ce3e88's expected_files. When B-09ce3e88 runs it will overwrite the stub \u2014 no structural conflict, but if the init signature diverges from (recipe: Recipe, scale: RecipeScale) then RecipeDetailSheet will need a patch.\nNo file overlap with other in-flight beads. CookModeIngredientList.swift is a new file.",
+  "conflict_risks": "None \u2014 single additive extension in Recipe.swift, no overlap with other in-flight beads touching this file.\nCookModeView.swift is also in B-09ce3e88's expected_files. When B-09ce3e88 runs it will overwrite the stub \u2014 no structural conflict, but if the init signature diverges from (recipe: Recipe, scale: RecipeScale) then RecipeDetailSheet will need a patch.\nNo file overlap with other in-flight beads. CookModeIngredientList.swift is a new file.\nNone \u2014 CookModeView.swift and CookModeIngredientList.swift are exclusive to this feature branch. RecipeDetailSheet.swift is unchanged and continues to pass recipe + scale to CookModeView correctly.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
