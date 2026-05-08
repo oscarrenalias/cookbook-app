@@ -995,7 +995,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.\nSibling beads wiring block-rename triggers or block-reorder must read `pendingRenameBlockIndex`, `pendingRenameText`, `showBlockRenameAlert`, and `isEditMode` from this view \u2014 all added here and ready for use.",
+  "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.\nSibling beads wiring block-rename triggers or block-reorder must read `pendingRenameBlockIndex`, `pendingRenameText`, `showBlockRenameAlert`, and `isEditMode` from this view \u2014 all added here and ready for use.\nNone. Only MealPlanDetailView.swift was touched; no sibling beads claim this file.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
