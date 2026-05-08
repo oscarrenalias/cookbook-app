@@ -669,7 +669,11 @@
     "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -983,7 +987,11 @@
     "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
-    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
+    "CookbookAppTests/MealPlanDetailViewTests.swift",
+    "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
