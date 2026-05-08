@@ -1,0 +1,237 @@
+{
+  "bead_id": "B-2b2d043a",
+  "title": "Build RecipesFilterSheet UI",
+  "agent_type": "developer",
+  "description": "Create the modal filter sheet view with form sections for tags, cook time, prep time, difficulty, and course, plus Cancel, Apply, and Clear actions. The sheet should edit a staged copy of filter state so Cancel can discard changes.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-fddc62d1",
+  "dependencies": [
+    "B-563ad48b",
+    "B-3f8cf2c7"
+  ],
+  "acceptance_criteria": [
+    "A new `RecipesFilterSheet` presents the five required sections in a `NavigationStack` + `Form` structure.",
+    "Tag choices render from catalog tag corpus with multi-select chip styling and are usable even with a large corpus via vertical scrolling in the section.",
+    "Cancel discards staged edits, Apply commits them, and Clear resets all filters to inactive values."
+  ],
+  "linked_docs": [
+    "specs/drafts/advanced-recipe-search-and-filtering.md",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-fddc62d1",
+  "execution_branch_name": "feature/b-fddc62d1",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+  "expected_files": [
+    "CookbookApp/Recipes/RecipesFilterSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/Recipes/RecipesFilterSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/RecipesFilterSheet.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "RecipesFilterSheet implemented at CookbookApp/Recipes/RecipesFilterSheet.swift. The sheet: (1) takes catalog and initial filters at init, staging a local copy via @State so Cancel never commits; (2) shows a LazyVGrid tag chip section populated from catalog.tagCorpus with toggle-to-select capsule chips; (3) shows Cook Time and Prep Time Pickers with preset options [Any, 15 min, 30 min, 45 min, 1 hr, 1.5 hr, 2 hr]; (4) shows Difficulty and Course sections as checkmark-selection rows drawn from catalog.difficultyValues and catalog.courseValues (sections omitted when corpus is empty); (5) toolbar provides Cancel (dismiss without commit), Apply (onApply callback + dismiss), and Clear All (staged = .inactive, disabled when already empty). Verified with xcodebuild \u2014 BUILD SUCCEEDED.",
+    "remaining": "No remaining work for this bead. Downstream work: RecipesListView needs to be wired to present RecipesFilterSheet via a filter toolbar button and pass/receive RecipesActiveFilters state \u2014 that belongs to a separate integration bead.",
+    "risks": "Picker with Optional&lt;Int&gt; tag selection is a well-known SwiftUI edge case; validated it compiles and links correctly on iOS 18.4 simulator. No runtime concern identified but integration tester should verify the Picker selection renders the correct label for pre-populated filter values.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "CookbookApp/Recipes/RecipesFilterSheet.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Hand off to tester agent for acceptance verification; separately, an integration bead should wire RecipesFilterSheet into RecipesListView with a toolbar filter button and filter badge.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/Recipes/RecipesFilterSheet.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "CookbookApp/Recipes/RecipesFilterSheet.swift"
+    ],
+    "conflict_risks": "RecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).",
+    "design_decisions": "Used callback-based API (onApply closure) rather than a Binding to filters \u2014 this cleanly separates staged state inside the sheet from committed state in the caller. Tags section is conditionally rendered only when tagCorpus is non-empty; same for difficulty and course \u2014 avoids empty section visual noise. Clear All button is disabled when filters are already inactive to prevent redundant taps. FilterTagChip is file-private to avoid polluting the module namespace.",
+    "test_coverage_notes": "No tests added \u2014 test execution is tester agent responsibility. Key scenarios to test: tag toggle (select/deselect), Cancel discards, Apply commits, Clear All resets, pre-populated filters shown correctly on re-open.",
+    "known_limitations": "Tags section uses LazyVGrid inside Form \u2014 grid layout is eager within the Form scroll context (all cells rendered as section appears). Acceptable for typical tag corpus sizes. Difficulty and Course sections are hidden entirely when catalog has no values, which means a freshly empty catalog shows only cook/prep time pickers."
+  },
+  "block_reason": "",
+  "conflict_risks": "RecipesListView does not yet present RecipesFilterSheet \u2014 no conflict risk with this file, but any bead that adds filter button to RecipesListView will need to be aware of the callback-based API: RecipesFilterSheet(catalog:filters:onApply:).",
+  "branch_name": "feature/b-fddc62d1",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-07T07:25:44.092578+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T07:36:31.602809+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-07T07:36:31.602835+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-07T07:36:35.965710+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-2b2d043a/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-2b2d043a/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-07T07:43:28.051807+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Created RecipesFilterSheet.swift \u2014 a modal filter sheet with NavigationStack + Form, five filter sections (tags, cook time, prep time, difficulty, course), multi-select chip grid for tags, staged-copy state so Cancel discards edits, and Cancel/Apply/Clear All toolbar actions. Build succeeded clean.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-2b2d043a",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-2b2d043a/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-2b2d043a/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-07T07:36:35.965689+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-2b2d043a",
+      "feature_root_id": "B-fddc62d1",
+      "title": "Build RecipesFilterSheet UI",
+      "agent_type": "developer",
+      "description": "Create the modal filter sheet view with form sections for tags, cook time, prep time, difficulty, and course, plus Cancel, Apply, and Clear actions. The sheet should edit a staged copy of filter state so Cancel can discard changes.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "A new `RecipesFilterSheet` presents the five required sections in a `NavigationStack` + `Form` structure.",
+        "Tag choices render from catalog tag corpus with multi-select chip styling and are usable even with a large corpus via vertical scrolling in the section.",
+        "Cancel discards staged edits, Apply commits them, and Clear resets all filters to inactive values."
+      ],
+      "dependencies": [
+        "B-563ad48b",
+        "B-3f8cf2c7"
+      ],
+      "linked_docs": [
+        "specs/drafts/advanced-recipe-search-and-filtering.md",
+        "docs/architecture.md"
+      ],
+      "execution_branch_name": "feature/b-fddc62d1",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fddc62d1",
+      "expected_files": [
+        "CookbookApp/Recipes/RecipesFilterSheet.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Created RecipesFilterSheet.swift \u2014 a modal filter sheet with NavigationStack + Form, five filter sections (tags, cook time, prep time, difficulty, course), multi-select chip grid for tags, staged-copy state so Cancel discards edits, and Cancel/Apply/Clear All toolbar actions. Build succeeded clean.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.8525665499999999,
+      "duration_ms": 411077,
+      "duration_api_ms": 312506,
+      "num_turns": 25,
+      "input_tokens": 127,
+      "output_tokens": 21207,
+      "cache_creation_tokens": 45164,
+      "cache_read_tokens": 821448,
+      "stop_reason": "end_turn",
+      "session_id": "7b2f483c-3036-477d-af32-215f127eebcd",
+      "permission_denials": [],
+      "prompt_chars": 5794,
+      "prompt_lines": 134,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.8525665499999999,
+        "duration_ms": 411077,
+        "duration_api_ms": 312506,
+        "num_turns": 25,
+        "input_tokens": 127,
+        "output_tokens": 21207,
+        "cache_creation_tokens": 45164,
+        "cache_read_tokens": 821448,
+        "stop_reason": "end_turn",
+        "session_id": "7b2f483c-3036-477d-af32-215f127eebcd",
+        "permission_denials": [],
+        "prompt_chars": 5794,
+        "prompt_lines": 134,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "df33a813d0f9525392e525532f516575623accd4"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

@@ -1,0 +1,242 @@
+{
+  "bead_id": "B-747262c3",
+  "title": "B8: Apply sentence case to IngredientsView and CookwareView",
+  "agent_type": "developer",
+  "description": "In IngredientsView.swift, apply .sentenceCased to ingredient name display strings in the list rows. In CookwareView.swift, apply .sentenceCased to cookware name display strings. The transformation is view-layer only \u2014 the underlying Ingredient.name and Cookware.name values from CookbookCore are NOT modified. Inline step-text references keep the recipe's own casing as written.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-fa1cbeb6",
+  "dependencies": [
+    "B-368f685a"
+  ],
+  "acceptance_criteria": [
+    "Ingredient list rows display sentence-cased names at render time",
+    "Cookware list rows display sentence-cased names at render time",
+    "Ingredient.name and Cookware.name model values are unchanged",
+    "Step-text inline ingredient/cookware references retain the casing written in the recipe"
+  ],
+  "linked_docs": [
+    "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+  ],
+  "feature_root_id": "B-fa1cbeb6",
+  "execution_branch_name": "feature/b-fa1cbeb6",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+  "expected_files": [
+    "CookbookApp/Recipes/IngredientsView.swift",
+    "CookbookApp/Recipes/CookwareView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/Recipes/CookwareView.swift",
+    "CookbookApp/Recipes/IngredientsView.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/Recipes/CookwareView.swift",
+    "CookbookApp/Recipes/IngredientsView.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "IngredientsView.swift: Text(ingredient.name) \u2192 Text(ingredient.name.sentenceCased) at IngredientRow body (line 67). CookwareView.swift: Text(item.name) \u2192 Text(item.name.sentenceCased) at CookwareRow body (line 36).",
+    "remaining": "",
+    "risks": "None. The sentenceCased extension from B-368f685a is in the same CookbookApp target. The SourceKit 'No such module CookbookCore' diagnostic is a pre-existing worktree environment issue unrelated to these changes.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "CookbookApp/Recipes/CookwareView.swift",
+      "CookbookApp/Recipes/IngredientsView.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Tester agent should verify ingredient and cookware names render sentence-cased in the UI while model values remain unchanged.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/Recipes/IngredientsView.swift",
+      "CookbookApp/Recipes/CookwareView.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "CookbookApp/Recipes/CookwareView.swift",
+      "CookbookApp/Recipes/IngredientsView.swift"
+    ],
+    "conflict_risks": "None \u2014 both files are leaf view components with no overlapping edits expected from sibling beads.",
+    "design_decisions": "Applied .sentenceCased at the Text() call site only, not to the accessibility label, to stay within the scope of 'display strings in list rows'.",
+    "test_coverage_notes": "Tester should confirm: (1) ingredient names render sentence-cased, (2) cookware names render sentence-cased, (3) Ingredient.name/Cookware.name model values are unchanged, (4) step-text inline references are unaffected.",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "None \u2014 both files are leaf view components with no overlapping edits expected from sibling beads.",
+  "branch_name": "feature/b-fa1cbeb6",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-05T07:40:00.572079+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:56:58.768814+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-05T07:56:58.768835+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-05T07:56:59.484442+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-747262c3/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-747262c3/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-05T07:57:49.623896+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Applied .sentenceCased to ingredient and cookware name display strings in their respective row views. Changes are view-layer only \u2014 model values remain unmodified.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-747262c3",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-747262c3/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-747262c3/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-05T07:56:59.484427+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-747262c3",
+      "feature_root_id": "B-fa1cbeb6",
+      "title": "B8: Apply sentence case to IngredientsView and CookwareView",
+      "agent_type": "developer",
+      "description": "In IngredientsView.swift, apply .sentenceCased to ingredient name display strings in the list rows. In CookwareView.swift, apply .sentenceCased to cookware name display strings. The transformation is view-layer only \u2014 the underlying Ingredient.name and Cookware.name values from CookbookCore are NOT modified. Inline step-text references keep the recipe's own casing as written.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Ingredient list rows display sentence-cased names at render time",
+        "Cookware list rows display sentence-cased names at render time",
+        "Ingredient.name and Cookware.name model values are unchanged",
+        "Step-text inline ingredient/cookware references retain the casing written in the recipe"
+      ],
+      "dependencies": [
+        "B-368f685a"
+      ],
+      "linked_docs": [
+        "specs/drafts/0005-cookbookcore-parser-updates-yaml-frontmatter-and-modern-section-syntax.md"
+      ],
+      "execution_branch_name": "feature/b-fa1cbeb6",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa1cbeb6",
+      "expected_files": [
+        "CookbookApp/Recipes/IngredientsView.swift",
+        "CookbookApp/Recipes/CookwareView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Applied .sentenceCased to ingredient and cookware name display strings in their respective row views. Changes are view-layer only \u2014 model values remain unmodified.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.12958615,
+      "duration_ms": 49331,
+      "duration_api_ms": 46397,
+      "num_turns": 7,
+      "input_tokens": 8,
+      "output_tokens": 2432,
+      "cache_creation_tokens": 13773,
+      "cache_read_tokens": 130948,
+      "stop_reason": "end_turn",
+      "session_id": "7b98edbe-8b64-4410-849c-778f0dcee902",
+      "permission_denials": [],
+      "prompt_chars": 5961,
+      "prompt_lines": 133,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.12958615,
+        "duration_ms": 49331,
+        "duration_api_ms": 46397,
+        "num_turns": 7,
+        "input_tokens": 8,
+        "output_tokens": 2432,
+        "cache_creation_tokens": 13773,
+        "cache_read_tokens": 130948,
+        "stop_reason": "end_turn",
+        "session_id": "7b98edbe-8b64-4410-849c-778f0dcee902",
+        "permission_denials": [],
+        "prompt_chars": 5961,
+        "prompt_lines": 133,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "152625812df197d25dd08dbe4d5af75bd9894e28"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

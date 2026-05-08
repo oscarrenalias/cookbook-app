@@ -1,0 +1,252 @@
+{
+  "bead_id": "B-8259b1a6",
+  "title": "Wire Meal Plans tab into a real browser entry point",
+  "agent_type": "developer",
+  "description": "Replace the tab placeholder with a real meal-plans browser entry point and add list-entry loading logic that derives display counts from parsed plans.",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-920f3e84",
+  "dependencies": [
+    "B-f5403aed",
+    "B-955af572"
+  ],
+  "acceptance_criteria": [
+    "`MealPlansTab` renders the new browser view using the configured recipes folder URL.",
+    "List entry loading resolves plan files through `MealPlanFiles.discover(in:)`.",
+    "Each entry computes the deduped recipe count needed by card rows and detail headers.",
+    "No regression is introduced to the tab shell or folder-gating assumptions."
+  ],
+  "linked_docs": [
+    "spec-d7a891ba",
+    "specs/drafts/meal-plans-tab.md",
+    "docs/ui-guidelines.md"
+  ],
+  "feature_root_id": "B-920f3e84",
+  "execution_branch_name": "feature/b-920f3e84",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "expected_files": [
+    "CookbookApp/Tabs/MealPlansTab.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/MealPlans/MealPlanCardView.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift",
+    "CookbookApp/Tabs/MealPlansTab.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/MealPlanCardView.swift",
+    "CookbookApp/MealPlans/MealPlansView.swift",
+    "CookbookApp/Tabs/MealPlansTab.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "MealPlansTab now reads folderURL from RecipesFolderStore environment and delegates to MealPlansView. MealPlansView implements the browser pattern (NavigationStack, search, FAB, create-blank-plan alert, three empty states). loadEntries resolves plan files via MealPlanFiles.discover(in:), parses each file with MealPlanParser.parse, and computes deduped recipe count. MealPlanCardView shows name, relative date, and recipe count. Navigation destination to detail view is stubbed with Text \u2014 detail view is a follow-up bead.",
+    "remaining": "Detail view (MealPlanDetailView) is not part of this bead \u2014 the navigation destination is currently a stub Text view. A follow-up bead should implement the collapsible-section detail with swipe-delete and create-shopping-list CTA.",
+    "risks": "None. All changes are additive \u2014 MealPlansTab previously showed an EmptyStateView with no environment dependency; the tab shell (AppRoot) already gates the TabView behind folderURL != nil, so the force-unwrap in MealPlansTab is safe by the same invariant used in ShoppingListsTab and RecipesTab.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/MealPlans/MealPlanCardView.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift",
+      "CookbookApp/Tabs/MealPlansTab.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Implement MealPlanDetailView with collapsible ==block== sections, recipe/text/ingredient rows, swipe-delete items, delete-plan toolbar action, and stubbed create-shopping-list CTA.",
+    "next_agent": "developer",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookApp/Tabs/MealPlansTab.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift"
+    ],
+    "expected_globs": [],
+    "touched_files": [
+      "CookbookApp/MealPlans/MealPlanCardView.swift",
+      "CookbookApp/MealPlans/MealPlansView.swift",
+      "CookbookApp/Tabs/MealPlansTab.swift"
+    ],
+    "conflict_risks": "MealPlanCardView.swift is a net-new file with no overlap risk. MealPlansView.swift is net-new. MealPlansTab.swift was a stub \u2014 the only prior consumers are AppRoot (unchanged). No sibling bead touches these files.",
+    "design_decisions": "Navigation destination is stubbed as Text rather than removed entirely, so the NavigationStack push path is set up correctly for a follow-up detail-view bead to drop into. Deduped recipe count uses Set over .recipe path strings, matching the spec's 'deduped recipe count' requirement. Blank plan is created as '---\\n---\\n' (frontmatter-only), which MealPlanParser.parse returns as an empty MealPlan with no blocks \u2014 semantically correct and round-trips cleanly.",
+    "test_coverage_notes": "Test execution is the tester agent's responsibility. The loadEntries deduplication logic (Set over .recipe paths) is the only non-trivial logic and is a candidate for a unit test in CookbookAppTests.",
+    "known_limitations": "Navigation destination is a Text placeholder \u2014 tapping a card shows only the plan name until MealPlanDetailView is implemented. SourceKit diagnostics in the worktree are noise (no .xcodeproj exists until XcodeGen regenerates)."
+  },
+  "block_reason": "",
+  "conflict_risks": "MealPlanCardView.swift is a net-new file with no overlap risk. MealPlansView.swift is net-new. MealPlansTab.swift was a stub \u2014 the only prior consumers are AppRoot (unchanged). No sibling bead touches these files.",
+  "branch_name": "feature/b-920f3e84",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-06T09:28:46.235426+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T09:53:44.189902+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-06T09:53:44.189933+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-06T09:53:49.055657+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-8259b1a6/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-8259b1a6/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-06T09:59:10.729779+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Replaced MealPlansTab placeholder with a real browser entry point. Created MealPlansView (list + search + FAB + create flow) and MealPlanCardView, wired MealPlansTab to forward folderURL from the RecipesFolderStore environment. Entry loading uses MealPlanFiles.discover(in:) and MealPlanParser.parse to derive the deduped recipe count (unique .recipe paths via Set) for each card row.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-8259b1a6",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-8259b1a6/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-8259b1a6/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-06T09:53:49.055639+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-8259b1a6",
+      "feature_root_id": "B-920f3e84",
+      "title": "Wire Meal Plans tab into a real browser entry point",
+      "agent_type": "developer",
+      "description": "Replace the tab placeholder with a real meal-plans browser entry point and add list-entry loading logic that derives display counts from parsed plans.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`MealPlansTab` renders the new browser view using the configured recipes folder URL.",
+        "List entry loading resolves plan files through `MealPlanFiles.discover(in:)`.",
+        "Each entry computes the deduped recipe count needed by card rows and detail headers.",
+        "No regression is introduced to the tab shell or folder-gating assumptions."
+      ],
+      "dependencies": [
+        "B-f5403aed",
+        "B-955af572"
+      ],
+      "linked_docs": [
+        "spec-d7a891ba",
+        "specs/drafts/meal-plans-tab.md",
+        "docs/ui-guidelines.md"
+      ],
+      "execution_branch_name": "feature/b-920f3e84",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-920f3e84",
+      "expected_files": [
+        "CookbookApp/Tabs/MealPlansTab.swift",
+        "CookbookApp/MealPlans/MealPlansView.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Replaced MealPlansTab placeholder with a real browser entry point. Created MealPlansView (list + search + FAB + create flow) and MealPlanCardView, wired MealPlansTab to forward folderURL from the RecipesFolderStore environment. Entry loading uses MealPlanFiles.discover(in:) and MealPlanParser.parse to derive the deduped recipe count (unique .recipe paths via Set) for each card row.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.7680061,
+      "duration_ms": 320802,
+      "duration_api_ms": 308694,
+      "num_turns": 25,
+      "input_tokens": 689,
+      "output_tokens": 16865,
+      "cache_creation_tokens": 39283,
+      "cache_read_tokens": 654859,
+      "stop_reason": "end_turn",
+      "session_id": "1288c274-324f-4633-9522-d4283704e06a",
+      "permission_denials": [],
+      "prompt_chars": 5728,
+      "prompt_lines": 137,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.7680061,
+        "duration_ms": 320802,
+        "duration_api_ms": 308694,
+        "num_turns": 25,
+        "input_tokens": 689,
+        "output_tokens": 16865,
+        "cache_creation_tokens": 39283,
+        "cache_read_tokens": 654859,
+        "stop_reason": "end_turn",
+        "session_id": "1288c274-324f-4633-9522-d4283704e06a",
+        "permission_denials": [],
+        "prompt_chars": 5728,
+        "prompt_lines": 137,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "cf238a7be6a23fae309a9872487737582cc725c3"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

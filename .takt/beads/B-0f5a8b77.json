@@ -1,0 +1,88 @@
+{
+  "bead_id": "B-0f5a8b77",
+  "title": "Shared review for meal plan block editing feature",
+  "agent_type": "review",
+  "description": "Review the completed implementation for correctness, regression risk, and spec conformance across core mutations, UI behavior, persistence, tests, and documentation.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-ab1594dc",
+  "dependencies": [
+    "B-05629b6d",
+    "B-3d7f3d91",
+    "B-a423cee6",
+    "B-8d99fa1b",
+    "B-d721bc02",
+    "B-f1947005"
+  ],
+  "acceptance_criteria": [
+    "Review confirms all spec acceptance criteria are either satisfied or explicitly called out as gaps.",
+    "Review checks that reorder does not operate against filtered indices and that header tap targets remain structurally separated.",
+    "Review verifies tester and documentation outputs are present before sign-off.",
+    "Findings are documented with concrete file references and any unresolved risks."
+  ],
+  "linked_docs": [
+    "spec-f4b281b6",
+    "docs/architecture.md",
+    "specs/drafts/meal-plan-section-reorder-and-rename.md"
+  ],
+  "feature_root_id": "B-ab1594dc",
+  "execution_branch_name": "feature/b-ab1594dc",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc",
+  "expected_files": [
+    "/Users/oscar.renalias/Projects/cookbook-app/Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/CookbookAppTests/MealPlanDetailViewTests.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/docs/architecture.md"
+  ],
+  "expected_globs": [
+    "Packages/CookbookCore/Sources/CookbookCore/*.swift",
+    "Packages/CookbookCore/Tests/CookbookCoreTests/*.swift",
+    "CookbookApp/MealPlans/*.swift",
+    "CookbookAppTests/*.swift",
+    "docs/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-08T09:09:01.783704+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

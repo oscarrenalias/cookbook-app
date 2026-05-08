@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-a423cee6",
+  "title": "Refactor block headers for edit-mode reorder behavior",
+  "agent_type": "developer",
+  "description": "Restructure block header rendering into discrete tap regions and wire block reordering from the outer block list, including hiding drag affordances while search filtering is active.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-ab1594dc",
+  "dependencies": [
+    "B-3d7f3d91"
+  ],
+  "acceptance_criteria": [
+    "Block headers no longer use one row-wide collapse button in Edit mode.",
+    "The center heading/chevron region is the only collapse toggle target.",
+    "The outer block list supports `.onMove` against the unfiltered block array when search is empty.",
+    "Drag handles are unavailable while `searchText` is non-empty, without affecting rename availability."
+  ],
+  "linked_docs": [
+    "spec-f4b281b6",
+    "specs/drafts/meal-plan-section-reorder-and-rename.md"
+  ],
+  "feature_root_id": "B-ab1594dc",
+  "execution_branch_name": "feature/b-ab1594dc",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc",
+  "expected_files": [
+    "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift"
+  ],
+  "expected_globs": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-08T09:09:00.027423+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

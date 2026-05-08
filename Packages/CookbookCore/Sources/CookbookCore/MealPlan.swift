@@ -94,6 +94,24 @@ extension MealPlan {
         blocks.append(block)
         return blocks.count - 1
     }
+
+    /// Moves the block at `from` to position `to`. No-op when either index is out of bounds or
+    /// when `from` and `to` refer to the same position. Block contents are preserved unchanged.
+    public mutating func moveBlock(from source: Int, to destination: Int) {
+        guard source >= 0, source < blocks.count,
+              destination >= 0, destination < blocks.count,
+              source != destination
+        else { return }
+        let block = blocks.remove(at: source)
+        blocks.insert(block, at: destination)
+    }
+
+    /// Renames the block at `index` to `newHeading` after trimming whitespace. No-op when the
+    /// index is out of bounds. Inner sections and items are not affected.
+    public mutating func renameBlock(at index: Int, to newHeading: String) {
+        guard index >= 0, index < blocks.count else { return }
+        blocks[index].heading = newHeading.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
 
 /// A meal-plan item whose `@name` contains `/`, treated as a recipe path reference.
