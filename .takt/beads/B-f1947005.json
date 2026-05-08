@@ -335,12 +335,14 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/docs/architecture.md",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "expected_globs": [
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/RenameMealPlanBlockAlert.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "docs/architecture.md"
   ],
@@ -654,6 +656,7 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -967,6 +970,7 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
@@ -992,7 +996,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.\nSibling beads wiring block-rename triggers or block-reorder must read `pendingRenameBlockIndex`, `pendingRenameText`, `showBlockRenameAlert`, and `isEditMode` from this view \u2014 all added here and ready for use.\nNone. Only MealPlanDetailView.swift was touched; no sibling beads claim this file.",
+  "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.\nSibling beads wiring block-rename triggers or block-reorder must read `pendingRenameBlockIndex`, `pendingRenameText`, `showBlockRenameAlert`, and `isEditMode` from this view \u2014 all added here and ready for use.\nNone. Only MealPlanDetailView.swift was touched; no sibling beads claim this file.\nNone. MealPlanDetailView.swift is the sole file in scope; no other in-flight beads claim it.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
