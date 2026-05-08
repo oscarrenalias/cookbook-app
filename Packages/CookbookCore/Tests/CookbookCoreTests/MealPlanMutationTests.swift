@@ -151,4 +151,122 @@ struct MealPlanMutationTests {
         }
         #expect(r.path == "./Soup/Minestrone")
     }
+
+    // MARK: - moveBlock
+
+    @Test func moveBlockForwardShiftsIntermediateBlocksLeft() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "A", sections: [MealPlanSection()]),
+            MealPlanBlock(heading: "B", sections: [MealPlanSection()]),
+            MealPlanBlock(heading: "C", sections: [MealPlanSection()]),
+        ])
+        plan.moveBlock(from: 0, to: 2)
+        #expect(plan.blocks[0].heading == "B")
+        #expect(plan.blocks[1].heading == "C")
+        #expect(plan.blocks[2].heading == "A")
+    }
+
+    @Test func moveBlockBackwardShiftsIntermediateBlocksRight() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "A", sections: [MealPlanSection()]),
+            MealPlanBlock(heading: "B", sections: [MealPlanSection()]),
+            MealPlanBlock(heading: "C", sections: [MealPlanSection()]),
+        ])
+        plan.moveBlock(from: 2, to: 0)
+        #expect(plan.blocks[0].heading == "C")
+        #expect(plan.blocks[1].heading == "A")
+        #expect(plan.blocks[2].heading == "B")
+    }
+
+    @Test func moveBlockSameIndexIsNoOp() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "A", sections: [MealPlanSection()]),
+            MealPlanBlock(heading: "B", sections: [MealPlanSection()]),
+        ])
+        let before = plan
+        plan.moveBlock(from: 0, to: 0)
+        #expect(plan == before)
+    }
+
+    @Test func moveBlockOutOfBoundsSourceIsNoOp() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "A", sections: [MealPlanSection()]),
+        ])
+        let before = plan
+        plan.moveBlock(from: 99, to: 0)
+        #expect(plan == before)
+    }
+
+    @Test func moveBlockOutOfBoundsDestinationIsNoOp() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "A", sections: [MealPlanSection()]),
+        ])
+        let before = plan
+        plan.moveBlock(from: 0, to: 99)
+        #expect(plan == before)
+    }
+
+    @Test func moveBlockPreservesInnerSectionsAndItems() {
+        let item = MealPlanItem.recipe(MealPlanRecipe(path: "./Pasta/Bolognese"))
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "Day 1", sections: [
+                MealPlanSection(name: "Dinner", items: [item])
+            ]),
+            MealPlanBlock(heading: "Day 2", sections: [MealPlanSection()]),
+        ])
+        plan.moveBlock(from: 0, to: 1)
+        #expect(plan.blocks[0].heading == "Day 2")
+        #expect(plan.blocks[1].heading == "Day 1")
+        #expect(plan.blocks[1].sections.count == 1)
+        #expect(plan.blocks[1].sections[0].name == "Dinner")
+        #expect(plan.blocks[1].sections[0].items.count == 1)
+        guard case .recipe(let r) = plan.blocks[1].sections[0].items[0] else {
+            Issue.record("Expected recipe item after move")
+            return
+        }
+        #expect(r.path == "./Pasta/Bolognese")
+    }
+
+    // MARK: - renameBlock
+
+    @Test func renameBlockChangesHeading() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "Old Name", sections: [MealPlanSection()])
+        ])
+        plan.renameBlock(at: 0, to: "New Name")
+        #expect(plan.blocks[0].heading == "New Name")
+    }
+
+    @Test func renameBlockTrimsLeadingAndTrailingWhitespace() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "Day 1", sections: [MealPlanSection()])
+        ])
+        plan.renameBlock(at: 0, to: "  Day 1 Trimmed  ")
+        #expect(plan.blocks[0].heading == "Day 1 Trimmed")
+    }
+
+    @Test func renameBlockOutOfBoundsIsNoOp() {
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "Day 1", sections: [MealPlanSection()])
+        ])
+        let before = plan
+        plan.renameBlock(at: 99, to: "New Name")
+        #expect(plan == before)
+    }
+
+    @Test func renameBlockPreservesInnerSectionsAndItems() {
+        let item = MealPlanItem.recipe(MealPlanRecipe(path: "./Pasta/Bolognese"))
+        var plan = MealPlan(blocks: [
+            MealPlanBlock(heading: "Day 1", sections: [
+                MealPlanSection(name: "Dinner", items: [item]),
+                MealPlanSection(name: "Lunch", items: [])
+            ])
+        ])
+        plan.renameBlock(at: 0, to: "Monday")
+        #expect(plan.blocks[0].heading == "Monday")
+        #expect(plan.blocks[0].sections.count == 2)
+        #expect(plan.blocks[0].sections[0].name == "Dinner")
+        #expect(plan.blocks[0].sections[0].items.count == 1)
+        #expect(plan.blocks[0].sections[1].name == "Lunch")
+    }
 }

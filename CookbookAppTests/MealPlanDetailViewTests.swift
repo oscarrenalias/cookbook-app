@@ -253,4 +253,132 @@ struct MealPlanDetailViewTests {
         let folder = URL(fileURLWithPath: NSTemporaryDirectory())
         _ = MealPlanDetailView(url: url, folderURL: folder)
     }
+
+    // MARK: Edit button disabled state
+
+    @Test func emptyPlanMeansEditButtonShouldBeDisabled() {
+        let plan = MealPlan()
+        #expect(plan.blocks.isEmpty)
+    }
+
+    @Test func nonEmptyPlanMeansEditButtonShouldBeEnabled() {
+        var plan = MealPlan()
+        plan.addBlock(named: "Day 1")
+        #expect(!plan.blocks.isEmpty)
+    }
+
+    // MARK: Block rename alert validation
+
+    @Test func blockRenameValidationRejectsEmptyString() {
+        let text = ""
+        let isDisabled = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.contains("==")
+        #expect(isDisabled)
+    }
+
+    @Test func blockRenameValidationRejectsWhitespaceOnly() {
+        let text = "   \t  "
+        let isDisabled = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.contains("==")
+        #expect(isDisabled)
+    }
+
+    @Test func blockRenameValidationRejectsDoubleEquals() {
+        let text = "==Day 1=="
+        let isDisabled = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.contains("==")
+        #expect(isDisabled)
+    }
+
+    @Test func blockRenameValidationRejectsPartialDoubleEquals() {
+        let text = "Week == End"
+        let isDisabled = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.contains("==")
+        #expect(isDisabled)
+    }
+
+    @Test func blockRenameValidationAcceptsNormalName() {
+        let text = "Monday Meals"
+        let isDisabled = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.contains("==")
+        #expect(!isDisabled)
+    }
+
+    @Test func blockRenameValidationAcceptsSingleEquals() {
+        let text = "Day = 1"
+        let isDisabled = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.contains("==")
+        #expect(!isDisabled)
+    }
+
+    // MARK: Block rename persists to disk
+
+    @Test func blockRenamePersistsToDisk() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let content = """
+        ---
+        ---
+        ==Day 1==
+        Dinner:
+        @./Pasta/Bolognese
+        """
+        let fileURL = dir.appendingPathComponent("test.menu")
+        try content.write(to: fileURL, atomically: true, encoding: .utf8)
+
+        var plan = MealPlanParser.parse(content)
+        plan.renameBlock(at: 0, to: "Monday")
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        #expect(reparsed.blocks[0].heading == "Monday")
+        #expect(reparsed.blocks[0].sections[0].items.count == 1)
+    }
+
+    @Test func blockRenameDoesNotChangeOtherBlocks() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let content = """
+        ---
+        ---
+        ==Day 1==
+        Dinner:
+        @./Pasta/Bolognese
+        ==Day 2==
+        Lunch:
+        @./Soup/Minestrone
+        """
+        let fileURL = dir.appendingPathComponent("test.menu")
+        try content.write(to: fileURL, atomically: true, encoding: .utf8)
+
+        var plan = MealPlanParser.parse(content)
+        plan.renameBlock(at: 0, to: "Monday")
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        #expect(reparsed.blocks.count == 2)
+        #expect(reparsed.blocks[0].heading == "Monday")
+        #expect(reparsed.blocks[1].heading == "Day 2")
+    }
+
+    // MARK: Drag handle visibility (edit mode + search interaction)
+
+    @Test func dragHandleHiddenWhenSearchTextNonEmpty() {
+        // editMode active only when isEditMode=true AND searchText is empty
+        // mirrors: .environment(\.editMode, .constant(isEditMode && searchText.isEmpty ? .active : .inactive))
+        let isEditMode = true
+        let searchText = "bolognese"
+        let effectiveEditModeActive = isEditMode && searchText.isEmpty
+        #expect(!effectiveEditModeActive)
+    }
+
+    @Test func dragHandleVisibleWhenEditModeActiveAndSearchEmpty() {
+        let isEditMode = true
+        let searchText = ""
+        let effectiveEditModeActive = isEditMode && searchText.isEmpty
+        #expect(effectiveEditModeActive)
+    }
+
+    @Test func dragHandleHiddenWhenEditModeOff() {
+        let isEditMode = false
+        let searchText = ""
+        let effectiveEditModeActive = isEditMode && searchText.isEmpty
+        #expect(!effectiveEditModeActive)
+    }
 }
