@@ -256,10 +256,17 @@ struct MealPlanDetailView: View {
         .alert("Rename block", isPresented: $showBlockRenameAlert) {
             TextField("Block name", text: $pendingRenameText)
             Button("Save") { performBlockRename() }
-                .disabled(pendingRenameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                .disabled(
+                    pendingRenameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+                    pendingRenameText.contains("==")
+                )
             Button("Cancel", role: .cancel) {
                 pendingRenameBlockIndex = nil
                 pendingRenameText = ""
+            }
+        } message: {
+            if pendingRenameText.contains("==") {
+                Text("Section names can't contain == — that's reserved for the section markers.")
             }
         }
         .alert("New shopping list", isPresented: $showCreateListAlert) {
@@ -380,10 +387,15 @@ struct MealPlanDetailView: View {
                         flatItemView(flat)
                     }
                 } header: {
-                    blockHeader(for: blockEntry.block.heading)
+                    blockHeader(for: blockEntry.block.heading, at: blockEntry.originalIndex)
                 }
             }
+            .onMove { from, to in
+                plan.blocks.move(fromOffsets: from, toOffset: to)
+                persistPlan(plan)
+            }
         }
+        .environment(\.editMode, .constant(isEditMode && searchText.isEmpty ? .active : .inactive))
     }
 
     @ViewBuilder
@@ -425,23 +437,35 @@ struct MealPlanDetailView: View {
     }
 
     @ViewBuilder
-    private func blockHeader(for heading: String) -> some View {
-        Button {
-            withAnimation { toggleBlock(heading) }
-        } label: {
-            HStack {
-                Text(heading)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .rotationEffect(.degrees(isExpanded(heading) ? 90 : 0))
+    private func blockHeader(for heading: String, at originalIndex: Int) -> some View {
+        HStack(spacing: 8) {
+            if isEditMode {
+                Button {
+                    pendingRenameBlockIndex = originalIndex
+                    pendingRenameText = heading
+                    showBlockRenameAlert = true
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
             }
-            .contentShape(Rectangle())
+            Button {
+                withAnimation { toggleBlock(heading) }
+            } label: {
+                HStack {
+                    Text(heading)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .rotationEffect(.degrees(isExpanded(heading) ? 90 : 0))
+                }
+            }
+            .buttonStyle(.plain)
         }
-        .buttonStyle(.plain)
         .accessibilityLabel("\(heading), \(isExpanded(heading) ? "expanded" : "collapsed")")
     }
 
