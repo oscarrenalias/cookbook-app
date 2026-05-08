@@ -424,6 +424,31 @@ this spec — not something CookbookCore parses.
 weekly planning. With this, the full Recipe → Meal plan →
 Shopping list lifecycle is in place.
 
+### Meal plan section reorder and rename ✅
+
+`spec-f4b281b6`. **Depended on:** *Meal Plans tab*.
+
+In-app editing of the top-level `==…==` blocks of a meal plan,
+called "sections" in the UI. `MealPlanDetailView` gains an
+icon-only Edit / Done toolbar toggle (pencil ↔ checkmark). In
+Edit mode each block header shows a leading pencil (opens a
+rename alert with `==` validation), plus chevron.up and
+chevron.down buttons that move the block one position at a time
+via `MealPlan.moveBlock(from:to:)` (disabled at the boundaries).
+Rename uses the new `MealPlan.renameBlock(at:to:)` mutation;
+both round-trip through markdown. Inner `MealPlanSection`
+(`Dinner:` / `Lunch:`) names and item order are preserved across
+both operations.
+
+In-flight testing surfaced that SwiftUI's `.onMove` drag handles
+land on inner item rows rather than section headers — dragging
+an item silently moved the parent block. Reworked to explicit
+chevron buttons before merge so the move UX is unambiguous.
+
+**Unlocks:** the meal-plan detail view is now editable at the
+block level. Renaming inner section labels (`Dinner:` /
+`Lunch:`) and reordering items within a block remain deferred.
+
 ---
 
 ## Polish
