@@ -3,7 +3,7 @@
   "title": "Shared review for meal plan block editing feature",
   "agent_type": "review",
   "description": "Review the completed implementation for correctness, regression risk, and spec conformance across core mutations, UI behavior, persistence, tests, and documentation.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-ab1594dc",
   "dependencies": [
@@ -1016,9 +1016,12 @@
   },
   "block_reason": "",
   "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.\nSibling beads wiring block-rename triggers or block-reorder must read `pendingRenameBlockIndex`, `pendingRenameText`, `showBlockRenameAlert`, and `isEditMode` from this view \u2014 all added here and ready for use.\nNone. Only MealPlanDetailView.swift was touched; no sibling beads claim this file.\nNone. MealPlanDetailView.swift is the sole file in scope; no other in-flight beads claim it.",
-  "branch_name": "",
+  "branch_name": "feature/b-ab1594dc",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-0f5a8b77",
+    "expires_at": "2026-05-08T10:04:34.130267+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -1027,9 +1030,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-08T09:34:34.282507+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-08T09:34:34.282531+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-0f5a8b77",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-0f5a8b77/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
