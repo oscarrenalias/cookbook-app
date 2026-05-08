@@ -6,7 +6,14 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-ab1594dc",
-  "dependencies": [],
+  "dependencies": [
+    "B-05629b6d",
+    "B-3d7f3d91",
+    "B-a423cee6",
+    "B-8d99fa1b",
+    "B-d721bc02",
+    "B-f1947005"
+  ],
   "acceptance_criteria": [
     "Review confirms all spec acceptance criteria are either satisfied or explicitly called out as gaps.",
     "Review checks that reorder does not operate against filtered indices and that header tap targets remain structurally separated.",
