@@ -6,7 +6,10 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-ab1594dc",
-  "dependencies": [],
+  "dependencies": [
+    "B-3d7f3d91",
+    "B-a423cee6"
+  ],
   "acceptance_criteria": [
     "Tapping the pencil affordance presents a single rename alert for the selected block.",
     "The alert text field is prefilled from the current block heading.",
