@@ -204,10 +204,13 @@ struct MealPlanDetailView: View {
         .searchable(text: $searchText, prompt: "Search recipes")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(isEditMode ? "Done" : "Edit") {
+                Button {
                     isEditMode.toggle()
+                } label: {
+                    Image(systemName: isEditMode ? "checkmark" : "pencil")
                 }
                 .disabled(plan.blocks.isEmpty)
+                .accessibilityLabel(isEditMode ? "Done editing" : "Edit sections")
             }
             ToolbarItem(placement: .primaryAction) {
                 Menu {
@@ -390,12 +393,7 @@ struct MealPlanDetailView: View {
                     blockHeader(for: blockEntry.block.heading, at: blockEntry.originalIndex)
                 }
             }
-            .onMove { from, to in
-                plan.blocks.move(fromOffsets: from, toOffset: to)
-                persistPlan(plan)
-            }
         }
-        .environment(\.editMode, .constant(isEditMode && searchText.isEmpty ? .active : .inactive))
     }
 
     @ViewBuilder
@@ -449,6 +447,27 @@ struct MealPlanDetailView: View {
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Rename \(heading)")
+
+                Button {
+                    moveBlock(from: originalIndex, to: originalIndex - 1)
+                } label: {
+                    Image(systemName: "chevron.up")
+                        .foregroundStyle(originalIndex == 0 ? AnyShapeStyle(.tertiary) : AnyShapeStyle(.secondary))
+                }
+                .buttonStyle(.plain)
+                .disabled(originalIndex == 0)
+                .accessibilityLabel("Move \(heading) up")
+
+                Button {
+                    moveBlock(from: originalIndex, to: originalIndex + 1)
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .foregroundStyle(originalIndex >= plan.blocks.count - 1 ? AnyShapeStyle(.tertiary) : AnyShapeStyle(.secondary))
+                }
+                .buttonStyle(.plain)
+                .disabled(originalIndex >= plan.blocks.count - 1)
+                .accessibilityLabel("Move \(heading) down")
             }
             Button {
                 withAnimation { toggleBlock(heading) }
@@ -467,6 +486,12 @@ struct MealPlanDetailView: View {
             .buttonStyle(.plain)
         }
         .accessibilityLabel("\(heading), \(isExpanded(heading) ? "expanded" : "collapsed")")
+    }
+
+    private func moveBlock(from source: Int, to destination: Int) {
+        var updated = plan
+        updated.moveBlock(from: source, to: destination)
+        persistPlan(updated)
     }
 
     private func expandedBinding(for heading: String) -> Binding<Bool> {
