@@ -897,6 +897,14 @@ Named `MealPlanItemIndex` (not `ItemIndex`) to avoid collision with
 **`MealPlan.removeItem(at:)`** removes the targeted item; leaves empty
 sections in place (no auto-pruning in v1).
 
+**Block-level mutations.** Three additional mutations on `MealPlan` support block management:
+
+| Method | Effect |
+|--------|--------|
+| `addBlock(named:)` | Appends a new block with one empty default section; returns the new block's index. |
+| `moveBlock(from:to:)` | Moves the block at `source` to `destination`; no-op when either index is out of bounds or equal. Block contents are preserved unchanged. |
+| `renameBlock(at:to:)` | Sets the block's `heading` to `newHeading` (whitespace-trimmed). No-op when the index is out of bounds. Inner sections and items are not affected. |
+
 ### Load / mutate / serialise / write lifecycle
 
 All view-layer mutations follow the same discipline as `ShoppingListDocument`:
@@ -932,6 +940,36 @@ list. Key layout choices:
   if ending with `:`), ingredient (`cart` SF Symbol + name + quantity).
   All support swipe-to-delete.
 
+### Block-level editing (edit mode)
+
+`MealPlanDetailView` exposes an **Edit / Done** toggle button in the trailing
+toolbar. The button is disabled when the plan has no blocks.
+
+**Block reordering.** While in edit mode and with no active search query, the
+`List` is placed in `.active` edit mode (via `.environment(\.editMode, .constant(.active))`),
+which exposes drag handles on block section headers. Dragging a block calls
+`plan.blocks.move(fromOffsets:toOffset:)` and immediately persists the result
+via `persistPlan(_:)`.
+
+Reordering is suppressed whenever a search query is present: the edit-mode
+binding evaluates to `.inactive` when `searchText` is non-empty, removing the
+drag affordances while filtered results are visible.
+
+**Block renaming.** In edit mode each block header shows a `square.and.pencil`
+icon button. Tapping it opens a "Rename block" alert pre-filled with the current
+heading. Saving calls `MealPlan.renameBlock(at:to:)` and persists immediately.
+Names containing `==` are rejected by the Save button because `==` is the
+block-marker delimiter in the `.menu` file format.
+
+**Scope boundary.** Edit mode operates exclusively on top-level `MealPlanBlock`
+headings. Inner `MealPlanSection` names and the items within sections (recipes,
+text, ingredients) are not editable or reorderable via edit mode. Item
+swipe-to-delete is available in both view mode and edit mode.
+
+**Immediate persistence.** Every block-level mutation (reorder or rename) calls
+`persistPlan(_:)`, which serialises the plan via `MealPlanParser.serialise(_:)`
+and writes it to disk synchronously. There is no explicit Save step.
+
 ### v1 scope boundaries
 
 The following are **deliberately out of scope** in v1 and must not be assumed
@@ -939,8 +977,9 @@ by downstream specs without a new spec:
 
 - Adding recipes to a plan from inside the meal-plan view (comes from
   recipe-detail's "Add to meal plan" button — a follow-up spec).
-- In-place editing of free-text lines or section names.
-- Reordering items or moving items between sections.
+- In-place editing of free-text lines or `MealPlanSection` names.
+- Reordering items within a section, or moving items between sections.
+  (Block-level reordering is supported — see *Block-level editing* above.)
 - Auto-pruning empty sections after swipe-delete.
 - Calendar / date binding — plans are date-agnostic; section names are
   freeform strings.

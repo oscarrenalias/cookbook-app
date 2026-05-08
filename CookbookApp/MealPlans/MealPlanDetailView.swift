@@ -28,6 +28,10 @@ struct MealPlanDetailView: View {
     @State private var showCreatedSheet = false
     @State private var selectedRecipe: RecipeEntry?
     @State private var searchText = ""
+    @State private var isEditMode = false
+    @State private var pendingRenameBlockIndex: Int? = nil
+    @State private var pendingRenameText = ""
+    @State private var showBlockRenameAlert = false
 
     // All collapsed blocks across all plans encoded as "filename.heading" sorted and joined by newline.
     @SceneStorage("mealPlanDetail.collapsedBlocks") private var collapsedBlocksData: String = ""
@@ -93,6 +97,21 @@ struct MealPlanDetailView: View {
         plan.removeItem(at: index)
         let text = MealPlanParser.serialise(plan)
         try? MealPlanFiles.writeText(text, to: url)
+    }
+
+    private func persistPlan(_ updated: MealPlan) {
+        plan = updated
+        let text = MealPlanParser.serialise(updated)
+        try? MealPlanFiles.writeText(text, to: url)
+    }
+
+    private func performBlockRename() {
+        guard let idx = pendingRenameBlockIndex,
+              !pendingRenameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return }
+        var updated = plan
+        updated.renameBlock(at: idx, to: pendingRenameText)
+        persistPlan(updated)
     }
 
     private func createShoppingList() {
@@ -184,6 +203,15 @@ struct MealPlanDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search recipes")
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    isEditMode.toggle()
+                } label: {
+                    Image(systemName: isEditMode ? "checkmark" : "pencil")
+                }
+                .disabled(plan.blocks.isEmpty)
+                .accessibilityLabel(isEditMode ? "Done editing" : "Edit sections")
+            }
             ToolbarItem(placement: .primaryAction) {
                 Menu {
                     Button {
@@ -226,6 +254,22 @@ struct MealPlanDetailView: View {
         } message: {
             if renameDuplicateError {
                 Text("A plan with that name already exists.")
+            }
+        }
+        .alert("Rename block", isPresented: $showBlockRenameAlert) {
+            TextField("Block name", text: $pendingRenameText)
+            Button("Save") { performBlockRename() }
+                .disabled(
+                    pendingRenameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+                    pendingRenameText.contains("==")
+                )
+            Button("Cancel", role: .cancel) {
+                pendingRenameBlockIndex = nil
+                pendingRenameText = ""
+            }
+        } message: {
+            if pendingRenameText.contains("==") {
+                Text("Section names can't contain == — that's reserved for the section markers.")
             }
         }
         .alert("New shopping list", isPresented: $showCreateListAlert) {
@@ -346,7 +390,7 @@ struct MealPlanDetailView: View {
                         flatItemView(flat)
                     }
                 } header: {
-                    blockHeader(for: blockEntry.block.heading)
+                    blockHeader(for: blockEntry.block.heading, at: blockEntry.originalIndex)
                 }
             }
         }
@@ -391,24 +435,63 @@ struct MealPlanDetailView: View {
     }
 
     @ViewBuilder
-    private func blockHeader(for heading: String) -> some View {
-        Button {
-            withAnimation { toggleBlock(heading) }
-        } label: {
-            HStack {
-                Text(heading)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .rotationEffect(.degrees(isExpanded(heading) ? 90 : 0))
+    private func blockHeader(for heading: String, at originalIndex: Int) -> some View {
+        HStack(spacing: 8) {
+            if isEditMode {
+                Button {
+                    pendingRenameBlockIndex = originalIndex
+                    pendingRenameText = heading
+                    showBlockRenameAlert = true
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Rename \(heading)")
+
+                Button {
+                    moveBlock(from: originalIndex, to: originalIndex - 1)
+                } label: {
+                    Image(systemName: "chevron.up")
+                        .foregroundStyle(originalIndex == 0 ? AnyShapeStyle(.tertiary) : AnyShapeStyle(.secondary))
+                }
+                .buttonStyle(.plain)
+                .disabled(originalIndex == 0)
+                .accessibilityLabel("Move \(heading) up")
+
+                Button {
+                    moveBlock(from: originalIndex, to: originalIndex + 1)
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .foregroundStyle(originalIndex >= plan.blocks.count - 1 ? AnyShapeStyle(.tertiary) : AnyShapeStyle(.secondary))
+                }
+                .buttonStyle(.plain)
+                .disabled(originalIndex >= plan.blocks.count - 1)
+                .accessibilityLabel("Move \(heading) down")
             }
-            .contentShape(Rectangle())
+            Button {
+                withAnimation { toggleBlock(heading) }
+            } label: {
+                HStack {
+                    Text(heading)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .rotationEffect(.degrees(isExpanded(heading) ? 90 : 0))
+                }
+            }
+            .buttonStyle(.plain)
         }
-        .buttonStyle(.plain)
         .accessibilityLabel("\(heading), \(isExpanded(heading) ? "expanded" : "collapsed")")
+    }
+
+    private func moveBlock(from source: Int, to destination: Int) {
+        var updated = plan
+        updated.moveBlock(from: source, to: destination)
+        persistPlan(updated)
     }
 
     private func expandedBinding(for heading: String) -> Binding<Bool> {

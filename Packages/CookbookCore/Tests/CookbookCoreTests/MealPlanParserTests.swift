@@ -222,4 +222,56 @@ struct MealPlanParserTests {
         plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 99))
         #expect(plan == before)
     }
+
+    // MARK: - Rename + Reorder round-trips
+
+    @Test func renameBlockSurvivesRoundTrip() {
+        var plan = MealPlanParser.parse("""
+        ==Day 1==
+        Dinner:
+        @./Pasta/Bolognese
+        """)
+        plan.renameBlock(at: 0, to: "Monday")
+        let reparsed = MealPlanParser.parse(MealPlanParser.serialise(plan))
+        #expect(reparsed == plan)
+        #expect(reparsed.blocks[0].heading == "Monday")
+    }
+
+    @Test func reorderBlockSurvivesRoundTrip() {
+        var plan = MealPlanParser.parse("""
+        ==Day 1==
+        Dinner:
+        @./Pasta/Bolognese
+        ==Day 2==
+        Lunch:
+        @./Soup/Minestrone
+        """)
+        plan.moveBlock(from: 0, to: 1)
+        let reparsed = MealPlanParser.parse(MealPlanParser.serialise(plan))
+        #expect(reparsed == plan)
+        #expect(reparsed.blocks[0].heading == "Day 2")
+        #expect(reparsed.blocks[1].heading == "Day 1")
+    }
+
+    @Test func renameAndReorderCombinedRoundTrip() {
+        var plan = MealPlanParser.parse("""
+        ==Day 1==
+        Dinner:
+        @./Pasta/Bolognese
+        ==Day 2==
+        Lunch:
+        @./Soup/Minestrone
+        ==Day 3==
+        Breakfast:
+        @./Eggs/Scrambled
+        """)
+        plan.renameBlock(at: 0, to: "Monday")
+        plan.moveBlock(from: 2, to: 0)
+        let reparsed = MealPlanParser.parse(MealPlanParser.serialise(plan))
+        #expect(reparsed == plan)
+        #expect(reparsed.blocks.count == 3)
+        #expect(reparsed.blocks[0].heading == "Day 3")
+        #expect(reparsed.blocks[1].heading == "Monday")
+        #expect(reparsed.blocks[2].heading == "Day 2")
+    }
 }
