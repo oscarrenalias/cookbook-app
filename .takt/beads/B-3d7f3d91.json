@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-ab1594dc",
-  "dependencies": [],
+  "dependencies": [
+    "B-05629b6d"
+  ],
   "acceptance_criteria": [
     "The view has local state for Edit mode and single-alert rename staging.",
     "A shared persistence path re-renders the updated `MealPlan` and writes it via `MealPlanFiles`.",
