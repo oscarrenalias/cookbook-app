@@ -337,16 +337,19 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/CookbookApp/MealPlans/MealPlanDetailView.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/CookbookAppTests/MealPlanDetailViewTests.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanMutationTests.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/Packages/CookbookCore/Tests/CookbookCoreTests/MealPlanParserTests.swift",
     "/Users/oscar.renalias/Projects/cookbook-app/docs/architecture.md",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "expected_globs": [
     "CookbookApp/MealPlans/*.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "CookbookAppTests/*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/*.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift",
@@ -662,6 +665,8 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "changed_files": [
@@ -973,6 +978,8 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-ab1594dc/CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
     "Packages/CookbookCore/Sources/CookbookCore/MealPlan.swift"
   ],
   "updated_docs": [],
@@ -997,7 +1004,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.",
+  "conflict_risks": "No conflicts expected \u2014 changes are purely additive to a single file with no sibling bead overlap declared.\nSibling beads wiring block-rename triggers or block-reorder must read `pendingRenameBlockIndex`, `pendingRenameText`, `showBlockRenameAlert`, and `isEditMode` from this view \u2014 all added here and ready for use.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
