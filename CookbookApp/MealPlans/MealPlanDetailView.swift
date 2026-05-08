@@ -28,6 +28,10 @@ struct MealPlanDetailView: View {
     @State private var showCreatedSheet = false
     @State private var selectedRecipe: RecipeEntry?
     @State private var searchText = ""
+    @State private var isEditMode = false
+    @State private var pendingRenameBlockIndex: Int? = nil
+    @State private var pendingRenameText = ""
+    @State private var showBlockRenameAlert = false
 
     // All collapsed blocks across all plans encoded as "filename.heading" sorted and joined by newline.
     @SceneStorage("mealPlanDetail.collapsedBlocks") private var collapsedBlocksData: String = ""
@@ -93,6 +97,21 @@ struct MealPlanDetailView: View {
         plan.removeItem(at: index)
         let text = MealPlanParser.serialise(plan)
         try? MealPlanFiles.writeText(text, to: url)
+    }
+
+    private func persistPlan(_ updated: MealPlan) {
+        plan = updated
+        let text = MealPlanParser.serialise(updated)
+        try? MealPlanFiles.writeText(text, to: url)
+    }
+
+    private func performBlockRename() {
+        guard let idx = pendingRenameBlockIndex,
+              !pendingRenameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return }
+        var updated = plan
+        updated.renameBlock(at: idx, to: pendingRenameText)
+        persistPlan(updated)
     }
 
     private func createShoppingList() {
@@ -184,6 +203,12 @@ struct MealPlanDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "Search recipes")
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(isEditMode ? "Done" : "Edit") {
+                    isEditMode.toggle()
+                }
+                .disabled(plan.blocks.isEmpty)
+            }
             ToolbarItem(placement: .primaryAction) {
                 Menu {
                     Button {
@@ -226,6 +251,15 @@ struct MealPlanDetailView: View {
         } message: {
             if renameDuplicateError {
                 Text("A plan with that name already exists.")
+            }
+        }
+        .alert("Rename block", isPresented: $showBlockRenameAlert) {
+            TextField("Block name", text: $pendingRenameText)
+            Button("Save") { performBlockRename() }
+                .disabled(pendingRenameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            Button("Cancel", role: .cancel) {
+                pendingRenameBlockIndex = nil
+                pendingRenameText = ""
             }
         }
         .alert("New shopping list", isPresented: $showCreateListAlert) {
