@@ -6,7 +6,12 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-ab1594dc",
-  "dependencies": [],
+  "dependencies": [
+    "B-05629b6d",
+    "B-3d7f3d91",
+    "B-a423cee6",
+    "B-8d99fa1b"
+  ],
   "acceptance_criteria": [
     "`MealPlanMutationTests` covers move forward, move backward, same-index no-op, out-of-bounds safety, basic rename, whitespace trimming, and inner-content preservation.",
     "`MealPlanParserTests` or an equivalent parser round-trip suite verifies parse-render-parse fixed-point after combined rename and reorder.",
