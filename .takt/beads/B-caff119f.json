@@ -685,7 +685,11 @@
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
-    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
+    "CookbookAppTests/AddItemSheetTests.swift",
+    "CookbookAppTests/AisleAutoDetectTests.swift",
+    "CookbookAppTests/ShoppingListDetailViewTests.swift",
+    "docs/architecture.md"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -1010,7 +1014,11 @@
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
     "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
-    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
+    "CookbookAppTests/AddItemSheetTests.swift",
+    "CookbookAppTests/AisleAutoDetectTests.swift",
+    "CookbookAppTests/ShoppingListDetailViewTests.swift",
+    "docs/architecture.md"
   ],
   "updated_docs": [],
   "handoff_summary": {
