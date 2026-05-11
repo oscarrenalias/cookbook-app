@@ -449,6 +449,42 @@ chevron buttons before merge so the move UX is unambiguous.
 block level. Renaming inner section labels (`Dinner:` /
 `Lunch:`) and reordering items within a block remain deferred.
 
+### Shopping list practicality tweaks ✅
+
+`spec-e2aef2b8`. Three small in-app polish items bundled in one
+spec, surfaced from real-use feedback:
+
+- **Aisle auto-detection in AddItemSheet.** Typing an item now
+  fires a debounced (400 ms) lookup against `AisleConfig.aisle(for:)`
+  with a light tokenisation pass (strip leading quantity prefix,
+  fall back to last word). When a match is found and the user
+  hasn't manually changed the picker, the aisle is auto-selected
+  and the picker label shows a small `wand.and.stars` tint glyph.
+  Aisle picker also switched from `.menu` to `.navigationLink`
+  style so the long list is scrollable + icon-rich (and asset
+  Phosphor icons render at the right size, which `.menu` style
+  refused to do).
+- **Decorative trailing `line.3.horizontal` removed** from
+  `ShoppingListItemRow`. It had no wiring — pure dead UI hinting
+  at a reorder feature that never shipped.
+- **"Compact mode" Settings toggle** (`@AppStorage("shoppingList.compactMode")`).
+  When enabled, ShoppingListDetailView overrides
+  `defaultMinListRowHeight` to 28, shrinks the row checkbox font
+  to `.subheadline`, drops row insets to 2 pt top/bottom, switches
+  row text to `.subheadline`, tightens the aisle section header
+  to 18 pt min-height, and collapses inter-section spacing to
+  2 pt. Typical 30-item list fits ~16-18 rows in compact vs
+  ~10-12 default.
+
+The compact-mode initial implementation was too subtle to be
+visible — iOS Lists enforce a 44 pt minimum row height for
+accessibility tap targets that masked row-inset reductions. The
+`defaultMinListRowHeight` environment override is the documented
+escape hatch; applied in-worktree before merge.
+
+**Unlocks:** faster ad-hoc adds, denser browsing of long lists,
+less misleading row chrome.
+
 ---
 
 ## Polish

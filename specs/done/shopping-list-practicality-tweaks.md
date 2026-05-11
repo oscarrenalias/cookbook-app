@@ -5,7 +5,7 @@ description: "Three small shopping-list polish items: (1) auto-detect the right 
 dependencies: null
 priority: medium
 complexity: low
-status: draft
+status: done
 tags:
 - ui
 - swiftui
@@ -14,7 +14,7 @@ tags:
 scope:
   in: "(1) In AddItemSheet, debounce the item text field and, on each meaningful change, ask AisleConfig whether any aisle's canonical names or aliases match the user's text (with light tokenisation for inputs like '2 lemons' → 'lemons'). When a match is found AND the user has not manually changed the aisle picker, auto-select the matching aisle. When no match, keep the current behaviour (last-used aisle from @SceneStorage). Visual cue (subtle, e.g. text colour tint on the Picker label) when an aisle was auto-selected vs manually chosen. (2) Remove the drag-handle affordance from shopping-list item rows in ShoppingListDetailView. Items are not reorderable; the handle was a misleading artefact. Swipe-to-delete and tap-to-edit are unchanged. (3) Add a 'Compact shopping list' @AppStorage toggle in SettingsView. When enabled, ShoppingListDetailView reduces row padding, section spacing, and the items-checked counter footnote to a tighter typography. Default is off. The compact mode is a global preference, not per-list."
   out: "Auto-detection of aisles for items added by other flows (recipe → shopping list — that already runs through AggregatedShoppingList which uses AisleConfig directly). Reordering items within a shopping list (a separate spec, deferred). Reordering aisle sections (a separate spec, deferred). Per-list compact / regular mode override. ML / fuzzy matching beyond the exact-match-with-aliases logic AisleConfig already provides. Auto-detection in the EditItemSheet (which already shows the current aisle — auto-changing it on edit would be surprising). Pull-down search-filter behaviour. iPad layout. New UI for picking a default aisle when no match is found (the last-used fallback is the existing behaviour and stays as-is)."
-feature_root_id: null
+feature_root_id: B-fa5c73bb
 ---
 # Shopping list practicality tweaks
 
