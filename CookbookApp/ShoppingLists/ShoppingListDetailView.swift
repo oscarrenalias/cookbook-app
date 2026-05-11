@@ -227,6 +227,15 @@ struct ShoppingListDetailView: View {
                     if !isCollapsed {
                         ForEach(group.items, id: \.index.position) { item in
                             itemRow(for: item)
+                                .listRowInsets(
+                                    EdgeInsets(
+                                        top: compactMode ? 2 : 8,
+                                        leading: 16,
+                                        bottom: compactMode ? 2 : 8,
+                                        trailing: 16
+                                    )
+                                )
+                                .font(compactMode ? .subheadline : .body)
                         }
                     }
                 } header: {
@@ -244,17 +253,19 @@ struct ShoppingListDetailView: View {
                             }
                         }
                     }
-                    .frame(minHeight: compactMode ? 24 : 32)
+                    .frame(minHeight: compactMode ? 18 : 32)
                 }
             }
         }
-        .listSectionSpacing(.compact)
+        .listSectionSpacing(compactMode ? .custom(2) : .compact)
+        .environment(\.defaultMinListRowHeight, compactMode ? 28 : 44)
     }
 
     @ViewBuilder
     private func itemRow(for item: IndexedEntry) -> some View {
-        let row = ShoppingListItemRow(
+        ShoppingListItemRow(
             entry: item.entry,
+            compact: compactMode,
             onToggle: { toggleItem(at: item.index) },
             onDelete: { deleteItem(at: item.index) },
             onEdit: {
@@ -266,11 +277,6 @@ struct ShoppingListDetailView: View {
                 )
             }
         )
-        if compactMode {
-            row.listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-        } else {
-            row
-        }
     }
 
     private func toggleItem(at index: ItemIndex) {
