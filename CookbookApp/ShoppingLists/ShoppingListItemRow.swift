@@ -21,12 +21,7 @@ struct ShoppingListItemRow: View {
 
             itemText
                 .frame(maxWidth: .infinity, alignment: .leading)
-
-            Image(systemName: "line.3.horizontal")
-                .font(.body)
-                .foregroundStyle(.tertiary)
-                .accessibilityHidden(true)
-        }
+}
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
                 onDelete()
