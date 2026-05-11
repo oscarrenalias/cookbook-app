@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fa5c73bb",
-  "dependencies": [],
+  "dependencies": [
+    "B-f7fbcfd6",
+    "B-f30d5a1a",
+    "B-d9ac19c8",
+    "B-2ddc4c54",
+    "B-d1657314"
+  ],
   "acceptance_criteria": [
     "Unit tests cover exact match, alias match, quantity-prefix stripping, last-word fallback, no-match, and empty-input behavior for aisle auto-detection.",
     "Tests verify AddItemSheet does not override a manually chosen aisle after subsequent typing and that auto-detection state transitions behave as expected.",
