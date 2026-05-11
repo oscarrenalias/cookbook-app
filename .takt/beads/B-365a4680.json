@@ -344,6 +344,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
@@ -352,6 +353,7 @@
     "CookbookAppTests/ShoppingListDetailViewTests.swift"
   ],
   "expected_globs": [
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/*.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
@@ -676,6 +678,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
@@ -999,6 +1002,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
@@ -1025,7 +1029,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.\nNo overlap with sibling beads expected; file scope is isolated to ShoppingListItemRow.swift.",
+  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.\nNo overlap with sibling beads expected; file scope is isolated to ShoppingListItemRow.swift.\nDownstream beads that read `shoppingList.compactMode` from AppStorage must use the exact key string; no structural conflicts expected.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
