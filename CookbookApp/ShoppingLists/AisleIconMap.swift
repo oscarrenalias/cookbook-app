@@ -28,6 +28,7 @@ enum AisleIconMap {
 
     private static let table: [String: Source] = [
         "produce":     .asset("carrot-fill"),
+        "fruits":      .asset("cherries-fill"),
         "herbs":       .system("leaf"),
         "meat":        .asset("fork-knife-fill"),
         "meat & fish": .asset("fork-knife-fill"),
@@ -36,6 +37,7 @@ enum AisleIconMap {
         "cheese":      .asset("cheese-fill"),
         "eggs":        .asset("egg-fill"),
         "bakery":      .asset("bread-fill"),
+        "jams":        .asset("jar-fill"),
         "pantry":      .asset("basket-fill"),
         "canned":      .asset("jar-label-fill"),
         "frozen":      .system("snowflake"),
@@ -47,8 +49,13 @@ enum AisleIconMap {
         "nuts":        .asset("acorn-fill"),
         "sauces":      .asset("drop-half-bottom-fill"),
         "juices":      .asset("orange-slice-fill"),
+        "coffees":     .asset("coffee-fill"),
         "world":       .system("globe.americas.fill"),
         "baking":      .asset("oven-fill"),
         "alko":        .asset("wine-fill"),
+        "other":       .system("ellipsis.circle.fill"),
+        "kitchen":     .system("archivebox.fill"),
+        "household":   .system("bubbles.and.sparkles.fill"),
+        "hygiene":     .system("shower.fill"),
     ]
 }
