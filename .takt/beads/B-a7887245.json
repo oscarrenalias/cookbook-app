@@ -1,0 +1,76 @@
+{
+  "bead_id": "B-a7887245",
+  "title": "Shared documentation for shopping list practicality tweaks",
+  "agent_type": "documentation",
+  "description": "Document the new shopping-list compact preference and the AddItemSheet aisle auto-detection behavior in the architecture docs at a brief, implementation-aware level.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fa5c73bb",
+  "dependencies": [
+    "B-f7fbcfd6",
+    "B-f30d5a1a",
+    "B-d9ac19c8",
+    "B-2ddc4c54",
+    "B-d1657314"
+  ],
+  "acceptance_criteria": [
+    "Architecture documentation mentions AddItemSheet aisle auto-detection and its use of AisleConfig-based matching.",
+    "Architecture documentation mentions the global compact shopping-list preference and where it affects layout.",
+    "Documentation reflects shipped scope and does not imply out-of-scope behaviors such as edit-sheet auto-detect or per-list compact overrides."
+  ],
+  "linked_docs": [
+    "spec-e2aef2b8",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-fa5c73bb",
+  "execution_branch_name": "feature/b-fa5c73bb",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa5c73bb",
+  "expected_files": [
+    "docs/architecture.md"
+  ],
+  "expected_globs": [
+    "docs/*.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-11T10:32:59.829737+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

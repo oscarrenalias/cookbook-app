@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-fa5c73bb",
+  "title": "Shopping list practicality tweaks feature root",
+  "agent_type": "planner",
+  "description": "Shared execution root for the shopping-list polish iteration. Coordinates focused implementation beads for aisle auto-detection, row affordance cleanup, and compact-mode settings/layout work, followed by shared testing, documentation, and review.",
+  "status": "done",
+  "bead_type": "feature",
+  "parent_id": "B-879800c0",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All in-scope spec changes are represented by focused dependent child beads.",
+    "Implementation beads stay narrowly scoped to single changes or tightly related wiring.",
+    "Shared tester depends on every developer bead.",
+    "Shared documentation depends on every developer bead.",
+    "Shared review depends on every developer bead plus the shared tester and shared documentation beads."
+  ],
+  "linked_docs": [
+    "spec-e2aef2b8",
+    "docs/architecture.md"
+  ],
+  "feature_root_id": "B-fa5c73bb",
+  "execution_branch_name": "feature/b-fa5c73bb",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa5c73bb",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-11T10:32:57.998711+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
