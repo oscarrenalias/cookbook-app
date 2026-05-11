@@ -21,6 +21,7 @@ struct ShoppingListDetailView: View {
     @State private var showRenameError = false
     @State private var renameErrorMessage = ""
     @State private var showEditNotesSheet = false
+    @AppStorage("shoppingList.compactMode") private var compactMode: Bool = false
 
     private struct EditingItem: Identifiable {
         var id: String { "\(index.aisle)-\(index.position)" }
@@ -211,7 +212,7 @@ struct ShoppingListDetailView: View {
 
             Section {
                 Text("\(checkedCount) of \(totalCount) items checked")
-                    .font(.footnote)
+                    .font(compactMode ? .caption : .footnote)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
@@ -225,19 +226,7 @@ struct ShoppingListDetailView: View {
                 Section {
                     if !isCollapsed {
                         ForEach(group.items, id: \.index.position) { item in
-                            ShoppingListItemRow(
-                                entry: item.entry,
-                                onToggle: { toggleItem(at: item.index) },
-                                onDelete: { deleteItem(at: item.index) },
-                                onEdit: {
-                                    editingItem = EditingItem(
-                                        index: item.index,
-                                        text: item.entry.text,
-                                        aisle: item.index.aisle,
-                                        checked: item.entry.checked
-                                    )
-                                }
-                            )
+                            itemRow(for: item)
                         }
                     }
                 } header: {
@@ -255,10 +244,33 @@ struct ShoppingListDetailView: View {
                             }
                         }
                     }
+                    .frame(minHeight: compactMode ? 24 : 32)
                 }
             }
         }
         .listSectionSpacing(.compact)
+    }
+
+    @ViewBuilder
+    private func itemRow(for item: IndexedEntry) -> some View {
+        let row = ShoppingListItemRow(
+            entry: item.entry,
+            onToggle: { toggleItem(at: item.index) },
+            onDelete: { deleteItem(at: item.index) },
+            onEdit: {
+                editingItem = EditingItem(
+                    index: item.index,
+                    text: item.entry.text,
+                    aisle: item.index.aisle,
+                    checked: item.entry.checked
+                )
+            }
+        )
+        if compactMode {
+            row.listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+        } else {
+            row
+        }
     }
 
     private func toggleItem(at index: ItemIndex) {
