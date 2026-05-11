@@ -847,6 +847,39 @@ The sheet presents a `TextEditor` pre-filled with `initialNotes`, focused on app
 discards changes. The caller is responsible for writing the returned string to
 `document.notes` and calling `save()`.
 
+### AddItemSheet aisle auto-detection
+
+`AddItemSheet` (`CookbookApp/ShoppingLists/AddItemSheet.swift`) auto-detects the aisle for a typed item using `AisleAutoDetect` (`CookbookApp/ShoppingLists/AisleAutoDetect.swift`), a pure stateless helper enum with no side-effects.
+
+**Detection trigger.** Each change to the item text field is debounced by 400 ms, then `AisleAutoDetect.detectAisle(for:config:)` is called only when the catalog config is non-nil and the user has not manually overridden the picker during the current sheet session.
+
+**Matching algorithm:**
+
+1. Trim the text.
+2. Strip a leading numeric quantity prefix (e.g. `"500g"`, `"2 "`) via regex, so `"500g flour"` matches on `"flour"`.
+3. Look up the stripped candidate in `AisleConfig` using its canonical name and alias matching (`AisleConfig.aisle(for:)`).
+4. Last-word fallback: if the candidate is multi-word and step 3 found no match, try matching only the last word.
+
+On a match, `selectedAisle` is updated and a `wand.and.stars` icon appears beside the "Aisle" picker label. Any manual picker interaction sets `isAisleManuallySelected = true`, suppressing further auto-detect for the remainder of the sheet session.
+
+**Scope boundaries.** Auto-detection runs only in `AddItemSheet`. `EditItemSheet` does not invoke `AisleAutoDetect` and always starts with the item's current aisle pre-selected. Detection also requires `catalog.config` to be non-nil; when no `aisle.conf` is present, `config` is `nil` and no auto-detection occurs.
+
+### Compact shopping list layout
+
+A global `Bool` preference stored under the `@AppStorage` key `"shoppingList.compactMode"` (default `false`) enables a denser layout in `ShoppingListDetailView`.
+
+**Where it is set.** The toggle lives in `SettingsView` (`CookbookApp/Settings/SettingsView.swift`) under the "Shopping lists" section.
+
+**Layout effects in `ShoppingListDetailView`.** When compact mode is on:
+
+| Element | Normal | Compact |
+|---------|--------|---------|
+| Progress text font | `.footnote` | `.caption` |
+| Aisle section header `minHeight` | 32 pt | 24 pt |
+| Item row vertical insets | Default list insets | `EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16)` |
+
+**Scope boundaries.** The preference is global — it applies to every shopping list. Per-list compact overrides are not implemented. The compact flag is read by `ShoppingListDetailView` only; `AddItemSheet`, `EditItemSheet`, and all other views are unaffected.
+
 ## Meal Plans tab
 
 ### MealPlanFiles
