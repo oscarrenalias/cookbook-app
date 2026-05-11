@@ -3,7 +3,7 @@
   "title": "Wire AddItemSheet aisle auto-selection state",
   "agent_type": "developer",
   "description": "Update AddItemSheet to debounce item-text changes, invoke the auto-detect helper when the user has not manually changed the aisle picker, preserve last-used aisle fallback, and expose the auto-detected visual cue on the picker label.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fa5c73bb",
   "dependencies": [
@@ -27,37 +27,46 @@
   "expected_globs": [
     "CookbookApp/ShoppingLists/AddItemSheet.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "All four acceptance criteria satisfied. Manual vs auto-detected tracking implemented via separate boolean state. Debounce via Task.sleep(400ms) with cancellation. aislePickerBinding intercepts user-driven picker changes to set isAisleManuallySelected and clear isAutoDetected. No-match path leaves state unchanged. Visual cue shown on picker label row.",
+    "remaining": "None.",
+    "risks": "isAisleManuallySelected resets per sheet session via @State lifecycle (correct). Auto-detect is silently skipped when catalog.config is nil (default-aisle fallback mode) \u2014 this is expected and acceptable. SourceKit reports a spurious No such module CookbookCore warning in the worktree context; this pre-existed and does not affect xcodebuild.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Tester agent should verify: (1) typing a known item auto-selects the correct aisle and shows the wand icon, (2) manually picking an aisle then typing suppresses further auto-detection, (3) typing an unknown item leaves the aisle unchanged and hides the wand icon, (4) last-used aisle fallback still applies on sheet appear.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "conflict_risks": "None \u2014 changes are confined to AddItemSheet.swift with no shared types added.",
+    "design_decisions": "Used a custom aislePickerBinding computed property (vs onChange on selectedAisle) to cleanly separate user-initiated changes from programmatic ones without a fragile suppressionFlag pattern. Task.sleep(400ms) chosen as debounce interval \u2014 consistent with typical type-ahead UX.",
+    "test_coverage_notes": "No existing unit tests for AddItemSheet (it's a SwiftUI view). The auto-detect logic under test sits in AisleAutoDetect (covered by B-f7fbcfd6's tests) and is invoked here via integration.",
+    "known_limitations": "Auto-detect is disabled when catalog.config is nil (i.e., when no aisle.conf is present and defaults are used). This is the correct behavior since there is no keyword mapping available in that mode."
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 changes are confined to AddItemSheet.swift with no shared types added.",
   "branch_name": "feature/b-fa5c73bb",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa5c73bb",
-  "lease": {
-    "owner": "developer:B-f30d5a1a",
-    "expires_at": "2026-05-11T11:07:26.350658+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -99,6 +108,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-f30d5a1a/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-11T10:40:17.933721+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Wired aisle auto-selection state in AddItemSheet: added isAisleManuallySelected, isAutoDetected, and debounceTask state; added aislePickerBinding to intercept manual picker changes; added 400ms debounced onChange(of: itemText) that calls performAutoDetect only when picker hasn't been manually changed; added wand.and.stars visual cue to picker label when auto-detected.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -171,7 +187,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Wired aisle auto-selection state in AddItemSheet: added isAisleManuallySelected, isAutoDetected, and debounceTask state; added aislePickerBinding to intercept manual picker changes; added 400ms debounced onChange(of: itemText) that calls performAutoDetect only when picker hasn't been manually changed; added wand.and.stars visual cue to picker label when auto-detected.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.3456336,
+      "duration_ms": 165760,
+      "duration_api_ms": 158058,
+      "num_turns": 12,
+      "input_tokens": 12,
+      "output_tokens": 8252,
+      "cache_creation_tokens": 23586,
+      "cache_read_tokens": 286292,
+      "stop_reason": "end_turn",
+      "session_id": "b6df2b54-b105-42cd-8ce0-0be4446321fb",
+      "permission_denials": [],
+      "prompt_chars": 5880,
+      "prompt_lines": 134,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.3456336,
+        "duration_ms": 165760,
+        "duration_api_ms": 158058,
+        "num_turns": 12,
+        "input_tokens": 12,
+        "output_tokens": 8252,
+        "cache_creation_tokens": 23586,
+        "cache_read_tokens": 286292,
+        "stop_reason": "end_turn",
+        "session_id": "b6df2b54-b105-42cd-8ce0-0be4446321fb",
+        "permission_denials": [],
+        "prompt_chars": 5880,
+        "prompt_lines": 134,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "c6652916d56e2371c754fd4d7651024d95fd86b0"
   },
   "labels": [],
   "recovery_for": null,
