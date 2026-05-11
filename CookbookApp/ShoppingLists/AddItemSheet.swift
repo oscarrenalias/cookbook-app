@@ -30,12 +30,12 @@ struct AddItemSheet: View {
                         Text("Loading aisles…").tag(Optional<String>.none)
                     } else {
                         ForEach(catalog.aisles.sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }, id: \.self) { aisle in
-                            Text(aisle.capitalized).tag(Optional(aisle))
+                            AisleLabel(aisleName: aisle).tag(Optional(aisle))
                         }
-                        Text("Other").tag(Optional<String>.none)
+                        AisleLabel(aisleName: "Other").tag(Optional<String>.none)
                     }
                 }
-                .pickerStyle(.menu)
+                .pickerStyle(.navigationLink)
             }
             .navigationTitle("Add item")
             .navigationBarTitleDisplayMode(.inline)

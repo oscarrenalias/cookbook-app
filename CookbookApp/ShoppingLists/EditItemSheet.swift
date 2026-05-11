@@ -50,11 +50,11 @@ struct EditItemSheet: View {
                         Text("Loading aisles…").tag(initialAisle)
                     } else {
                         ForEach(pickerAisles, id: \.self) { aisle in
-                            Text(aisle.capitalized).tag(aisle)
+                            AisleLabel(aisleName: aisle).tag(aisle)
                         }
                     }
                 }
-                .pickerStyle(.menu)
+                .pickerStyle(.navigationLink)
             }
             .navigationTitle("Edit item")
             .navigationBarTitleDisplayMode(.inline)
