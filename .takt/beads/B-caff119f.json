@@ -347,12 +347,14 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookApp/ShoppingLists/AisleAutoDetect.swift"
+    "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
   ],
   "expected_globs": [
     "CookbookApp/**/*.swift",
     "CookbookApp/ShoppingLists/*.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
     "CookbookAppTests/*.swift",
     "docs/*.md"
   ],
@@ -676,7 +678,8 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookApp/ShoppingLists/AisleAutoDetect.swift"
+    "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
   ],
   "changed_files": [
     ".takt/beads/.gitkeep",
@@ -998,7 +1001,8 @@
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
-    "CookbookApp/ShoppingLists/AisleAutoDetect.swift"
+    "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
+    "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
@@ -1022,7 +1026,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.",
+  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.\nNo overlap with sibling beads expected; file scope is isolated to ShoppingListItemRow.swift.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
