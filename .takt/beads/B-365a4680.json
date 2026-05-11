@@ -3,7 +3,7 @@
   "title": "Shared testing for shopping list practicality tweaks",
   "agent_type": "tester",
   "description": "Add and run the targeted automated coverage for aisle auto-detection behavior, AddItemSheet manual-override behavior, and ShoppingListDetailView structure/layout regressions introduced by this feature set.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-fa5c73bb",
   "dependencies": [
@@ -1034,9 +1034,12 @@
   },
   "block_reason": "",
   "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.\nNo overlap with sibling beads expected; file scope is isolated to ShoppingListItemRow.swift.\nDownstream beads that read `shoppingList.compactMode` from AppStorage must use the exact key string; no structural conflicts expected.\nNone. Only file touched is ShoppingListDetailView.swift, which is the sole declared scope of this bead.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-fa5c73bb",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fa5c73bb",
+  "lease": {
+    "owner": "tester:B-365a4680",
+    "expires_at": "2026-05-11T11:16:13.802919+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -1045,9 +1048,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-11T10:46:14.061439+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-11T10:46:14.061461+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-365a4680",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-365a4680/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
