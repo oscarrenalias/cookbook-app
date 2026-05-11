@@ -7,13 +7,13 @@
   "bead_type": "task",
   "parent_id": "B-fa5c73bb",
   "dependencies": [
-    "B-f7fbcfd6",
-    "B-f30d5a1a",
-    "B-d9ac19c8",
     "B-2ddc4c54",
-    "B-d1657314",
     "B-365a4680",
-    "B-a7887245"
+    "B-a7887245",
+    "B-d1657314",
+    "B-d9ac19c8",
+    "B-f30d5a1a",
+    "B-f7fbcfd6"
   ],
   "acceptance_criteria": [
     "Review confirms each developer bead satisfied its acceptance criteria and stayed within scope.",
