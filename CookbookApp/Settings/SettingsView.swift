@@ -5,10 +5,15 @@ struct SettingsView: View {
     @Environment(AisleCatalog.self) private var catalog
     let store: RecipesFolderStore
     @State private var isPickerPresented = false
+    @AppStorage("shoppingList.compactMode") private var compactMode: Bool = false
 
     var body: some View {
         NavigationStack {
             Form {
+                Section("Shopping lists") {
+                    Toggle("Compact mode", isOn: $compactMode)
+                }
+
                 Section("Recipes folder") {
                     if store.folderURL == nil {
                         Button("Choose folder…") {

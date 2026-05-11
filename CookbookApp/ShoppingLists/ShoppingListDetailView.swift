@@ -21,6 +21,7 @@ struct ShoppingListDetailView: View {
     @State private var showRenameError = false
     @State private var renameErrorMessage = ""
     @State private var showEditNotesSheet = false
+    @AppStorage("shoppingList.compactMode") private var compactMode: Bool = false
 
     private struct EditingItem: Identifiable {
         var id: String { "\(index.aisle)-\(index.position)" }
@@ -211,7 +212,7 @@ struct ShoppingListDetailView: View {
 
             Section {
                 Text("\(checkedCount) of \(totalCount) items checked")
-                    .font(.footnote)
+                    .font(compactMode ? .caption : .footnote)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
@@ -225,19 +226,16 @@ struct ShoppingListDetailView: View {
                 Section {
                     if !isCollapsed {
                         ForEach(group.items, id: \.index.position) { item in
-                            ShoppingListItemRow(
-                                entry: item.entry,
-                                onToggle: { toggleItem(at: item.index) },
-                                onDelete: { deleteItem(at: item.index) },
-                                onEdit: {
-                                    editingItem = EditingItem(
-                                        index: item.index,
-                                        text: item.entry.text,
-                                        aisle: item.index.aisle,
-                                        checked: item.entry.checked
+                            itemRow(for: item)
+                                .listRowInsets(
+                                    EdgeInsets(
+                                        top: compactMode ? 2 : 8,
+                                        leading: 16,
+                                        bottom: compactMode ? 2 : 8,
+                                        trailing: 16
                                     )
-                                }
-                            )
+                                )
+                                .font(compactMode ? .subheadline : .body)
                         }
                     }
                 } header: {
@@ -255,10 +253,30 @@ struct ShoppingListDetailView: View {
                             }
                         }
                     }
+                    .frame(minHeight: compactMode ? 18 : 32)
                 }
             }
         }
-        .listSectionSpacing(.compact)
+        .listSectionSpacing(compactMode ? .custom(2) : .compact)
+        .environment(\.defaultMinListRowHeight, compactMode ? 28 : 44)
+    }
+
+    @ViewBuilder
+    private func itemRow(for item: IndexedEntry) -> some View {
+        ShoppingListItemRow(
+            entry: item.entry,
+            compact: compactMode,
+            onToggle: { toggleItem(at: item.index) },
+            onDelete: { deleteItem(at: item.index) },
+            onEdit: {
+                editingItem = EditingItem(
+                    index: item.index,
+                    text: item.entry.text,
+                    aisle: item.index.aisle,
+                    checked: item.entry.checked
+                )
+            }
+        )
     }
 
     private func toggleItem(at index: ItemIndex) {

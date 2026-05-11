@@ -3,17 +3,18 @@ import CookbookCore
 
 struct ShoppingListItemRow: View {
     let entry: ShoppingListEntry
+    var compact: Bool = false
     var onToggle: () -> Void
     var onDelete: () -> Void
     var onEdit: () -> Void
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: compact ? 8 : 12) {
             Button {
                 onToggle()
             } label: {
                 Image(systemName: entry.checked ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
+                    .font(compact ? .subheadline : .title3)
                     .foregroundStyle(entry.checked ? Color.accentColor : Color.secondary)
             }
             .buttonStyle(.plain)
@@ -21,12 +22,7 @@ struct ShoppingListItemRow: View {
 
             itemText
                 .frame(maxWidth: .infinity, alignment: .leading)
-
-            Image(systemName: "line.3.horizontal")
-                .font(.body)
-                .foregroundStyle(.tertiary)
-                .accessibilityHidden(true)
-        }
+}
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
                 onDelete()
