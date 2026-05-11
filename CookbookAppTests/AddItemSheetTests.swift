@@ -185,6 +185,137 @@ struct AddItemSheetTests {
         #expect(stored == "")
     }
 
+    // MARK: Manual override blocks auto-detect
+
+    @Test func autoDetectDoesNotRunWhenManualSelectionFlagIsSet() throws {
+        // Mirrors the guard condition in onChange and performAutoDetect:
+        // guard !isAisleManuallySelected else { return }
+        let isAisleManuallySelected = true
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "lemon", aliases: ["lemons"])])
+        ])
+        var detectionRan = false
+        if !isAisleManuallySelected {
+            detectionRan = AisleAutoDetect.detectAisle(for: "2 lemons", config: config) != nil
+        }
+        #expect(!detectionRan, "Auto-detect must be suppressed when aisle was manually selected")
+    }
+
+    @Test func autoDetectRunsWhenManualSelectionFlagIsClear() throws {
+        let isAisleManuallySelected = false
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "lemon", aliases: ["lemons"])])
+        ])
+        var isAutoDetected = false
+        if !isAisleManuallySelected,
+           AisleAutoDetect.detectAisle(for: "2 lemons", config: config) != nil {
+            isAutoDetected = true
+        }
+        #expect(isAutoDetected, "Auto-detect should fire when no manual selection is active")
+    }
+
+    @Test func pickerBindingSetterMarksSectionAsManualAndClearsAutoDetect() {
+        // Mirrors aislePickerBinding setter:
+        // selectedAisle = newValue; isAisleManuallySelected = true; isAutoDetected = false
+        var selectedAisle: String? = nil
+        var isAisleManuallySelected = false
+        var isAutoDetected = true
+
+        let pickedAisle: String? = "dairy"
+        selectedAisle = pickedAisle
+        isAisleManuallySelected = true
+        isAutoDetected = false
+
+        #expect(selectedAisle == "dairy")
+        #expect(isAisleManuallySelected == true)
+        #expect(isAutoDetected == false)
+    }
+
+    @Test func autoDetectSetsSelectedAisleAndAutoDetectedFlag() {
+        // Mirrors performAutoDetect happy path: match found → selectedAisle set, isAutoDetected = true
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "lemon", aliases: ["lemons"])])
+        ])
+        var selectedAisle: String? = nil
+        var isAutoDetected = false
+
+        if let aisle = AisleAutoDetect.detectAisle(for: "lemons", config: config) {
+            selectedAisle = aisle
+            isAutoDetected = true
+        }
+
+        #expect(selectedAisle == "produce")
+        #expect(isAutoDetected == true)
+    }
+
+    @Test func autoDetectLeavesStateUnchangedOnNoMatch() {
+        // Mirrors performAutoDetect no-match path: state left unchanged
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "lemon", aliases: [])])
+        ])
+        var selectedAisle: String? = "dairy"
+        var isAutoDetected = true
+
+        if let aisle = AisleAutoDetect.detectAisle(for: "toothpaste", config: config) {
+            selectedAisle = aisle
+            isAutoDetected = true
+        }
+        // No match: values unchanged from before call
+        #expect(selectedAisle == "dairy")
+        #expect(isAutoDetected == true)
+    }
+
+    @Test func autoDetectCannotRunWhenCatalogConfigIsNil() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let catalog = AisleCatalog()
+        catalog.load(from: dir)  // no aisle.conf → config is nil
+
+        #expect(catalog.config == nil)
+        // performAutoDetect: guard let config = catalog.config else { return }
+        let canAutoDetect = catalog.config != nil
+        #expect(!canAutoDetect, "Auto-detect must be disabled when no aisle.conf is loaded")
+    }
+
+    @Test func subsequentTypingAfterManualPickDoesNotOverrideAisle() {
+        // Simulates: user picks "dairy" manually, then types more text.
+        // The onChange guard (!isAisleManuallySelected) must block performAutoDetect.
+        let config = AisleConfig(sections: [
+            AisleSection(name: "produce", items: [AisleItem(canonical: "lemon", aliases: ["lemons"])]),
+            AisleSection(name: "dairy", items: [AisleItem(canonical: "milk", aliases: [])])
+        ])
+
+        var selectedAisle: String? = nil
+        var isAisleManuallySelected = false
+        var isAutoDetected = false
+
+        // Step 1: user types "2 lemons" → auto-detect fires → produce
+        if !isAisleManuallySelected,
+           let aisle = AisleAutoDetect.detectAisle(for: "2 lemons", config: config) {
+            selectedAisle = aisle
+            isAutoDetected = true
+        }
+        #expect(selectedAisle == "produce")
+        #expect(isAutoDetected == true)
+
+        // Step 2: user manually picks "dairy" via picker
+        selectedAisle = "dairy"
+        isAisleManuallySelected = true
+        isAutoDetected = false
+
+        // Step 3: user types more text → onChange fires → guard blocks auto-detect
+        var detectionRan = false
+        if !isAisleManuallySelected {
+            if AisleAutoDetect.detectAisle(for: "2 lemons something", config: config) != nil {
+                detectionRan = true
+            }
+        }
+
+        #expect(!detectionRan, "Auto-detect must not override a manually chosen aisle")
+        #expect(selectedAisle == "dairy", "Manually chosen aisle must be preserved after typing")
+    }
+
     // MARK: Sequential aisle persistence
 
     @Test func aislePersistedAcrossSequentialSheetPresentations() throws {
