@@ -344,11 +344,13 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
     "docs/architecture.md"
   ],
   "expected_globs": [
     "CookbookApp/ShoppingLists/*.swift",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "docs/*.md"
   ],
   "touched_files": [
@@ -670,6 +672,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift"
   ],
   "changed_files": [
@@ -991,6 +994,7 @@
     ".takt/beads/B-fe0ec28e.json",
     ".takt/beads/B-fe512dd5.json",
     ".takt/beads/B-fe603be6.json",
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift"
   ],
   "updated_docs": [],
@@ -1015,7 +1019,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 new file only, no existing files modified.",
+  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
