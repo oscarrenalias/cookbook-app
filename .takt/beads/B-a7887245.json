@@ -347,6 +347,7 @@
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
     "docs/architecture.md"
   ],
@@ -354,6 +355,7 @@
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/*.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift",
     "docs/*.md"
   ],
@@ -679,6 +681,7 @@
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
   ],
   "changed_files": [
@@ -1003,6 +1006,7 @@
     "CookbookApp/Settings/SettingsView.swift",
     "CookbookApp/ShoppingLists/AddItemSheet.swift",
     "CookbookApp/ShoppingLists/AisleAutoDetect.swift",
+    "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
     "CookbookApp/ShoppingLists/ShoppingListItemRow.swift"
   ],
   "updated_docs": [],
@@ -1027,7 +1031,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.\nNo overlap with sibling beads expected; file scope is isolated to ShoppingListItemRow.swift.\nDownstream beads that read `shoppingList.compactMode` from AppStorage must use the exact key string; no structural conflicts expected.",
+  "conflict_risks": "None \u2014 new file only, no existing files modified.\nNone \u2014 changes are confined to AddItemSheet.swift with no shared types added.\nNo overlap with sibling beads expected; file scope is isolated to ShoppingListItemRow.swift.\nDownstream beads that read `shoppingList.compactMode` from AppStorage must use the exact key string; no structural conflicts expected.\nNone. Only file touched is ShoppingListDetailView.swift, which is the sole declared scope of this bead.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
