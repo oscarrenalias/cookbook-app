@@ -11,9 +11,24 @@ struct AddItemSheet: View {
 
     @State private var itemText = ""
     @State private var selectedAisle: String? = nil
+    @State private var isAisleManuallySelected: Bool = false
+    @State private var isAutoDetected: Bool = false
+    @State private var debounceTask: Task<Void, Never>? = nil
 
     @FocusState private var isTextFieldFocused: Bool
     @SceneStorage("addItemSheet.lastUsedAisle") private var lastUsedAisle: String = ""
+
+    // Intercepts picker changes to distinguish manual from programmatic selection.
+    private var aislePickerBinding: Binding<String?> {
+        Binding(
+            get: { selectedAisle },
+            set: { newValue in
+                selectedAisle = newValue
+                isAisleManuallySelected = true
+                isAutoDetected = false
+            }
+        )
+    }
 
     private var isAddEnabled: Bool {
         catalog.isLoaded && !itemText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -25,7 +40,7 @@ struct AddItemSheet: View {
                 TextField("e.g., 2 lemons, 500g flour", text: $itemText)
                     .focused($isTextFieldFocused)
 
-                Picker("Aisle", selection: $selectedAisle) {
+                Picker(selection: aislePickerBinding) {
                     if !catalog.isLoaded {
                         Text("Loading aisles…").tag(Optional<String>.none)
                     } else {
@@ -33,6 +48,15 @@ struct AddItemSheet: View {
                             AisleLabel(aisleName: aisle).tag(Optional(aisle))
                         }
                         AisleLabel(aisleName: "Other").tag(Optional<String>.none)
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("Aisle")
+                        if isAutoDetected {
+                            Image(systemName: "wand.and.stars")
+                                .font(.caption)
+                                .foregroundStyle(.tint)
+                        }
                     }
                 }
                 .pickerStyle(.navigationLink)
@@ -62,7 +86,24 @@ struct AddItemSheet: View {
                     applyLastUsedAisleDefault()
                 }
             }
+            .onChange(of: itemText) { _, newValue in
+                debounceTask?.cancel()
+                debounceTask = Task {
+                    try? await Task.sleep(for: .milliseconds(400))
+                    guard !Task.isCancelled, !isAisleManuallySelected else { return }
+                    performAutoDetect(for: newValue)
+                }
+            }
         }
+    }
+
+    private func performAutoDetect(for text: String) {
+        guard let config = catalog.config, !isAisleManuallySelected else { return }
+        if let aisle = AisleAutoDetect.detectAisle(for: text, config: config) {
+            selectedAisle = aisle
+            isAutoDetected = true
+        }
+        // No match: leave selectedAisle and isAutoDetected unchanged.
     }
 
     private func applyLastUsedAisleDefault() {
