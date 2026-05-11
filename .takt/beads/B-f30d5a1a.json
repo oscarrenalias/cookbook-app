@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fa5c73bb",
-  "dependencies": [],
+  "dependencies": [
+    "B-f7fbcfd6"
+  ],
   "acceptance_criteria": [
     "AddItemSheet tracks manual aisle selection separately from auto-detected state.",
     "Debounced item-text changes only auto-select an aisle when the picker has not been manually changed in the current sheet session.",
