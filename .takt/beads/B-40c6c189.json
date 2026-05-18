@@ -119,6 +119,13 @@
       "agent_type": "review",
       "summary": "Review needs changes: one medium-severity correctness finding \u2014 isProgrammaticAisleUpdate can get stuck when setAisleProgrammatically is called with a value equal to the current selectedAisle, allowing auto-detect to override a subsequent manual picker tap.",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:29:28.569868+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-40c6c189-corrective for blocked issue",
+      "details": {}
     }
   ],
   "metadata": {
@@ -241,7 +248,8 @@
         "source": "provider",
         "attempt": 1
       }
-    ]
+    ],
+    "auto_corrective_bead_id": "B-40c6c189-corrective"
   },
   "labels": [],
   "recovery_for": null,
