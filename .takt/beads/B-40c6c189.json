@@ -31,10 +31,12 @@
   ],
   "expected_globs": [],
   "touched_files": [
-    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookAppTests/AddItemSheetTests.swift"
   ],
   "changed_files": [
-    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookAppTests/AddItemSheetTests.swift"
   ],
   "updated_docs": [],
   "handoff_summary": {
