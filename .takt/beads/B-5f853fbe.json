@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-5f853fbe",
+  "title": "Feature Root: Fix AddItemSheet aisle picker selection not persisting",
+  "agent_type": "planner",
+  "description": "Shared execution root for the AddItemSheet aisle picker persistence bug fix, coordinating small implementation beads plus one shared testing, documentation, and review pass.",
+  "status": "done",
+  "bead_type": "feature",
+  "parent_id": "B-3765f92c",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "AddItemSheet binds the aisle Picker directly to `$selectedAisle` and no longer uses a custom computed Binding wrapper.",
+    "Manual aisle picks persist after returning from the navigationLink picker sub-view and update the displayed chip consistently.",
+    "Programmatic aisle assignments from last-used defaulting and auto-detect do not mark the aisle as manually selected.",
+    "Manual aisle selection continues to block later auto-detect overrides, while successful auto-detect still sets its cue until the user manually changes the aisle.",
+    "Shared test, documentation, and review work cover the full feature after all implementation beads complete."
+  ],
+  "linked_docs": [
+    "spec-ccd18e6c",
+    "spec-e2aef2b8"
+  ],
+  "feature_root_id": "B-5f853fbe",
+  "execution_branch_name": "feature/b-5f853fbe",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-18T11:10:35.997509+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
