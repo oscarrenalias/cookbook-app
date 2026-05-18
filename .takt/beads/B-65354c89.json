@@ -56,7 +56,7 @@
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.",
+  "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.",
   "branch_name": "",
   "worktree_path": "",
   "lease": null,
