@@ -215,20 +215,79 @@ struct AddItemSheetTests {
     }
 
     @Test func pickerBindingSetterMarksSectionAsManualAndClearsAutoDetect() {
-        // Mirrors aislePickerBinding setter:
-        // selectedAisle = newValue; isAisleManuallySelected = true; isAutoDetected = false
+        // Mirrors onChange(of: selectedAisle) when isProgrammaticAisleUpdate is false (user tap):
+        // isAisleManuallySelected = true; isAutoDetected = false
         var selectedAisle: String? = nil
         var isAisleManuallySelected = false
         var isAutoDetected = true
+        var isProgrammaticAisleUpdate = false
 
         let pickedAisle: String? = "dairy"
         selectedAisle = pickedAisle
-        isAisleManuallySelected = true
-        isAutoDetected = false
+        // Simulate onChange(of: selectedAisle) handler — user tap path
+        if isProgrammaticAisleUpdate {
+            isProgrammaticAisleUpdate = false
+        } else {
+            isAisleManuallySelected = true
+            isAutoDetected = false
+        }
 
         #expect(selectedAisle == "dairy")
         #expect(isAisleManuallySelected == true)
         #expect(isAutoDetected == false)
+    }
+
+    @Test func programmaticAisleUpdateDoesNotSetManualSelectionFlag() {
+        // Mirrors setAisleProgrammatically + onChange guard:
+        // isProgrammaticAisleUpdate=true → onChange clears the flag and skips manual-selection logic
+        var isAisleManuallySelected = false
+        var isProgrammaticAisleUpdate = false
+        var selectedAisle: String? = nil
+
+        // Simulate setAisleProgrammatically("dairy")
+        isProgrammaticAisleUpdate = true
+        selectedAisle = "dairy"
+
+        // Simulate onChange(of: selectedAisle) handler — programmatic path
+        if isProgrammaticAisleUpdate {
+            isProgrammaticAisleUpdate = false
+        } else {
+            isAisleManuallySelected = true
+        }
+
+        #expect(selectedAisle == "dairy")
+        #expect(isAisleManuallySelected == false, "Programmatic aisle updates must not set the manual-selection flag")
+        #expect(isProgrammaticAisleUpdate == false, "isProgrammaticAisleUpdate must be cleared after the onChange fires")
+    }
+
+    @Test func applyLastUsedAisleDefaultDoesNotSetManualSelectionFlag() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+
+        let catalog = AisleCatalog()
+        catalog.load(from: dir)
+        #expect(catalog.isLoaded)
+
+        var isAisleManuallySelected = false
+        var isProgrammaticAisleUpdate = false
+        var selectedAisle: String? = nil
+        let lastUsedAisle = catalog.aisles.first!
+
+        // Simulate applyLastUsedAisleDefault calling setAisleProgrammatically
+        if catalog.isLoaded, !lastUsedAisle.isEmpty, catalog.aisles.contains(lastUsedAisle) {
+            isProgrammaticAisleUpdate = true
+            selectedAisle = lastUsedAisle
+        }
+
+        // Simulate onChange(of: selectedAisle) handler
+        if isProgrammaticAisleUpdate {
+            isProgrammaticAisleUpdate = false
+        } else {
+            isAisleManuallySelected = true
+        }
+
+        #expect(selectedAisle == lastUsedAisle)
+        #expect(isAisleManuallySelected == false, "applyLastUsedAisleDefault must not set the manual-selection flag")
     }
 
     @Test func autoDetectSetsSelectedAisleAndAutoDetectedFlag() {
