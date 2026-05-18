@@ -3,7 +3,7 @@
   "title": "Shared review for AddItemSheet aisle picker persistence fix",
   "agent_type": "review",
   "description": "Perform a final cross-cutting review of the implementation, tests, and documentation to confirm the bug is fixed without regressions in aisle defaulting or auto-detect behavior.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -61,9 +61,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.\nNone \u2014 no writes made.",
-  "branch_name": "",
+  "branch_name": "feature/b-5f853fbe",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-40c6c189",
+    "expires_at": "2026-05-18T11:57:16.332836+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -72,9 +75,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:27:16.556400+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-18T11:27:16.556413+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-40c6c189",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-40c6c189/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
