@@ -13,22 +13,13 @@ struct AddItemSheet: View {
     @State private var selectedAisle: String? = nil
     @State private var isAisleManuallySelected: Bool = false
     @State private var isAutoDetected: Bool = false
+    // .navigationLink Picker fires .onChange even on programmatic state writes; this flag
+    // lets setAisleProgrammatically() suppress the manual-selection side-effect in that handler.
+    @State private var isProgrammaticAisleUpdate: Bool = false
     @State private var debounceTask: Task<Void, Never>? = nil
 
     @FocusState private var isTextFieldFocused: Bool
     @SceneStorage("addItemSheet.lastUsedAisle") private var lastUsedAisle: String = ""
-
-    // Intercepts picker changes to distinguish manual from programmatic selection.
-    private var aislePickerBinding: Binding<String?> {
-        Binding(
-            get: { selectedAisle },
-            set: { newValue in
-                selectedAisle = newValue
-                isAisleManuallySelected = true
-                isAutoDetected = false
-            }
-        )
-    }
 
     private var isAddEnabled: Bool {
         catalog.isLoaded && !itemText.trimmingCharacters(in: .whitespaces).isEmpty
@@ -40,7 +31,7 @@ struct AddItemSheet: View {
                 TextField("e.g., 2 lemons, 500g flour", text: $itemText)
                     .focused($isTextFieldFocused)
 
-                Picker(selection: aislePickerBinding) {
+                Picker(selection: $selectedAisle) {
                     if !catalog.isLoaded {
                         Text("Loading aisles…").tag(Optional<String>.none)
                     } else {
@@ -94,13 +85,33 @@ struct AddItemSheet: View {
                     performAutoDetect(for: newValue)
                 }
             }
+            // Guard distinguishes user-driven picker changes (lock in manual selection) from
+            // programmatic writes by setAisleProgrammatically() (ignore for selection tracking).
+            .onChange(of: selectedAisle) { _, _ in
+                if isProgrammaticAisleUpdate {
+                    isProgrammaticAisleUpdate = false
+                } else {
+                    isAisleManuallySelected = true
+                    isAutoDetected = false
+                }
+            }
         }
+    }
+
+    // Centralises all non-user aisle writes (auto-detect, last-used default) so that the
+    // .onChange guard can tell them apart from real user picks. EditItemSheet is intentionally
+    // excluded from auto-detection — changing a saved item's aisle on every keystroke would
+    // be surprising.
+    private func setAisleProgrammatically(_ aisle: String?) {
+        guard selectedAisle != aisle else { return }
+        isProgrammaticAisleUpdate = true
+        selectedAisle = aisle
     }
 
     private func performAutoDetect(for text: String) {
         guard let config = catalog.config, !isAisleManuallySelected else { return }
         if let aisle = AisleAutoDetect.detectAisle(for: text, config: config) {
-            selectedAisle = aisle
+            setAisleProgrammatically(aisle)
             isAutoDetected = true
         }
         // No match: leave selectedAisle and isAutoDetected unchanged.
@@ -109,7 +120,7 @@ struct AddItemSheet: View {
     private func applyLastUsedAisleDefault() {
         guard catalog.isLoaded, !lastUsedAisle.isEmpty else { return }
         if catalog.aisles.contains(lastUsedAisle) {
-            selectedAisle = lastUsedAisle
+            setAisleProgrammatically(lastUsedAisle)
         }
     }
 
