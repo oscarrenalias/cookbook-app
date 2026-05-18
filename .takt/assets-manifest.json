@@ -1,6 +1,7 @@
 {
-  "takt_version": "0.1.42",
+  "takt_version": "0.1.49",
   "installed_at": "2026-05-04T09:02:19.343066+00:00",
+  "upgraded_at": "2026-05-18T12:09:34.026933+00:00",
   "assets": {
     "templates/agents/merge-conflict.md": {
       "sha256": "37b9d67c3e4d10fe2fac0f86cb7ab170c5dec2a0f018264052cc4aa891a99d0f",
@@ -228,7 +229,7 @@
       "user_owned": false
     },
     ".claude/skills/takt/SKILL.md": {
-      "sha256": "5b512cc0e60e7bf9f321e927b904e630fcb9ac4c69deabcc3bab79b83dd11cb6",
+      "sha256": "72483e2d19c42dd11dc501320ee8fa63f83716ba029491d99b1d8c28e02f06c6",
       "source": "bundled",
       "user_owned": false
     },
