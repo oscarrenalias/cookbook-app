@@ -3,7 +3,7 @@
   "title": "Adopt programmatic aisle update helper at default and auto-detect write sites",
   "agent_type": "developer",
   "description": "Update the two programmatic aisle assignment paths in AddItemSheet so last-used defaulting and auto-detect both route their `selectedAisle` writes through the suppression helper, preserving existing behavioral rules.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -25,33 +25,43 @@
     "CookbookApp/ShoppingLists/AddItemSheet.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Both programmatic aisle write sites (`applyLastUsedAisleDefault` and `performAutoDetect`) already route through `setAisleProgrammatically`. The `onChange(of: selectedAisle)` guard suppresses `isAisleManuallySelected` for programmatic updates. `performAutoDetect` still sets `isAutoDetected = true` after the helper call.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "None \u2014 no code changes made.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Proceed to tester agent for validation.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
+    "touched_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "conflict_risks": "None \u2014 no writes made.",
+    "design_decisions": "Dependency bead B-b13cb43f already implemented both call-site adoptions alongside the helper infrastructure. This bead's implementation was a no-op.",
+    "test_coverage_notes": "Tester should verify that picker interaction sets `isAisleManuallySelected`, that `applyLastUsedAisleDefault` and `performAutoDetect` do not flip that flag, and that `isAutoDetected` is set by a successful auto-detect.",
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "None \u2014 no writes made.",
+  "branch_name": "feature/b-5f853fbe",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -61,9 +71,163 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:18:05.542679+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-18T11:18:05.542704+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:18:10.941373+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c605d118/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c605d118/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-18T11:19:33.916456+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "All acceptance criteria already satisfied. B-b13cb43f (commit 3e4b0c97) went beyond its own scope and adopted `setAisleProgrammatically` at both `applyLastUsedAisleDefault` and `performAutoDetect`, as well as adding the `onChange` guard and the helper itself. No code changes needed for this bead.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c605d118",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c605d118/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-c605d118/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-18T11:18:10.941358+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-c605d118",
+      "feature_root_id": "B-5f853fbe",
+      "title": "Adopt programmatic aisle update helper at default and auto-detect write sites",
+      "agent_type": "developer",
+      "description": "Update the two programmatic aisle assignment paths in AddItemSheet so last-used defaulting and auto-detect both route their `selectedAisle` writes through the suppression helper, preserving existing behavioral rules.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "`applyLastUsedAisleDefault` performs its `selectedAisle` write inside the programmatic-update helper.",
+        "`performAutoDetect` performs its successful `selectedAisle` write inside the programmatic-update helper.",
+        "Programmatic updates do not flip the manual-selection flag.",
+        "Auto-detect still sets its success cue when it applies a detected aisle."
+      ],
+      "dependencies": [
+        "B-b13cb43f"
+      ],
+      "linked_docs": [
+        "spec-ccd18e6c"
+      ],
+      "execution_branch_name": "feature/b-5f853fbe",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/AddItemSheet.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [],
+      "conflict_risks": "",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "All acceptance criteria already satisfied. B-b13cb43f (commit 3e4b0c97) went beyond its own scope and adopted `setAisleProgrammatically` at both `applyLastUsedAisleDefault` and `performAutoDetect`, as well as adding the `onChange` guard and the helper itself. No code changes needed for this bead.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.1761029,
+      "duration_ms": 82586,
+      "duration_api_ms": 62906,
+      "num_turns": 6,
+      "input_tokens": 8,
+      "output_tokens": 4260,
+      "cache_creation_tokens": 17138,
+      "cache_read_tokens": 152498,
+      "stop_reason": "end_turn",
+      "session_id": "5f5212ce-4bda-412d-9d1d-145dfe36f4a1",
+      "permission_denials": [],
+      "prompt_chars": 5719,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.1761029,
+        "duration_ms": 82586,
+        "duration_api_ms": 62906,
+        "num_turns": 6,
+        "input_tokens": 8,
+        "output_tokens": 4260,
+        "cache_creation_tokens": 17138,
+        "cache_read_tokens": 152498,
+        "stop_reason": "end_turn",
+        "session_id": "5f5212ce-4bda-412d-9d1d-145dfe36f4a1",
+        "permission_denials": [],
+        "prompt_chars": 5719,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
