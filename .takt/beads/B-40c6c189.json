@@ -6,7 +6,13 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
-  "dependencies": [],
+  "dependencies": [
+    "B-72707616",
+    "B-b13cb43f",
+    "B-c605d118",
+    "B-25854778",
+    "B-65354c89"
+  ],
   "acceptance_criteria": [
     "Review confirms all implementation beads satisfy the feature acceptance criteria.",
     "Review confirms shared tests cover the intended regression cases and pass.",
