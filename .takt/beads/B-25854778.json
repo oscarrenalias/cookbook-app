@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-25854778",
+  "title": "Shared test coverage for AddItemSheet aisle picker persistence fix",
+  "agent_type": "tester",
+  "description": "Add and run focused regression coverage for the AddItemSheet aisle picker binding and manual-vs-programmatic selection behavior, while confirming existing related tests still pass.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-5f853fbe",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Tests cover that a manual aisle change updates the effective selected aisle state after picker interaction.",
+    "Tests cover that manual selection blocks later auto-detect overrides as before.",
+    "Tests cover that programmatic last-used and auto-detect updates do not set the manual-selection flag.",
+    "Tests assert the Picker is wired to `$selectedAisle` rather than a custom binding, using the project's existing test approach where feasible.",
+    "Existing tests from `spec-e2aef2b8` continue to pass without required behavior changes outside this fix."
+  ],
+  "linked_docs": [
+    "spec-ccd18e6c",
+    "spec-e2aef2b8"
+  ],
+  "feature_root_id": "B-5f853fbe",
+  "execution_branch_name": "feature/b-5f853fbe",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+  "expected_files": [
+    "CookbookAppTests/AddItemSheetTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-18T11:10:37.681549+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
