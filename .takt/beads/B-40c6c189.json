@@ -3,7 +3,7 @@
   "title": "Shared review for AddItemSheet aisle picker persistence fix",
   "agent_type": "review",
   "description": "Perform a final cross-cutting review of the implementation, tests, and documentation to confirm the bug is fixed without regressions in aisle defaulting or auto-detect behavior.",
-  "status": "in_progress",
+  "status": "blocked",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -40,33 +40,38 @@
   ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
-    "findings_count": 0,
-    "requires_followup": false,
-    "changed_files": [],
+    "completed": "Reviewed AddItemSheet.swift and AddItemSheetTests.swift against all four acceptance criteria. Implementation logic, inline documentation, and test coverage are all sound. One correctness defect identified in the flag-management state machine.",
+    "remaining": "Fix setAisleProgrammatically to guard against same-value writes (guard selectedAisle != aisle else { return }). Add a test exercising the sticky-flag path. Re-run tester to confirm no regressions.",
+    "risks": "The sticky isProgrammaticAisleUpdate flag can cause a manual picker selection to be silently discarded and subsequently overridden by auto-detect. This directly undermines the core purpose of the fix. Reproduced via: two consecutive auto-detect debounce firings that return the same aisle, followed by a manual picker tap.",
+    "verdict": "needs_changes",
+    "findings_count": 1,
+    "requires_followup": true,
+    "changed_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift",
+      "CookbookAppTests/AddItemSheetTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
-    "block_reason": "",
-    "expected_files": [],
+    "next_action": "Apply one-line guard fix to setAisleProgrammatically, add a unit test for the sticky-flag scenario, then return to tester for final validation.",
+    "next_agent": "developer",
+    "block_reason": "setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically.",
+    "expected_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift",
+      "CookbookAppTests/AddItemSheetTests.swift"
+    ],
+    "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
+    "design_decisions": "The isProgrammaticAisleUpdate suppression pattern is architecturally correct for the normal path. The defect is only in the edge case where the same value is written twice; the guard fix preserves the existing design without requiring architectural change.",
+    "test_coverage_notes": "All currently exercised paths are well covered. The sticky-flag scenario (setAisleProgrammatically called with an already-equal value, onChange not firing, subsequent user tap misclassified) is not yet tested. A new test should simulate: auto-detect fires to \"produce\", auto-detect fires again to \"produce\" (same value), user taps \"bakery\", verify isAisleManuallySelected=true.",
+    "known_limitations": "Tests mirror production logic via local variable simulation rather than ViewInspector. This is consistent with the project's established test pattern and is acceptable given the lack of SwiftUI test infrastructure in this repo."
   },
-  "block_reason": "",
-  "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.\nNone \u2014 no writes made.",
+  "block_reason": "setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically.",
+  "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
   "branch_name": "feature/b-5f853fbe",
   "worktree_path": "",
-  "lease": {
-    "owner": "review:B-40c6c189",
-    "expires_at": "2026-05-18T11:57:16.332836+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -107,6 +112,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-40c6c189/repo/templates/agents/review.md"
       }
+    },
+    {
+      "timestamp": "2026-05-18T11:29:27.894738+00:00",
+      "event": "blocked",
+      "agent_type": "review",
+      "summary": "Review needs changes: one medium-severity correctness finding \u2014 isProgrammaticAisleUpdate can get stuck when setAisleProgrammatically is called with a value equal to the current selectedAisle, allowing auto-detect to override a subsequent manual picker tap.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -184,7 +196,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "blocked",
+      "summary": "Review needs changes: one medium-severity correctness finding \u2014 isProgrammaticAisleUpdate can get stuck when setAisleProgrammatically is called with a value equal to the current selectedAisle, allowing auto-detect to override a subsequent manual picker tap.",
+      "verdict": "needs_changes",
+      "findings_count": 1,
+      "requires_followup": true,
+      "next_agent": "developer",
+      "block_reason": "setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically."
+    },
+    "telemetry": {
+      "cost_usd": 0.2332712,
+      "duration_ms": 122343,
+      "duration_api_ms": 121110,
+      "num_turns": 4,
+      "input_tokens": 5,
+      "output_tokens": 7515,
+      "cache_creation_tokens": 25642,
+      "cache_read_tokens": 71659,
+      "stop_reason": "end_turn",
+      "session_id": "29a6498f-57db-48a6-9d74-182d8c6c0c90",
+      "permission_denials": [],
+      "prompt_chars": 8648,
+      "prompt_lines": 161,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.2332712,
+        "duration_ms": 122343,
+        "duration_api_ms": 121110,
+        "num_turns": 4,
+        "input_tokens": 5,
+        "output_tokens": 7515,
+        "cache_creation_tokens": 25642,
+        "cache_read_tokens": 71659,
+        "stop_reason": "end_turn",
+        "session_id": "29a6498f-57db-48a6-9d74-182d8c6c0c90",
+        "permission_denials": [],
+        "prompt_chars": 8648,
+        "prompt_lines": 161,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
