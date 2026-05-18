@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
-  "dependencies": [],
+  "dependencies": [
+    "B-72707616"
+  ],
   "acceptance_criteria": [
     "AddItemSheet defines a dedicated state flag for suppressing manual-selection side effects during programmatic updates.",
     "A small helper or equivalent synchronous mechanism wraps programmatic aisle mutations by toggling the suppression flag around the write.",
