@@ -3,7 +3,7 @@
   "title": "Shared review for AddItemSheet aisle picker persistence fix",
   "agent_type": "review",
   "description": "Perform a final cross-cutting review of the implementation, tests, and documentation to confirm the bug is fixed without regressions in aisle defaulting or auto-detect behavior.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -71,7 +71,10 @@
   "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
   "branch_name": "feature/b-5f853fbe",
   "worktree_path": "",
-  "lease": null,
+  "lease": {
+    "owner": "review:B-40c6c189",
+    "expires_at": "2026-05-18T12:00:45.444146+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -132,6 +135,29 @@
       "event": "retried",
       "agent_type": "review",
       "summary": "Requeued blocked bead after corrective bead B-40c6c189-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:30:45.714248+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-18T11:30:45.714262+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
       "details": {}
     }
   ],
