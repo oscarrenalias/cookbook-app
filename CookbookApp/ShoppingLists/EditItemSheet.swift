@@ -45,16 +45,23 @@ struct EditItemSheet: View {
                 TextField("Item text", text: $itemText)
                     .focused($textFieldFocused)
 
-                Picker("Aisle", selection: $selectedAisle) {
+                DisclosureGroup {
                     if !catalog.isLoaded {
-                        Text("Loading aisles…").tag(initialAisle)
+                        Text("Loading aisles…")
+                            .foregroundStyle(.secondary)
                     } else {
                         ForEach(pickerAisles, id: \.self) { aisle in
-                            AisleLabel(aisleName: aisle).tag(aisle)
+                            aisleSelectionRow(aisleName: aisle)
                         }
                     }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("Aisle")
+                        Spacer()
+                        Text(selectedAisle.localizedCapitalized)
+                            .foregroundStyle(.secondary)
+                    }
                 }
-                .pickerStyle(.navigationLink)
             }
             .navigationTitle("Edit item")
             .navigationBarTitleDisplayMode(.inline)
@@ -75,6 +82,24 @@ struct EditItemSheet: View {
                 textFieldFocused = true
             }
         }
+    }
+
+    @ViewBuilder
+    private func aisleSelectionRow(aisleName: String) -> some View {
+        Button {
+            selectedAisle = aisleName
+        } label: {
+            HStack {
+                AisleLabel(aisleName: aisleName)
+                Spacer()
+                if selectedAisle == aisleName {
+                    Image(systemName: "checkmark")
+                        .foregroundStyle(.tint)
+                }
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 
     private func handleSave() {

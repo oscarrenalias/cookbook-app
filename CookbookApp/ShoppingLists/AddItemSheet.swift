@@ -31,14 +31,15 @@ struct AddItemSheet: View {
                 TextField("e.g., 2 lemons, 500g flour", text: $itemText)
                     .focused($isTextFieldFocused)
 
-                Picker(selection: $selectedAisle) {
+                DisclosureGroup {
                     if !catalog.isLoaded {
-                        Text("Loading aisles…").tag(Optional<String>.none)
+                        Text("Loading aisles…")
+                            .foregroundStyle(.secondary)
                     } else {
                         ForEach(catalog.aisles.sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }, id: \.self) { aisle in
-                            AisleLabel(aisleName: aisle).tag(Optional(aisle))
+                            aisleSelectionRow(aisleName: aisle, value: aisle)
                         }
-                        AisleLabel(aisleName: "Other").tag(Optional<String>.none)
+                        aisleSelectionRow(aisleName: "Other", value: nil)
                     }
                 } label: {
                     HStack(spacing: 4) {
@@ -48,9 +49,11 @@ struct AddItemSheet: View {
                                 .font(.caption)
                                 .foregroundStyle(.tint)
                         }
+                        Spacer()
+                        Text((selectedAisle ?? "Other").localizedCapitalized)
+                            .foregroundStyle(.secondary)
                     }
                 }
-                .pickerStyle(.navigationLink)
             }
             .navigationTitle("Add item")
             .navigationBarTitleDisplayMode(.inline)
@@ -96,6 +99,24 @@ struct AddItemSheet: View {
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    private func aisleSelectionRow(aisleName: String, value: String?) -> some View {
+        Button {
+            selectedAisle = value
+        } label: {
+            HStack {
+                AisleLabel(aisleName: aisleName)
+                Spacer()
+                if selectedAisle == value {
+                    Image(systemName: "checkmark")
+                        .foregroundStyle(.tint)
+                }
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 
     // Centralises all non-user aisle writes (auto-detect, last-used default) so that the
