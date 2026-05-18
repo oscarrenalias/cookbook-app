@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-c605d118",
+  "title": "Adopt programmatic aisle update helper at default and auto-detect write sites",
+  "agent_type": "developer",
+  "description": "Update the two programmatic aisle assignment paths in AddItemSheet so last-used defaulting and auto-detect both route their `selectedAisle` writes through the suppression helper, preserving existing behavioral rules.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-5f853fbe",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "`applyLastUsedAisleDefault` performs its `selectedAisle` write inside the programmatic-update helper.",
+    "`performAutoDetect` performs its successful `selectedAisle` write inside the programmatic-update helper.",
+    "Programmatic updates do not flip the manual-selection flag.",
+    "Auto-detect still sets its success cue when it applies a detected aisle."
+  ],
+  "linked_docs": [
+    "spec-ccd18e6c"
+  ],
+  "feature_root_id": "B-5f853fbe",
+  "execution_branch_name": "feature/b-5f853fbe",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-18T11:10:37.196663+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
