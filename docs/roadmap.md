@@ -485,6 +485,30 @@ escape hatch; applied in-worktree before merge.
 **Unlocks:** faster ad-hoc adds, denser browsing of long lists,
 less misleading row chrome.
 
+### Fix AddItemSheet aisle picker selection not persisting ✅
+
+`spec-ccd18e6c`. Follow-up bug fix to the practicality-tweaks
+spec. The aisle auto-detection wiring introduced a custom
+`Binding(get:set:)` computed property in AddItemSheet that —
+combined with the `.pickerStyle(.navigationLink)` picker style
+and three @State mutations inside the binding's `set` — caused
+the navigationLink-pushed sub-view to capture a stale binding
+instance. The result: picking a different aisle in the sub-view
+didn't update the picker chip on return.
+
+Fix: drop the custom binding, bind the Picker directly to
+`$selectedAisle`, and detect manual selection via
+`.onChange(of: selectedAisle)` guarded by an
+`isApplyingProgrammaticAisle` flag that wraps the two
+programmatic write sites (`applyLastUsedAisleDefault` and
+`performAutoDetect`). The corrective review caught a same-value
+guard miss in the helper and added a sticky-flag regression
+test.
+
+**Unlocks:** manual aisle pick in AddItemSheet actually sticks.
+EditItemSheet was unaffected (already used `$selectedAisle`
+directly).
+
 ---
 
 ## Polish
