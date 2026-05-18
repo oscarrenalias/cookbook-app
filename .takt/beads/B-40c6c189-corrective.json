@@ -1,0 +1,76 @@
+{
+  "bead_id": "B-40c6c189-corrective",
+  "title": "Corrective fix for B-40c6c189: Shared review for AddItemSheet aisle picker persistence fix",
+  "agent_type": "developer",
+  "description": "Blocked reason: setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically.\n\nRemaining work: Fix setAisleProgrammatically to guard against same-value writes (guard selectedAisle != aisle else { return }). Add a test exercising the sticky-flag path. Re-run tester to confirm no regressions.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-40c6c189",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Implement the minimum fix required to unblock B-40c6c189.",
+    "Update tests/docs as needed for the corrective change.",
+    "Leave a handoff summary that states how the parent bead can be retried."
+  ],
+  "linked_docs": [
+    "spec-ccd18e6c",
+    "spec-e2aef2b8"
+  ],
+  "feature_root_id": "B-5f853fbe",
+  "execution_branch_name": "feature/b-5f853fbe",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookAppTests/AddItemSheetTests.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift",
+    "CookbookAppTests/AddItemSheetTests.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-18T11:29:28.324962+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "auto_corrective_for": "B-40c6c189"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
