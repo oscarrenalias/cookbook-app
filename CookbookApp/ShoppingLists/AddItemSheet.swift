@@ -13,6 +13,7 @@ struct AddItemSheet: View {
     @State private var selectedAisle: String? = nil
     @State private var isAisleManuallySelected: Bool = false
     @State private var isAutoDetected: Bool = false
+    @State private var isProgrammaticAisleUpdate: Bool = false
     @State private var debounceTask: Task<Void, Never>? = nil
 
     @FocusState private var isTextFieldFocused: Bool
@@ -82,13 +83,26 @@ struct AddItemSheet: View {
                     performAutoDetect(for: newValue)
                 }
             }
+            .onChange(of: selectedAisle) { _, _ in
+                if isProgrammaticAisleUpdate {
+                    isProgrammaticAisleUpdate = false
+                } else {
+                    isAisleManuallySelected = true
+                    isAutoDetected = false
+                }
+            }
         }
+    }
+
+    private func setAisleProgrammatically(_ aisle: String?) {
+        isProgrammaticAisleUpdate = true
+        selectedAisle = aisle
     }
 
     private func performAutoDetect(for text: String) {
         guard let config = catalog.config, !isAisleManuallySelected else { return }
         if let aisle = AisleAutoDetect.detectAisle(for: text, config: config) {
-            selectedAisle = aisle
+            setAisleProgrammatically(aisle)
             isAutoDetected = true
         }
         // No match: leave selectedAisle and isAutoDetected unchanged.
@@ -97,7 +111,7 @@ struct AddItemSheet: View {
     private func applyLastUsedAisleDefault() {
         guard catalog.isLoaded, !lastUsedAisle.isEmpty else { return }
         if catalog.aisles.contains(lastUsedAisle) {
-            selectedAisle = lastUsedAisle
+            setAisleProgrammatically(lastUsedAisle)
         }
     }
 
