@@ -3,7 +3,7 @@
   "title": "Shared review for AddItemSheet aisle picker persistence fix",
   "agent_type": "review",
   "description": "Perform a final cross-cutting review of the implementation, tests, and documentation to confirm the bug is fixed without regressions in aisle defaulting or auto-detect behavior.",
-  "status": "blocked",
+  "status": "ready",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -67,7 +67,7 @@
     "test_coverage_notes": "All currently exercised paths are well covered. The sticky-flag scenario (setAisleProgrammatically called with an already-equal value, onChange not firing, subsequent user tap misclassified) is not yet tested. A new test should simulate: auto-detect fires to \"produce\", auto-detect fires again to \"produce\" (same value), user taps \"bakery\", verify isAisleManuallySelected=true.",
     "known_limitations": "Tests mirror production logic via local variable simulation rather than ViewInspector. This is consistent with the project's established test pattern and is acceptable given the lack of SwiftUI test infrastructure in this repo."
   },
-  "block_reason": "setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically.",
+  "block_reason": "",
   "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
   "branch_name": "feature/b-5f853fbe",
   "worktree_path": "",
@@ -125,6 +125,13 @@
       "event": "corrective_planned",
       "agent_type": "review",
       "summary": "Created corrective bead B-40c6c189-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:30:43.969400+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-40c6c189-corrective completed",
       "details": {}
     }
   ],
@@ -249,7 +256,9 @@
         "attempt": 1
       }
     ],
-    "auto_corrective_bead_id": "B-40c6c189-corrective"
+    "auto_corrective_bead_id": "B-40c6c189-corrective",
+    "last_corrective_retry_source": "B-40c6c189-corrective",
+    "last_corrective_retry_commit": "2f1b0c004971b9977f1b125b676ecb92a3780172"
   },
   "labels": [],
   "recovery_for": null,
