@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-b13cb43f",
+  "title": "Add guarded manual-selection change tracking in AddItemSheet",
+  "agent_type": "developer",
+  "description": "Introduce the programmatic-update suppression state and `.onChange(of: selectedAisle)` logic so manual user changes mark the aisle as manually selected and clear the auto-detect cue only when the change was not programmatic.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-5f853fbe",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "AddItemSheet defines a dedicated state flag for suppressing manual-selection side effects during programmatic updates.",
+    "A small helper or equivalent synchronous mechanism wraps programmatic aisle mutations by toggling the suppression flag around the write.",
+    "An `.onChange(of: selectedAisle)` handler marks `isAisleManuallySelected = true` and `isAutoDetected = false` only when suppression is not active.",
+    "The change-tracking logic is contained within AddItemSheet and does not alter unrelated auto-detect behavior."
+  ],
+  "linked_docs": [
+    "spec-ccd18e6c"
+  ],
+  "feature_root_id": "B-5f853fbe",
+  "execution_branch_name": "feature/b-5f853fbe",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-18T11:10:36.788948+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
