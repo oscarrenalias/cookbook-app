@@ -159,6 +159,15 @@
       "agent_type": "review",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:30:53.978076+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "review",
+      "summary": "Applied guardrails from .takt/agent-runs/B-40c6c189/repo/templates/agents/review.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-40c6c189/repo/templates/agents/review.md"
+      }
     }
   ],
   "metadata": {
@@ -179,7 +188,7 @@
       "agent_type": "review",
       "template_path": ".takt/agent-runs/B-40c6c189/repo/templates/agents/review.md",
       "template_text": "# Review Guardrails\n\nPrimary responsibility: Inspect code, tests, docs, and acceptance criteria for correctness, completeness, and risk.\n\nAllowed actions:\n- Review only the changed files listed in the bead's touched_files and changed_files fields. Do not read unrelated files.\n- Validate acceptance criteria against the implementation and handoff state.\n- Block with a clear recommendation when the bead actually requires implementation work.\n\nEfficiency constraints:\n- Do not run the test suite. Testing is the tester agent's responsibility.\n- Focus on correctness, completeness, and risk \u2014 not style or formatting.\n- Keep the review concise. If there are no findings, say so and approve promptly.\n\nDisallowed actions:\n- Implement feature work, tests, or docs instead of reporting findings.\n- Rewrite architecture or silently fix issues discovered during review.\n- Mark incomplete work as accepted without evidence.\n\nExpected outputs:\n- Return JSON with `outcome` set to `completed` (reviews always complete; use `verdict` for pass/fail) and `summary` as a one-line description of the review result.\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the review signoff decision: `approved` means the bead can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when no unresolved findings remain.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved finding count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when any required fix remains.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Review findings ordered by severity, or an explicit statement that no findings were discovered.\n- Clear blocked handoff details when the task belongs to another agent type.",
-      "captured_at": "2026-05-18T11:27:25.323073+00:00"
+      "captured_at": "2026-05-18T11:30:53.978050+00:00"
     },
     "worker_prompt_context": {
       "bead_id": "B-40c6c189",
@@ -215,26 +224,34 @@
         "CookbookApp/ShoppingLists/AddItemSheet.swift",
         "CookbookAppTests/AddItemSheetTests.swift"
       ],
-      "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.\nNone \u2014 no writes made.",
+      "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
       "handoff_summary": {
-        "completed": "",
-        "remaining": "",
-        "risks": "",
-        "verdict": "",
-        "findings_count": 0,
-        "requires_followup": false,
-        "changed_files": [],
+        "completed": "Reviewed AddItemSheet.swift and AddItemSheetTests.swift against all four acceptance criteria. Implementation logic, inline documentation, and test coverage are all sound. One correctness defect identified in the flag-management state machine.",
+        "remaining": "Fix setAisleProgrammatically to guard against same-value writes (guard selectedAisle != aisle else { return }). Add a test exercising the sticky-flag path. Re-run tester to confirm no regressions.",
+        "risks": "The sticky isProgrammaticAisleUpdate flag can cause a manual picker selection to be silently discarded and subsequently overridden by auto-detect. This directly undermines the core purpose of the fix. Reproduced via: two consecutive auto-detect debounce firings that return the same aisle, followed by a manual picker tap.",
+        "verdict": "needs_changes",
+        "findings_count": 1,
+        "requires_followup": true,
+        "changed_files": [
+          "CookbookApp/ShoppingLists/AddItemSheet.swift",
+          "CookbookAppTests/AddItemSheetTests.swift"
+        ],
         "updated_docs": [],
-        "next_action": "",
-        "next_agent": "",
-        "block_reason": "",
-        "expected_files": [],
+        "next_action": "Apply one-line guard fix to setAisleProgrammatically, add a unit test for the sticky-flag scenario, then return to tester for final validation.",
+        "next_agent": "developer",
+        "block_reason": "setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically.",
+        "expected_files": [
+          "CookbookApp/ShoppingLists/AddItemSheet.swift"
+        ],
         "expected_globs": [],
-        "touched_files": [],
-        "conflict_risks": "",
-        "design_decisions": "",
-        "test_coverage_notes": "",
-        "known_limitations": ""
+        "touched_files": [
+          "CookbookApp/ShoppingLists/AddItemSheet.swift",
+          "CookbookAppTests/AddItemSheetTests.swift"
+        ],
+        "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
+        "design_decisions": "The isProgrammaticAisleUpdate suppression pattern is architecturally correct for the normal path. The defect is only in the edge case where the same value is written twice; the guard fix preserves the existing design without requiring architectural change.",
+        "test_coverage_notes": "All currently exercised paths are well covered. The sticky-flag scenario (setAisleProgrammatically called with an already-equal value, onChange not firing, subsequent user tap misclassified) is not yet tested. A new test should simulate: auto-detect fires to \"produce\", auto-detect fires again to \"produce\" (same value), user taps \"bakery\", verify isAisleManuallySelected=true.",
+        "known_limitations": "Tests mirror production logic via local variable simulation rather than ViewInspector. This is consistent with the project's established test pattern and is acceptable given the lack of SwiftUI test infrastructure in this repo."
       }
     },
     "last_agent_result": {
