@@ -96,6 +96,15 @@
       "agent_type": "tester",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:19:45.007769+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "tester",
+      "summary": "Applied guardrails from .takt/agent-runs/B-25854778/repo/templates/agents/tester.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-25854778/repo/templates/agents/tester.md"
+      }
     }
   ],
   "metadata": {
@@ -111,7 +120,68 @@
     ],
     "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-25854778/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "tester",
+      "template_path": ".takt/agent-runs/B-25854778/repo/templates/agents/tester.md",
+      "template_text": "# Tester Guardrails\n\nPrimary responsibility: Add or update automated tests, run validation, and report defects or missing coverage.\n\nAllowed actions:\n- Write or update tests relevant to the assigned bead.\n- Run only the test files related to the bead's changed files, not the full test suite. Use `` to target individual test files. If unsure which tests are relevant, use the bead's expected_files and touched_files fields as a guide.\n- Make minimal test-enablement fixes (e.g. import corrections, fixture setup) only when strictly necessary to run the relevant tests. Do not refactor production code under the guise of test enablement.\n\nDisallowed actions:\n- Run the full test suite instead of targeting specific tests. Always use `` for targeted runs. Running the full suite wastes time and often exceeds the agent timeout.\n- Use `run_in_background` for any Bash commands. All test commands must run synchronously so their output is available before the structured verdict is submitted. Background tasks cause the structured output to be lost, resulting in a failed bead.\n- Implement feature logic beyond minimal test-enablement work.\n- Reframe a feature implementation task as testing work to bypass handoff.\n- Perform review signoff or broad documentation rewrites.\n\nExpected outputs:\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the tester signoff decision: `approved` means testing can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when testing is complete with no unresolved tester-scope findings.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved defect or coverage gap count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when follow-up work is required.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Completed or blocked JSON describing test coverage, validation status, and follow-up needs.\n- Precise defect or coverage notes when the bead cannot be completed within tester scope.",
+      "captured_at": "2026-05-18T11:19:45.007756+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-25854778",
+      "feature_root_id": "B-5f853fbe",
+      "title": "Shared test coverage for AddItemSheet aisle picker persistence fix",
+      "agent_type": "tester",
+      "description": "Add and run focused regression coverage for the AddItemSheet aisle picker binding and manual-vs-programmatic selection behavior, while confirming existing related tests still pass.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Tests cover that a manual aisle change updates the effective selected aisle state after picker interaction.",
+        "Tests cover that manual selection blocks later auto-detect overrides as before.",
+        "Tests cover that programmatic last-used and auto-detect updates do not set the manual-selection flag.",
+        "Tests assert the Picker is wired to `$selectedAisle` rather than a custom binding, using the project's existing test approach where feasible.",
+        "Existing tests from `spec-e2aef2b8` continue to pass without required behavior changes outside this fix."
+      ],
+      "dependencies": [
+        "B-72707616",
+        "B-b13cb43f",
+        "B-c605d118"
+      ],
+      "linked_docs": [
+        "spec-ccd18e6c",
+        "spec-e2aef2b8"
+      ],
+      "execution_branch_name": "feature/b-5f853fbe",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/AddItemSheet.swift",
+        "CookbookAppTests/AddItemSheetTests.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [
+        "CookbookApp/ShoppingLists/AddItemSheet.swift"
+      ],
+      "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.\nNone \u2014 no writes made.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
