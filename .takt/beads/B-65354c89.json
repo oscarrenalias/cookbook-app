@@ -3,7 +3,7 @@
   "title": "Shared documentation for AddItemSheet aisle picker persistence fix",
   "agent_type": "documentation",
   "description": "Document the implementation intent and regression scope for the AddItemSheet aisle picker fix, including the move away from the custom Binding and the guarded `.onChange` approach.",
-  "status": "ready",
+  "status": "in_progress",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -57,9 +57,12 @@
   },
   "block_reason": "",
   "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.\nNone \u2014 no writes made.",
-  "branch_name": "",
-  "worktree_path": "",
-  "lease": null,
+  "branch_name": "feature/b-5f853fbe",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+  "lease": {
+    "owner": "documentation:B-65354c89",
+    "expires_at": "2026-05-18T11:55:31.753223+00:00"
+  },
   "retries": 0,
   "execution_history": [
     {
@@ -68,9 +71,46 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:25:32.051064+00:00",
+      "event": "skills_loaded",
+      "agent_type": "documentation",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/docs-agent",
+          "capability/docs-edit",
+          "task/release-notes",
+          "task/spec-sync",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-18T11:25:32.051083+00:00",
+      "event": "started",
+      "agent_type": "documentation",
+      "summary": "Worker started",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-65354c89",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/docs-agent",
+      "capability/docs-edit",
+      "task/release-notes",
+      "task/spec-sync",
+      "memory"
+    ],
+    "skill_bundle_hash": "7c857dabbe34fe4a554141d698301444e918c67a8039f2ad572e46df3ff67cb3",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-65354c89/home",
+    "runner_backend": "claude"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null
