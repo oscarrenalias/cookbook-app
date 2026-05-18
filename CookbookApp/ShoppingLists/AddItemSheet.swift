@@ -18,18 +18,6 @@ struct AddItemSheet: View {
     @FocusState private var isTextFieldFocused: Bool
     @SceneStorage("addItemSheet.lastUsedAisle") private var lastUsedAisle: String = ""
 
-    // Intercepts picker changes to distinguish manual from programmatic selection.
-    private var aislePickerBinding: Binding<String?> {
-        Binding(
-            get: { selectedAisle },
-            set: { newValue in
-                selectedAisle = newValue
-                isAisleManuallySelected = true
-                isAutoDetected = false
-            }
-        )
-    }
-
     private var isAddEnabled: Bool {
         catalog.isLoaded && !itemText.trimmingCharacters(in: .whitespaces).isEmpty
     }
@@ -40,7 +28,7 @@ struct AddItemSheet: View {
                 TextField("e.g., 2 lemons, 500g flour", text: $itemText)
                     .focused($isTextFieldFocused)
 
-                Picker(selection: aislePickerBinding) {
+                Picker(selection: $selectedAisle) {
                     if !catalog.isLoaded {
                         Text("Loading aisles…").tag(Optional<String>.none)
                     } else {
