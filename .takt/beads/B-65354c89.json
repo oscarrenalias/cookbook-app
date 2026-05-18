@@ -3,7 +3,7 @@
   "title": "Shared documentation for AddItemSheet aisle picker persistence fix",
   "agent_type": "documentation",
   "description": "Document the implementation intent and regression scope for the AddItemSheet aisle picker fix, including the move away from the custom Binding and the guarded `.onChange` approach.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -34,35 +34,42 @@
   "changed_files": [
     "CookbookApp/ShoppingLists/AddItemSheet.swift"
   ],
-  "updated_docs": [],
+  "updated_docs": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Three inline comments added to AddItemSheet.swift: (1) on isProgrammaticAisleUpdate explaining why .navigationLink Picker fires .onChange on programmatic writes, (2) on the .onChange(of: selectedAisle) handler explaining the user-vs-programmatic guard, (3) on setAisleProgrammatically() explaining it centralises all non-user writes and noting EditItemSheet is intentionally out of scope.",
+    "remaining": "Nothing remaining for this bead.",
+    "risks": "None. Only AddItemSheet.swift touched with comment-only changes; no runtime behavior altered.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
-    "updated_docs": [],
-    "next_action": "",
+    "changed_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "updated_docs": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "next_action": "No follow-up required.",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "touched_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "conflict_risks": "None \u2014 only AddItemSheet.swift was modified with comment-only changes; no shared files touched.",
+    "design_decisions": "Chose inline code comments over a separate docs/ update because the non-obvious behavior (navigationLink onChange quirk, guard flag invariant, EditItemSheet exclusion) is tightly coupled to the implementation and would decay if written elsewhere. CLAUDE.md guideline: comments only when the WHY is non-obvious \u2014 all three additions meet that bar.",
+    "test_coverage_notes": "No test changes needed for documentation. Test coverage for the guard logic was delivered by bead B-25854778.",
+    "known_limitations": "spec-ccd18e6c referenced in linked_docs was not found in the repo (not present in specs/ under any lifecycle folder). Documentation written from spec-e2aef2b8 and direct code inspection instead."
   },
   "block_reason": "",
-  "conflict_risks": "Low. Only AddItemSheet.swift was changed; no shared files touched.\nNone \u2014 only AddItemSheet.swift was modified, which is claimed solely by this bead.\nNone \u2014 no writes made.",
+  "conflict_risks": "None \u2014 only AddItemSheet.swift was modified with comment-only changes; no shared files touched.",
   "branch_name": "feature/b-5f853fbe",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
-  "lease": {
-    "owner": "documentation:B-65354c89",
-    "expires_at": "2026-05-18T11:55:31.753223+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -103,6 +110,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-65354c89/repo/templates/agents/documentation.md"
       }
+    },
+    {
+      "timestamp": "2026-05-18T11:27:15.355930+00:00",
+      "event": "completed",
+      "agent_type": "documentation",
+      "summary": "Added three targeted inline comments to AddItemSheet.swift documenting the isProgrammaticAisleUpdate guard pattern, the .onChange distinction strategy, and the EditItemSheet exclusion rationale.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -177,7 +191,53 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Added three targeted inline comments to AddItemSheet.swift documenting the isProgrammaticAisleUpdate guard pattern, the .onChange distinction strategy, and the EditItemSheet exclusion rationale.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.2766419,
+      "duration_ms": 93097,
+      "duration_api_ms": 92806,
+      "num_turns": 13,
+      "input_tokens": 15,
+      "output_tokens": 4639,
+      "cache_creation_tokens": 27154,
+      "cache_read_tokens": 342628,
+      "stop_reason": "end_turn",
+      "session_id": "68bf3287-1d56-4fec-a7c5-8d1c1af1adbb",
+      "permission_denials": [],
+      "prompt_chars": 6730,
+      "prompt_lines": 145,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.2766419,
+        "duration_ms": 93097,
+        "duration_api_ms": 92806,
+        "num_turns": 13,
+        "input_tokens": 15,
+        "output_tokens": 4639,
+        "cache_creation_tokens": 27154,
+        "cache_read_tokens": 342628,
+        "stop_reason": "end_turn",
+        "session_id": "68bf3287-1d56-4fec-a7c5-8d1c1af1adbb",
+        "permission_denials": [],
+        "prompt_chars": 6730,
+        "prompt_lines": 145,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "80dc72773449f92b4e5dde5ac6f810a96c50e52b"
   },
   "labels": [],
   "recovery_for": null,
