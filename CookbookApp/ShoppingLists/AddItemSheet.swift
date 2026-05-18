@@ -13,6 +13,8 @@ struct AddItemSheet: View {
     @State private var selectedAisle: String? = nil
     @State private var isAisleManuallySelected: Bool = false
     @State private var isAutoDetected: Bool = false
+    // .navigationLink Picker fires .onChange even on programmatic state writes; this flag
+    // lets setAisleProgrammatically() suppress the manual-selection side-effect in that handler.
     @State private var isProgrammaticAisleUpdate: Bool = false
     @State private var debounceTask: Task<Void, Never>? = nil
 
@@ -83,6 +85,8 @@ struct AddItemSheet: View {
                     performAutoDetect(for: newValue)
                 }
             }
+            // Guard distinguishes user-driven picker changes (lock in manual selection) from
+            // programmatic writes by setAisleProgrammatically() (ignore for selection tracking).
             .onChange(of: selectedAisle) { _, _ in
                 if isProgrammaticAisleUpdate {
                     isProgrammaticAisleUpdate = false
@@ -94,6 +98,10 @@ struct AddItemSheet: View {
         }
     }
 
+    // Centralises all non-user aisle writes (auto-detect, last-used default) so that the
+    // .onChange guard can tell them apart from real user picks. EditItemSheet is intentionally
+    // excluded from auto-detection — changing a saved item's aisle on every keystroke would
+    // be surprising.
     private func setAisleProgrammatically(_ aisle: String?) {
         isProgrammaticAisleUpdate = true
         selectedAisle = aisle
