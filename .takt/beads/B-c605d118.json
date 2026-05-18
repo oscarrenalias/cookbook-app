@@ -3,7 +3,7 @@
   "title": "Adopt programmatic aisle update helper at default and auto-detect write sites",
   "agent_type": "developer",
   "description": "Update the two programmatic aisle assignment paths in AddItemSheet so last-used defaulting and auto-detect both route their `selectedAisle` writes through the suppression helper, preserving existing behavioral rules.",
-  "status": "in_progress",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
   "dependencies": [
@@ -25,37 +25,44 @@
     "CookbookApp/ShoppingLists/AddItemSheet.swift"
   ],
   "expected_globs": [],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/ShoppingLists/AddItemSheet.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
+    "completed": "Both programmatic aisle write sites (`applyLastUsedAisleDefault` and `performAutoDetect`) already route through `setAisleProgrammatically`. The `onChange(of: selectedAisle)` guard suppresses `isAisleManuallySelected` for programmatic updates. `performAutoDetect` still sets `isAutoDetected = true` after the helper call.",
     "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "risks": "None \u2014 no code changes made.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
-    "next_agent": "",
+    "next_action": "Proceed to tester agent for validation.",
+    "next_agent": "tester",
     "block_reason": "",
-    "expected_files": [],
+    "expected_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
     "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
+    "touched_files": [
+      "CookbookApp/ShoppingLists/AddItemSheet.swift"
+    ],
+    "conflict_risks": "None \u2014 no writes made.",
+    "design_decisions": "Dependency bead B-b13cb43f already implemented both call-site adoptions alongside the helper infrastructure. This bead's implementation was a no-op.",
+    "test_coverage_notes": "Tester should verify that picker interaction sets `isAisleManuallySelected`, that `applyLastUsedAisleDefault` and `performAutoDetect` do not flip that flag, and that `isAutoDetected` is set by a successful auto-detect.",
     "known_limitations": ""
   },
   "block_reason": "",
-  "conflict_risks": "",
+  "conflict_risks": "None \u2014 no writes made.",
   "branch_name": "feature/b-5f853fbe",
   "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
-  "lease": {
-    "owner": "developer:B-c605d118",
-    "expires_at": "2026-05-18T11:48:05.279003+00:00"
-  },
+  "lease": null,
   "retries": 0,
   "execution_history": [
     {
@@ -97,6 +104,13 @@
       "details": {
         "template_path": ".takt/agent-runs/B-c605d118/repo/templates/agents/developer.md"
       }
+    },
+    {
+      "timestamp": "2026-05-18T11:19:33.916456+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "All acceptance criteria already satisfied. B-b13cb43f (commit 3e4b0c97) went beyond its own scope and adopted `setAisleProgrammatically` at both `applyLastUsedAisleDefault` and `performAutoDetect`, as well as adding the `onChange` guard and the helper itself. No code changes needed for this bead.",
+      "details": {}
     }
   ],
   "metadata": {
@@ -167,7 +181,52 @@
         "test_coverage_notes": "",
         "known_limitations": ""
       }
-    }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "All acceptance criteria already satisfied. B-b13cb43f (commit 3e4b0c97) went beyond its own scope and adopted `setAisleProgrammatically` at both `applyLastUsedAisleDefault` and `performAutoDetect`, as well as adding the `onChange` guard and the helper itself. No code changes needed for this bead.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.1761029,
+      "duration_ms": 82586,
+      "duration_api_ms": 62906,
+      "num_turns": 6,
+      "input_tokens": 8,
+      "output_tokens": 4260,
+      "cache_creation_tokens": 17138,
+      "cache_read_tokens": 152498,
+      "stop_reason": "end_turn",
+      "session_id": "5f5212ce-4bda-412d-9d1d-145dfe36f4a1",
+      "permission_denials": [],
+      "prompt_chars": 5719,
+      "prompt_lines": 132,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.1761029,
+        "duration_ms": 82586,
+        "duration_api_ms": 62906,
+        "num_turns": 6,
+        "input_tokens": 8,
+        "output_tokens": 4260,
+        "cache_creation_tokens": 17138,
+        "cache_read_tokens": 152498,
+        "stop_reason": "end_turn",
+        "session_id": "5f5212ce-4bda-412d-9d1d-145dfe36f4a1",
+        "permission_denials": [],
+        "prompt_chars": 5719,
+        "prompt_lines": 132,
+        "source": "provider",
+        "attempt": 1
+      }
+    ]
   },
   "labels": [],
   "recovery_for": null,
