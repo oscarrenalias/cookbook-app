@@ -92,6 +92,15 @@
       "agent_type": "developer",
       "summary": "Worker started",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-18T11:29:38.241635+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-40c6c189-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-40c6c189-corrective/repo/templates/agents/developer.md"
+      }
     }
   ],
   "metadata": {
@@ -109,7 +118,62 @@
     ],
     "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
     "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-40c6c189-corrective/home",
-    "runner_backend": "claude"
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-40c6c189-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-18T11:29:38.241622+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-40c6c189-corrective",
+      "feature_root_id": "B-5f853fbe",
+      "title": "Corrective fix for B-40c6c189: Shared review for AddItemSheet aisle picker persistence fix",
+      "agent_type": "developer",
+      "description": "Blocked reason: setAisleProgrammatically does not guard against same-value writes. When selectedAisle already holds the target value, onChange(of: selectedAisle) does not fire, leaving isProgrammaticAisleUpdate=true permanently. The next genuine user picker tap clears the flag but skips isAisleManuallySelected=true, allowing auto-detect to override the user's choice on the next keystroke. Fix: add `guard selectedAisle != aisle else { return }` as the first line of setAisleProgrammatically.\n\nRemaining work: Fix setAisleProgrammatically to guard against same-value writes (guard selectedAisle != aisle else { return }). Add a test exercising the sticky-flag path. Re-run tester to confirm no regressions.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-40c6c189.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-ccd18e6c",
+        "spec-e2aef2b8"
+      ],
+      "execution_branch_name": "feature/b-5f853fbe",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-5f853fbe",
+      "expected_files": [
+        "CookbookApp/ShoppingLists/AddItemSheet.swift"
+      ],
+      "expected_globs": [],
+      "touched_files": [
+        "CookbookApp/ShoppingLists/AddItemSheet.swift",
+        "CookbookAppTests/AddItemSheetTests.swift"
+      ],
+      "conflict_risks": "Low. Fix is confined to a single private helper in AddItemSheet.swift. No shared files touched.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    }
   },
   "labels": [],
   "recovery_for": null,
