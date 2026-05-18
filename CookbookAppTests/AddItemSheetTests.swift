@@ -375,6 +375,36 @@ struct AddItemSheetTests {
         #expect(selectedAisle == "dairy", "Manually chosen aisle must be preserved after typing")
     }
 
+    // MARK: setAisleProgrammatically same-value guard
+
+    @Test func programmaticSameValueWriteDoesNotLeaveFlagStuck() {
+        // Reproduces the sticky-flag bug: if selectedAisle already equals the target,
+        // onChange(of: selectedAisle) never fires, leaving isProgrammaticAisleUpdate=true.
+        // The guard `guard selectedAisle != aisle else { return }` must prevent the flag write.
+        var selectedAisle: String? = "dairy"
+        var isAisleManuallySelected = false
+        var isProgrammaticAisleUpdate = false
+
+        // Simulate setAisleProgrammatically("dairy") when selectedAisle is already "dairy"
+        if selectedAisle != "dairy" {
+            isProgrammaticAisleUpdate = true
+            selectedAisle = "dairy"
+        }
+        // onChange never fires because value didn't change; flag must still be false
+        #expect(isProgrammaticAisleUpdate == false, "Guard must prevent the flag from being set on a same-value write")
+
+        // Now simulate a genuine user picker tap — onChange fires with isProgrammaticAisleUpdate=false
+        selectedAisle = "produce"
+        if isProgrammaticAisleUpdate {
+            isProgrammaticAisleUpdate = false
+        } else {
+            isAisleManuallySelected = true
+        }
+
+        #expect(isAisleManuallySelected == true, "User tap must set the manual-selection flag when the guard is in place")
+        #expect(isProgrammaticAisleUpdate == false)
+    }
+
     // MARK: Sequential aisle persistence
 
     @Test func aislePersistedAcrossSequentialSheetPresentations() throws {

@@ -103,6 +103,7 @@ struct AddItemSheet: View {
     // excluded from auto-detection — changing a saved item's aisle on every keystroke would
     // be surprising.
     private func setAisleProgrammatically(_ aisle: String?) {
+        guard selectedAisle != aisle else { return }
         isProgrammaticAisleUpdate = true
         selectedAisle = aisle
     }
