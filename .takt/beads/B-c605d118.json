@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-5f853fbe",
-  "dependencies": [],
+  "dependencies": [
+    "B-b13cb43f"
+  ],
   "acceptance_criteria": [
     "`applyLastUsedAisleDefault` performs its `selectedAisle` write inside the programmatic-update helper.",
     "`performAutoDetect` performs its successful `selectedAisle` write inside the programmatic-update helper.",
