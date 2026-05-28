@@ -128,23 +128,87 @@ struct MealPlanFilesTests {
         #expect(MealPlanFiles.displayName(for: url) == "Plan")
     }
 
-    // MARK: read / write
+    // MARK: readText / writeText (folderURL-aware signatures)
 
     @Test func writeAndReadTextRoundTrips() throws {
         let dir = try makeTempDir()
         defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makePlansDir(in: dir)
+        let fileURL = sub.appendingPathComponent("test.menu")
 
-        let fileURL = dir.appendingPathComponent("test.menu")
         let content = "---\n---\n==Day 1==\n"
-
-        try MealPlanFiles.writeText(content, to: fileURL)
-        let read = MealPlanFiles.readText(from: fileURL)
+        try MealPlanFiles.writeText(content, to: fileURL, folderURL: dir)
+        let read = MealPlanFiles.readText(from: fileURL, folderURL: dir)
 
         #expect(read == content)
     }
 
-    @Test func readText_returnsNilForMissingFile() {
-        let url = URL(fileURLWithPath: "/tmp/nonexistent-\(UUID().uuidString).menu")
-        #expect(MealPlanFiles.readText(from: url) == nil)
+    @Test func writeTextCreatesFileAtExpectedURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makePlansDir(in: dir)
+        let fileURL = sub.appendingPathComponent("new-plan.menu")
+
+        #expect(!FileManager.default.fileExists(atPath: fileURL.path))
+        try MealPlanFiles.writeText("---\n---\n", to: fileURL, folderURL: dir)
+        #expect(FileManager.default.fileExists(atPath: fileURL.path))
+    }
+
+    @Test func readText_returnsNilForMissingFile() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let fileURL = dir.appendingPathComponent("nonexistent-\(UUID().uuidString).menu")
+
+        #expect(MealPlanFiles.readText(from: fileURL, folderURL: dir) == nil)
+    }
+
+    /// Callers must not pre-bracket folderURL; MealPlanFiles brackets internally.
+    /// On simulator, startAccessingSecurityScopedResource() returns false for plain temp URLs,
+    /// exercising the didStart=false path — I/O must still succeed.
+    @Test func callerDoesNotNeedToPreBracketFolderURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makePlansDir(in: dir)
+        let fileURL = sub.appendingPathComponent("unbracketed.menu")
+
+        try MealPlanFiles.writeText("==Day 1==\n", to: fileURL, folderURL: dir)
+        let text = MealPlanFiles.readText(from: fileURL, folderURL: dir)
+        #expect(text == "==Day 1==\n")
+    }
+
+    /// discover() calls plansURL() internally, creating a nested bracket sequence
+    /// on folderURL. Verify the nesting resolves correctly and the written file is found.
+    @Test func discoverFindsFileWrittenViaWriteText() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makePlansDir(in: dir)
+        let fileURL = sub.appendingPathComponent("found.menu")
+
+        try MealPlanFiles.writeText("==Day 1==\n", to: fileURL, folderURL: dir)
+
+        let found = MealPlanFiles.discover(in: dir)
+        #expect(found.count == 1)
+        #expect(found[0].lastPathComponent == "found.menu")
+    }
+
+    /// Balanced-bracketing invariant (simulator path): on plain temp URLs,
+    /// startAccessingSecurityScopedResource() returns false, so the helper never calls
+    /// stopAccessingSecurityScopedResource() — start and stop counts stay balanced at zero.
+    /// Verify I/O still succeeds under these conditions (the on-device entitlement-loss
+    /// failure mode is not reproduced here; this covers only the simulator happy path).
+    @Test func bracketingBalanceOnSimulatorURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makePlansDir(in: dir)
+        let fileURL = sub.appendingPathComponent("balance-check.menu")
+
+        // Confirm simulator precondition: plain temp URL never grants security-scoped access.
+        let didStart = dir.startAccessingSecurityScopedResource()
+        #expect(didStart == false)
+        // didStart is false — no stop needed, matching the helper's guard pattern exactly.
+
+        try MealPlanFiles.writeText("content", to: fileURL, folderURL: dir)
+        let text = MealPlanFiles.readText(from: fileURL, folderURL: dir)
+        #expect(text == "content")
     }
 }
