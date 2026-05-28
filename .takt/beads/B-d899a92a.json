@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
-  "dependencies": [],
+  "dependencies": [
+    "B-45e92777"
+  ],
   "acceptance_criteria": [
     "AddToMealPlanSheet passes folderURL to MealPlanFiles.readText.",
     "The sheet's existing add-to-meal-plan behavior is otherwise unchanged."
