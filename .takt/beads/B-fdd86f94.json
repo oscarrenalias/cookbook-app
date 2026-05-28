@@ -1,0 +1,66 @@
+{
+  "bead_id": "B-fdd86f94",
+  "title": "Shared Execution Root: Security-Scoped Folder Bracketing for List and Plan IO",
+  "agent_type": "planner",
+  "description": "Coordinate the focused fix for shopping-list and meal-plan read/write security-scoped bookmark handling. This container is non-runnable and owns all implementation, testing, documentation, and review work for the spec.",
+  "status": "done",
+  "bead_type": "feature",
+  "parent_id": "B-756f7e40",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All implementation beads complete without introducing out-of-scope refactors.",
+    "Exactly one shared tester bead validates the completed feature after all developer beads.",
+    "Exactly one shared documentation bead records behavior and verification notes after all developer beads.",
+    "Exactly one shared review bead reviews implementation, tests, and documentation after all other work completes."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:48.282604+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
