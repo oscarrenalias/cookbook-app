@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
-  "dependencies": [],
+  "dependencies": [
+    "B-54e5ddb5"
+  ],
   "acceptance_criteria": [
     "ShoppingListDetailView stores folderURL explicitly.",
     "The task load path calls ShoppingListFiles.readText with folderURL.",
