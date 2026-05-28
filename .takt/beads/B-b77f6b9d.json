@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
-  "dependencies": [],
+  "dependencies": [
+    "B-c0e266d9"
+  ],
   "acceptance_criteria": [
     "ShoppingListsView passes folderURL to every ShoppingListDetailView initializer it owns.",
     "The navigation destination still opens the selected shopping-list URL."
