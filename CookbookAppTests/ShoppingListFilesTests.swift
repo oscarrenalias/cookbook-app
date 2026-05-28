@@ -110,4 +110,89 @@ struct ShoppingListFilesTests {
         let nilAisle: String? = nil
         #expect((nilAisle?.localizedCapitalized ?? "Other") == "Other")
     }
+
+    // MARK: - readText / writeText (folderURL-aware signatures)
+
+    @Test func writeTextAndReadTextRoundtrip() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("weekly.md")
+
+        let markdown = "# Weekly Shopping\n\n## Produce\n- [ ] Apples\n"
+        try ShoppingListFiles.writeText(markdown, to: fileURL, folderURL: dir)
+
+        let read = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(read == markdown)
+    }
+
+    @Test func writeTextCreatesFileAtExpectedURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("new-list.md")
+
+        #expect(!FileManager.default.fileExists(atPath: fileURL.path))
+        try ShoppingListFiles.writeText("# Test", to: fileURL, folderURL: dir)
+        #expect(FileManager.default.fileExists(atPath: fileURL.path))
+    }
+
+    @Test func readTextReturnsNilForMissingFile() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let fileURL = dir.appendingPathComponent("nonexistent.md")
+
+        let result = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(result == nil)
+    }
+
+    /// Callers must not pre-bracket folderURL; ShoppingListFiles brackets internally.
+    /// On simulator, startAccessingSecurityScopedResource() returns false for plain temp URLs,
+    /// exercising the didStart=false path — I/O must still succeed.
+    @Test func callerDoesNotNeedToPreBracketFolderURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("unbracheted.md")
+
+        try ShoppingListFiles.writeText("# No pre-bracket", to: fileURL, folderURL: dir)
+        let text = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(text == "# No pre-bracket")
+    }
+
+    /// discover() calls shoppingListsURL() internally, creating a nested bracket sequence
+    /// on folderURL. Verify the nesting resolves correctly and the written file is found.
+    @Test func discoverFindsFileWrittenViaWriteText() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("found.md")
+
+        try ShoppingListFiles.writeText("# Found", to: fileURL, folderURL: dir)
+
+        let found = ShoppingListFiles.discover(in: dir)
+        #expect(found.count == 1)
+        #expect(found[0].lastPathComponent == "found.md")
+    }
+
+    /// Balanced-bracketing invariant (simulator path): on plain temp URLs,
+    /// startAccessingSecurityScopedResource() returns false, so the helper never calls
+    /// stopAccessingSecurityScopedResource() — start and stop counts stay balanced at zero.
+    /// Verify I/O still succeeds under these conditions (the on-device entitlement-loss
+    /// failure mode is not reproduced here; this covers only the simulator happy path).
+    @Test func bracketingBalanceOnSimulatorURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("balance-check.md")
+
+        // Confirm simulator precondition: plain temp URL never grants security-scoped access.
+        let didStart = dir.startAccessingSecurityScopedResource()
+        #expect(didStart == false)
+        // didStart is false — no stop needed, matching the helper's guard pattern exactly.
+
+        try ShoppingListFiles.writeText("content", to: fileURL, folderURL: dir)
+        let text = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(text == "content")
+    }
 }
