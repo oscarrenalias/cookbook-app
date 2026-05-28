@@ -1,0 +1,68 @@
+{
+  "bead_id": "B-96c93e4d",
+  "title": "Add ShoppingListFiles Regression Tests",
+  "agent_type": "developer",
+  "description": "Add or extend CookbookAppTests coverage for ShoppingListFiles read/write helper signature behavior and bracketing-balance invariant using temporary file fixtures.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fdd86f94",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Tests write and read shopping-list markdown through the new folderURL-aware helper signatures.",
+    "Tests verify callers do not need to pre-bracket the folder URL for simulator happy-path IO.",
+    "Tests include a focused invariant for balanced access start/stop behavior where feasible in the existing test architecture.",
+    "Tests do not claim to reproduce the on-device entitlement-loss failure mode."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:52.974102+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
