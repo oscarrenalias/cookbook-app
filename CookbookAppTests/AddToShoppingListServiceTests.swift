@@ -30,7 +30,7 @@ struct AddToShoppingListServiceTests {
         ])
 
         let count = try AddToShoppingListService.append(
-            recipe: recipe, scale: .one, recipeName: "Fruit Salad", to: url, aisleConfig: nil
+            recipe: recipe, scale: .one, recipeName: "Fruit Salad", to: url, folderURL: dir, aisleConfig: nil
         )
         #expect(count == 2)
     }
@@ -46,7 +46,7 @@ struct AddToShoppingListServiceTests {
         ])
 
         try AddToShoppingListService.append(
-            recipe: recipe, scale: .one, recipeName: "Salad", to: url, aisleConfig: nil
+            recipe: recipe, scale: .one, recipeName: "Salad", to: url, folderURL: dir, aisleConfig: nil
         )
 
         let text = try String(contentsOf: url, encoding: .utf8)
@@ -74,7 +74,7 @@ struct AddToShoppingListServiceTests {
         ])
 
         try AddToShoppingListService.append(
-            recipe: recipe, scale: .one, recipeName: "Snack", to: url, aisleConfig: aisleConfig
+            recipe: recipe, scale: .one, recipeName: "Snack", to: url, folderURL: dir, aisleConfig: aisleConfig
         )
 
         let text = try String(contentsOf: url, encoding: .utf8)
@@ -94,7 +94,7 @@ struct AddToShoppingListServiceTests {
         let recipe = makeRecipe(ingredients: [])
         #expect {
             try AddToShoppingListService.append(
-                recipe: recipe, scale: .one, recipeName: "X", to: url, aisleConfig: nil
+                recipe: recipe, scale: .one, recipeName: "X", to: url, folderURL: url.deletingLastPathComponent(), aisleConfig: nil
             )
         } throws: { error in
             guard let e = error as? AddToShoppingListService.AppendError, case .readFailed = e else { return false }

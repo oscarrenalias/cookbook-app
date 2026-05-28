@@ -95,9 +95,9 @@ struct MealPlanDetailViewTests {
         var plan = MealPlanParser.parse(content)
         plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 0))
 
-        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL, folderURL: dir)
 
-        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL, folderURL: dir) ?? "")
         let items = reparsed.blocks[0].sections[0].items
         #expect(items.count == 1)
 
@@ -126,9 +126,9 @@ struct MealPlanDetailViewTests {
         var plan = MealPlanParser.parse(content)
         plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 0))
 
-        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL, folderURL: dir)
 
-        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL, folderURL: dir) ?? "")
         #expect(reparsed.blocks[0].sections[0].items.isEmpty)
     }
 
@@ -153,9 +153,9 @@ struct MealPlanDetailViewTests {
         var plan = MealPlanParser.parse(content)
         plan.removeItem(at: MealPlanItemIndex(block: 0, section: 0, position: 0))
 
-        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL, folderURL: dir)
 
-        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL, folderURL: dir) ?? "")
         #expect(reparsed.blocks.count == 2)
         #expect(reparsed.blocks[1].sections[0].items.count == 1)
     }
@@ -323,9 +323,9 @@ struct MealPlanDetailViewTests {
 
         var plan = MealPlanParser.parse(content)
         plan.renameBlock(at: 0, to: "Monday")
-        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL, folderURL: dir)
 
-        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL, folderURL: dir) ?? "")
         #expect(reparsed.blocks[0].heading == "Monday")
         #expect(reparsed.blocks[0].sections[0].items.count == 1)
     }
@@ -349,9 +349,9 @@ struct MealPlanDetailViewTests {
 
         var plan = MealPlanParser.parse(content)
         plan.renameBlock(at: 0, to: "Monday")
-        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL)
+        try MealPlanFiles.writeText(MealPlanParser.serialise(plan), to: fileURL, folderURL: dir)
 
-        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL) ?? "")
+        let reparsed = MealPlanParser.parse(MealPlanFiles.readText(from: fileURL, folderURL: dir) ?? "")
         #expect(reparsed.blocks.count == 2)
         #expect(reparsed.blocks[0].heading == "Monday")
         #expect(reparsed.blocks[1].heading == "Day 2")

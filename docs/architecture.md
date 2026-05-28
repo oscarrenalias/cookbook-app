@@ -893,8 +893,55 @@ auto-created on first use.
 | `plansURL(in:)` | Returns `<folder>/plans/` URL, creating the directory if missing. Brackets security-scoped resource access on `folderURL`. Idempotent. |
 | `discover(in:)` | Lists `.menu` files in `<folder>/plans/`, reverse-mtime sorted. |
 | `displayName(for:)` | Strips the `.menu` extension. The filename is the plan title; YAML `title:` is not used. |
-| `readText(from:)` | Security-scoped read, returns `String?`. |
-| `writeText(_:to:)` | Security-scoped write; throws on failure. |
+| `readText(from:folderURL:)` | Reads file text; brackets security-scoped access on `folderURL`. Returns `String?`. |
+| `writeText(_:to:folderURL:)` | Writes file text; brackets security-scoped access on `folderURL`; throws on failure. |
+
+### File helper bracketing contract
+
+Both `MealPlanFiles` and `ShoppingListFiles` bracket all security-scoped access on
+`folderURL` — the bookmarked top-level folder URL — not on derived file URLs inside it.
+The security-scoped grant is held at the folder level; individual file URLs inside the
+folder do not themselves carry the entitlement.
+
+**Rule for callers.** Pass the bookmarked folder URL as `folderURL` to every
+`readText`, `writeText`, and `discover` call. Do not bracket `folderURL` before
+calling these helpers — each helper brackets internally and releases on return.
+
+**Redundant outer bracketing in `AddToMealPlanService.createNewPlan`.** That method
+holds its own outer bracket on `folderURL` (the guard covering the `FileManager.default.fileExists`
+check and the final write) that overlaps with the internal brackets inside `MealPlanFiles.plansURL(in:)`.
+On iOS, `startAccessingSecurityScopedResource()` is reference-counted — nesting the same
+URL is safe. The outer bracket was intentionally left in place to keep the existence check
+inside a continuous bracket window; removing it would leave a gap between `plansURL`'s
+bracket and the write.
+
+**Simulator regression coverage.** `MealPlanFilesTests` and `ShoppingListFilesTests` verify:
+
+- Correct wiring: callers do not need to pre-bracket `folderURL`; I/O succeeds regardless.
+- Balanced start/stop counts: on plain temp URLs the simulator returns `false` from
+  `startAccessingSecurityScopedResource()`, so `stop` is never called — counts stay balanced
+  at zero (matching the `didStart=false` guard pattern).
+- Nested brackets: `discover()` → `shoppingListsURL()`/`plansURL()` nesting resolves without
+  error or access violation.
+
+What simulator tests do **not** cover: the device-only entitlement-loss failure mode. On a
+physical device, a stale or revoked bookmark can lose security-scoped access between `start`
+and the file operation. This failure mode cannot be reproduced in the simulator (plain temp
+URLs always return `false` from `start`, so there is no real grant to revoke). Simulator
+tests confirm the code path is wired correctly; on-device testing is required to confirm
+graceful handling of entitlement loss.
+
+**On-device verification checklist.** Verify the following on a physical device before
+shipping any change to the file-helper bracketing:
+
+- [ ] Open a shopping list, edit it, and force-quit the app. On relaunch, reopen the list —
+  edited content must be present (bookmark resolved, access granted, file read correctly).
+- [ ] Open a meal plan, add a recipe from the recipe detail sheet, and force-quit. On relaunch
+  the new recipe entry must appear (write bracket was held across the file write).
+- [ ] Create a new meal plan from "Create new plan…" in `AddToMealPlanSheet` — the `.menu` file
+  must appear under `<folder>/plans/` immediately, with no file-access error logged.
+- [ ] Remove the recipes folder from Files and re-add it (simulating a stale bookmark): the app
+  must show `FolderSetupView` and not crash.
 
 ### CookbookCore extensions (spec-d7a891ba)
 
