@@ -110,4 +110,86 @@ struct ShoppingListFilesTests {
         let nilAisle: String? = nil
         #expect((nilAisle?.localizedCapitalized ?? "Other") == "Other")
     }
+
+    // MARK: - readText / writeText (folderURL-aware signatures)
+
+    @Test func writeTextAndReadTextRoundtrip() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("weekly.md")
+
+        let markdown = "# Weekly Shopping\n\n## Produce\n- [ ] Apples\n"
+        try ShoppingListFiles.writeText(markdown, to: fileURL, folderURL: dir)
+
+        let read = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(read == markdown)
+    }
+
+    @Test func writeTextCreatesFileAtExpectedURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("new-list.md")
+
+        #expect(!FileManager.default.fileExists(atPath: fileURL.path))
+        try ShoppingListFiles.writeText("# Test", to: fileURL, folderURL: dir)
+        #expect(FileManager.default.fileExists(atPath: fileURL.path))
+    }
+
+    @Test func readTextReturnsNilForMissingFile() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let fileURL = dir.appendingPathComponent("nonexistent.md")
+
+        let result = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(result == nil)
+    }
+
+    /// Callers must not pre-bracket folderURL; ShoppingListFiles brackets internally.
+    /// On simulator, startAccessingSecurityScopedResource() returns false for plain temp URLs,
+    /// exercising the didStart=false path — I/O must still succeed.
+    @Test func callerDoesNotNeedToPreBracketFolderURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("unbracheted.md")
+
+        try ShoppingListFiles.writeText("# No pre-bracket", to: fileURL, folderURL: dir)
+        let text = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(text == "# No pre-bracket")
+    }
+
+    /// discover() calls shoppingListsURL() internally, creating a nested bracket sequence
+    /// on folderURL. Verify the nesting resolves correctly and the written file is found.
+    @Test func discoverFindsFileWrittenViaWriteText() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("found.md")
+
+        try ShoppingListFiles.writeText("# Found", to: fileURL, folderURL: dir)
+
+        let found = ShoppingListFiles.discover(in: dir)
+        #expect(found.count == 1)
+        #expect(found[0].lastPathComponent == "found.md")
+    }
+
+    /// Balanced-bracketing invariant: verify I/O succeeds regardless of whether
+    /// startAccessingSecurityScopedResource() returns true or false for plain temp URLs.
+    /// iOS simulator behaviour varies by OS version; the test must not assume a fixed return value.
+    @Test func bracketingBalanceOnSimulatorURL() throws {
+        let dir = try makeTempDir()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let sub = try makeSubfolderDir(in: dir)
+        let fileURL = sub.appendingPathComponent("balance-check.md")
+
+        // Probe whether security-scoped access is granted; clean up if so.
+        let didStart = dir.startAccessingSecurityScopedResource()
+        defer { if didStart { dir.stopAccessingSecurityScopedResource() } }
+
+        try ShoppingListFiles.writeText("content", to: fileURL, folderURL: dir)
+        let text = ShoppingListFiles.readText(from: fileURL, folderURL: dir)
+        #expect(text == "content")
+    }
 }

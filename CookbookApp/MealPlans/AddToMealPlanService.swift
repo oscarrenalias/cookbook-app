@@ -26,7 +26,7 @@ enum AddToMealPlanService {
         scaleFactor: Double = 1.0
     ) throws {
         Loggers.mealPlans.debug("[AddToMealPlanService] addToBlock: entry recipe=\(recipeURL.lastPathComponent, privacy: .public) plan=\(planURL.lastPathComponent, privacy: .public) blockIndex=\(blockIndex) servings=\(servings.map(String.init) ?? "nil", privacy: .public) scale=\(scaleFactor)")
-        guard let text = MealPlanFiles.readText(from: planURL) else {
+        guard let text = MealPlanFiles.readText(from: planURL, folderURL: recipesFolder) else {
             Loggers.mealPlans.warning("[AddToMealPlanService] addToBlock: readFailed plan=\(planURL.lastPathComponent, privacy: .public)")
             throw MutationError.readFailed
         }
@@ -40,7 +40,7 @@ enum AddToMealPlanService {
         plan.addItem(item, toBlock: blockIndex, section: 0)
         let serialised = MealPlanParser.serialise(plan)
         do {
-            try MealPlanFiles.writeText(serialised, to: planURL)
+            try MealPlanFiles.writeText(serialised, to: planURL, folderURL: recipesFolder)
         } catch {
             Loggers.mealPlans.warning("[AddToMealPlanService] addToBlock: writeFailed plan=\(planURL.lastPathComponent, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw MutationError.writeFailed(error)
@@ -59,7 +59,7 @@ enum AddToMealPlanService {
         scaleFactor: Double = 1.0
     ) throws {
         Loggers.mealPlans.debug("[AddToMealPlanService] addNewBlock: entry recipe=\(recipeURL.lastPathComponent, privacy: .public) plan=\(planURL.lastPathComponent, privacy: .public) block=\(blockHeading, privacy: .public) servings=\(servings.map(String.init) ?? "nil", privacy: .public) scale=\(scaleFactor)")
-        guard let text = MealPlanFiles.readText(from: planURL) else {
+        guard let text = MealPlanFiles.readText(from: planURL, folderURL: recipesFolder) else {
             Loggers.mealPlans.warning("[AddToMealPlanService] addNewBlock: readFailed plan=\(planURL.lastPathComponent, privacy: .public)")
             throw MutationError.readFailed
         }
@@ -74,7 +74,7 @@ enum AddToMealPlanService {
         plan.addItem(item, toBlock: newBlockIndex, section: 0)
         let serialised = MealPlanParser.serialise(plan)
         do {
-            try MealPlanFiles.writeText(serialised, to: planURL)
+            try MealPlanFiles.writeText(serialised, to: planURL, folderURL: recipesFolder)
         } catch {
             Loggers.mealPlans.warning("[AddToMealPlanService] addNewBlock: writeFailed plan=\(planURL.lastPathComponent, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw MutationError.writeFailed(error)

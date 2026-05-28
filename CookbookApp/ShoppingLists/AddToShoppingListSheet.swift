@@ -106,6 +106,7 @@ struct AddToShoppingListSheet: View {
                 scale: scale,
                 recipeName: recipeName,
                 to: url,
+                folderURL: folderURL,
                 aisleConfig: catalog.config
             )
             let name = ShoppingListFiles.displayName(for: url)

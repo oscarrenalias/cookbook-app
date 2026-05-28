@@ -11,17 +11,17 @@ struct ShoppingListDetailViewTests {
 
     @Test func detailViewInstantiates() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url)
+        _ = ShoppingListDetailView(url: url, folderURL: URL(fileURLWithPath: "/tmp"))
     }
 
     @Test func detailViewInstantiatesWithDeleteCallback() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url, onDelete: {})
+        _ = ShoppingListDetailView(url: url, folderURL: URL(fileURLWithPath: "/tmp"), onDelete: {})
     }
 
     @Test func detailViewInstantiatesWithRenameCallback() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url, onRename: { _ in })
+        _ = ShoppingListDetailView(url: url, folderURL: URL(fileURLWithPath: "/tmp"), onRename: { _ in })
     }
 
     // MARK: ShoppingListItemRow — drag handle absent
@@ -57,16 +57,16 @@ struct ShoppingListDetailViewTests {
     // MARK: Compact mode — section header min-height
 
     @Test func compactModeOffSelectsThirtyTwoPtHeaderMinHeight() {
-        // Mirrors: .frame(minHeight: compactMode ? 24 : 32)
+        // Mirrors: .frame(minHeight: compactMode ? 18 : 32)
         let compactMode = false
-        let minHeight: CGFloat = compactMode ? 24 : 32
+        let minHeight: CGFloat = compactMode ? 18 : 32
         #expect(minHeight == 32)
     }
 
-    @Test func compactModeOnSelectsTwentyFourPtHeaderMinHeight() {
+    @Test func compactModeOnSelectsEighteenPtHeaderMinHeight() {
         let compactMode = true
-        let minHeight: CGFloat = compactMode ? 24 : 32
-        #expect(minHeight == 24)
+        let minHeight: CGFloat = compactMode ? 18 : 32
+        #expect(minHeight == 18)
     }
 
     // MARK: Compact mode — row insets

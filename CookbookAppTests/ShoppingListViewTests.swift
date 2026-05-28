@@ -13,12 +13,12 @@ struct ShoppingListViewTests {
 
     @Test func shoppingListDetailViewInstantiatesWithURL() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url)
+        _ = ShoppingListDetailView(url: url, folderURL: url.deletingLastPathComponent())
     }
 
     @Test func shoppingListDetailViewInstantiatesWithDeleteCallback() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url, onDelete: {})
+        _ = ShoppingListDetailView(url: url, folderURL: url.deletingLastPathComponent(), onDelete: {})
     }
 
     @Test func addItemSheetInstantiatesWithCatalogAndList() {

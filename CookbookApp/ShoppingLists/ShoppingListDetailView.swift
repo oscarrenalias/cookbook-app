@@ -3,6 +3,7 @@ import CookbookCore
 
 struct ShoppingListDetailView: View {
     let url: URL
+    let folderURL: URL
     var onDelete: (() -> Void)? = nil
     var onRename: ((URL) -> Void)? = nil
 
@@ -184,7 +185,7 @@ struct ShoppingListDetailView: View {
             Text(renameErrorMessage)
         }
         .task {
-            if let text = ShoppingListFiles.readText(from: url) {
+            if let text = ShoppingListFiles.readText(from: url, folderURL: folderURL) {
                 document = ShoppingListDocument(markdown: text)
             }
             isLoaded = true
@@ -301,11 +302,10 @@ struct ShoppingListDetailView: View {
     }
 
     private func save() {
-        try? ShoppingListFiles.writeText(document.renderMarkdown(), to: url)
+        try? ShoppingListFiles.writeText(document.renderMarkdown(), to: url, folderURL: folderURL)
     }
 
     private func deleteList() {
-        let folderURL = url.deletingLastPathComponent()
         let didStart = folderURL.startAccessingSecurityScopedResource()
         defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
         try? FileManager.default.removeItem(at: url)
@@ -319,8 +319,8 @@ struct ShoppingListDetailView: View {
             .replacingOccurrences(of: "/", with: "-")
         guard !sanitised.isEmpty, sanitised != listName else { return }
 
-        let folderURL = url.deletingLastPathComponent()
-        let newURL = folderURL.appendingPathComponent("\(sanitised).md")
+        let listsFolderURL = url.deletingLastPathComponent()
+        let newURL = listsFolderURL.appendingPathComponent("\(sanitised).md")
 
         let didStart = folderURL.startAccessingSecurityScopedResource()
         defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
@@ -396,7 +396,10 @@ private struct AisleSectionHeader: View {
 
 #Preview {
     NavigationStack {
-        ShoppingListDetailView(url: URL(fileURLWithPath: "/tmp/Weekend BBQ.md"))
+        ShoppingListDetailView(
+            url: URL(fileURLWithPath: "/tmp/shopping-lists/Weekend BBQ.md"),
+            folderURL: URL(fileURLWithPath: "/tmp")
+        )
     }
     .environment(AisleCatalog())
 }

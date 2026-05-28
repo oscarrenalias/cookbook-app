@@ -94,7 +94,7 @@ struct AddToMealPlanSheetTests {
         let fileURL = plansURL.appendingPathComponent("Multi.menu")
         try content.write(to: fileURL, atomically: true, encoding: .utf8)
 
-        let text = MealPlanFiles.readText(from: fileURL)!
+        let text = MealPlanFiles.readText(from: fileURL, folderURL: dir)!
         let plan = MealPlanParser.parse(text)
         // Sheet renders one row per block; two blocks → two rows expected
         #expect(plan.blocks.count == 2)
@@ -130,7 +130,7 @@ struct AddToMealPlanSheetTests {
             blockHeading: "Day 2"
         )
 
-        let text = MealPlanFiles.readText(from: planURL)!
+        let text = MealPlanFiles.readText(from: planURL, folderURL: dir)!
         let plan = MealPlanParser.parse(text)
         // After addNewBlock, the plan has a second block that the sheet would render as an additional row
         #expect(plan.blocks.count == 2)

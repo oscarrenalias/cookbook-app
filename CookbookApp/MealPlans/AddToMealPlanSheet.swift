@@ -117,7 +117,7 @@ struct AddToMealPlanSheet: View {
     private func loadPlans() {
         let urls = MealPlanFiles.discover(in: folderURL)
         plans = urls.compactMap { url in
-            guard let text = MealPlanFiles.readText(from: url) else { return nil }
+            guard let text = MealPlanFiles.readText(from: url, folderURL: folderURL) else { return nil }
             return PlanEntry(url: url, plan: MealPlanParser.parse(text))
         }
         isLoaded = true

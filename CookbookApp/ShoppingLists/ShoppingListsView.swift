@@ -33,6 +33,7 @@ struct ShoppingListsView: View {
             .navigationDestination(item: $selectedURL) { url in
                 ShoppingListDetailView(
                     url: url,
+                    folderURL: folderURL,
                     onDelete: {
                         entries = (entries ?? []).filter { $0.url != url }
                     },
