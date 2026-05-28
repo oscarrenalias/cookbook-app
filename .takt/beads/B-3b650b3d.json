@@ -6,7 +6,9 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
-  "dependencies": [],
+  "dependencies": [
+    "B-45e92777"
+  ],
   "acceptance_criteria": [
     "Tests write and read meal-plan markdown through the new folderURL-aware helper signatures.",
     "Tests verify callers do not need to pre-bracket the folder URL for simulator happy-path IO.",
