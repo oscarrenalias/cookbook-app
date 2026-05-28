@@ -1,0 +1,255 @@
+{
+  "bead_id": "B-c8428131-corrective",
+  "title": "Corrective fix for B-c8428131: Shared Feature Test Pass",
+  "agent_type": "developer",
+  "description": "Blocked reason: Two tests fail: MealPlanFilesTests/bracketingBalanceOnSimulatorURL (MealPlanFilesTests.swift:207) and ShoppingListFilesTests/bracketingBalanceOnSimulatorURL (ShoppingListFilesTests.swift:191). Both fail with \"Expectation failed: (didStart \u2192 true) == false\" \u2014 the tests assert startAccessingSecurityScopedResource() returns false for plain NSTemporaryDirectory() URLs, but iOS 26.5 simulator now returns true. Tests need to be updated to not depend on this assumption. Production code is correct.\n\nRemaining work: Two bracketingBalanceOnSimulatorURL test failures must be resolved by a developer bead. Root cause: tests assert startAccessingSecurityScopedResource() returns false for NSTemporaryDirectory() URLs, but iOS 26.5 simulator now returns true. The fix is: (1) remove the hard #expect(didStart == false) assertion or relax it to not abort the test, and (2) add defer { if didStart { dir.stopAccessingSecurityScopedResource() } } for leak-free cleanup. The I/O assertions in those tests (writeText/readText round-trip) would then exercise the code path correctly.\n\nManual on-device acceptance checklist (not executable in simulator):\n1. Cold-launch app and select a recipe folder via the system file picker \u2014 confirm folderURL is resolved from bookmark.\n2. Open Shopping Lists tab \u2014 ShoppingListsView must load and list .md files from the folder.\n3. Tap a shopping list \u2014 ShoppingListDetailView must open with file contents visible.\n4. Delete a shopping list item \u2014 confirm the change persists after leaving and reopening the view.\n5. Rename a shopping list \u2014 confirm the new name appears in the list.\n6. Open Meal Plans tab \u2014 MealPlansView must load and list .menu files from plans/ subfolder.\n7. Open a meal plan \u2014 swipe-delete a recipe row and re-open; confirm deletion persisted.\n8. Rename a meal plan block \u2014 confirm heading persisted after leaving the view.\n9. Add a recipe to a new meal plan \u2014 confirm MealPlanFiles.writeText succeeds and the plan appears in the list.\n10. Create shopping list from meal plan \u2014 confirm ShoppingListFiles.writeText writes correctly to the bookmarked folder.\n11. Check device Console for MealPlanFiles/ShoppingListFiles entries: didStart=true should appear in exit log lines (confirming real security-scoped access was granted on device).",
+  "status": "done",
+  "bead_type": "task",
+  "parent_id": "B-c8428131",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Implement the minimum fix required to unblock B-c8428131.",
+    "Update tests/docs as needed for the corrective change.",
+    "Leave a handoff summary that states how the parent bead can be retried."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
+  "expected_globs": [
+    "CookbookAppTests/**/*"
+  ],
+  "touched_files": [
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
+  "changed_files": [
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "Updated `MealPlanFilesTests/bracketingBalanceOnSimulatorURL` and `ShoppingListFilesTests/bracketingBalanceOnSimulatorURL`: removed `#expect(didStart == false)`, added `defer { if didStart { dir.stopAccessingSecurityScopedResource() } }`, updated doc comments.",
+    "remaining": "None. Tester agent should re-run B-c8428131 to confirm both previously-failing tests now pass.",
+    "risks": "None. The production code was already correct; only the over-specified test assertions were changed.",
+    "verdict": "approved",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/ShoppingListFilesTests.swift"
+    ],
+    "updated_docs": [],
+    "next_action": "Re-run takt test for B-c8428131 to confirm the two bracketingBalanceOnSimulatorURL tests pass.",
+    "next_agent": "tester",
+    "block_reason": "",
+    "expected_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/ShoppingListFilesTests.swift"
+    ],
+    "expected_globs": [
+      "CookbookAppTests/**/*"
+    ],
+    "touched_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/ShoppingListFilesTests.swift"
+    ],
+    "conflict_risks": "No conflicts. The two changed files (MealPlanFilesTests.swift, ShoppingListFilesTests.swift) were not touched by any sibling bead.",
+    "design_decisions": "Chose to relax the assertion entirely rather than guard it with `#if targetEnvironment(simulator)` \u2014 the return value of `startAccessingSecurityScopedResource()` on plain temp URLs is not a meaningful invariant to test; what matters is that I/O succeeds regardless.",
+    "test_coverage_notes": "The I/O round-trip assertions (`#expect(text == \"content\")`) remain in both tests, so the code path is still exercised.",
+    "known_limitations": "The `No such module 'Testing'` SourceKit warning is a false positive in the worktree environment; the module resolves correctly under Xcode's test build."
+  },
+  "block_reason": "",
+  "conflict_risks": "No conflicts. The two changed files (MealPlanFilesTests.swift, ShoppingListFilesTests.swift) were not touched by any sibling bead.",
+  "branch_name": "feature/b-fdd86f94",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T19:51:47.283314+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:54:17.226781+00:00",
+      "event": "deferred",
+      "agent_type": "developer",
+      "summary": "file-scope conflict with in-progress B-96c93e4d-subtask",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:54:48.576165+00:00",
+      "event": "skills_loaded",
+      "agent_type": "developer",
+      "summary": "Loaded 7 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/developer-implementation",
+          "capability/code-edit",
+          "task/corrective-implementation",
+          "task/refactor-safe",
+          "task/migration",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-28T19:54:48.576182+00:00",
+      "event": "started",
+      "agent_type": "developer",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:54:49.855132+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "developer",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c8428131-corrective/repo/templates/agents/developer.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c8428131-corrective/repo/templates/agents/developer.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-28T19:55:42.796128+00:00",
+      "event": "completed",
+      "agent_type": "developer",
+      "summary": "Removed the hard `#expect(didStart == false)` assertions from both `bracketingBalanceOnSimulatorURL` tests and added proper `defer` cleanup. iOS 26.5 simulator now returns `true` for plain NSTemporaryDirectory() URLs; the tests no longer assume a fixed return value.",
+      "details": {}
+    }
+  ],
+  "metadata": {
+    "auto_corrective_for": "B-c8428131",
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c8428131-corrective",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/developer-implementation",
+      "capability/code-edit",
+      "task/corrective-implementation",
+      "task/refactor-safe",
+      "task/migration",
+      "memory"
+    ],
+    "skill_bundle_hash": "2cbacb3ae07c8eee2a6bb3d65b99b3e4df7fa47ac8b10c5c68be4b338a583348",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c8428131-corrective/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "developer",
+      "template_path": ".takt/agent-runs/B-c8428131-corrective/repo/templates/agents/developer.md",
+      "template_text": "# Developer Guardrails\n\nPrimary responsibility: Implement only the assigned bead inside the existing architecture and file scope.\n\nAllowed actions:\n- Modify code, configuration, or local docs required to complete the assigned bead.\n- Create sub-beads for discovered follow-up work that should be handled separately.\n- Verify your `Swift` changes compile and import correctly with a quick syntax check: ``.\n\nDisallowed actions:\n- Run any test suite \u2014 not even a targeted `` run or any subset. Test execution is exclusively the tester agent's responsibility. Running tests wastes the agent budget and delays the pipeline.\n- Redesign unrelated architecture or broaden scope beyond the assigned bead.\n- Perform final review signoff in place of a review agent.\n- Silently absorb unrelated test, documentation, or planning work that should be handed off.\n\nExpected outputs:\n- Completed or blocked JSON with concise implementation summary.\n- Accurate touched files, changed files, risks, and follow-up handoff fields.",
+      "captured_at": "2026-05-28T19:54:49.855114+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-c8428131-corrective",
+      "feature_root_id": "B-fdd86f94",
+      "title": "Corrective fix for B-c8428131: Shared Feature Test Pass",
+      "agent_type": "developer",
+      "description": "Blocked reason: Two tests fail: MealPlanFilesTests/bracketingBalanceOnSimulatorURL (MealPlanFilesTests.swift:207) and ShoppingListFilesTests/bracketingBalanceOnSimulatorURL (ShoppingListFilesTests.swift:191). Both fail with \"Expectation failed: (didStart \u2192 true) == false\" \u2014 the tests assert startAccessingSecurityScopedResource() returns false for plain NSTemporaryDirectory() URLs, but iOS 26.5 simulator now returns true. Tests need to be updated to not depend on this assumption. Production code is correct.\n\nRemaining work: Two bracketingBalanceOnSimulatorURL test failures must be resolved by a developer bead. Root cause: tests assert startAccessingSecurityScopedResource() returns false for NSTemporaryDirectory() URLs, but iOS 26.5 simulator now returns true. The fix is: (1) remove the hard #expect(didStart == false) assertion or relax it to not abort the test, and (2) add defer { if didStart { dir.stopAccessingSecurityScopedResource() } } for leak-free cleanup. The I/O assertions in those tests (writeText/readText round-trip) would then exercise the code path correctly.\n\nManual on-device acceptance checklist (not executable in simulator):\n1. Cold-launch app and select a recipe folder via the system file picker \u2014 confirm folderURL is resolved from bookmark.\n2. Open Shopping Lists tab \u2014 ShoppingListsView must load and list .md files from the folder.\n3. Tap a shopping list \u2014 ShoppingListDetailView must open with file contents visible.\n4. Delete a shopping list item \u2014 confirm the change persists after leaving and reopening the view.\n5. Rename a shopping list \u2014 confirm the new name appears in the list.\n6. Open Meal Plans tab \u2014 MealPlansView must load and list .menu files from plans/ subfolder.\n7. Open a meal plan \u2014 swipe-delete a recipe row and re-open; confirm deletion persisted.\n8. Rename a meal plan block \u2014 confirm heading persisted after leaving the view.\n9. Add a recipe to a new meal plan \u2014 confirm MealPlanFiles.writeText succeeds and the plan appears in the list.\n10. Create shopping list from meal plan \u2014 confirm ShoppingListFiles.writeText writes correctly to the bookmarked folder.\n11. Check device Console for MealPlanFiles/ShoppingListFiles entries: didStart=true should appear in exit log lines (confirming real security-scoped access was granted on device).",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Implement the minimum fix required to unblock B-c8428131.",
+        "Update tests/docs as needed for the corrective change.",
+        "Leave a handoff summary that states how the parent bead can be retried."
+      ],
+      "dependencies": [],
+      "linked_docs": [
+        "spec-bfb9e111"
+      ],
+      "execution_branch_name": "feature/b-fdd86f94",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+      "expected_files": [
+        "CookbookAppTests/MealPlanFilesTests.swift",
+        "CookbookAppTests/ShoppingListFilesTests.swift"
+      ],
+      "expected_globs": [
+        "CookbookAppTests/**/*"
+      ],
+      "touched_files": [
+        "CookbookAppTests/AddToMealPlanSheetTests.swift",
+        "CookbookAppTests/AddToShoppingListServiceTests.swift",
+        "CookbookAppTests/MealPlanDetailViewTests.swift",
+        "CookbookAppTests/ShoppingListViewTests.swift"
+      ],
+      "conflict_risks": "The four test-enablement edits (ShoppingListViewTests.swift, MealPlanDetailViewTests.swift, AddToShoppingListServiceTests.swift, AddToMealPlanSheetTests.swift) add folderURL: arguments that were missing from pre-existing call sites. Any in-flight bead touching those same test files will see a clean compile, not a conflict. The developer bead that fixes bracketingBalanceOnSimulatorURL touches only MealPlanFilesTests.swift and ShoppingListFilesTests.swift \u2014 no overlap with these four files.",
+      "handoff_summary": {
+        "completed": "",
+        "remaining": "",
+        "risks": "",
+        "verdict": "",
+        "findings_count": 0,
+        "requires_followup": false,
+        "changed_files": [],
+        "updated_docs": [],
+        "next_action": "",
+        "next_agent": "",
+        "block_reason": "",
+        "expected_files": [],
+        "expected_globs": [],
+        "touched_files": [],
+        "conflict_risks": "",
+        "design_decisions": "",
+        "test_coverage_notes": "",
+        "known_limitations": ""
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Removed the hard `#expect(didStart == false)` assertions from both `bracketingBalanceOnSimulatorURL` tests and added proper `defer` cleanup. iOS 26.5 simulator now returns `true` for plain NSTemporaryDirectory() URLs; the tests no longer assume a fixed return value.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "tester",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.17144004999999998,
+      "duration_ms": 52152,
+      "duration_api_ms": 49677,
+      "num_turns": 6,
+      "input_tokens": 7,
+      "output_tokens": 3297,
+      "cache_creation_tokens": 20749,
+      "cache_read_tokens": 136761,
+      "stop_reason": "end_turn",
+      "session_id": "4334d21b-e545-4d3a-8922-e06b95cd4588",
+      "permission_denials": [],
+      "prompt_chars": 8966,
+      "prompt_lines": 149,
+      "source": "provider",
+      "attempt": 1
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.17144004999999998,
+        "duration_ms": 52152,
+        "duration_api_ms": 49677,
+        "num_turns": 6,
+        "input_tokens": 7,
+        "output_tokens": 3297,
+        "cache_creation_tokens": 20749,
+        "cache_read_tokens": 136761,
+        "stop_reason": "end_turn",
+        "session_id": "4334d21b-e545-4d3a-8922-e06b95cd4588",
+        "permission_denials": [],
+        "prompt_chars": 8966,
+        "prompt_lines": 149,
+        "source": "provider",
+        "attempt": 1
+      }
+    ],
+    "last_commit": "b0c094881b29c3fbf62524b1d89a1c320b6121c0"
+  },
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}

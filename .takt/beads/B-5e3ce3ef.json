@@ -3,23 +3,23 @@
   "title": "Shared Feature Review",
   "agent_type": "review",
   "description": "Review the completed code, tests, and documentation for correctness, scope control, and regression risk before merge.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
   "dependencies": [
-    "B-54e5ddb5",
+    "B-10050947",
+    "B-3b650b3d",
     "B-45e92777",
-    "B-c0e266d9",
+    "B-54e5ddb5",
+    "B-729b8923",
+    "B-78ccc1e1",
+    "B-96c93e4d",
+    "B-9ee7182f",
     "B-b77f6b9d",
     "B-be81c856",
-    "B-729b8923",
-    "B-9ee7182f",
-    "B-10050947",
-    "B-d899a92a",
-    "B-96c93e4d",
-    "B-3b650b3d",
+    "B-c0e266d9",
     "B-c8428131",
-    "B-78ccc1e1"
+    "B-d899a92a"
   ],
   "acceptance_criteria": [
     "Every ShoppingListFiles.readText/writeText call site passes a bookmarked folderURL.",
@@ -35,39 +35,56 @@
   "feature_root_id": "B-fdd86f94",
   "execution_branch_name": "feature/b-fdd86f94",
   "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
-  "expected_files": [],
-  "expected_globs": [
-    "CookbookApp/**/*.swift",
-    "CookbookAppTests/**/*.swift",
-    "docs/**/*",
-    "README.md"
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "expected_globs": [
+    "CookbookApp/MealPlans/*.swift",
+    "CookbookAppTests/*.swift"
+  ],
+  "touched_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookAppTests/ShoppingListDetailViewTests.swift"
+  ],
+  "changed_files": [
+    "CookbookApp/MealPlans/MealPlanDetailView.swift",
+    "CookbookAppTests/ShoppingListDetailViewTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "Verified all three findings from the prior review pass are resolved. (1) MealPlanDetailView.renamePlan() line 155 now calls folderURL.startAccessingSecurityScopedResource(). (2) MealPlanDetailView.deletePlan() line 175 now calls folderURL.startAccessingSecurityScopedResource(). (3) ShoppingListDetailViewTests compact-mode header minHeight constant is now 18, matching ShoppingListDetailView.swift. All six acceptance criteria are satisfied.",
+    "remaining": "None. All required changes have been applied and verified.",
+    "risks": "No unresolved risks. The file-provider bracketing contract is correctly implemented across all MealPlanFiles and ShoppingListFiles call sites.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookAppTests/ShoppingListDetailViewTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
+    "next_action": "Proceed to merge. No further corrective beads required.",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookApp/MealPlans/MealPlanDetailView.swift"
+    ],
+    "expected_globs": [
+      "CookbookApp/MealPlans/*.swift",
+      "CookbookAppTests/*.swift"
+    ],
+    "touched_files": [
+      "CookbookApp/MealPlans/MealPlanDetailView.swift",
+      "CookbookAppTests/ShoppingListDetailViewTests.swift"
+    ],
+    "conflict_risks": "None. The corrective bead was the only in-flight change to MealPlanDetailView.swift and has now merged.",
+    "design_decisions": "MealPlanDetailView.renamePlan() retains url.deletingLastPathComponent() for computing the destination path (the file must stay in the plans/ subfolder); folderURL is used only for the security-scoped bracket, mirroring the ShoppingListDetailView pattern exactly.",
+    "test_coverage_notes": "MealPlanFilesTests and ShoppingListFilesTests cover the helper bracketing contract. MealPlanDetailView.deletePlan() and renamePlan() bracketing is not independently unit-tested (simulator sandbox masks the failure path), but this is an acknowledged limitation from the prior review pass and does not block merge.",
+    "known_limitations": "MealPlanDetailView deletePlan/renamePlan bracket correctness cannot be exercised in unit tests without a real file provider; the fix is verified by code inspection only. ShoppingListDetailViewTests compact-mode tests remain self-referential (no ViewInspector); low-severity, acceptable for current scope."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
+  "conflict_risks": "None. The corrective bead was the only in-flight change to MealPlanDetailView.swift and has now merged.",
+  "branch_name": "feature/b-fdd86f94",
   "worktree_path": "",
   "lease": null,
   "retries": 0,
@@ -78,9 +95,313 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:07:26.389400+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-28T20:07:26.389425+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:07:27.298765+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "review",
+      "summary": "Applied guardrails from .takt/agent-runs/B-5e3ce3ef/repo/templates/agents/review.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-5e3ce3ef/repo/templates/agents/review.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-28T20:10:10.350401+00:00",
+      "event": "blocked",
+      "agent_type": "review",
+      "summary": "2 HIGH bugs found in MealPlanDetailView: deletePlan() and renamePlan() both bracket on the derived `parentURL` (plans subfolder) instead of the bookmarked `folderURL`, meaning security-scoped access is never actually granted for plan delete/rename on real devices. 1 LOW test-quality issue: compact-mode header height constant in ShoppingListDetailViewTests mirrors the wrong value (24 vs 18 in the view).",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:10:10.550536+00:00",
+      "event": "corrective_planned",
+      "agent_type": "review",
+      "summary": "Created corrective bead B-5e3ce3ef-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:11:45.063198+00:00",
+      "event": "retried",
+      "agent_type": "review",
+      "summary": "Requeued blocked bead after corrective bead B-5e3ce3ef-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:11:46.402144+00:00",
+      "event": "skills_loaded",
+      "agent_type": "review",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/reviewer-signoff",
+          "capability/code-review",
+          "task/corrective-bead-creation",
+          "task/risk-assessment",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-28T20:11:46.402168+00:00",
+      "event": "started",
+      "agent_type": "review",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:11:47.522029+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "review",
+      "summary": "Applied guardrails from .takt/agent-runs/B-5e3ce3ef/repo/templates/agents/review.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-5e3ce3ef/repo/templates/agents/review.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-28T20:12:33.765215+00:00",
+      "event": "completed",
+      "agent_type": "review",
+      "summary": "All prior findings resolved. MealPlanDetailView.deletePlan() and renamePlan() now correctly bracket on folderURL; ShoppingListDetailViewTests compact-mode constant corrected to 18. Feature is ready for merge.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-5e3ce3ef",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/reviewer-signoff",
+      "capability/code-review",
+      "task/corrective-bead-creation",
+      "task/risk-assessment",
+      "memory"
+    ],
+    "skill_bundle_hash": "e49ae02cdd641b1b539810ca3dc9f7cb45c7fa56ae2c7f96d6d53ebce3109bd4",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-5e3ce3ef/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "review",
+      "template_path": ".takt/agent-runs/B-5e3ce3ef/repo/templates/agents/review.md",
+      "template_text": "# Review Guardrails\n\nPrimary responsibility: Inspect code, tests, docs, and acceptance criteria for correctness, completeness, and risk.\n\nAllowed actions:\n- Review only the changed files listed in the bead's touched_files and changed_files fields. Do not read unrelated files.\n- Validate acceptance criteria against the implementation and handoff state.\n- Block with a clear recommendation when the bead actually requires implementation work.\n\nEfficiency constraints:\n- Do not run the test suite. Testing is the tester agent's responsibility.\n- Focus on correctness, completeness, and risk \u2014 not style or formatting.\n- Keep the review concise. If there are no findings, say so and approve promptly.\n\nDisallowed actions:\n- Implement feature work, tests, or docs instead of reporting findings.\n- Rewrite architecture or silently fix issues discovered during review.\n- Mark incomplete work as accepted without evidence.\n\nExpected outputs:\n- Return JSON with `outcome` set to `completed` (reviews always complete; use `verdict` for pass/fail) and `summary` as a one-line description of the review result.\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the review signoff decision: `approved` means the bead can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when no unresolved findings remain.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved finding count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when any required fix remains.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Review findings ordered by severity, or an explicit statement that no findings were discovered.\n- Clear blocked handoff details when the task belongs to another agent type.",
+      "captured_at": "2026-05-28T20:11:47.522013+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-5e3ce3ef",
+      "feature_root_id": "B-fdd86f94",
+      "title": "Shared Feature Review",
+      "agent_type": "review",
+      "description": "Review the completed code, tests, and documentation for correctness, scope control, and regression risk before merge.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "Every ShoppingListFiles.readText/writeText call site passes a bookmarked folderURL.",
+        "Every MealPlanFiles.readText/writeText call site passes a bookmarked folderURL.",
+        "Helpers bracket on folderURL and no longer bracket on derived file URLs.",
+        "ShoppingListDetailView receives folderURL from all construction sites.",
+        "No out-of-scope refactors, bookmark-store changes, discover-helper changes, or user-visible alert work were introduced.",
+        "Shared tester and documentation beads are complete and any residual risks are documented."
+      ],
+      "dependencies": [
+        "B-10050947",
+        "B-3b650b3d",
+        "B-45e92777",
+        "B-54e5ddb5",
+        "B-729b8923",
+        "B-78ccc1e1",
+        "B-96c93e4d",
+        "B-9ee7182f",
+        "B-b77f6b9d",
+        "B-be81c856",
+        "B-c0e266d9",
+        "B-c8428131",
+        "B-d899a92a"
+      ],
+      "linked_docs": [
+        "spec-bfb9e111"
+      ],
+      "execution_branch_name": "feature/b-fdd86f94",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+      "expected_files": [
+        "CookbookApp/MealPlans/MealPlanDetailView.swift"
+      ],
+      "expected_globs": [
+        "CookbookApp/MealPlans/*.swift",
+        "CookbookAppTests/*.swift"
+      ],
+      "touched_files": [
+        "CookbookApp/MealPlans/AddToMealPlanService.swift",
+        "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+        "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+        "CookbookApp/MealPlans/MealPlanDetailView.swift",
+        "CookbookApp/MealPlans/MealPlanFiles.swift",
+        "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+        "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
+        "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+        "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+        "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+        "CookbookAppTests/AddToMealPlanSheetTests.swift",
+        "CookbookAppTests/AddToShoppingListServiceTests.swift",
+        "CookbookAppTests/MealPlanDetailViewTests.swift",
+        "CookbookAppTests/MealPlanFilesTests.swift",
+        "CookbookAppTests/ShoppingListDetailViewTests.swift",
+        "CookbookAppTests/ShoppingListFilesTests.swift",
+        "CookbookAppTests/ShoppingListViewTests.swift",
+        "docs/architecture.md"
+      ],
+      "conflict_risks": "The corrective bead touches only MealPlanDetailView.swift lines 155 and 175 \u2014 no overlap with any other in-flight beads.",
+      "handoff_summary": {
+        "completed": "Reviewed all 18 changed files. ShoppingListFiles and MealPlanFiles helpers correctly bracket on folderURL. All readText/writeText call sites pass a bookmarked folderURL. ShoppingListDetailView receives folderURL from all construction sites (ShoppingListsView and MealPlanDetailView sheet). Documentation section \"File helper bracketing contract\" is present and accurate in architecture.md. Tests for both helper suites are thorough and exercise the bracketing invariant.",
+        "remaining": "Two HIGH bugs in MealPlanDetailView require a corrective bead: (1) deletePlan() must change `parentURL.startAccessingSecurityScopedResource()` \u2192 `folderURL.startAccessingSecurityScopedResource()` (line 175); (2) renamePlan() must change `parentURL.startAccessingSecurityScopedResource()` \u2192 `folderURL.startAccessingSecurityScopedResource()` (line 155). One LOW test-quality fix: ShoppingListDetailViewTests compact-mode header height constant should be 18 (matching ShoppingListDetailView.swift:257) not 24.",
+        "risks": "On real devices with iCloud Drive or third-party file providers (Dropbox, OneDrive), the incorrect bracket in MealPlanDetailView means plan deletions and renames will silently fail \u2014 FileManager operations are denied without the security grant. The bug is masked on simulator because sandbox access is broader. The test constant mismatch (Finding 3) is benign at runtime but reduces regression coverage.",
+        "verdict": "needs_changes",
+        "findings_count": 3,
+        "requires_followup": true,
+        "changed_files": [
+          "CookbookApp/MealPlans/AddToMealPlanService.swift",
+          "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+          "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+          "CookbookApp/MealPlans/MealPlanDetailView.swift",
+          "CookbookApp/MealPlans/MealPlanFiles.swift",
+          "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+          "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
+          "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+          "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+          "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+          "CookbookAppTests/AddToMealPlanSheetTests.swift",
+          "CookbookAppTests/AddToShoppingListServiceTests.swift",
+          "CookbookAppTests/MealPlanDetailViewTests.swift",
+          "CookbookAppTests/MealPlanFilesTests.swift",
+          "CookbookAppTests/ShoppingListDetailViewTests.swift",
+          "CookbookAppTests/ShoppingListFilesTests.swift",
+          "CookbookAppTests/ShoppingListViewTests.swift",
+          "docs/architecture.md"
+        ],
+        "updated_docs": [],
+        "next_action": "Create a corrective developer bead to fix MealPlanDetailView.swift lines 155 and 175: replace `parentURL.startAccessingSecurityScopedResource()` / `parentURL.stopAccessingSecurityScopedResource()` with `folderURL.startAccessingSecurityScopedResource()` / `folderURL.stopAccessingSecurityScopedResource()` in both deletePlan() and renamePlan(). Optionally fix the ShoppingListDetailViewTests compact-mode constant from 24 to 18.",
+        "next_agent": "developer",
+        "block_reason": "MealPlanDetailView.swift:175 \u2014 `deletePlan()` calls `parentURL.startAccessingSecurityScopedResource()` where `parentURL = url.deletingLastPathComponent()` (the plans/ subfolder). Should be `folderURL.startAccessingSecurityScopedResource()`. MealPlanDetailView.swift:155 \u2014 `renamePlan()` has the same error on the same local variable. Both operations will silently fail on real devices with file providers. A corrective developer bead targeting MealPlanDetailView.swift is required before merge.",
+        "expected_files": [
+          "CookbookApp/MealPlans/MealPlanDetailView.swift"
+        ],
+        "expected_globs": [
+          "CookbookApp/MealPlans/*.swift",
+          "CookbookAppTests/*.swift"
+        ],
+        "touched_files": [
+          "CookbookApp/MealPlans/AddToMealPlanService.swift",
+          "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+          "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+          "CookbookApp/MealPlans/MealPlanDetailView.swift",
+          "CookbookApp/MealPlans/MealPlanFiles.swift",
+          "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+          "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
+          "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+          "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+          "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+          "CookbookAppTests/AddToMealPlanSheetTests.swift",
+          "CookbookAppTests/AddToShoppingListServiceTests.swift",
+          "CookbookAppTests/MealPlanDetailViewTests.swift",
+          "CookbookAppTests/MealPlanFilesTests.swift",
+          "CookbookAppTests/ShoppingListDetailViewTests.swift",
+          "CookbookAppTests/ShoppingListFilesTests.swift",
+          "CookbookAppTests/ShoppingListViewTests.swift",
+          "docs/architecture.md"
+        ],
+        "conflict_risks": "The corrective bead touches only MealPlanDetailView.swift lines 155 and 175 \u2014 no overlap with any other in-flight beads.",
+        "design_decisions": "ShoppingListDetailView.renameList() and deleteList() correctly bracket on folderURL (not the derived listsFolderURL), establishing the correct pattern. MealPlanDetailView should mirror this exactly.",
+        "test_coverage_notes": "MealPlanFilesTests and ShoppingListFilesTests adequately cover the helper bracketing contract. No test currently exercises MealPlanDetailView.deletePlan() or renamePlan() at the bracketing level \u2014 the corrective bead should add or note this gap.",
+        "known_limitations": "ShoppingListDetailViewTests compact-mode header height test (Finding 3) is self-referential and cannot catch view regressions without ViewInspector; the wrong constant (24 vs 18) makes this a no-op test. Low severity; can be addressed in a follow-up polish bead."
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "All prior findings resolved. MealPlanDetailView.deletePlan() and renamePlan() now correctly bracket on folderURL; ShoppingListDetailViewTests compact-mode constant corrected to 18. Feature is ready for merge.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.13106215000000002,
+      "duration_ms": 46210,
+      "duration_api_ms": 43047,
+      "num_turns": 4,
+      "input_tokens": 5,
+      "output_tokens": 2379,
+      "cache_creation_tokens": 18119,
+      "cache_read_tokens": 72193,
+      "stop_reason": "end_turn",
+      "session_id": "3952646d-7ee5-4790-9e5d-c71dea06ce90",
+      "permission_denials": [],
+      "prompt_chars": 17389,
+      "prompt_lines": 263,
+      "source": "provider",
+      "attempt": 2
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.59225235,
+        "duration_ms": 163042,
+        "duration_api_ms": 160196,
+        "num_turns": 22,
+        "input_tokens": 12,
+        "output_tokens": 9849,
+        "cache_creation_tokens": 74359,
+        "cache_read_tokens": 537057,
+        "stop_reason": "end_turn",
+        "session_id": "d915824f-4a98-47e0-9900-8806688b6d24",
+        "permission_denials": [],
+        "prompt_chars": 13406,
+        "prompt_lines": 227,
+        "source": "provider",
+        "attempt": 1
+      },
+      {
+        "cost_usd": 0.13106215000000002,
+        "duration_ms": 46210,
+        "duration_api_ms": 43047,
+        "num_turns": 4,
+        "input_tokens": 5,
+        "output_tokens": 2379,
+        "cache_creation_tokens": 18119,
+        "cache_read_tokens": 72193,
+        "stop_reason": "end_turn",
+        "session_id": "3952646d-7ee5-4790-9e5d-c71dea06ce90",
+        "permission_denials": [],
+        "prompt_chars": 17389,
+        "prompt_lines": 263,
+        "source": "provider",
+        "attempt": 2
+      }
+    ],
+    "auto_corrective_bead_id": "B-5e3ce3ef-corrective",
+    "last_corrective_retry_source": "B-5e3ce3ef-corrective",
+    "last_corrective_retry_commit": "d7a9e55f59714018062c4646c4303e7a1fc30635"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null

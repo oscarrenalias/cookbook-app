@@ -3,7 +3,7 @@
   "title": "Shared Feature Test Pass",
   "agent_type": "tester",
   "description": "Run the shared verification pass for all implementation work, covering automated test suites and documenting required on-device acceptance checks for the security-scoped bookmark behavior.",
-  "status": "ready",
+  "status": "done",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
   "dependencies": [
@@ -32,37 +32,57 @@
   "feature_root_id": "B-fdd86f94",
   "execution_branch_name": "feature/b-fdd86f94",
   "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
-  "expected_files": [],
+  "expected_files": [
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
   "expected_globs": [
     "CookbookAppTests/**/*"
   ],
-  "touched_files": [],
-  "changed_files": [],
+  "touched_files": [
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
+  "changed_files": [
+    "CookbookAppTests/MealPlanFilesTests.swift",
+    "CookbookAppTests/ShoppingListFilesTests.swift"
+  ],
   "updated_docs": [],
   "handoff_summary": {
-    "completed": "",
-    "remaining": "",
-    "risks": "",
-    "verdict": "",
+    "completed": "- Verified corrective fix in MealPlanFilesTests.swift:197-210 and ShoppingListFilesTests.swift:181-194: hard #expect(didStart == false) replaced with defer { if didStart { stopAccessingSecurityScopedResource() } } and I/O-only assertions.\n- Re-ran targeted tests: MealPlanFilesTests 15/15 passed, ShoppingListFilesTests 13/13 passed (28 total, 0 failures).\n- Both bracketingBalanceOnSimulatorURL tests pass on iOS 26.5 simulator.",
+    "remaining": "Manual on-device acceptance checklist (unchanged from prior pass \u2014 not executable in simulator):\n1. Cold-launch app, select recipe folder via file picker \u2014 confirm folderURL resolved from bookmark.\n2-5. Shopping Lists tab: load list, open detail, delete item, rename \u2014 confirm persistence.\n6-10. Meal Plans tab: load plans, swipe-delete row, rename block, add recipe, create shopping list.\n11. Check device Console for MealPlanFiles/ShoppingListFiles entries with didStart=true in exit log lines.",
+    "risks": "None remaining in automated test scope. On-device didStart=true log verification still requires physical device with entitlements \u2014 inherently untestable in simulator.",
+    "verdict": "approved",
     "findings_count": 0,
     "requires_followup": false,
-    "changed_files": [],
+    "changed_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/ShoppingListFilesTests.swift"
+    ],
     "updated_docs": [],
-    "next_action": "",
+    "next_action": "Proceed to merge \u2014 all automated tests pass. No developer or further tester action required.",
     "next_agent": "",
     "block_reason": "",
-    "expected_files": [],
-    "expected_globs": [],
-    "touched_files": [],
-    "conflict_risks": "",
-    "design_decisions": "",
-    "test_coverage_notes": "",
-    "known_limitations": ""
+    "expected_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/ShoppingListFilesTests.swift"
+    ],
+    "expected_globs": [
+      "CookbookAppTests/**/*"
+    ],
+    "touched_files": [
+      "CookbookAppTests/MealPlanFilesTests.swift",
+      "CookbookAppTests/ShoppingListFilesTests.swift"
+    ],
+    "conflict_risks": "No conflicts. This tester pass made no file changes; corrective fixes were applied by B-c8428131-corrective.",
+    "design_decisions": "No new design decisions. Verified that the corrective bead correctly relaxed the iOS-version-dependent startAccessingSecurityScopedResource() assumption without removing meaningful I/O coverage.",
+    "test_coverage_notes": "MealPlanFilesTests: 15/15 pass (write+read roundtrip, file creation side-effect, nil-on-missing, no-pre-bracket caller contract, nested bracket via discover, balanced-bracketing simulator invariant). ShoppingListFilesTests: 13/13 pass (analogous coverage). Total: 28/28.",
+    "known_limitations": "On-device didStart=true log verification requires a physical device with security-scoped bookmark entitlements. This is architecturally untestable in the simulator and is documented in the manual acceptance checklist."
   },
   "block_reason": "",
-  "conflict_risks": "",
-  "branch_name": "",
-  "worktree_path": "",
+  "conflict_risks": "No conflicts. This tester pass made no file changes; corrective fixes were applied by B-c8428131-corrective.",
+  "branch_name": "feature/b-fdd86f94",
+  "worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
   "lease": null,
   "retries": 0,
   "execution_history": [
@@ -72,9 +92,281 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:36:36.252283+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-28T19:36:36.252302+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:36:37.240992+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "tester",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c8428131/repo/templates/agents/tester.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c8428131/repo/templates/agents/tester.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-28T19:51:47.148452+00:00",
+      "event": "blocked",
+      "agent_type": "tester",
+      "summary": "Full test pass completed. CookbookCore: 247 tests pass. All service and view tests covering touched files pass (62 tests across 4 suites). Two failures in MealPlanFilesTests and ShoppingListFilesTests: bracketingBalanceOnSimulatorURL asserts didStart==false but iOS 26.5 simulator now returns true for plain NSTemporaryDirectory() URLs. Production bracketing logic is correct; test precondition assumption is wrong for this simulator version. Four test files required minimal test-enablement call-site fixes (missing folderURL: arguments) to compile: ShoppingListViewTests, MealPlanDetailViewTests, AddToShoppingListServiceTests, AddToMealPlanSheetTests.",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:51:47.284038+00:00",
+      "event": "corrective_planned",
+      "agent_type": "tester",
+      "summary": "Created corrective bead B-c8428131-corrective for blocked issue",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T19:55:42.799435+00:00",
+      "event": "retried",
+      "agent_type": "tester",
+      "summary": "Requeued blocked bead after corrective bead B-c8428131-corrective completed",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:02:42.386694+00:00",
+      "event": "skills_loaded",
+      "agent_type": "tester",
+      "summary": "Loaded 6 skill(s) for isolated execution",
+      "details": {
+        "loaded_skills": [
+          "core/base-orchestrator",
+          "role/tester-validation",
+          "capability/test-execution",
+          "task/defect-bead-creation",
+          "task/regression-triage",
+          "memory"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-05-28T20:02:42.386711+00:00",
+      "event": "started",
+      "agent_type": "tester",
+      "summary": "Worker started",
+      "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T20:02:43.574106+00:00",
+      "event": "guardrails_applied",
+      "agent_type": "tester",
+      "summary": "Applied guardrails from .takt/agent-runs/B-c8428131/repo/templates/agents/tester.md",
+      "details": {
+        "template_path": ".takt/agent-runs/B-c8428131/repo/templates/agents/tester.md"
+      }
+    },
+    {
+      "timestamp": "2026-05-28T20:07:25.818603+00:00",
+      "event": "completed",
+      "agent_type": "tester",
+      "summary": "Both bracketingBalanceOnSimulatorURL tests now pass after the corrective bead (B-c8428131-corrective) fixed the hard didStart==false assertion. MealPlanFilesTests 15/15 and ShoppingListFilesTests 13/13 all green. No new findings.",
+      "details": {}
     }
   ],
-  "metadata": {},
+  "metadata": {
+    "execution_root": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c8428131",
+    "workspace_repo_path": "repo",
+    "loaded_skills": [
+      "core/base-orchestrator",
+      "role/tester-validation",
+      "capability/test-execution",
+      "task/defect-bead-creation",
+      "task/regression-triage",
+      "memory"
+    ],
+    "skill_bundle_hash": "bc009dcebd8e4c16178a90ec3060a5b91679ac7fedefcdc8f0d5a8eca4b06d22",
+    "isolated_home": "/Users/oscar.renalias/Projects/cookbook-app/.takt/agent-runs/B-c8428131/home",
+    "runner_backend": "claude",
+    "guardrails": {
+      "agent_type": "tester",
+      "template_path": ".takt/agent-runs/B-c8428131/repo/templates/agents/tester.md",
+      "template_text": "# Tester Guardrails\n\nPrimary responsibility: Add or update automated tests, run validation, and report defects or missing coverage.\n\nAllowed actions:\n- Write or update tests relevant to the assigned bead.\n- Run only the test files related to the bead's changed files, not the full test suite. Use `` to target individual test files. If unsure which tests are relevant, use the bead's expected_files and touched_files fields as a guide.\n- Make minimal test-enablement fixes (e.g. import corrections, fixture setup) only when strictly necessary to run the relevant tests. Do not refactor production code under the guise of test enablement.\n\nDisallowed actions:\n- Run the full test suite instead of targeting specific tests. Always use `` for targeted runs. Running the full suite wastes time and often exceeds the agent timeout.\n- Use `run_in_background` for any Bash commands. All test commands must run synchronously so their output is available before the structured verdict is submitted. Background tasks cause the structured output to be lost, resulting in a failed bead.\n- Implement feature logic beyond minimal test-enablement work.\n- Reframe a feature implementation task as testing work to bypass handoff.\n- Perform review signoff or broad documentation rewrites.\n\nExpected outputs:\n- Return JSON with structured verdict fields for every run: `verdict`, `findings_count`, and `requires_followup`.\n- Treat `verdict` as the tester signoff decision: `approved` means testing can complete, while `needs_changes` means the bead must block for follow-up work.\n- Use `verdict=approved`, `findings_count=0`, and `requires_followup=false` when testing is complete with no unresolved tester-scope findings.\n- Use `verdict=needs_changes`, set `findings_count` to the unresolved defect or coverage gap count, set `requires_followup=true` unless there is a stronger explicit reason not to, and always include `block_reason` when follow-up work is required.\n- Keep `completed`, `remaining`, and `risks` as free-form narrative context only. They inform operators, but they do not override the structured verdict or control scheduler state.\n- Completed or blocked JSON describing test coverage, validation status, and follow-up needs.\n- Precise defect or coverage notes when the bead cannot be completed within tester scope.",
+      "captured_at": "2026-05-28T20:02:43.574089+00:00"
+    },
+    "worker_prompt_context": {
+      "bead_id": "B-c8428131",
+      "feature_root_id": "B-fdd86f94",
+      "title": "Shared Feature Test Pass",
+      "agent_type": "tester",
+      "description": "Run the shared verification pass for all implementation work, covering automated test suites and documenting required on-device acceptance checks for the security-scoped bookmark behavior.",
+      "status": "in_progress",
+      "acceptance_criteria": [
+        "xcodebuild test -scheme CookbookApp passes or any failure is clearly documented with cause.",
+        "swift test in Packages/CookbookCore passes or any failure is clearly documented with cause.",
+        "New ShoppingListFiles and MealPlanFiles tests pass on simulator.",
+        "Manual on-device acceptance checklist for criteria 1-8 is recorded, including cold-launch didStart=true log checks where executable.",
+        "No new compiler or linter warnings are introduced in touched files."
+      ],
+      "dependencies": [
+        "B-54e5ddb5",
+        "B-45e92777",
+        "B-c0e266d9",
+        "B-b77f6b9d",
+        "B-be81c856",
+        "B-729b8923",
+        "B-9ee7182f",
+        "B-10050947",
+        "B-d899a92a",
+        "B-96c93e4d",
+        "B-3b650b3d"
+      ],
+      "linked_docs": [
+        "spec-bfb9e111"
+      ],
+      "execution_branch_name": "feature/b-fdd86f94",
+      "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+      "expected_files": [
+        "CookbookAppTests/MealPlanFilesTests.swift",
+        "CookbookAppTests/ShoppingListFilesTests.swift"
+      ],
+      "expected_globs": [
+        "CookbookAppTests/**/*"
+      ],
+      "touched_files": [
+        "CookbookApp/MealPlans/AddToMealPlanService.swift",
+        "CookbookApp/MealPlans/AddToMealPlanSheet.swift",
+        "CookbookApp/MealPlans/CreateShoppingListFromMealPlanService.swift",
+        "CookbookApp/MealPlans/MealPlanDetailView.swift",
+        "CookbookApp/MealPlans/MealPlanFiles.swift",
+        "CookbookApp/ShoppingLists/AddToShoppingListService.swift",
+        "CookbookApp/ShoppingLists/AddToShoppingListSheet.swift",
+        "CookbookApp/ShoppingLists/ShoppingListDetailView.swift",
+        "CookbookApp/ShoppingLists/ShoppingListFiles.swift",
+        "CookbookApp/ShoppingLists/ShoppingListsView.swift",
+        "CookbookAppTests/AddToMealPlanSheetTests.swift",
+        "CookbookAppTests/AddToShoppingListServiceTests.swift",
+        "CookbookAppTests/MealPlanDetailViewTests.swift",
+        "CookbookAppTests/MealPlanFilesTests.swift",
+        "CookbookAppTests/ShoppingListDetailViewTests.swift",
+        "CookbookAppTests/ShoppingListFilesTests.swift",
+        "CookbookAppTests/ShoppingListViewTests.swift"
+      ],
+      "conflict_risks": "The four test-enablement edits (ShoppingListViewTests.swift, MealPlanDetailViewTests.swift, AddToShoppingListServiceTests.swift, AddToMealPlanSheetTests.swift) add folderURL: arguments that were missing from pre-existing call sites. Any in-flight bead touching those same test files will see a clean compile, not a conflict. The developer bead that fixes bracketingBalanceOnSimulatorURL touches only MealPlanFilesTests.swift and ShoppingListFilesTests.swift \u2014 no overlap with these four files.",
+      "handoff_summary": {
+        "completed": "- CookbookCore swift test: 247/247 pass.\n- ShoppingListDetailViewTests: all pass.\n- ShoppingListFilesTests: 13/14 pass; bracketingBalanceOnSimulatorURL fails (precondition violation).\n- MealPlanFilesTests: 14/15 pass; bracketingBalanceOnSimulatorURL fails (precondition violation).\n- AddToMealPlanServiceTests: 13/13 pass.\n- CreateShoppingListFromMealPlanServiceTests: 15/15 pass.\n- AddToShoppingListServiceTests: 7/7 pass.\n- MealPlanDetailViewTests: 12/12 pass.\n- Test-enablement fixes applied to 4 test files to resolve folderURL: call-site compile errors introduced by dependency beads but not patched in those beads.",
+        "remaining": "Two bracketingBalanceOnSimulatorURL test failures must be resolved by a developer bead. Root cause: tests assert startAccessingSecurityScopedResource() returns false for NSTemporaryDirectory() URLs, but iOS 26.5 simulator now returns true. The fix is: (1) remove the hard #expect(didStart == false) assertion or relax it to not abort the test, and (2) add defer { if didStart { dir.stopAccessingSecurityScopedResource() } } for leak-free cleanup. The I/O assertions in those tests (writeText/readText round-trip) would then exercise the code path correctly.\n\nManual on-device acceptance checklist (not executable in simulator):\n1. Cold-launch app and select a recipe folder via the system file picker \u2014 confirm folderURL is resolved from bookmark.\n2. Open Shopping Lists tab \u2014 ShoppingListsView must load and list .md files from the folder.\n3. Tap a shopping list \u2014 ShoppingListDetailView must open with file contents visible.\n4. Delete a shopping list item \u2014 confirm the change persists after leaving and reopening the view.\n5. Rename a shopping list \u2014 confirm the new name appears in the list.\n6. Open Meal Plans tab \u2014 MealPlansView must load and list .menu files from plans/ subfolder.\n7. Open a meal plan \u2014 swipe-delete a recipe row and re-open; confirm deletion persisted.\n8. Rename a meal plan block \u2014 confirm heading persisted after leaving the view.\n9. Add a recipe to a new meal plan \u2014 confirm MealPlanFiles.writeText succeeds and the plan appears in the list.\n10. Create shopping list from meal plan \u2014 confirm ShoppingListFiles.writeText writes correctly to the bookmarked folder.\n11. Check device Console for MealPlanFiles/ShoppingListFiles entries: didStart=true should appear in exit log lines (confirming real security-scoped access was granted on device).",
+        "risks": "Two failing tests block merge gate if xcodebuild test is run without -skip-testing. The precondition failures are benign for production correctness but must be fixed to achieve a clean build. No new regressions introduced by test-enablement fixes (folderURL: additions are semantically correct for each call site).",
+        "verdict": "needs_changes",
+        "findings_count": 2,
+        "requires_followup": true,
+        "changed_files": [
+          "CookbookAppTests/AddToMealPlanSheetTests.swift",
+          "CookbookAppTests/AddToShoppingListServiceTests.swift",
+          "CookbookAppTests/MealPlanDetailViewTests.swift",
+          "CookbookAppTests/ShoppingListViewTests.swift"
+        ],
+        "updated_docs": [],
+        "next_action": "Create a developer bead to fix the two bracketingBalanceOnSimulatorURL tests in MealPlanFilesTests.swift and ShoppingListFilesTests.swift. The fix: relax or remove the #expect(didStart == false) precondition (or wrap it as a known-flaky note), add defer cleanup for the manual startAccessingSecurityScopedResource() call in each test, and assert only that I/O succeeds. After the fix, re-run the tester pass.",
+        "next_agent": "developer",
+        "block_reason": "Two tests fail: MealPlanFilesTests/bracketingBalanceOnSimulatorURL (MealPlanFilesTests.swift:207) and ShoppingListFilesTests/bracketingBalanceOnSimulatorURL (ShoppingListFilesTests.swift:191). Both fail with \"Expectation failed: (didStart \u2192 true) == false\" \u2014 the tests assert startAccessingSecurityScopedResource() returns false for plain NSTemporaryDirectory() URLs, but iOS 26.5 simulator now returns true. Tests need to be updated to not depend on this assumption. Production code is correct.",
+        "expected_files": [
+          "CookbookAppTests/MealPlanFilesTests.swift",
+          "CookbookAppTests/ShoppingListFilesTests.swift"
+        ],
+        "expected_globs": [
+          "CookbookAppTests/**/*"
+        ],
+        "touched_files": [
+          "CookbookAppTests/AddToMealPlanSheetTests.swift",
+          "CookbookAppTests/AddToShoppingListServiceTests.swift",
+          "CookbookAppTests/MealPlanDetailViewTests.swift",
+          "CookbookAppTests/ShoppingListViewTests.swift"
+        ],
+        "conflict_risks": "The four test-enablement edits (ShoppingListViewTests.swift, MealPlanDetailViewTests.swift, AddToShoppingListServiceTests.swift, AddToMealPlanSheetTests.swift) add folderURL: arguments that were missing from pre-existing call sites. Any in-flight bead touching those same test files will see a clean compile, not a conflict. The developer bead that fixes bracketingBalanceOnSimulatorURL touches only MealPlanFilesTests.swift and ShoppingListFilesTests.swift \u2014 no overlap with these four files.",
+        "design_decisions": "Applied minimal test-enablement fixes (adding folderURL: call-site arguments) to four test files that were not updated by their respective dependency beads. This is within tester guardrails. Production code was not modified. The bracketingBalanceOnSimulatorURL failures are documented as test design issues, not production bugs, and handed off to a developer bead rather than silently bypassed.",
+        "test_coverage_notes": "MealPlanFilesTests: 14/15 pass (write+read roundtrip, file creation side-effect, nil-on-missing, no-pre-bracket caller contract, nested bracket via discover all pass). ShoppingListFilesTests: 13/14 pass (analogous coverage). ShoppingListDetailViewTests: 11/11 pass. AddToMealPlanServiceTests: 13/13 pass. CreateShoppingListFromMealPlanServiceTests: 15/15 pass. AddToShoppingListServiceTests: 7/7 pass. MealPlanDetailViewTests: 12/12 pass. CookbookCore: 247/247 pass.",
+        "known_limitations": "bracketingBalanceOnSimulatorURL: iOS 26.5 simulator returns true from startAccessingSecurityScopedResource() for plain temp dir URLs; test was written assuming false. On-device didStart=true log verification requires physical device with entitlements \u2014 untestable in simulator. Manual checklist provided in remaining field."
+      }
+    },
+    "last_agent_result": {
+      "outcome": "completed",
+      "summary": "Both bracketingBalanceOnSimulatorURL tests now pass after the corrective bead (B-c8428131-corrective) fixed the hard didStart==false assertion. MealPlanFilesTests 15/15 and ShoppingListFilesTests 13/13 all green. No new findings.",
+      "verdict": "approved",
+      "findings_count": 0,
+      "requires_followup": false,
+      "next_agent": "",
+      "block_reason": ""
+    },
+    "telemetry": {
+      "cost_usd": 0.15827075,
+      "duration_ms": 281872,
+      "duration_api_ms": 47028,
+      "num_turns": 7,
+      "input_tokens": 8,
+      "output_tokens": 2358,
+      "cache_creation_tokens": 18221,
+      "cache_read_tokens": 161780,
+      "stop_reason": "end_turn",
+      "session_id": "38a04820-fb05-4d1d-9e0f-136ded5cb6c4",
+      "permission_denials": [],
+      "prompt_chars": 19014,
+      "prompt_lines": 232,
+      "source": "provider",
+      "attempt": 2
+    },
+    "telemetry_history": [
+      {
+        "cost_usd": 0.9262412,
+        "duration_ms": 909691,
+        "duration_api_ms": 293793,
+        "num_turns": 35,
+        "input_tokens": 34,
+        "output_tokens": 17408,
+        "cache_creation_tokens": 56516,
+        "cache_read_tokens": 1495364,
+        "stop_reason": "end_turn",
+        "session_id": "15ba7bf7-a993-445c-8d47-673745b3280d",
+        "permission_denials": [],
+        "prompt_chars": 13527,
+        "prompt_lines": 213,
+        "source": "provider",
+        "attempt": 1
+      },
+      {
+        "cost_usd": 0.15827075,
+        "duration_ms": 281872,
+        "duration_api_ms": 47028,
+        "num_turns": 7,
+        "input_tokens": 8,
+        "output_tokens": 2358,
+        "cache_creation_tokens": 18221,
+        "cache_read_tokens": 161780,
+        "stop_reason": "end_turn",
+        "session_id": "38a04820-fb05-4d1d-9e0f-136ded5cb6c4",
+        "permission_denials": [],
+        "prompt_chars": 19014,
+        "prompt_lines": 232,
+        "source": "provider",
+        "attempt": 2
+      }
+    ],
+    "auto_corrective_bead_id": "B-c8428131-corrective",
+    "last_corrective_retry_source": "B-c8428131-corrective",
+    "last_corrective_retry_commit": "b0c094881b29c3fbf62524b1d89a1c320b6121c0"
+  },
   "labels": [],
   "recovery_for": null,
   "priority": null

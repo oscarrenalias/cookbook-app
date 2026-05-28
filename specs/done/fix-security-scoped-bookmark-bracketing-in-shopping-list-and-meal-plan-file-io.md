@@ -5,7 +5,7 @@ description: "Fix the security-scoped bookmark bracketing in ShoppingListFiles.r
 dependencies: null
 priority: high
 complexity: low
-status: planned
+status: done
 tags:
 - bug
 - ios
