@@ -6,7 +6,21 @@
   "status": "ready",
   "bead_type": "task",
   "parent_id": "B-fdd86f94",
-  "dependencies": [],
+  "dependencies": [
+    "B-54e5ddb5",
+    "B-45e92777",
+    "B-c0e266d9",
+    "B-b77f6b9d",
+    "B-be81c856",
+    "B-729b8923",
+    "B-9ee7182f",
+    "B-10050947",
+    "B-d899a92a",
+    "B-96c93e4d",
+    "B-3b650b3d",
+    "B-c8428131",
+    "B-78ccc1e1"
+  ],
   "acceptance_criteria": [
     "Every ShoppingListFiles.readText/writeText call site passes a bookmarked folderURL.",
     "Every MealPlanFiles.readText/writeText call site passes a bookmarked folderURL.",
