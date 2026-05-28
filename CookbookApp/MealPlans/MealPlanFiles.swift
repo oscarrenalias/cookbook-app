@@ -69,34 +69,34 @@ enum MealPlanFiles {
         return String(filename.dropLast(5))
     }
 
-    /// Reads the UTF-8 text of a meal-plan file, bracketing security-scoped access.
-    static func readText(from url: URL) -> String? {
-        Loggers.mealPlans.debug("[MealPlanFiles] readText: entry file=\(url.lastPathComponent, privacy: .public)")
-        let didStart = url.startAccessingSecurityScopedResource()
+    /// Reads the UTF-8 text of a meal-plan file, bracketing security-scoped access on `folderURL`.
+    static func readText(from url: URL, folderURL: URL) -> String? {
+        Loggers.mealPlans.debug("[MealPlanFiles] readText: entry file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public)")
+        let didStart = folderURL.startAccessingSecurityScopedResource()
         defer {
             if didStart {
-                url.stopAccessingSecurityScopedResource()
+                folderURL.stopAccessingSecurityScopedResource()
             }
         }
         let result = try? String(contentsOf: url, encoding: .utf8)
         if let text = result {
-            Loggers.mealPlans.debug("[MealPlanFiles] readText: exit bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public)")
+            Loggers.mealPlans.debug("[MealPlanFiles] readText: exit bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public) didStart=\(didStart)")
         } else {
-            Loggers.mealPlans.debug("[MealPlanFiles] readText: exit failed file=\(url.lastPathComponent, privacy: .public)")
+            Loggers.mealPlans.debug("[MealPlanFiles] readText: exit failed file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public) didStart=\(didStart)")
         }
         return result
     }
 
-    /// Writes UTF-8 text to a meal-plan file, bracketing security-scoped access.
-    static func writeText(_ text: String, to url: URL) throws {
-        Loggers.mealPlans.debug("[MealPlanFiles] writeText: entry bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public)")
-        let didStart = url.startAccessingSecurityScopedResource()
+    /// Writes UTF-8 text to a meal-plan file, bracketing security-scoped access on `folderURL`.
+    static func writeText(_ text: String, to url: URL, folderURL: URL) throws {
+        Loggers.mealPlans.debug("[MealPlanFiles] writeText: entry bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public)")
+        let didStart = folderURL.startAccessingSecurityScopedResource()
         defer {
             if didStart {
-                url.stopAccessingSecurityScopedResource()
+                folderURL.stopAccessingSecurityScopedResource()
             }
         }
         try text.write(to: url, atomically: true, encoding: .utf8)
-        Loggers.mealPlans.debug("[MealPlanFiles] writeText: exit success file=\(url.lastPathComponent, privacy: .public)")
+        Loggers.mealPlans.debug("[MealPlanFiles] writeText: exit success file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public) didStart=\(didStart)")
     }
 }
