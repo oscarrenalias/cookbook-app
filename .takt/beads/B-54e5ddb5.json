@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-54e5ddb5",
+  "title": "Update ShoppingListFiles Helper Signatures and Bracketing",
+  "agent_type": "developer",
+  "description": "Add folderURL parameters to ShoppingListFiles.readText and writeText, bracket startAccessingSecurityScopedResource on folderURL instead of the file URL, and update entry/exit logs to include folder path and didStart.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fdd86f94",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "ShoppingListFiles.readText has signature accepting from url and folderURL.",
+    "ShoppingListFiles.writeText has signature accepting text, destination url, and folderURL.",
+    "Both helpers call startAccessingSecurityScopedResource on folderURL only.",
+    "Both helpers stop accessing folderURL only when didStart is true.",
+    "Logs include file identity, folder URL path, and didStart on exit."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/ShoppingListFiles.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:48.671523+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
