@@ -25,12 +25,12 @@ enum CreateShoppingListFromMealPlanService {
             .replacingOccurrences(of: "/", with: "-")
         let subfolder = ShoppingListFiles.shoppingListsURL(in: recipesFolder)
         let outputURL = subfolder.appendingPathComponent("\(sanitised).md")
-        if ShoppingListFiles.readText(from: outputURL) != nil {
+        if ShoppingListFiles.readText(from: outputURL, folderURL: recipesFolder) != nil {
             Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: exit listAlreadyExists name=\(sanitised, privacy: .public)")
             throw CreateError.listAlreadyExists
         }
 
-        guard let planText = MealPlanFiles.readText(from: planURL) else {
+        guard let planText = MealPlanFiles.readText(from: planURL, folderURL: recipesFolder) else {
             Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: exit readPlanFailed plan=\(planURL.lastPathComponent, privacy: .public)")
             throw CreateError.readPlanFailed
         }
@@ -78,7 +78,7 @@ enum CreateShoppingListFromMealPlanService {
         aggregated.apply(to: &doc)
 
         do {
-            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: outputURL)
+            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: outputURL, folderURL: recipesFolder)
         } catch {
             Loggers.mealPlans.warning("[CreateShoppingListFromMealPlanService] create: exit writeFailed name=\(sanitised, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw CreateError.writeFailed(error)

@@ -11,17 +11,17 @@ struct ShoppingListDetailViewTests {
 
     @Test func detailViewInstantiates() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url)
+        _ = ShoppingListDetailView(url: url, folderURL: URL(fileURLWithPath: "/tmp"))
     }
 
     @Test func detailViewInstantiatesWithDeleteCallback() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url, onDelete: {})
+        _ = ShoppingListDetailView(url: url, folderURL: URL(fileURLWithPath: "/tmp"), onDelete: {})
     }
 
     @Test func detailViewInstantiatesWithRenameCallback() {
         let url = URL(fileURLWithPath: "/tmp/Weekend BBQ.md")
-        _ = ShoppingListDetailView(url: url, onRename: { _ in })
+        _ = ShoppingListDetailView(url: url, folderURL: URL(fileURLWithPath: "/tmp"), onRename: { _ in })
     }
 
     // MARK: ShoppingListItemRow — drag handle absent

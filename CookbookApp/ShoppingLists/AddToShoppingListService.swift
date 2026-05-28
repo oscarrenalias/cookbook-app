@@ -18,10 +18,11 @@ enum AddToShoppingListService {
         scale: RecipeScale,
         recipeName: String,
         to url: URL,
+        folderURL: URL,
         aisleConfig: AisleConfig?
     ) throws -> Int {
         Loggers.shoppingLists.debug("[AddToShoppingListService] append: entry recipe=\(recipeName, privacy: .public) file=\(url.lastPathComponent, privacy: .public)")
-        guard let existingText = ShoppingListFiles.readText(from: url) else {
+        guard let existingText = ShoppingListFiles.readText(from: url, folderURL: folderURL) else {
             Loggers.shoppingLists.warning("[AddToShoppingListService] append: readFailed file=\(url.lastPathComponent, privacy: .public)")
             throw AppendError.readFailed
         }
@@ -34,7 +35,7 @@ enum AddToShoppingListService {
         doc.addMealsEntry("**\(recipeName)**")
         aggregated.apply(to: &doc)
         do {
-            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url)
+            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url, folderURL: folderURL)
         } catch {
             Loggers.shoppingLists.warning("[AddToShoppingListService] append: writeFailed file=\(url.lastPathComponent, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw AppendError.writeFailed(error)
@@ -59,7 +60,7 @@ enum AddToShoppingListService {
         Loggers.shoppingLists.debug("[AddToShoppingListService] create: entry name=\(name, privacy: .public) recipe=\(recipeName, privacy: .public)")
         let subfolder = ShoppingListFiles.shoppingListsURL(in: folderURL)
         let url = subfolder.appendingPathComponent("\(name).md")
-        if ShoppingListFiles.readText(from: url) != nil {
+        if ShoppingListFiles.readText(from: url, folderURL: folderURL) != nil {
             Loggers.shoppingLists.warning("[AddToShoppingListService] create: listAlreadyExists name=\(name, privacy: .public)")
             throw AppendError.listAlreadyExists
         }
@@ -72,7 +73,7 @@ enum AddToShoppingListService {
         doc.addMealsEntry("**\(recipeName)**")
         aggregated.apply(to: &doc)
         do {
-            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url)
+            try ShoppingListFiles.writeText(doc.renderMarkdown(), to: url, folderURL: folderURL)
         } catch {
             Loggers.shoppingLists.warning("[AddToShoppingListService] create: writeFailed name=\(name, privacy: .public) error=\(error.localizedDescription, privacy: .public)")
             throw AppendError.writeFailed(error)

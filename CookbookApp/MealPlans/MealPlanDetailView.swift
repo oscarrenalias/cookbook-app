@@ -96,13 +96,13 @@ struct MealPlanDetailView: View {
     private func deleteItem(at index: MealPlanItemIndex) {
         plan.removeItem(at: index)
         let text = MealPlanParser.serialise(plan)
-        try? MealPlanFiles.writeText(text, to: url)
+        try? MealPlanFiles.writeText(text, to: url, folderURL: folderURL)
     }
 
     private func persistPlan(_ updated: MealPlan) {
         plan = updated
         let text = MealPlanParser.serialise(updated)
-        try? MealPlanFiles.writeText(text, to: url)
+        try? MealPlanFiles.writeText(text, to: url, folderURL: folderURL)
     }
 
     private func performBlockRename() {
@@ -293,7 +293,7 @@ struct MealPlanDetailView: View {
         .sheet(isPresented: $showCreatedSheet) {
             if let listURL = createdListURL {
                 NavigationStack {
-                    ShoppingListDetailView(url: listURL)
+                    ShoppingListDetailView(url: listURL, folderURL: folderURL)
                         .toolbar {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Done") { showCreatedSheet = false }
@@ -318,7 +318,7 @@ struct MealPlanDetailView: View {
         let catalogEntries = recipeCatalog.sections.flatMap(\.entries)
         let result = await Task.detached(priority: .userInitiated) {
             () -> (MealPlan, [String: RecipeEntry]) in
-            guard let text = MealPlanFiles.readText(from: fileURL) else {
+            guard let text = MealPlanFiles.readText(from: fileURL, folderURL: folder) else {
                 return (MealPlan(), [:])
             }
             let parsed = MealPlanParser.parse(text)
