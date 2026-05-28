@@ -59,6 +59,15 @@
       "agent_type": "scheduler",
       "summary": "Bead created",
       "details": {}
+    },
+    {
+      "timestamp": "2026-05-28T18:51:58.258500+00:00",
+      "event": "git_commit_failed",
+      "agent_type": "scheduler",
+      "summary": "git commit failed: Command '['git', 'commit', '-m', '[bead] B-d899a92a: ready', '--no-verify']' returned non-zero exit status 128.",
+      "details": {
+        "error": "Command '['git', 'commit', '-m', '[bead] B-d899a92a: ready', '--no-verify']' returned non-zero exit status 128."
+      }
     }
   ],
   "metadata": {},
