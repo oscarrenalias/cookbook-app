@@ -152,8 +152,8 @@ struct MealPlanDetailView: View {
         let parentURL = url.deletingLastPathComponent()
         let newURL = parentURL.appendingPathComponent("\(sanitised).menu")
 
-        let didStart = parentURL.startAccessingSecurityScopedResource()
-        defer { if didStart { parentURL.stopAccessingSecurityScopedResource() } }
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
 
         if FileManager.default.fileExists(atPath: newURL.path) {
             renameDuplicateError = true
@@ -172,9 +172,8 @@ struct MealPlanDetailView: View {
     }
 
     private func deletePlan() {
-        let parentURL = url.deletingLastPathComponent()
-        let didStart = parentURL.startAccessingSecurityScopedResource()
-        defer { if didStart { parentURL.stopAccessingSecurityScopedResource() } }
+        let didStart = folderURL.startAccessingSecurityScopedResource()
+        defer { if didStart { folderURL.stopAccessingSecurityScopedResource() } }
         try? FileManager.default.removeItem(at: url)
         dismiss()
         onDelete?()

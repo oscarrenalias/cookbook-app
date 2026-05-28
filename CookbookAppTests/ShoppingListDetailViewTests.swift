@@ -57,16 +57,16 @@ struct ShoppingListDetailViewTests {
     // MARK: Compact mode — section header min-height
 
     @Test func compactModeOffSelectsThirtyTwoPtHeaderMinHeight() {
-        // Mirrors: .frame(minHeight: compactMode ? 24 : 32)
+        // Mirrors: .frame(minHeight: compactMode ? 18 : 32)
         let compactMode = false
-        let minHeight: CGFloat = compactMode ? 24 : 32
+        let minHeight: CGFloat = compactMode ? 18 : 32
         #expect(minHeight == 32)
     }
 
-    @Test func compactModeOnSelectsTwentyFourPtHeaderMinHeight() {
+    @Test func compactModeOnSelectsEighteenPtHeaderMinHeight() {
         let compactMode = true
-        let minHeight: CGFloat = compactMode ? 24 : 32
-        #expect(minHeight == 24)
+        let minHeight: CGFloat = compactMode ? 18 : 32
+        #expect(minHeight == 18)
     }
 
     // MARK: Compact mode — row insets
