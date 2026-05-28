@@ -191,21 +191,18 @@ struct MealPlanFilesTests {
         #expect(found[0].lastPathComponent == "found.menu")
     }
 
-    /// Balanced-bracketing invariant (simulator path): on plain temp URLs,
-    /// startAccessingSecurityScopedResource() returns false, so the helper never calls
-    /// stopAccessingSecurityScopedResource() — start and stop counts stay balanced at zero.
-    /// Verify I/O still succeeds under these conditions (the on-device entitlement-loss
-    /// failure mode is not reproduced here; this covers only the simulator happy path).
+    /// Balanced-bracketing invariant: verify I/O succeeds regardless of whether
+    /// startAccessingSecurityScopedResource() returns true or false for plain temp URLs.
+    /// iOS simulator behaviour varies by OS version; the test must not assume a fixed return value.
     @Test func bracketingBalanceOnSimulatorURL() throws {
         let dir = try makeTempDir()
         defer { try? FileManager.default.removeItem(at: dir) }
         let sub = try makePlansDir(in: dir)
         let fileURL = sub.appendingPathComponent("balance-check.menu")
 
-        // Confirm simulator precondition: plain temp URL never grants security-scoped access.
+        // Probe whether security-scoped access is granted; clean up if so.
         let didStart = dir.startAccessingSecurityScopedResource()
-        #expect(didStart == false)
-        // didStart is false — no stop needed, matching the helper's guard pattern exactly.
+        defer { if didStart { dir.stopAccessingSecurityScopedResource() } }
 
         try MealPlanFiles.writeText("content", to: fileURL, folderURL: dir)
         let text = MealPlanFiles.readText(from: fileURL, folderURL: dir)
