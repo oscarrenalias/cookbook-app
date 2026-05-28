@@ -69,34 +69,34 @@ enum ShoppingListFiles {
         return String(filename.dropLast(3))
     }
 
-    /// Reads the UTF-8 text of a shopping list file, bracketing security-scoped access.
-    static func readText(from url: URL) -> String? {
-        Loggers.shoppingLists.debug("[ShoppingListFiles] readText: entry file=\(url.lastPathComponent, privacy: .public)")
-        let didStart = url.startAccessingSecurityScopedResource()
+    /// Reads the UTF-8 text of a shopping list file, bracketing security-scoped access on `folderURL`.
+    static func readText(from url: URL, folderURL: URL) -> String? {
+        Loggers.shoppingLists.debug("[ShoppingListFiles] readText: entry file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public)")
+        let didStart = folderURL.startAccessingSecurityScopedResource()
         defer {
             if didStart {
-                url.stopAccessingSecurityScopedResource()
+                folderURL.stopAccessingSecurityScopedResource()
             }
         }
         let result = try? String(contentsOf: url, encoding: .utf8)
         if let text = result {
-            Loggers.shoppingLists.debug("[ShoppingListFiles] readText: exit bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public)")
+            Loggers.shoppingLists.debug("[ShoppingListFiles] readText: exit bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public) didStart=\(didStart)")
         } else {
-            Loggers.shoppingLists.debug("[ShoppingListFiles] readText: exit failed file=\(url.lastPathComponent, privacy: .public)")
+            Loggers.shoppingLists.debug("[ShoppingListFiles] readText: exit failed file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public) didStart=\(didStart)")
         }
         return result
     }
 
-    /// Writes UTF-8 text to a shopping list file, bracketing security-scoped access.
-    static func writeText(_ text: String, to url: URL) throws {
-        Loggers.shoppingLists.debug("[ShoppingListFiles] writeText: entry bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public)")
-        let didStart = url.startAccessingSecurityScopedResource()
+    /// Writes UTF-8 text to a shopping list file, bracketing security-scoped access on `folderURL`.
+    static func writeText(_ text: String, to url: URL, folderURL: URL) throws {
+        Loggers.shoppingLists.debug("[ShoppingListFiles] writeText: entry bytes=\(text.utf8.count) file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public)")
+        let didStart = folderURL.startAccessingSecurityScopedResource()
         defer {
             if didStart {
-                url.stopAccessingSecurityScopedResource()
+                folderURL.stopAccessingSecurityScopedResource()
             }
         }
         try text.write(to: url, atomically: true, encoding: .utf8)
-        Loggers.shoppingLists.debug("[ShoppingListFiles] writeText: exit success file=\(url.lastPathComponent, privacy: .public)")
+        Loggers.shoppingLists.debug("[ShoppingListFiles] writeText: exit success file=\(url.lastPathComponent, privacy: .public) folder=\(folderURL.path, privacy: .public) didStart=\(didStart)")
     }
 }
