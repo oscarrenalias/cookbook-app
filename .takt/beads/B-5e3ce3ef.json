@@ -1,0 +1,73 @@
+{
+  "bead_id": "B-5e3ce3ef",
+  "title": "Shared Feature Review",
+  "agent_type": "review",
+  "description": "Review the completed code, tests, and documentation for correctness, scope control, and regression risk before merge.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fdd86f94",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Every ShoppingListFiles.readText/writeText call site passes a bookmarked folderURL.",
+    "Every MealPlanFiles.readText/writeText call site passes a bookmarked folderURL.",
+    "Helpers bracket on folderURL and no longer bracket on derived file URLs.",
+    "ShoppingListDetailView receives folderURL from all construction sites.",
+    "No out-of-scope refactors, bookmark-store changes, discover-helper changes, or user-visible alert work were introduced.",
+    "Shared tester and documentation beads are complete and any residual risks are documented."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [],
+  "expected_globs": [
+    "CookbookApp/**/*.swift",
+    "CookbookAppTests/**/*.swift",
+    "docs/**/*",
+    "README.md"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:54.574944+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
