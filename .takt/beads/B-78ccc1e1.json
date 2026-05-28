@@ -1,0 +1,70 @@
+{
+  "bead_id": "B-78ccc1e1",
+  "title": "Shared Documentation Update",
+  "agent_type": "documentation",
+  "description": "Document the security-scoped bracketing fix, the folderURL helper contract, and the limits of simulator regression coverage for future maintainers.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fdd86f94",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "Documentation explains that read/write helpers must bracket on the bookmarked folder URL, not derived file URLs.",
+    "Documentation records that simulator tests verify wiring and balance but not the device-only entitlement-loss failure mode.",
+    "Documentation notes that redundant outer service bracketing was intentionally left unchanged.",
+    "Documentation includes the on-device verification checklist or points to where it is tracked."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [],
+  "expected_globs": [
+    "docs/**/*",
+    "README.md",
+    "CookbookAppTests/**/*"
+  ],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:54.190347+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
