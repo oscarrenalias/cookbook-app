@@ -1,0 +1,67 @@
+{
+  "bead_id": "B-729b8923",
+  "title": "Update AddToShoppingListService Helper Calls",
+  "agent_type": "developer",
+  "description": "Pass the service's existing folderURL into all ShoppingListFiles.readText and writeText calls without removing existing outer bracketing.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fdd86f94",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "All ShoppingListFiles.readText calls in AddToShoppingListService pass folderURL.",
+    "All ShoppingListFiles.writeText calls in AddToShoppingListService pass folderURL.",
+    "Existing service-level security-scoped bracketing remains in place."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [
+    "CookbookApp/ShoppingLists/AddToShoppingListService.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:50.572045+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
