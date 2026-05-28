@@ -1,7 +1,7 @@
 {
-  "takt_version": "0.1.49",
+  "takt_version": "0.1.50",
   "installed_at": "2026-05-04T09:02:19.343066+00:00",
-  "upgraded_at": "2026-05-18T12:09:34.026933+00:00",
+  "upgraded_at": "2026-05-28T19:07:16.159561+00:00",
   "assets": {
     "templates/agents/merge-conflict.md": {
       "sha256": "37b9d67c3e4d10fe2fac0f86cb7ab170c5dec2a0f018264052cc4aa891a99d0f",
