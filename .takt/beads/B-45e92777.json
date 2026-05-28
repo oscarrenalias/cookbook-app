@@ -1,0 +1,69 @@
+{
+  "bead_id": "B-45e92777",
+  "title": "Update MealPlanFiles Helper Signatures and Bracketing",
+  "agent_type": "developer",
+  "description": "Add folderURL parameters to MealPlanFiles.readText and writeText, bracket startAccessingSecurityScopedResource on folderURL instead of the file URL, and update meal-plan logs to include folder path and didStart.",
+  "status": "ready",
+  "bead_type": "task",
+  "parent_id": "B-fdd86f94",
+  "dependencies": [],
+  "acceptance_criteria": [
+    "MealPlanFiles.readText has signature accepting from url and folderURL.",
+    "MealPlanFiles.writeText has signature accepting text, destination url, and folderURL.",
+    "Both helpers call startAccessingSecurityScopedResource on folderURL only.",
+    "Both helpers stop accessing folderURL only when didStart is true.",
+    "Logs use the mealPlans logger and include folder path plus didStart."
+  ],
+  "linked_docs": [
+    "spec-bfb9e111"
+  ],
+  "feature_root_id": "B-fdd86f94",
+  "execution_branch_name": "feature/b-fdd86f94",
+  "execution_worktree_path": "/Users/oscar.renalias/Projects/cookbook-app/.takt/worktrees/B-fdd86f94",
+  "expected_files": [
+    "CookbookApp/MealPlans/MealPlanFiles.swift"
+  ],
+  "expected_globs": [],
+  "touched_files": [],
+  "changed_files": [],
+  "updated_docs": [],
+  "handoff_summary": {
+    "completed": "",
+    "remaining": "",
+    "risks": "",
+    "verdict": "",
+    "findings_count": 0,
+    "requires_followup": false,
+    "changed_files": [],
+    "updated_docs": [],
+    "next_action": "",
+    "next_agent": "",
+    "block_reason": "",
+    "expected_files": [],
+    "expected_globs": [],
+    "touched_files": [],
+    "conflict_risks": "",
+    "design_decisions": "",
+    "test_coverage_notes": "",
+    "known_limitations": ""
+  },
+  "block_reason": "",
+  "conflict_risks": "",
+  "branch_name": "",
+  "worktree_path": "",
+  "lease": null,
+  "retries": 0,
+  "execution_history": [
+    {
+      "timestamp": "2026-05-28T18:51:49.154089+00:00",
+      "event": "created",
+      "agent_type": "scheduler",
+      "summary": "Bead created",
+      "details": {}
+    }
+  ],
+  "metadata": {},
+  "labels": [],
+  "recovery_for": null,
+  "priority": null
+}
