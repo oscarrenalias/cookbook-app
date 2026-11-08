@@ -11,7 +11,7 @@ lists. Personal-use scope, iPhone-only today (`TARGETED_DEVICE_FAMILY = "1"`).
   No UIKit / SwiftUI dependency. `swift test` runs the package suite.
 - `specs/` — spec-driven development workflow. Three lifecycle folders
   (`drafts/`, `planned/`, `done/`). Managed exclusively via the
-  `skill-spec-management` skill at `.claude/skills/skill-spec-management/spec.py`
+  `takt spec` (see the `skill-spec-management` skill)
   — never `mv` spec files between folders or hand-edit frontmatter.
 - `.takt/` — takt orchestration state (beads, worktrees, telemetry).
 - `docs/` — `architecture.md`, `ui-guidelines.md`, `roadmap.md`,
@@ -47,9 +47,10 @@ For CookbookCore alone: `cd Packages/CookbookCore && swift test`.
 - **Never skip git hooks** (`--no-verify`, `--no-gpg-sign`) unless the
   user explicitly asks. If a pre-commit hook fails, fix the underlying
   issue and create a new commit (don't `--amend` a failed-hook commit).
-- **Spec lifecycle via spec.py only.** `python3 .claude/skills/skill-spec-management/spec.py
-  {create,list,show,set status,set feature-root,...}`. The skill enforces
-  filesystem layout matching the `status` frontmatter field.
+- **Spec lifecycle via `takt spec` only.** `takt spec
+  {create,list,show,search,set status,set feature-root,validate,...}`. It enforces
+  filesystem layout matching the `status` frontmatter field. Search specs and
+  ADRs with `takt spec search` / `takt adr search`.
 - **Plans run via Codex; execution runs via Claude.** Convention is
   `takt --runner codex plan <spec> --write`, then
   `takt run --feature-root <id> --verbose`.
