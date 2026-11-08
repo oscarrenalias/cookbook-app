@@ -26,3 +26,6 @@ xcuserdata/
 .build/
 .swiftpm/
 Package.resolved
+
+# takt
+.takt/runs/
